@@ -1,5 +1,9 @@
 body {
-    padding-top: 100px
+    padding-top: 100px;
+    background-color:white;
+    background-image:url(https://cdn.veaf.org/website/dev/img/background-01-blur.jpg);
+    background-attachment:fixed;
+    background-repeat: no-repeat;
 }
 
 pre {
@@ -278,6 +282,11 @@ iframe {
     float: right;
     margin-top: 1em;
     font-size: 10px
+}
+
+.container {
+    background-color: white;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
 }
 
 @media (max-width: 767px) {
