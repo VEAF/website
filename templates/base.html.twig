@@ -10,8 +10,7 @@
     <link rel="stylesheet" href="{{ cdn_veaf }}/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/custom.css">
     <link rel="icon" type="image/ico" href="/img/favicon.ico"/>
-    .
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
             integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
             crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
@@ -34,7 +33,7 @@
     {% block header %}
         <div class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
             <div class="container">
-                <a href="/" class="navbar-brand">Accueil</a>
+                <a href="/" class="navbar-brand"><img src="{{ cdn_veaf }}/img/site-logo.png" class="logo-navbar"></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                         aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -42,13 +41,13 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a href="/" class="nav-link">Les nouvelles</a>
+                            <a href="/" class="nav-link"><span class="fa fa-newspaper"></span> Les nouvelles</a>
                         </li>
                         <li class="nav-item">
-                            <a href="https://community.veaf.org/" class="nav-link">Forum</a>
+                            <a href="https://community.veaf.org/" class="nav-link"><span class="fa fa-envelope"></span> Forum</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="association">Association
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="association"><span class="fa fa-hotel"> Association
                                 <span class="caret"></span></a>
                             <div class="dropdown-menu" aria-labelledby="association">
                                 <a class="dropdown-item" href="/association/presentation-association">Présentation</a>
@@ -61,18 +60,17 @@
                             </div>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="webstv">Webs TV
-                                <span
-                                        class="caret"></span></a>
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="webstv"><span class="fa fa-tv"></span> Webs TV
+                                <span class="caret"></span></a>
                             <div class="dropdown-menu" aria-labelledby="webstv">
                                 <a class="dropdown-item" href="http://www.youtube.com/user/AssociationVEAF/">
-                                    Chaîne Youtube VEAF
+                                    <span class="fa fa-youtube"></span> Chaîne Youtube VEAF
                                 </a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
-                               id="webstv">Serveurs<span
+                               id="webstv"><span class="fa fa-server"></span> Serveurs<span
                                         class="caret"></span></a>
                             <div class="dropdown-menu" aria-labelledby="webstv">
                                 <a class="dropdown-item" href="{{ path("perun_index") }}">

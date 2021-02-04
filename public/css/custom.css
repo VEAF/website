@@ -289,6 +289,21 @@ iframe {
     box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
 }
 
+.navbar {
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.5);
+    padding-bottom: 0px;
+    padding-top: 0px;
+    height: 54px;
+}
+
+.logo-navbar {
+    float: left;
+    max-height: 50px;
+    width: auto;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
 @media (max-width: 767px) {
     .splash {
         padding-top: 8em
