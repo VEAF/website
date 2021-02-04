@@ -3,60 +3,45 @@
 {% block title %}Hello DefaultController!{% endblock %}
 
 {% block pageContent %}
-<div class="container">
-    <div class="row mb-3">
-        <table class="table table-striped table-bordered table-hover">
-            <thead>
-            <tr>
-                <th>
-                    ID
-                </th>
-                <th>
-                    Théâtre
-                </th>
-                <th>
-                    Mission
-                </th>
-                <th>
-                    Joueurs
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for instance in instances %}
+    <div class="container container-main pt-3 pb-3 mb-3">
+        <div class="row mb-3 ml-1 mr-1">
+            <h1>Liste des serveurs</h1>
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
                 <tr>
-                    <td>
-                        <a href="{{ path("perun_instance", {"instance": instance.id}) }}">{{ instance.id }}</a>
-                    </td>
-                    <td>
-                        <a href="{{ path("perun_instance", {"instance": instance.id}) }}">{{ instance.theater }}</a>
-                    </td>
-                    <td>
-                        <a href="{{ path("perun_instance", {"instance": instance.id}) }}">{{ instance.mission }}</a>
-                    </td>
-                    <td>
-                        {{ instance.playersCount }}
-                    </td>
+                    <th>
+                        ID
+                    </th>
+                    <th>
+                        Théâtre
+                    </th>
+                    <th>
+                        Mission
+                    </th>
+                    <th>
+                        Joueurs
+                    </th>
                 </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                {% for instance in instances %}
+                    <tr>
+                        <td>
+                            <a href="{{ path("perun_instance", {"instance": instance.id}) }}">{{ instance.id }}</a>
+                        </td>
+                        <td>
+                            <a href="{{ path("perun_instance", {"instance": instance.id}) }}">{{ instance.theater }}</a>
+                        </td>
+                        <td>
+                            <a href="{{ path("perun_instance", {"instance": instance.id}) }}">{{ instance.mission }}</a>
+                        </td>
+                        <td>
+                            {{ instance.playersCount }}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
-    <ul>
-    </ul>
-{#<style>#}
-{#    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }#}
-{#    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }#}
-{#</style>#}
-
-{#<div class="example-wrapper">#}
-{#    <h1>Hello {{ controller_name }}! ✅</h1>#}
-
-{#    This friendly message is coming from:#}
-{#    <ul>#}
-{#        <li>Your controller at <code><a href="{{ '/var/www/html/src/Controller/DefaultController.php'|file_link(0) }}">src/Controller/DefaultController.php</a></code></li>#}
-{#        <li>Your template at <code><a href="{{ '/var/www/html/templates/default/index.html.twig'|file_link(0) }}">templates/default/index.html.twig</a></code></li>#}
-{#    </ul>#}
-{#</div>#}
 {% endblock pageContent %}

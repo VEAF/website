@@ -20,7 +20,7 @@ class PerunController extends AbstractController
     public function index(): Response
     {
         /** @var PerunInstance[] $instances */
-        $instances = $this->getDoctrine()->getRepository(PerunInstance::class)->findAll();
+        $instances = $this->getDoctrine()->getRepository(PerunInstance::class)->findBy([],['id'=>'ASC']);
 
         return $this->render('perun/index.html.twig', [
             'instances' => $instances,
