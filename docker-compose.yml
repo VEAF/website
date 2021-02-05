@@ -1,0 +1,66 @@
+version: '3.5'
+
+services:
+
+  php:
+    image: ${PHP_REGISTRY:-kilik/php}:${PHP_TAG:-7.4-buster-dev}
+    env_file:
+      - .env
+      - .php.env
+    volumes:
+      - .:/var/www/html:${FS_MOUNT-consistent}
+      - ${HOME}:/var/www/home
+    hostname: veaf-website_php
+    networks:
+      - php
+#      - mysql
+    environment:
+      SERVICE: php
+
+  nginx:
+    image: ${NGINX_REGISTRY:-kilik/nginx}:${NGINX_TAG:-symfony-4.x-stretch}
+    volumes:
+      - ./public:/var/www/html/public
+    hostname: veaf-website_nginx
+    networks:
+      - php
+      - webproxy
+    environment:
+      VIRTUAL_HOST: ${VHOST}
+      LETSENCRYPT_HOST: ${VHOST}
+      LETSENCRYPT_EMAIL: ${SSL_EMAIL:-}
+
+#  mysql:
+#    image: ${MYSQL_REGISTRY:-mysql}:${MYSQL_TAG:-5.7}
+#    environment:
+#      MYSQL_ROOT_PASSWORD: test
+#      MYSQL_DATABASE: project
+#      MYSQL_USER: project
+#      MYSQL_PASSWORD: test
+#    hostname: project_mysql
+#    networks:
+#      - mysql
+#    volumes:
+#      - mysql-data:/var/lib/mysql
+
+#  phpmyadmin:
+#    image: ${PMA_REGISTRY:-phpmyadmin/phpmyadmin}:${PMA_TAG:-5.0}
+#    hostname: project_phpmyadmin
+#    networks:
+#      - webproxy
+#      - mysql
+#    environment:
+#      VIRTUAL_HOST: pma.${VHOST:-project.localhost}
+#      PMA_HOST: mysql
+#    depends_on:
+#      - mysql
+
+networks:
+  php:
+#  mysql:
+  webproxy:
+    external:
+      name: ${PROXY_NETWORK:-webproxy}
+
+#volumes:
+#  mysql-data:
