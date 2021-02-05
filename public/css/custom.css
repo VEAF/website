@@ -4,6 +4,7 @@ body {
     background-image:url(https://cdn.veaf.org/website/dev/img/background-01-blur.jpg);
     background-attachment:fixed;
     background-repeat: no-repeat;
+    min-height: 100%;
 }
 
 pre {

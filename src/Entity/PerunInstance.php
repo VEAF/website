@@ -131,4 +131,13 @@ class PerunInstance
 
         return $this;
     }
+
+    public function getPlayersCountCorrected(): ?int
+    {
+        if ($this->playersCount > 0) {
+            return $this->playersCount - 1;
+        }
+
+        return 0;
+    }
 }

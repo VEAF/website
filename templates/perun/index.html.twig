@@ -36,7 +36,13 @@
                             <a href="{{ path("perun_instance", {"instance": instance.id}) }}">{{ instance.mission }}</a>
                         </td>
                         <td>
-                            {{ instance.playersCount }}
+                            {{ instance.playersCountCorrected }}
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4">
+                            <i>pas de serveurs</i>
                         </td>
                     </tr>
                 {% endfor %}

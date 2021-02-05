@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\PerunInstance;
 use App\Entity\PerunOnlinePlayer;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -19,32 +20,20 @@ class PerunOnlinePlayerRepository extends ServiceEntityRepository
         parent::__construct($registry, PerunOnlinePlayer::class);
     }
 
-    // /**
-    //  * @return PerunOnlinePlayer[] Returns an array of PerunOnlinePlayer objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * Fetch players by instance, ignoring with 0 ping
+     *
+     * @return PerunOnlinePlayer[]
+     */
+    public function findRealPlayersByInstance(PerunInstance $instance)
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
+            ->andWhere('p.instance = :instance')
+            ->setParameter('instance', $instance)
+            ->andWhere('p.ping > 0')
+            ->addOrderBy('p.side', 'ASC')
             ->getQuery()
             ->getResult()
         ;
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?PerunOnlinePlayer
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
