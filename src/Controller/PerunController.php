@@ -33,7 +33,7 @@ class PerunController extends AbstractController
     public function instance(PerunInstance $instance): Response
     {
         /** @var PerunOnlinePlayer[] $onlinePlayers */
-        $onlinePlayers = $this->getDoctrine()->getRepository(PerunOnlinePlayer::class)->findBy(['instance' => $instance]);
+        $onlinePlayers = $this->getDoctrine()->getRepository(PerunOnlinePlayer::class)->findRealPlayersByInstance($instance);
 
         // append DTO because no proper link between online player and player tables
         foreach ($onlinePlayers as $onlinePlayer) {

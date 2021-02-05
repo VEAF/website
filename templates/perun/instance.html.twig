@@ -33,7 +33,19 @@
                             {{ onlinePlayer.ping }}
                         </td>
                         <td>
-                            {{ onlinePlayer.side }}
+                            {% if onlinePlayer.side == 2 %}
+                                <i class="fa fa-plane text-primary"></i>
+                            {% elseif onlinePlayer.side == 1 %}
+                                <i class="fa fa-plane text-danger"></i>
+                            {% else %}
+                                <i class="fa fa-eye"></i>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="3">
+                            <i>pas de joueurs connectés</i>
                         </td>
                     </tr>
                 {% endfor %}
