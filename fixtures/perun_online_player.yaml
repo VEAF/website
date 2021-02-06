@@ -1,0 +1,52 @@
+App\Perun\Entity\OnlinePlayer:
+  prerun_online_player_public_admin:
+    player: "@prerun_player_public_admin"
+    ucid: "00001111222233334444555566660001"
+    instance: "@perun_instance_public"
+    ping: 0
+    side: 0
+    slot: ""
+    updated: "<dateTimeBetween('-1 minute', 'now')>"
+  prerun_online_player_private_admin:
+    player: "@prerun_player_private_admin"
+    ucid: "00001111222233334444555566660002"
+    instance: "@perun_instance_private"
+    ping: 0
+    side: 0
+    slot: ""
+    updated: '<(new DateTime("2021-02-01 12:00:00"))>'
+
+  prerun_online_player_zip:
+    player: "@prerun_player_zip"
+    ucid: "00001111222233334444555566660003"
+    instance: "@perun_instance_public"
+    ping: '<numberBetween(15,80)>'
+    side: 2 # blue
+    slot: ""
+    updated: "<dateTimeBetween('-1 minute', 'now')>"
+  prerun_online_player_mitch:
+    player: "@prerun_player_mitch"
+    ucid: "00001111222233334444555566660004"
+    instance: "@perun_instance_public"
+    ping: '<numberBetween(60,120)>'
+    side: 2 # blue
+    slot: ""
+    updated: "<dateTimeBetween('-1 minute', 'now')>"
+
+  prerun_online_player_griffin:
+    player: "@prerun_player_griffin"
+    ucid: "00001111222233334444555566660005"
+    instance: "@perun_instance_public"
+    ping: '<numberBetween(60,120)>'
+    side: 1 # red
+    slot: ""
+    updated: "<dateTimeBetween('-1 minute', 'now')>"
+
+  prerun_online_player_guest:
+    player: "@prerun_player_guest"
+    ucid: "00001111222233334444555566660006"
+    instance: "@perun_instance_public"
+    ping: '<numberBetween(60,120)>'
+    side: 0 # spectator
+    slot: ""
+    updated: "<dateTimeBetween('-1 minute', 'now')>"

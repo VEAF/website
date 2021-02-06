@@ -1,0 +1,27 @@
+App\Perun\Entity\Instance:
+  perun_instance_public:
+    id: 1
+    theater: "Caucasus"
+    mission: "VEAF_OpenTraining_Caucasus-0930-real"
+    pause: "False"
+    multiplayer: "True"
+    realtime: 1800.2741317
+    modeltime: 73.177
+    playersCount: 2
+    winAppVersion: "v0.11.2.0"
+    dcsHookVersion: "v0.11.2"
+    updated: "<dateTimeBetween('-1 minute', 'now')>"
+
+  perun_instance_private:
+    id: 2
+    theater: "Syria"
+    mission: "VEAF_OpenTraining_Syria-0830-real"
+    pause: "True"
+    multiplayer: "True"
+    realtime: 72068.3678304
+    modeltime: 0
+    playersCount: 1
+    winAppVersion: "v0.11.2.0"
+    dcsHookVersion: "v0.11.2"
+    updated: "<dateTimeBetween('-20 minutes', '-15 minutes')>"
+

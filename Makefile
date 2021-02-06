@@ -143,3 +143,18 @@ upgrade: pull up wait internal_update front_update
 internal_update:
 	$(COMPOSE_PHP_CMD) composer install
 	$(COMPOSE_PHP_CMD) ./bin/console doctrine:migrations:migrate -n
+
+## Load fixtures (with migrations)
+fixtures:
+	$(COMPOSE_PHP_CMD) ./bin/console doctrine:database:drop --force
+	$(COMPOSE_PHP_CMD) ./bin/console doctrine:database:create
+	$(COMPOSE_PHP_CMD) ./bin/console doctrine:migrations:migrate -n
+	$(COMPOSE_PHP_CMD) ./bin/console hautelook:fixtures:load --env=test -n
+
+## Load fixtures (without migrations)
+fixtures-no-migrations:
+	$(COMPOSE_PHP_CMD) ./bin/console doctrine:database:drop --force
+	$(COMPOSE_PHP_CMD) ./bin/console doctrine:database:create
+	$(COMPOSE_PHP_CMD) ./bin/console doctrine:schema:update --force
+	$(COMPOSE_PHP_CMD) ./bin/console hautelook:fixtures:load --env=test -n
+

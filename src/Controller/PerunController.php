@@ -2,9 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\PerunInstance;
-use App\Entity\PerunOnlinePlayer;
-use App\Entity\PerunPlayer;
+use App\Perun\Entity\Instance;
+use App\Perun\Entity\OnlinePlayer;
+use App\Perun\Entity\PerunPlayer;
+use App\Perun\Entity\Player;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,8 +20,8 @@ class PerunController extends AbstractController
      */
     public function index(): Response
     {
-        /** @var PerunInstance[] $instances */
-        $instances = $this->getDoctrine()->getRepository(PerunInstance::class)->findBy([],['id'=>'ASC']);
+        /** @var Instance[] $instances */
+        $instances = $this->getDoctrine()->getRepository(Instance::class)->findBy([],['id'=>'ASC']);
 
         return $this->render('perun/index.html.twig', [
             'instances' => $instances,
@@ -30,14 +31,14 @@ class PerunController extends AbstractController
     /**
      * @Route("/{instance}", name="perun_instance")
      */
-    public function instance(PerunInstance $instance): Response
+    public function instance(Instance $instance): Response
     {
-        /** @var PerunOnlinePlayer[] $onlinePlayers */
-        $onlinePlayers = $this->getDoctrine()->getRepository(PerunOnlinePlayer::class)->findRealPlayersByInstance($instance);
+        /** @var OnlinePlayer[] $onlinePlayers */
+        $onlinePlayers = $this->getDoctrine()->getRepository(OnlinePlayer::class)->findRealPlayersByInstance($instance);
 
         // append DTO because no proper link between online player and player tables
         foreach ($onlinePlayers as $onlinePlayer) {
-            $onlinePlayer->setPlayer($this->getDoctrine()->getRepository(PerunPlayer::class)->findOneByUcid($onlinePlayer->getUcid()));
+            $onlinePlayer->setPlayer($this->getDoctrine()->getRepository(Player::class)->findOneByUcid($onlinePlayer->getUcid()));
         }
 
         return $this->render('perun/instance.html.twig', [
