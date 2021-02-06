@@ -13,7 +13,7 @@ services:
     hostname: veaf-website_php
     networks:
       - php
-#      - mysql
+      - mysql
     environment:
       SERVICE: php
 
@@ -30,37 +30,37 @@ services:
       LETSENCRYPT_HOST: ${VHOST}
       LETSENCRYPT_EMAIL: ${SSL_EMAIL:-}
 
-#  mysql:
-#    image: ${MYSQL_REGISTRY:-mysql}:${MYSQL_TAG:-5.7}
-#    environment:
-#      MYSQL_ROOT_PASSWORD: test
-#      MYSQL_DATABASE: project
-#      MYSQL_USER: project
-#      MYSQL_PASSWORD: test
-#    hostname: project_mysql
-#    networks:
-#      - mysql
-#    volumes:
-#      - mysql-data:/var/lib/mysql
+  mysql:
+    image: ${MYSQL_REGISTRY:-mysql}:${MYSQL_TAG:-5.7}
+    environment:
+      MYSQL_ROOT_PASSWORD: test
+      MYSQL_DATABASE: website
+      MYSQL_USER: website
+      MYSQL_PASSWORD: test
+    hostname: project_mysql
+    networks:
+      - mysql
+    volumes:
+      - mysql-data:/var/lib/mysql
 
-#  phpmyadmin:
-#    image: ${PMA_REGISTRY:-phpmyadmin/phpmyadmin}:${PMA_TAG:-5.0}
-#    hostname: project_phpmyadmin
-#    networks:
-#      - webproxy
-#      - mysql
-#    environment:
-#      VIRTUAL_HOST: pma.${VHOST:-project.localhost}
-#      PMA_HOST: mysql
-#    depends_on:
-#      - mysql
+  phpmyadmin:
+    image: ${PMA_REGISTRY:-phpmyadmin/phpmyadmin}:${PMA_TAG:-5.0}
+    hostname: project_phpmyadmin
+    networks:
+      - webproxy
+      - mysql
+    environment:
+      VIRTUAL_HOST: pma.${VHOST:-project.localhost}
+      PMA_HOST: mysql
+    depends_on:
+      - mysql
 
 networks:
   php:
-#  mysql:
+  mysql:
   webproxy:
     external:
       name: ${PROXY_NETWORK:-webproxy}
 
-#volumes:
-#  mysql-data:
+volumes:
+  mysql-data:

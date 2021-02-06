@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Entity;
+namespace App\Perun\Entity;
 
-use App\Repository\PerunInstanceRepository;
+use App\Perun\Repository\InstanceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Table(name="pe_OnlineStatus")
- * @ORM\Entity(repositoryClass=PerunInstanceRepository::class)
+ * @ORM\Entity(repositoryClass=InstanceRepository::class)
  */
-class PerunInstance
+class Instance
 {
     /**
      * @ORM\Id
@@ -31,7 +31,7 @@ class PerunInstance
     private ?string $mission;
 
     /**
-     * @ORM\OneToMany(targetEntity=PerunOnlinePlayer::class, mappedBy="instance")
+     * @ORM\OneToMany(targetEntity=OnlinePlayer::class, mappedBy="instance")
      */
     private $perunOnlinePlayers;
 
@@ -43,7 +43,7 @@ class PerunInstance
     /**
      * @ORM\Column(type="datetime", name="pe_OnlineStatus_updated")
      */
-    private $updated;
+    private ?\DateTime $updated;
 
     public function __construct()
     {
@@ -80,14 +80,14 @@ class PerunInstance
     }
 
     /**
-     * @return Collection|PerunOnlinePlayer[]
+     * @return Collection|OnlinePlayer[]
      */
     public function getPerunOnlinePlayers(): Collection
     {
         return $this->perunOnlinePlayers;
     }
 
-    public function addPerunOnlinePlayer(PerunOnlinePlayer $perunOnlinePlayer): self
+    public function addPerunOnlinePlayer(OnlinePlayer $perunOnlinePlayer): self
     {
         if (!$this->perunOnlinePlayers->contains($perunOnlinePlayer)) {
             $this->perunOnlinePlayers[] = $perunOnlinePlayer;
@@ -97,7 +97,7 @@ class PerunInstance
         return $this;
     }
 
-    public function removePerunOnlinePlayer(PerunOnlinePlayer $perunOnlinePlayer): self
+    public function removePerunOnlinePlayer(OnlinePlayer $perunOnlinePlayer): self
     {
         if ($this->perunOnlinePlayers->removeElement($perunOnlinePlayer)) {
             // set the owning side to null (unless already changed)
@@ -120,12 +120,12 @@ class PerunInstance
         return $this;
     }
 
-    public function getUpdated(): ?\DateTimeInterface
+    public function getUpdated(): ?\DateTime
     {
         return $this->updated;
     }
 
-    public function setUpdated(\DateTimeInterface $updated): self
+    public function setUpdated(\DateTime $updated): self
     {
         $this->updated = $updated;
 
