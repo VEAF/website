@@ -78,6 +78,22 @@
                                 </a>
                             </div>
                         </li>
+                        {% if app.user %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
+                                   id="webstv"><span class="fa fa-user"></span> {{ app.user.nickname }}<span
+                                            class="caret"></span></a>
+                                <div class="dropdown-menu" aria-labelledby="webstv">
+                                    <a class="dropdown-item" href="{{ path("app_logout") }}">
+                                        Déconnexion
+                                    </a>
+                                </div>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a href="{{ path("app_login") }}" class="nav-link"><span class="fa fa-sign-in-alt"></span> Connexion</a>
+                            </li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>

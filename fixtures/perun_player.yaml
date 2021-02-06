@@ -1,35 +1,35 @@
 App\Perun\Entity\Player:
-  prerun_player_public_admin:
+  perun_player_public_admin:
     ucid: "00001111222233334444555566660001"
     lastName: "Public server admin"
     lastIp: "1.1.1.1:1234"
     updated: '<(new DateTime("2021-02-01 12:00:00"))>'
-  prerun_player_private_admin:
+  perun_player_private_admin:
     ucid: "00001111222233334444555566660002"
     lastName: "Private server admin"
     lastIp: "1.1.1.2:1234"
     updated: '<(new DateTime("2021-02-01 12:00:00"))>'
-  prerun_player_zip:
+  perun_player_zip:
     ucid: "00001111222233334444555566660003"
     lastName: "Zip"
     lastIp: "1.1.1.3:1234"
     updated: '<(new DateTime("2021-02-02 14:00:00"))>'
-  prerun_player_mitch:
+  perun_player_mitch:
     ucid: "00001111222233334444555566660004"
     lastName: "Mitch"
     lastIp: "1.1.1.4:1234"
     updated: '<(new DateTime("2021-02-03 14:30:00"))>'
-  prerun_player_griffin:
+  perun_player_griffin:
     ucid: "00001111222233334444555566660005"
     lastName: "Griffin"
     lastIp: "1.1.1.5:1234"
     updated: '<(new DateTime("2021-02-04 15:00:00"))>'
-  prerun_player_guest:
+  perun_player_guest:
     ucid: "00001111222233334444555566660006"
     lastName: "Guest"
     lastIp: "1.1.1.6:1234"
     updated: '<(new DateTime("2021-02-04 15:00:00"))>'
-  prerun_player_random{1..50}:
+  perun_player_random{1..50}:
     ucid: "<md5(randomNumber())>"
     lastName: '<firstName()>'
     lastIp: "<ipv4()>"
