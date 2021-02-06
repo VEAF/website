@@ -1,0 +1,4 @@
+App\Perun\Entity\Config:
+  prerun_config_1:
+    id: 1
+    payload: "v0.11.2"

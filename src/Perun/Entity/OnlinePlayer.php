@@ -13,10 +13,16 @@ class OnlinePlayer
 {
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer", name="pe_OnlinePlayers_id")
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
      */
     private ?int $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Player::class)
+     * @ORM\JoinColumn(nullable=false, name="pe_OnlinePlayers_id", referencedColumnName="pe_DataPlayers_id")
+     */
+    private ?Player $player;
 
     /**
      * @ORM\ManyToOne(targetEntity=Instance::class, inversedBy="perunOnlinePlayers")
@@ -25,40 +31,40 @@ class OnlinePlayer
     private ?Instance $instance;
 
     /**
-     * @ORM\Column(type="integer", name="pe_OnlinePlayers_ping")
+     * @ORM\Column(type="integer", name="pe_OnlinePlayers_ping", nullable=true)
      */
     private ?int $ping;
 
     /**
-     * @ORM\Column(type="integer", name="pe_OnlinePlayers_side")
+     * @ORM\Column(type="integer", name="pe_OnlinePlayers_side", nullable=true)
      */
     private ?int $side;
 
     /**
-     * Simple DTO, unmapped
-     *
-     * @var Player|null
-     */
-    private ?Player $player;
-
-    /**
-     * @ORM\Column(type="string", length=255, name="pe_OnlinePlayers_ucid")
+     * @ORM\Column(type="string", length=255, name="pe_OnlinePlayers_ucid", nullable=true)
      */
     private ?string $ucid;
 
     /**
-     * @ORM\Column(type="string", length=255, name="pe_OnlinePlayers_slot")
+     * @ORM\Column(type="string", length=255, name="pe_OnlinePlayers_slot", nullable=true)
      */
     private ?string $slot;
 
     /**
-     * @ORM\Column(type="datetime", name="pe_OnlinePlayers_updated")
+     * @ORM\Column(type="datetime", name="pe_OnlinePlayers_updated", columnDefinition="DATETIME on update CURRENT_TIMESTAMP", options={"default": "CURRENT_TIMESTAMP"})
      */
     private ?\DateTime $updated;
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setId(int $id): self
+    {
+        $this->id=$id;
+
+        return $this;
     }
 
     public function getInstance(): ?Instance

@@ -16,7 +16,7 @@ class LogStat
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
-     * @ORM\Column(type="integer", name="pe_LogStats_id")
+     * @ORM\Column(type="bigint", name="pe_LogStats_id")
      */
     private ?int $id;
 
@@ -39,7 +39,7 @@ class LogStat
     private ?DataType $type;
 
     /**
-     * @ORM\Column(type="datetime", name="pe_LogStats_datetime")
+     * @ORM\Column(type="datetime", name="pe_LogStats_datetime", options={"default": "CURRENT_TIMESTAMP"})
      */
     private ?\DateTime $datetime;
 
@@ -54,132 +54,132 @@ class LogStat
     private ?int $seat;
 
     /**
-     * @ORM\Column(type="integer", name="ps_kills_X")
+     * @ORM\Column(type="integer", name="ps_kills_X", options={"unsigned"=true, "default": 0})
      */
     private ?int $killsX;
 
     /**
-     * @ORM\Column(type="integer", name="ps_pvp")
+     * @ORM\Column(type="integer", name="ps_pvp", options={"unsigned"=true, "default": 0})
      */
     private ?int $pvp;
 
     /**
-     * @ORM\Column(type="integer", name="ps_deaths")
+     * @ORM\Column(type="integer", name="ps_deaths", options={"unsigned"=true, "default": 0})
      */
     private ?int $deaths;
 
     /**
-     * @ORM\Column(type="integer", name="ps_ejections")
+     * @ORM\Column(type="integer", name="ps_ejections", options={"unsigned"=true, "default": 0})
      */
     private ?int $ejections;
 
     /**
-     * @ORM\Column(type="integer", name="ps_crashes")
+     * @ORM\Column(type="integer", name="ps_crashes", options={"unsigned"=true, "default": 0})
      */
     private ?int $crashes;
 
     /**
-     * @ORM\Column(type="integer", name="ps_teamkills")
+     * @ORM\Column(type="integer", name="ps_teamkills", options={"unsigned"=true, "default": 0})
      */
     private ?int $teamKills;
 
     /**
-     * @ORM\Column(type="integer", name="ps_kills_planes")
+     * @ORM\Column(type="integer", name="ps_kills_planes", options={"unsigned"=true, "default": 0})
      */
     private ?int $killsPlanes;
 
     /**
-     * @ORM\Column(type="integer", name="ps_kills_helicopters")
+     * @ORM\Column(type="integer", name="ps_kills_helicopters", options={"unsigned"=true, "default": 0})
      */
     private ?int $killsHelicopters;
 
     /**
-     * @ORM\Column(type="integer", name="ps_kills_air_defense")
+     * @ORM\Column(type="integer", name="ps_kills_air_defense", options={"unsigned"=true, "default": 0})
      */
     private ?int $killsAirDefense;
 
     /**
-     * @ORM\Column(type="integer", name="ps_kills_armor")
+     * @ORM\Column(type="integer", name="ps_kills_armor", options={"unsigned"=true, "default": 0})
      */
     private ?int $killsArmor;
 
     /**
-     * @ORM\Column(type="integer", name="ps_kills_unarmed")
+     * @ORM\Column(type="integer", name="ps_kills_unarmed", options={"unsigned"=true, "default": 0})
      */
     private ?int $killsUnarmed;
 
     /**
-     * @ORM\Column(type="integer", name="ps_kills_infantry")
+     * @ORM\Column(type="integer", name="ps_kills_infantry", options={"unsigned"=true, "default": 0})
      */
     private ?int $killsInfantry;
 
     /**
-     * @ORM\Column(type="integer", name="ps_kills_ships")
+     * @ORM\Column(type="integer", name="ps_kills_ships", options={"unsigned"=true, "default": 0})
      */
     private ?int $killsShips;
 
     /**
-     * @ORM\Column(type="integer", name="ps_kills_fortification")
+     * @ORM\Column(type="integer", name="ps_kills_fortification", options={"unsigned"=true, "default": 0})
      */
     private ?int $killsFortification;
 
     /**
-     * @ORM\Column(type="integer", name="ps_kills_artillery")
+     * @ORM\Column(type="integer", name="ps_kills_artillery", options={"unsigned"=true, "default": 0})
      */
     private ?int $killsArtillery;
 
     /**
-     * @ORM\Column(type="integer", name="ps_kills_other")
+     * @ORM\Column(type="integer", name="ps_kills_other", options={"unsigned"=true, "default": 0})
      */
     private ?int $killsOther;
 
     /**
-     * @ORM\Column(type="integer", name="ps_airfield_takeoffs")
+     * @ORM\Column(type="integer", name="ps_airfield_takeoffs", options={"unsigned"=true, "default": 0})
      */
     private ?int $airefieldTakeoffs;
 
     /**
-     * @ORM\Column(type="integer", name="ps_airfield_landings")
+     * @ORM\Column(type="integer", name="ps_airfield_landings", options={"unsigned"=true, "default": 0})
      */
     private ?int $airfieldLandings;
 
     /**
-     * @ORM\Column(type="integer", name="ps_ship_takeoffs")
+     * @ORM\Column(type="integer", name="ps_ship_takeoffs", options={"unsigned"=true, "default": 0})
      */
     private ?int $shipTakeoffs;
 
     /**
-     * @ORM\Column(type="integer", name="ps_ship_landings")
+     * @ORM\Column(type="integer", name="ps_ship_landings", options={"unsigned"=true, "default": 0})
      */
     private ?int $shipLandings;
 
     /**
-     * @ORM\Column(type="integer", name="ps_farp_takeoffs")
+     * @ORM\Column(type="integer", name="ps_farp_takeoffs", options={"unsigned"=true, "default": 0})
      */
     private ?int $farpTakeoffs;
 
     /**
-     * @ORM\Column(type="integer", name="ps_farp_landings")
+     * @ORM\Column(type="integer", name="ps_farp_landings", options={"unsigned"=true, "default": 0})
      */
     private ?int $farpLandings;
 
     /**
-     * @ORM\Column(type="integer", name="ps_other_landings")
+     * @ORM\Column(type="integer", name="ps_other_landings", options={"unsigned"=true, "default": 0})
      */
     private ?int $otherLandings;
 
     /**
-     * @ORM\Column(type="integer", name="ps_other_takeoffs")
+     * @ORM\Column(type="integer", name="ps_other_takeoffs", options={"unsigned"=true, "default": 0})
      */
     private ?int $otherTakeoffs;
 
     /**
-     * @ORM\Column(type="integer", name="ps_time")
+     * @ORM\Column(type="integer", name="ps_time", options={"unsigned"=true, "default": 0})
      */
     private ?int $time;
 
     /**
-     * @ORM\Column(type="string", columnDefinition="enum('?', 'RTB', 'MIA', 'KIA')", name="pe_LogStats_mstatus")
+     * @ORM\Column(type="string", columnDefinition="enum('?', 'RTB', 'MIA', 'KIA')", name="pe_LogStats_mstatus", nullable=true)
      */
     private ?string $status;
 

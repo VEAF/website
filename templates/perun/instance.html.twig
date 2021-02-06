@@ -27,7 +27,11 @@
                 {% for onlinePlayer in onlinePlayers %}
                     <tr>
                         <td>
-                            {{ onlinePlayer.player.lastName }}
+                            {% if onlinePlayer.player is null %}
+                                n/a
+                            {% else %}
+                                {{ onlinePlayer.player.lastName }}
+                            {% endif %}
                         </td>
                         <td>
                             {{ onlinePlayer.ping }}

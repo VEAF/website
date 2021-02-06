@@ -16,24 +16,27 @@ class LogChat
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
-     * @ORM\Column(type="integer", name="pe_LogChat_id")
+     * @ORM\Column(type="bigint", name="pe_LogChat_id")
      */
     private ?int $id;
 
     /**
      * @ORM\ManyToOne(targetEntity=DataMissionHash::class)
-     * @ORM\JoinColumn(nullable=false, name="pe_LogChat_missionhash_id", referencedColumnName="pe_DataMissionHashes_id")
+     * @ORM\JoinColumn(nullable=false, name="pe_LogChat_missionhash_id", referencedColumnName="pe_DataMissionHashes_id", nullable=true)
      */
     private ?DataMissionHash $mission;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Player::class)
-     * @ORM\JoinColumn(nullable=false, name="pe_LogChat_playerid", referencedColumnName="pe_DataPlayers_id")
+     * I think the original data model is wrong
+     *
+     * --ORM\ManyToOne(targetEntity=Player::class)
+     * --ORM\JoinColumn(nullable=false, name="pe_LogChat_playerid", referencedColumnName="pe_DataPlayers_id")
+     *
      */
     private ?Player $player;
 
     /**
-     * @ORM\Column(type="datetime", name="pe_LogChat_datetime")
+     * @ORM\Column(type="datetime", name="pe_LogChat_datetime", options={"default": "CURRENT_TIMESTAMP"})
      */
     private ?\DateTime $datetime;
 

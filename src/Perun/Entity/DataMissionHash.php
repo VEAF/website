@@ -16,12 +16,12 @@ class DataMissionHash
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
-     * @ORM\Column(type="integer", name="pe_DataMissionHashes_id")
+     * @ORM\Column(type="bigint", name="pe_DataMissionHashes_id")
      */
     private ?int $id;
 
     /**
-     * @ORM\Column(type="string", length=255, name="pe_DataMissionHashes_hash", nullable=true)
+     * @ORM\Column(type="string", length=150, name="pe_DataMissionHashes_hash", nullable=false)
      */
     private ?string $hash;
 
@@ -32,7 +32,7 @@ class DataMissionHash
     private ?Instance $instance;
 
     /**
-     * @ORM\Column(type="datetime", name="pe_DataMissionHashes_datetime")
+     * @ORM\Column(type="datetime", name="pe_DataMissionHashes_datetime", options={"default": "CURRENT_TIMESTAMP"}, nullable=false)
      */
     private ?\DateTime $datetime;
 

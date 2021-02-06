@@ -16,7 +16,7 @@ class LogLogin
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
-     * @ORM\Column(type="integer", name="pe_LogLogins_id")
+     * @ORM\Column(type="bigint", name="pe_LogLogins_id")
      */
     private ?int $id;
 
@@ -28,17 +28,17 @@ class LogLogin
 
     /**
      * @ORM\ManyToOne(targetEntity=Player::class)
-     * @ORM\JoinColumn(nullable=false, name="pe_LogLogins_playerid", referencedColumnName="pe_DataPlayers_id")
+     * @ORM\JoinColumn(nullable=false, name="pe_LogLogins_playerid", referencedColumnName="pe_DataPlayers_id", nullable=true)
      */
     private ?Player $player;
 
     /**
-     * @ORM\Column(type="datetime", name="pe_LogLogins_datetime")
+     * @ORM\Column(type="datetime", name="pe_LogLogins_datetime", options={"default": "CURRENT_TIMESTAMP"})
      */
     private ?\DateTime $datetime;
 
     /**
-     * @ORM\Column(type="string", length=100, name="pe_LogLogins_name")
+     * @ORM\Column(type="string", length=150, name="pe_LogLogins_name")
      */
     private ?string $name;
 

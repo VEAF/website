@@ -19,12 +19,12 @@ class DataType
     private ?int $id;
 
     /**
-     * @ORM\Column(type="string", length=100, name="pe_DataTypes_name", nullable=true)
+     * @ORM\Column(type="string", length=100, name="pe_DataTypes_name", nullable=false)
      */
     private ?string $name;
 
     /**
-     * @ORM\Column(type="datetime", name="pe_DataTypes_update")
+     * @ORM\Column(type="datetime", name="pe_DataTypes_update", options={"default": "CURRENT_TIMESTAMP"})
      */
     private ?\DateTime $updated;
 

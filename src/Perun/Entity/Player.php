@@ -14,7 +14,7 @@ class Player
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
-     * @ORM\Column(type="integer", name="pe_DataPlayers_id")
+     * @ORM\Column(type="bigint", name="pe_DataPlayers_id")
      */
     private ?int $id;
 
@@ -24,17 +24,17 @@ class Player
     private ?string $ucid;
 
     /**
-     * @ORM\Column(type="string", length=150, name="pe_DataPlayers_lastname")
+     * @ORM\Column(type="string", length=150, name="pe_DataPlayers_lastname", nullable=true)
      */
     private ?string $lastName;
 
     /**
-     * @ORM\Column(type="string", length=100, name="pe_DataPlayers_lastip")
+     * @ORM\Column(type="string", length=100, name="pe_DataPlayers_lastip", nullable=true)
      */
     private ?string $lastIp;
 
     /**
-     * @ORM\Column(type="datetime", name="pe_DataPlayers_updated")
+     * @ORM\Column(type="datetime", name="pe_DataPlayers_updated", options={"default": "CURRENT_TIMESTAMP"})
      */
     private ?\DateTime $updated;
 
@@ -72,9 +72,11 @@ class Player
         return $this->lastIp;
     }
 
-    public function setLastIp($lastIp): self
+    public function setLastIp(string $lastIp): self
     {
         $this->lastIp = $lastIp;
+
+        return $this;
     }
 
     public function getUpdated(): ?\DateTime

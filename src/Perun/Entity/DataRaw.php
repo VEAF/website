@@ -13,16 +13,19 @@ class DataRaw
 {
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue
+     * @ORM\GeneratedValue(strategy="NONE")
      * @ORM\Column(type="integer", name="pe_dataraw_type")
      */
     private ?int $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Instance::class)
-     * @ORM\JoinColumn(nullable=false, name="pe_DataMissionHashes_instance", referencedColumnName="pe_OnlineStatus_instance")
+     * @ORM\Id()
+     * @ORM\Column(type="integer", name="pe_DataMissionHashes_instance")
+     * --ORM\ManyToOne(targetEntity=Instance::class)
+     * --ORM\JoinColumn(nullable=false, name="pe_DataMissionHashes_instance", referencedColumnName="pe_OnlineStatus_instance")
      */
-    private ?Instance $instance;
+    private ?int $instance;
+    //private ?Instance $instance;
 
     /**
      * @ORM\Column(type="text", length=65536, name="pe_dataraw_payload", nullable=true)
@@ -30,7 +33,7 @@ class DataRaw
     private ?string $payload;
 
     /**
-     * @ORM\Column(type="datetime", name="pe_dataraw_updated")
+     * @ORM\Column(type="datetime", name="pe_dataraw_updated", columnDefinition="DATETIME on update CURRENT_TIMESTAMP", options={"default": "CURRENT_TIMESTAMP"})
      */
     private ?\DateTime $updated;
 
@@ -39,17 +42,29 @@ class DataRaw
         return $this->id;
     }
 
-    public function getInstance(): ?Instance
+    public function getInstance(): ?int
     {
         return $this->instance;
     }
 
-    public function setInstance(?Instance $instance): self
+    public function setInstance(?int $instance): self
     {
         $this->instance = $instance;
 
         return $this;
     }
+
+    //    public function getInstance(): ?Instance
+//    {
+//        return $this->instance;
+//    }
+//
+//    public function setInstance(?Instance $instance): self
+//    {
+//        $this->instance = $instance;
+//
+//        return $this;
+//    }
 
     public function getPayload(): ?string
     {
