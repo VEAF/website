@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block pageContent %}
+    <div class="container pt-3 pb-3 mb-3">
+        <div class="row mb-3 ml-1 mr-1 justify-content-center">
+            <div class="col-6">
+                <div class="card border-secondary mb-3">
+                    <div class="card-header">Formulaire de connexion</div>
+                    <div class="card-body">
+                        <form method="post">
+                            {% if error %}
+                                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                            {% endif %}
+
+                            {% if app.user %}
+                                <div class="mb-3">
+                                    You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                                </div>
+                            {% endif %}
+
+                            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+                            <div class="form-group">
+                                <label for="inputEmail">Email</label>
+                                <input type="email" value="{{ last_username }}" name="email" id="inputEmail"
+                                       class="form-control"
+                                       required autofocus>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword">Password</label>
+                                <input type="password" name="password" id="inputPassword" class="form-control" required>
+                            </div>
+
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                            <button class="btn btn-lg btn-primary" type="submit">
+                                <i class="fa fa-sign-in-alt"></i> Connecter
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,58 @@
+App\Entity\User:
+  user_mitch:
+    email: "mitch@localhost"
+    # test1234
+    password: '\$2y\$10\$rXysKOG/6HEW9acoV3gISuaxQ6yX5K6aN/.ogx3lQtdsD8R6.E3Ry'
+    roles: [ROLE_ADMIN]
+    player: '@perun_player_mitch'
+    nickname: 'mitch'
+
+  user_zip:
+    email: "zip@localhost"
+    # test1234
+    password: '\$2y\$10\$rXysKOG/6HEW9acoV3gISuaxQ6yX5K6aN/.ogx3lQtdsD8R6.E3Ry'
+    roles: [ROLE_ADMIN]
+    player: '@perun_player_zip'
+    nickname: 'zip'
+
+  user_user:
+    email: "user@localhost"
+    # test1234
+    password: '\$2y\$10\$rXysKOG/6HEW9acoV3gISuaxQ6yX5K6aN/.ogx3lQtdsD8R6.E3Ry'
+    roles: [ROLE_USER]
+    nickname: 'user'
+
+  user_cadet:
+    email: "cadet@localhost"
+    # test1234
+    password: '\$2y\$10\$rXysKOG/6HEW9acoV3gISuaxQ6yX5K6aN/.ogx3lQtdsD8R6.E3Ry'
+    roles: [ROLE_CADET]
+    nickname: 'cadet'
+
+  user_membre:
+    email: "membre@localhost"
+    # test1234
+    password: '\$2y\$10\$rXysKOG/6HEW9acoV3gISuaxQ6yX5K6aN/.ogx3lQtdsD8R6.E3Ry'
+    roles: [ROLE_MEMBER]
+    nickname: 'membre'
+
+  user_tresorier:
+    email: "tresorier@localhost"
+    # test1234
+    password: '\$2y\$10\$rXysKOG/6HEW9acoV3gISuaxQ6yX5K6aN/.ogx3lQtdsD8R6.E3Ry'
+    roles: [ROLE_TREASURER]
+    nickname: 'trésorier'
+
+  user_secretaire:
+    email: "secretaire@localhost"
+    # test1234
+    password: '\$2y\$10\$rXysKOG/6HEW9acoV3gISuaxQ6yX5K6aN/.ogx3lQtdsD8R6.E3Ry'
+    roles: [ROLE_SECRETARY]
+    nickname: 'secrétaire'
+
+  user_president:
+    email: "president@localhost"
+    # test1234
+    password: '\$2y\$10\$rXysKOG/6HEW9acoV3gISuaxQ6yX5K6aN/.ogx3lQtdsD8R6.E3Ry'
+    roles: [ROLE_PRESIDENT]
+    nickname: 'président'
