@@ -65,7 +65,10 @@ help:
 .php.env:
 	cp .php.env.dist .php.env
 
-autoconf: .env .php.env
+docker-compose.yml:
+	cp docker-compose.yml.dist docker-compose.yml
+
+autoconf: .env .php.env docker-compose.yml
 
 #==============================================================================
 # Standard docker dev commands
