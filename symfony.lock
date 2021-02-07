@@ -104,6 +104,9 @@
             "fixtures/.gitignore"
         ]
     },
+    "kilik/table": {
+        "version": "2.5.0"
+    },
     "laminas/laminas-code": {
         "version": "4.0.0"
     },
