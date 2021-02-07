@@ -36,6 +36,12 @@ class LogChat
     private ?Player $player;
 
     /**
+     * Mitch: I don't why, but it's a varchar(100) column ...
+     * @ORM\Column(type="string", length=100, name="pe_LogChat_playerid")
+     */
+    private ?string $playerId;
+
+    /**
      * @ORM\Column(type="datetime", name="pe_LogChat_datetime", options={"default": "CURRENT_TIMESTAMP"})
      */
     private ?\DateTime $datetime;
