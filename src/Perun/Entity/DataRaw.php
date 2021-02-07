@@ -20,9 +20,9 @@ class DataRaw
 
     /**
      * @ORM\Id()
-     * @ORM\Column(type="integer", name="pe_DataMissionHashes_instance")
+     * @ORM\Column(type="integer", name="pe_dataraw_instance")
      * --ORM\ManyToOne(targetEntity=Instance::class)
-     * --ORM\JoinColumn(nullable=false, name="pe_DataMissionHashes_instance", referencedColumnName="pe_OnlineStatus_instance")
+     * --ORM\JoinColumn(nullable=false, name="pe_dataraw_instance", referencedColumnName="pe_OnlineStatus_instance")
      */
     private ?int $instance;
     //private ?Instance $instance;
