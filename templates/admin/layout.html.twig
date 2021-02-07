@@ -38,7 +38,7 @@
         <hr class="sidebar-divider my-0">
 
         <!-- Nav Item - Dashboard -->
-        <li class="nav-item active">
+        <li class="nav-item{% if section == "admin" and subSection == "dashboard" %} active{% endif %}">
             <a class="nav-link" href="{{ path("admin_index") }}">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Dashboard</span></a>
@@ -52,10 +52,11 @@
             Administration
         </div>
 
-        <li class="nav-item">
+        <li class="nav-item{% if section == "admin" and subSection == "user" %} active{% endif %}">
             <a class="nav-link" href="{{ path("admin_user_list") }}">
                 <i class="fas fa-users fa-chart-area"></i>
-                <span>Utilisateurs</span></a>
+                <span>Utilisateurs</span>
+            </a>
         </li>
 
 {#        <!-- Nav Item - Pages Collapse Menu -->#}

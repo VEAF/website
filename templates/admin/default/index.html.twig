@@ -1,20 +1,29 @@
 {% extends 'admin/layout.html.twig' %}
+{% set section="admin" %}
+{% set subSection="dashboard" %}
 
 {% block title %}Administration{% endblock %}
 
-{#{% block pageContent %}#}
-{#<style>#}
-{#    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }#}
-{#    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }#}
-{#</style>#}
-
-{#<div class="example-wrapper">#}
-{#    <h1>Hello {{ controller_name }}! ✅</h1>#}
-
-{#    This friendly message is coming from:#}
-{#    <ul>#}
-{#        <li>Your controller at <code><a href="{{ '/var/www/html/src/Controller/Admin/DefaultControllerPhpController.php'|file_link(0) }}">src/Controller/Admin/DefaultControllerPhpController.php</a></code></li>#}
-{#        <li>Your template at <code><a href="{{ '/var/www/html/templates/admin/default_controller_php/index.html.twig'|file_link(0) }}">templates/admin/default_controller_php/index.html.twig</a></code></li>#}
-{#    </ul>#}
-{#</div>#}
-{#{% endblock %}#}
+{% block pageContent %}
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+    </div>
+    <div class="row">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                <a href="{{ path('admin_user_list') }}">Utilisateurs</a></div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ total.users }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <a href="{{ path('admin_user_list') }}"><i class="fas fa-users fa-2x text-gray-300"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
