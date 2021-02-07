@@ -1,0 +1,3 @@
+services:
+    Kilik\TableBundle\Services\TableService:
+      alias: kilik_table
