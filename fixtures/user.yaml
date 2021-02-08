@@ -6,6 +6,8 @@ App\Entity\User:
     roles: [ROLE_ADMIN]
     player: '@perun_player_mitch'
     nickname: 'mitch'
+    createdAt: "<dateTimeBetween('-1 month', 'now')>"
+    updatedAt: "<dateTimeBetween('-1 month', 'now')>"
 
   user_zip:
     email: "zip@localhost"
@@ -14,6 +16,8 @@ App\Entity\User:
     roles: [ROLE_ADMIN]
     player: '@perun_player_zip'
     nickname: 'zip'
+    createdAt: "<dateTimeBetween('-1 month', 'now')>"
+    updatedAt: "<dateTimeBetween('-1 month', 'now')>"
 
   user_user:
     email: "user@localhost"
@@ -21,6 +25,8 @@ App\Entity\User:
     password: '\$2y\$10\$rXysKOG/6HEW9acoV3gISuaxQ6yX5K6aN/.ogx3lQtdsD8R6.E3Ry'
     roles: [ROLE_USER]
     nickname: 'user'
+    createdAt: "<dateTimeBetween('-1 month', 'now')>"
+    updatedAt: "<dateTimeBetween('-1 month', 'now')>"
 
   user_cadet:
     email: "cadet@localhost"
@@ -28,6 +34,8 @@ App\Entity\User:
     password: '\$2y\$10\$rXysKOG/6HEW9acoV3gISuaxQ6yX5K6aN/.ogx3lQtdsD8R6.E3Ry'
     roles: [ROLE_CADET]
     nickname: 'cadet'
+    createdAt: "<dateTimeBetween('-1 month', 'now')>"
+    updatedAt: "<dateTimeBetween('-1 month', 'now')>"
 
   user_membre:
     email: "membre@localhost"
@@ -35,6 +43,8 @@ App\Entity\User:
     password: '\$2y\$10\$rXysKOG/6HEW9acoV3gISuaxQ6yX5K6aN/.ogx3lQtdsD8R6.E3Ry'
     roles: [ROLE_MEMBER]
     nickname: 'membre'
+    createdAt: "<dateTimeBetween('-1 month', 'now')>"
+    updatedAt: "<dateTimeBetween('-1 month', 'now')>"
 
   user_tresorier:
     email: "tresorier@localhost"
@@ -42,6 +52,8 @@ App\Entity\User:
     password: '\$2y\$10\$rXysKOG/6HEW9acoV3gISuaxQ6yX5K6aN/.ogx3lQtdsD8R6.E3Ry'
     roles: [ROLE_TREASURER]
     nickname: 'trésorier'
+    createdAt: "<dateTimeBetween('-1 month', 'now')>"
+    updatedAt: "<dateTimeBetween('-1 month', 'now')>"
 
   user_secretaire:
     email: "secretaire@localhost"
@@ -49,6 +61,8 @@ App\Entity\User:
     password: '\$2y\$10\$rXysKOG/6HEW9acoV3gISuaxQ6yX5K6aN/.ogx3lQtdsD8R6.E3Ry'
     roles: [ROLE_SECRETARY]
     nickname: 'secrétaire'
+    createdAt: "<dateTimeBetween('-1 month', 'now')>"
+    updatedAt: "<dateTimeBetween('-1 month', 'now')>"
 
   user_president:
     email: "president@localhost"
@@ -56,3 +70,5 @@ App\Entity\User:
     password: '\$2y\$10\$rXysKOG/6HEW9acoV3gISuaxQ6yX5K6aN/.ogx3lQtdsD8R6.E3Ry'
     roles: [ROLE_PRESIDENT]
     nickname: 'président'
+    createdAt: "<dateTimeBetween('-1 month', 'now')>"
+    updatedAt: "<dateTimeBetween('-1 month', 'now')>"

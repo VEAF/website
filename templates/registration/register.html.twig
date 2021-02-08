@@ -1,0 +1,28 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ parent() }} - Inscription{% endblock %}
+
+{% block pageContent %}
+    <div class="container pt-3 pb-3 mb-3">
+        <div class="row mb-3 ml-1 mr-1 justify-content-center">
+            <div class="col-6">
+                <div class="card border-secondary mb-3">
+                    <div class="card-header">Formulaire d'inscription</div>
+
+                    <div class="alert alert-dismissible alert-info ml-3 mr-3 mt-3">
+                        <strong>Attention !</strong>, si vous avez déjà un compte, utilisez <a
+                                href="{{ path('app_login') }}">le formulaire de connexion ici</a>
+                    </div>
+                    <div class="card-body">
+                        {{ form_start(form) }}
+                        {{ form_rest(form) }}
+                        <button class="btn btn-lg btn-primary" type="submit">
+                            <i class="fa fa-pen"></i> S'inscrire
+                        </button>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

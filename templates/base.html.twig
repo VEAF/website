@@ -3,7 +3,7 @@
 <head>
     {% block head %}
         <meta charset="utf-8">
-        <title>{% block title %}Virtual European Air Force - VEAF: simulation de vol de combat - Falcon 4 - Black Shark - ROF{% endblock title %}</title>
+        <title>{% block title %}Virtual European Air Force - VEAF{% endblock title %}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet"
               href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css"
@@ -16,8 +16,13 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
                 integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
                 crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.6.0/umd/popper.min.js" integrity="sha512-BmM0/BQlqh02wuK5Gz9yrbe7VyIVwOzD1o40yi1IsTjriX/NGF37NyXHfmFzIlMmoSIBXgqDiG1VNU6kB5dBbA==" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.6.0/umd/popper.min.js"
+                integrity="sha512-BmM0/BQlqh02wuK5Gz9yrbe7VyIVwOzD1o40yi1IsTjriX/NGF37NyXHfmFzIlMmoSIBXgqDiG1VNU6kB5dBbA=="
+                crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"
+                integrity="sha512-efUTj3HdSPwWJ9gjfGR71X9cvsrthIA78/Fvd/IN+fttQVy7XWkOAXb295j8B3cmm/kFKVxjiNYzKw9IQJHIuQ=="
+                crossorigin="anonymous"></script>
         {% if libKilikTable is defined and libKilikTable == true %}
         <script src="/bundles/kiliktable/js/KilikTable.js"></script>
         {% endif %}
@@ -35,29 +40,39 @@
     {% endblock footer %}
 
     {% block javascript %}
+    <script>
+    {% for message in app.flashes('success') %}
+        console.log("{{ message }}");
+        $.notify("{{ message }}", "success");
+    {% endfor %}
+    {% for message in app.flashes('warning') %}
+        $.notify("{{ message }}", "warn");
+    {% endfor %}
+    {% for message in app.flashes('error') %}
+        $.notify("{{ message }}", "error");
+    {% endfor %}
+    $(document).ready(function () {
         {% if libKilikTable is defined and libKilikTable == true %}
-        <script>
-            $(document).ready(function () {
-                var loadKiliktables = function () {
-                    var $kilikTables = $("[data-kiliktable-id]");
-                    if ($kilikTables && $kilikTables.length > 0) {
-                        $kilikTables.each(function (index, currentTable) {
-                            var $currentTable = $(currentTable);
-                            var id = $currentTable.data("kiliktable-id");
-                            if (id.length > 0) {
-                                    console.log(id);
-                                var path = $currentTable.data("kiliktable-path");
-                                var options = $currentTable.html();
-                                new KilikTableFA(id, path, JSON.parse(options)).init();
-                            }
-                        });
+        var loadKiliktables = function () {
+            var $kilikTables = $("[data-kiliktable-id]");
+            if ($kilikTables && $kilikTables.length > 0) {
+                $kilikTables.each(function (index, currentTable) {
+                    var $currentTable = $(currentTable);
+                    var id = $currentTable.data("kiliktable-id");
+                    if (id.length > 0) {
+                            console.log(id);
+                        var path = $currentTable.data("kiliktable-path");
+                        var options = $currentTable.html();
+                        new KilikTableFA(id, path, JSON.parse(options)).init();
                     }
-                }
-                loadKiliktables();
-            });
-        </script>
+                });
+            }
+        }
+        loadKiliktables();
         {% endif %}
-    {% endblock %}
+    });
+</script>
+{% endblock %}
 {% endblock body %}
 </body>
 </html>

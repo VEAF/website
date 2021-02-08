@@ -7,7 +7,7 @@ App\Perun\Entity\Instance:
     multiplayer: "True"
     realtime: 1800.2741317
     modeltime: 73.177
-    playersCount: 2
+    playersCount: 5
     winAppVersion: "v0.11.2.0"
     dcsHookVersion: "v0.11.2"
     updated: "<dateTimeBetween('-1 minute', 'now')>"

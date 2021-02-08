@@ -1,6 +1,6 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Hello DefaultController!{% endblock %}
+{% block title %}{{ parent() }} - Serveur DCS {{ instance.id }}{% endblock %}
 
 {% block pageContent %}
     <div class="container container-main pt-3 pb-3 mb-3">
