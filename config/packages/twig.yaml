@@ -5,3 +5,4 @@ twig:
     exception_controller: null
     globals:
         cdn_veaf: '%cdn_veaf%'
+    form_themes: ['bootstrap_4_layout.html.twig']
