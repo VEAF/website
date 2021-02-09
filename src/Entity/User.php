@@ -21,58 +21,58 @@ class User implements UserInterface
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\Length(min=3)
      */
-    private $email;
+    private ?string $email;
 
     /**
      * @ORM\Column(type="simple_array")
      */
-    private $roles = [];
+    private array $roles = [];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
-    private $password;
+    private ?string $password;
 
     /**
      * @var string|null
      */
-    protected $plainPassword;
+    protected ?string $plainPassword;
 
     /**
      * @var string|null
      *
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    protected $passwordRequestToken;
+    protected ?string $passwordRequestToken;
 
     /**
-     * @ORM\OneToOne(targetEntity=Player::class, cascade={"persist"})
+     * @ORM\OneToOne(targetEntity=Player::class, cascade={"persist"}, fetch="EAGER", inversedBy="user")
      * @ORM\JoinColumn(name="player_id", referencedColumnName="pe_DataPlayers_id", nullable=true)
      */
-    private $player;
+    private ?Player $player;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Length(min=3)
      */
-    private $nickname;
+    private ?string $nickname;
 
     /**
      * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"})
      */
-    private $createdAt;
+    private ?\DateTime $createdAt;
 
     /**
      * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"})
      */
-    private $updatedAt;
+    private ?\DateTime $updatedAt;
 
     public function getId(): ?int
     {

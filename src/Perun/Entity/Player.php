@@ -2,6 +2,7 @@
 
 namespace App\Perun\Entity;
 
+use App\Entity\User;
 use App\Perun\Repository\PlayerRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -37,6 +38,11 @@ class Player
      * @ORM\Column(type="datetime", name="pe_DataPlayers_updated", options={"default": "CURRENT_TIMESTAMP"})
      */
     private ?\DateTime $updated;
+
+    /**
+     * @ORM\OneToOne(targetEntity=User::class, cascade={"persist"}, fetch="EAGER", mappedBy="player")
+     */
+    private ?User $user;
 
     public function getId(): ?int
     {
@@ -87,6 +93,18 @@ class Player
     public function setUpdated(?\DateTime $updated): self
     {
         $this->updated = $updated;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser($user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
