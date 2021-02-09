@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+</head>
+<body>
+{% block body %}
+    {% block content %}
+
+    {% endblock content %}
+    {% block signature %}
+        <br/>
+        Cordialement,<br/>
+        <br/>
+        Le Bureau.<br/>
+        <br/>
+        <i>Association <b>VEAF</b></i><br/>
+        Site: <a href="https://www.veaf.org/">https://www.veaf.org/</a><br/>
+        Forum: <a href="https://community.veaf.org/">https://community.veaf.org/</a><br/>
+    {% endblock signature %}
+{% endblock body %}
+</body>
+</html>

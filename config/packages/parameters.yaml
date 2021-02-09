@@ -1,2 +1,3 @@
 parameters:
   cdn_veaf: https://cdn.veaf.org/website/dev
+  mail_from: "%env(MAIL_FROM)%"

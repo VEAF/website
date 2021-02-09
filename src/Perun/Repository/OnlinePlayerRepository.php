@@ -21,7 +21,7 @@ class OnlinePlayerRepository extends ServiceEntityRepository
     }
 
     /**
-     * Fetch players by instance, ignoring with 0 ping
+     * Fetch players by instance, ignoring with 0 ping.
      *
      * @return OnlinePlayer[]
      */

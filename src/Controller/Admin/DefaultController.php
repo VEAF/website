@@ -22,6 +22,7 @@ class DefaultController extends AbstractController
         $data['total'] = [
             'users' => $this->getDoctrine()->getRepository(User::class)->count([]),
         ];
+
         return $this->render('admin/default/index.html.twig', $data);
     }
 }

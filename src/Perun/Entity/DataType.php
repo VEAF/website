@@ -44,6 +44,7 @@ class DataType
 
         return $this;
     }
+
     public function getUpdated(): ?\DateTime
     {
         return $this->updated;

@@ -83,7 +83,7 @@ class Instance
 
     public function setId(int $id): self
     {
-        $this->id=$id;
+        $this->id = $id;
 
         return $this;
     }
@@ -155,6 +155,7 @@ class Instance
     public function setPlayersCount(int $playersCount): self
     {
         $this->playersCount = $playersCount;
+
         return $this;
     }
 
@@ -246,5 +247,4 @@ class Instance
     {
         $this->winAppVersion = $winAppVersion;
     }
-
 }
