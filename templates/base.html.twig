@@ -42,14 +42,13 @@
     {% block javascript %}
     <script>
     {% for message in app.flashes('success') %}
-        console.log("{{ message }}");
-        $.notify("{{ message }}", "success");
+        $.notify("{{ message|escape('js') }}", "success");
     {% endfor %}
     {% for message in app.flashes('warning') %}
-        $.notify("{{ message }}", "warn");
+        $.notify("{{ message|escape('js') }}", "warn");
     {% endfor %}
     {% for message in app.flashes('error') %}
-        $.notify("{{ message }}", "error");
+        $.notify("{{ message|escape('js') }}", "error");
     {% endfor %}
     $(document).ready(function () {
         {% if libKilikTable is defined and libKilikTable == true %}
