@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\User;
 use Kilik\TableBundle\Components\Column;
 use Kilik\TableBundle\Components\Filter;
+use Kilik\TableBundle\Components\FilterSelect;
 use Kilik\TableBundle\Components\Table;
 use Kilik\TableBundle\Services\TableService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,6 +22,8 @@ class UserController extends AbstractController
     {
         $queryBuilder = $this->getDoctrine()->getRepository(User::class)->createQueryBuilder('u')
             ->select('u');
+
+        $booleanFilterChoices = ['Oui' => true, 'Non' => false];
 
         $table = (new Table())
             ->setId('admin_user_list')
@@ -46,6 +49,64 @@ class UserController extends AbstractController
                         ->setField('u.nickname')
                         ->setName('u_nickname')
                     )
+            );
+
+        $table
+            ->addColumn(
+                (new Column())->setLabel('Statut')
+                    ->setSort(['u.status' => 'asc'])
+                    ->setFilter((new FilterSelect())
+                        ->setField('u.status')
+                        ->setName('u_status')
+                        ->setChoices(array_flip(User::STATUSES))
+                        ->setPlaceholder('-')
+                        ->disableTranslation() // disable translations of placeholder and values
+                    )
+                    ->setDisplayCallback(function ($value, $row, $lines) {
+                        /** @var User $row */
+                        $user = $row['object'];
+                        return $user->getStatusAsString();
+                    })
+            );
+
+        $table
+            ->addColumn(
+                (new Column())->setLabel('DCS')
+                    ->setSort(['u.simDcs' => 'asc', 'u.nickname' => 'asc'])
+                    ->setFilter((new FilterSelect())
+                        ->setField('u.simDcs')
+                        ->setName('u_simDcs')
+                        ->setChoices($booleanFilterChoices)
+                        ->setPlaceholder('-')
+                        ->disableTranslation() // disable translations of placeholder and values
+                    )
+                    ->setDisplayCallback(function ($value, $row, $lines) {
+                        if ($value) {
+                            return 'oui';
+                        } else {
+                            return 'non';
+                        }
+                    })
+            );
+
+        $table
+            ->addColumn(
+                (new Column())->setLabel('BMS')
+                    ->setSort(['u.simBms' => 'asc', 'u.nickname' => 'asc'])
+                    ->setFilter((new FilterSelect())
+                        ->setField('u.simBms')
+                        ->setName('u_simBms')
+                        ->setChoices($booleanFilterChoices)
+                        ->setPlaceholder('-')
+                        ->disableTranslation() // disable translations of placeholder and values
+                    )
+                    ->setDisplayCallback(function ($value, $row, $lines) {
+                        if ($value) {
+                            return 'oui';
+                        } else {
+                            return 'non';
+                        }
+                    })
             );
 
         return $table;

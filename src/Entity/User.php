@@ -16,6 +16,38 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class User implements UserInterface
 {
+    const STATUS_GUEST = 0;
+    const STATUS_CADET = 1;
+    const STATUS_MEMBER = 2;
+    const STATUS_SECRETARY_DEPUTY = 3;
+    const STATUS_SECRETARY = 4;
+    const STATUS_TREASURER_DEPUTY = 5;
+    const STATUS_TREASURER = 6;
+    const STATUS_PRESIDENT_DEPUTY = 7;
+    const STATUS_PRESIDENT = 8;
+
+    const STATUSES = [
+        self::STATUS_GUEST => 'invité',
+        self::STATUS_CADET => 'cadet',
+        self::STATUS_MEMBER => 'membre',
+        self::STATUS_SECRETARY_DEPUTY => 'secrétaire adjoint',
+        self::STATUS_SECRETARY => 'secrétaire',
+        self::STATUS_TREASURER_DEPUTY => 'trésorier adjoint',
+        self::STATUS_TREASURER => 'trésorier',
+        self::STATUS_PRESIDENT_DEPUTY => 'président adjoint',
+        self::STATUS_PRESIDENT => 'président',
+    ];
+
+    const STATUSES_MEMBER = [
+        self::STATUS_MEMBER,
+        self::STATUS_SECRETARY_DEPUTY,
+        self::STATUS_SECRETARY,
+        self::STATUS_TREASURER_DEPUTY,
+        self::STATUS_TREASURER,
+        self::STATUS_PRESIDENT_DEPUTY,
+        self::STATUS_PRESIDENT,
+    ];
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -73,6 +105,21 @@ class User implements UserInterface
      * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"})
      */
     private ?\DateTime $updatedAt = null;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private bool $simBms = false;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private bool $simDcs = false;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private int $status = self::STATUS_GUEST;
 
     public function getId(): ?int
     {
@@ -199,27 +246,77 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?\DateTime
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(\DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeInterface
+    public function getUpdatedAt(): ?\DateTime
     {
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    public function setUpdatedAt(\DateTime $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
 
         return $this;
+    }
+
+    public function getSimBms(): ?bool
+    {
+        return $this->simBms;
+    }
+
+    public function setSimBms(bool $simBms): self
+    {
+        $this->simBms = $simBms;
+
+        return $this;
+    }
+
+    public function getSimDcs(): ?bool
+    {
+        return $this->simDcs;
+    }
+
+    public function setSimDcs(bool $simDcs): self
+    {
+        $this->simDcs = $simDcs;
+
+        return $this;
+    }
+
+    public function getStatus(): ?int
+    {
+        return $this->status;
+    }
+
+    public function getStatusAsString(): string
+    {
+        $statuses=self::STATUSES;
+        if (isset($statuses[$this->status])) {
+            return $statuses[$this->status];
+        }
+        return 'inconnu';
+    }
+
+    public function setStatus(int $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function isMember(): ?bool
+    {
+        return in_array($this->status, self::STATUSES_MEMBER);
     }
 }

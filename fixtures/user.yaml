@@ -8,6 +8,9 @@ App\Entity\User:
     nickname: 'mitch'
     createdAt: "<dateTimeBetween('-1 month', 'now')>"
     updatedAt: "<dateTimeBetween('-1 month', 'now')>"
+    simBms: false
+    simDcs: true
+    status: <(App\Entity\User::STATUS_MEMBER)>
 
   user_zip:
     email: "zip@localhost"
@@ -18,6 +21,33 @@ App\Entity\User:
     nickname: 'zip'
     createdAt: "<dateTimeBetween('-1 month', 'now')>"
     updatedAt: "<dateTimeBetween('-1 month', 'now')>"
+    simBms: false
+    simDcs: true
+    status: <(App\Entity\User::STATUS_TREASURER)>
+
+  user_fifi:
+    email: "fifi@localhost"
+    # test1234
+    password: '\$2y\$10\$rXysKOG/6HEW9acoV3gISuaxQ6yX5K6aN/.ogx3lQtdsD8R6.E3Ry'
+    roles: [ROLE_USER]
+    nickname: 'zip'
+    createdAt: "<dateTimeBetween('-1 month', 'now')>"
+    updatedAt: "<dateTimeBetween('-1 month', 'now')>"
+    simBms: false
+    simDcs: true
+    status: <(App\Entity\User::STATUS_TREASURER_DEPUTY)>
+
+  user_lost:
+    email: "lost@localhost"
+    # test1234
+    password: '\$2y\$10\$rXysKOG/6HEW9acoV3gISuaxQ6yX5K6aN/.ogx3lQtdsD8R6.E3Ry'
+    roles: [ROLE_USER]
+    nickname: 'user'
+    createdAt: "<dateTimeBetween('-1 month', 'now')>"
+    updatedAt: "<dateTimeBetween('-1 month', 'now')>"
+    simBms: false
+    simDcs: false
+    status: <(App\Entity\User::STATUS_GUEST)>
 
   user_user:
     email: "user@localhost"
@@ -27,6 +57,9 @@ App\Entity\User:
     nickname: 'user'
     createdAt: "<dateTimeBetween('-1 month', 'now')>"
     updatedAt: "<dateTimeBetween('-1 month', 'now')>"
+    simBms: false
+    simDcs: true
+    status: <(App\Entity\User::STATUS_GUEST)>
 
   user_cadet:
     email: "cadet@localhost"
@@ -36,39 +69,126 @@ App\Entity\User:
     nickname: 'cadet'
     createdAt: "<dateTimeBetween('-1 month', 'now')>"
     updatedAt: "<dateTimeBetween('-1 month', 'now')>"
+    simBms: false
+    simDcs: true
+    status: <(App\Entity\User::STATUS_CADET)>
 
   user_membre:
     email: "membre@localhost"
     # test1234
     password: '\$2y\$10\$rXysKOG/6HEW9acoV3gISuaxQ6yX5K6aN/.ogx3lQtdsD8R6.E3Ry'
-    roles: [ROLE_MEMBER]
+    roles: [ROLE_USER]
     nickname: 'membre'
     createdAt: "<dateTimeBetween('-1 month', 'now')>"
     updatedAt: "<dateTimeBetween('-1 month', 'now')>"
+    simBms: false
+    simDcs: true
+    status: <(App\Entity\User::STATUS_MEMBER)>
+
+  user_tresorier_adjoint:
+    email: "tresorier-adjoint@localhost"
+    # test1234
+    password: '\$2y\$10\$rXysKOG/6HEW9acoV3gISuaxQ6yX5K6aN/.ogx3lQtdsD8R6.E3Ry'
+    roles: [ROLE_USER]
+    nickname: 'trésorier adjoint'
+    createdAt: "<dateTimeBetween('-1 month', 'now')>"
+    updatedAt: "<dateTimeBetween('-1 month', 'now')>"
+    simBms: false
+    simDcs: true
+    status: <(App\Entity\User::STATUS_TREASURER_DEPUTY)>
 
   user_tresorier:
     email: "tresorier@localhost"
     # test1234
     password: '\$2y\$10\$rXysKOG/6HEW9acoV3gISuaxQ6yX5K6aN/.ogx3lQtdsD8R6.E3Ry'
-    roles: [ROLE_TREASURER]
+    roles: [ROLE_USER]
     nickname: 'trésorier'
     createdAt: "<dateTimeBetween('-1 month', 'now')>"
     updatedAt: "<dateTimeBetween('-1 month', 'now')>"
+    simBms: false
+    simDcs: true
+    status: <(App\Entity\User::STATUS_TREASURER)>
+
+  user_secretaire_adjoint:
+    email: "secretaire-adjoint@localhost"
+    # test1234
+    password: '\$2y\$10\$rXysKOG/6HEW9acoV3gISuaxQ6yX5K6aN/.ogx3lQtdsD8R6.E3Ry'
+    roles: [ROLE_USER]
+    nickname: 'secrétaire adjoint'
+    createdAt: "<dateTimeBetween('-1 month', 'now')>"
+    updatedAt: "<dateTimeBetween('-1 month', 'now')>"
+    simBms: false
+    simDcs: true
+    status: <(App\Entity\User::STATUS_SECRETARY_DEPUTY)>
 
   user_secretaire:
     email: "secretaire@localhost"
     # test1234
     password: '\$2y\$10\$rXysKOG/6HEW9acoV3gISuaxQ6yX5K6aN/.ogx3lQtdsD8R6.E3Ry'
-    roles: [ROLE_SECRETARY]
+    roles: [ROLE_USER]
     nickname: 'secrétaire'
     createdAt: "<dateTimeBetween('-1 month', 'now')>"
     updatedAt: "<dateTimeBetween('-1 month', 'now')>"
+    simBms: false
+    simDcs: true
+    status: <(App\Entity\User::STATUS_SECRETARY)>
+
+  user_president_adjoint:
+    email: "president-adjoint@localhost"
+    # test1234
+    password: '\$2y\$10\$rXysKOG/6HEW9acoV3gISuaxQ6yX5K6aN/.ogx3lQtdsD8R6.E3Ry'
+    roles: [ROLE_USER]
+    nickname: 'président adjoint'
+    createdAt: "<dateTimeBetween('-1 month', 'now')>"
+    updatedAt: "<dateTimeBetween('-1 month', 'now')>"
+    simBms: false
+    simDcs: true
+    status: <(App\Entity\User::STATUS_PRESIDENT_DEPUTY)>
 
   user_president:
     email: "president@localhost"
     # test1234
     password: '\$2y\$10\$rXysKOG/6HEW9acoV3gISuaxQ6yX5K6aN/.ogx3lQtdsD8R6.E3Ry'
-    roles: [ROLE_PRESIDENT]
+    roles: [ROLE_USER]
     nickname: 'président'
     createdAt: "<dateTimeBetween('-1 month', 'now')>"
     updatedAt: "<dateTimeBetween('-1 month', 'now')>"
+    simBms: false
+    simDcs: true
+    status: <(App\Entity\User::STATUS_PRESIDENT)>
+
+  user_sky:
+    email: "sky@localhost"
+    # test1234
+    password: '\$2y\$10\$rXysKOG/6HEW9acoV3gISuaxQ6yX5K6aN/.ogx3lQtdsD8R6.E3Ry'
+    roles: [ROLE_USER]
+    nickname: 'sky'
+    createdAt: "<dateTimeBetween('-1 month', 'now')>"
+    updatedAt: "<dateTimeBetween('-1 month', 'now')>"
+    simBms: true
+    simDcs: true
+    status: <(App\Entity\User::STATUS_MEMBER)>
+
+  user_mge:
+    email: "mge@localhost"
+    # test1234
+    password: '\$2y\$10\$rXysKOG/6HEW9acoV3gISuaxQ6yX5K6aN/.ogx3lQtdsD8R6.E3Ry'
+    roles: [ROLE_USER]
+    nickname: 'sky'
+    createdAt: "<dateTimeBetween('-1 month', 'now')>"
+    updatedAt: "<dateTimeBetween('-1 month', 'now')>"
+    simBms: true
+    simDcs: true
+    status: <(App\Entity\User::STATUS_MEMBER)>
+
+  user_bms{1..5}:
+    email: "<email()>"
+    # test1234
+    password: '\$2y\$10\$rXysKOG/6HEW9acoV3gISuaxQ6yX5K6aN/.ogx3lQtdsD8R6.E3Ry'
+    roles: [ROLE_USER]
+    nickname: 'firstName'
+    createdAt: "<dateTimeBetween('-1 month', 'now')>"
+    updatedAt: "<dateTimeBetween('-1 month', 'now')>"
+    simBms: true
+    simDcs: false
+    status: <(App\Entity\User::STATUS_MEMBER)>
