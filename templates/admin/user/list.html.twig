@@ -4,14 +4,16 @@
 {% set subSection="user" %}
 
 {% block pageContent %}
-    <div class="col-lg-6 mb-4">
-        {% embed "admin/user/_list.html.twig" with {"table": table} %}
-            {% block tableTitle %}
-                <b>Utilisateurs</b>
-{#                <div class="navbar navbar-right">#}
-{#                    <a href="{{ path("tabledemo_index") }}"><span class="glyphicon glyphicon-home"></span> return to examples list</a>#}
-{#                </div>#}
-            {% endblock tableTitle %}
-        {% endembed %}
+    <div class="row mb-4">
+        <div class="col-xl-8">
+            {% embed "admin/user/_list.html.twig" with {"table": table} %}
+                {% block tableTitle %}
+                    <b>Utilisateurs</b>
+                    {# <div class="navbar navbar-right"> #}
+                    {# <a href="{{ path("tabledemo_index") }}"><span class="glyphicon glyphicon-home"></span> return to examples list</a> #}
+                    {# </div> #}
+                {% endblock tableTitle %}
+            {% endembed %}
+        </div>
     </div>
 {% endblock pageContent %}

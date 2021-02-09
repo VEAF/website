@@ -59,6 +59,16 @@
             </a>
         </li>
 
+        <div class="sidebar-heading">
+            DCS
+        </div>
+        <li class="nav-item{% if section == "dcs" and subSection == "player" %} active{% endif %}">
+            <a class="nav-link" href="{{ path("admin_dcs_player_list") }}">
+                <i class="fas fa-users fa-chart-area"></i>
+                <span>Joueurs DCS</span>
+            </a>
+        </li>
+
 {#        <!-- Nav Item - Pages Collapse Menu -->#}
 {#        <li class="nav-item">#}
 {#            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"#}
