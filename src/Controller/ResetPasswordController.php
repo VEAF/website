@@ -34,8 +34,7 @@ class ResetPasswordController extends AbstractController
         Request $request,
         EntityManagerInterface $entityManager,
         \Swift_Mailer $mailer
-    )
-    {
+    ) {
         $form = $this->createForm(PasswordRequestType::class);
         $form->handleRequest($request);
 
@@ -97,8 +96,7 @@ class ResetPasswordController extends AbstractController
         UserPasswordEncoderInterface $encoder,
         TokenStorageInterface $tokenStorage,
         SessionInterface $session
-    )
-    {
+    ) {
         $user = $entityManager->getRepository(User::class)->findOneBy(['passwordRequestToken' => $token]);
 
         if (!$token || !$user instanceof User) {
@@ -127,6 +125,5 @@ class ResetPasswordController extends AbstractController
         }
 
         return $this->render('reset-password/confirm.html.twig', ['form' => $form->createView()]);
-
     }
 }

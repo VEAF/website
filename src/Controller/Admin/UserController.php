@@ -20,7 +20,7 @@ class UserController extends AbstractController
     public function getTable(): Table
     {
         $queryBuilder = $this->getDoctrine()->getRepository(User::class)->createQueryBuilder('u')
-            ->select("u");
+            ->select('u');
 
         $table = (new Table())
             ->setId('admin_user_list')
@@ -57,7 +57,7 @@ class UserController extends AbstractController
     public function list(TableService $tableService): Response
     {
         return $this->render('admin/user/list.html.twig', [
-            'table'=>$tableService->createFormView($this->getTable()),
+            'table' => $tableService->createFormView($this->getTable()),
         ]);
     }
 

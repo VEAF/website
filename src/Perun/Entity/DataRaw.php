@@ -2,7 +2,6 @@
 
 namespace App\Perun\Entity;
 
-use App\Perun\Repository\DataRawRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -77,6 +76,7 @@ class DataRaw
 
         return $this;
     }
+
     public function getUpdated(): ?\DateTime
     {
         return $this->updated;

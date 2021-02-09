@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Perun\Entity\Instance;
 use App\Perun\Entity\OnlinePlayer;
-use App\Perun\Entity\PerunPlayer;
 use App\Perun\Entity\Player;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,7 +20,7 @@ class PerunController extends AbstractController
     public function index(): Response
     {
         /** @var Instance[] $instances */
-        $instances = $this->getDoctrine()->getRepository(Instance::class)->findBy([],['id'=>'ASC']);
+        $instances = $this->getDoctrine()->getRepository(Instance::class)->findBy([], ['id' => 'ASC']);
 
         return $this->render('perun/index.html.twig', [
             'instances' => $instances,
@@ -43,7 +42,7 @@ class PerunController extends AbstractController
 
         return $this->render('perun/instance.html.twig', [
             'instance' => $instance,
-            'onlinePlayers'=> $onlinePlayers,
+            'onlinePlayers' => $onlinePlayers,
         ]);
     }
 }

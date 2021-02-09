@@ -3,8 +3,6 @@
 namespace App\Perun\Entity;
 
 use App\Perun\Repository\LogChatRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -27,16 +25,16 @@ class LogChat
     private ?DataMissionHash $mission;
 
     /**
-     * I think the original data model is wrong
+     * I think the original data model is wrong.
      *
      * --ORM\ManyToOne(targetEntity=Player::class)
      * --ORM\JoinColumn(nullable=false, name="pe_LogChat_playerid", referencedColumnName="pe_DataPlayers_id")
-     *
      */
     private ?Player $player;
 
     /**
      * Mitch: I don't why, but it's a varchar(100) column ...
+     *
      * @ORM\Column(type="string", length=100, name="pe_LogChat_playerid")
      */
     private ?string $playerId;
@@ -60,5 +58,4 @@ class LogChat
     {
         return $this->id;
     }
-
 }
