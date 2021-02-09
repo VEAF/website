@@ -1,0 +1,28 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ parent() }} - Mot de passe perdu{% endblock %}
+
+{% block pageContent %}
+    <div class="container pt-3 pb-3 mb-3">
+        <div class="row mb-3 ml-1 mr-1 justify-content-center">
+            <div class="col-6">
+                <div class="card border-secondary mb-3">
+                    <div class="card-header">Changement de mot de passe</div>
+
+                    <div class="alert alert-dismissible alert-info ml-3 mr-3 mt-3">
+                        <strong>Information: </strong>Veuillez saisir un nouveau mot de passe dans les deux cellules suivantes.
+                    </div>
+
+                    <div class="card-body">
+                        {{ form_start(form) }}
+                        {{ form_rest(form) }}
+                        <button class="btn btn-lg btn-primary form-control" type="submit">
+                            <i class="fa fa-pen"></i> Modifier mon compte
+                        </button>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

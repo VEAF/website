@@ -126,7 +126,7 @@ cc:
 
 ## CS Fixer
 fix:
-# 	$(COMPOSE_PHP_CMD) vendor/bin/php-cs-fixer fix src
+	$(COMPOSE_PHP_CMD) vendor/bin/php-cs-fixer fix src
 
 ## Run phpcsfixer
 fix-hook:
