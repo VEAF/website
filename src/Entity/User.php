@@ -48,6 +48,23 @@ class User implements UserInterface
         self::STATUS_PRESIDENT,
     ];
 
+    const STATUSES_OFFICE = [
+        self::STATUS_SECRETARY_DEPUTY,
+        self::STATUS_SECRETARY,
+        self::STATUS_TREASURER_DEPUTY,
+        self::STATUS_TREASURER,
+        self::STATUS_PRESIDENT_DEPUTY,
+        self::STATUS_PRESIDENT,
+    ];
+
+    const ROLE_USER = 'user';
+    const ROLE_ADMIN = 'admin';
+
+    const ROLES = [
+        self::ROLE_USER,
+        self::ROLE_ADMIN,
+    ];
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -301,7 +318,7 @@ class User implements UserInterface
 
     public function getStatusAsString(): string
     {
-        $statuses=self::STATUSES;
+        $statuses = self::STATUSES;
         if (isset($statuses[$this->status])) {
             return $statuses[$this->status];
         }
@@ -318,5 +335,10 @@ class User implements UserInterface
     public function isMember(): ?bool
     {
         return in_array($this->status, self::STATUSES_MEMBER);
+    }
+
+    public function isOffice(): ?bool
+    {
+        return in_array($this->status, self::STATUSES_OFFICE);
     }
 }

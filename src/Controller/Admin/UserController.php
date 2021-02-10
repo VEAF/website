@@ -129,4 +129,25 @@ class UserController extends AbstractController
     {
         return $tableService->handleRequest($this->getTable(), $request);
     }
+
+    /**
+     * @Route("/{user}", name="admin_user_view")
+     */
+    public function view(User $user): Response
+    {
+        return $this->render('admin/user/view.html.twig', [
+            'user' => $user,
+        ]);
+    }
+
+    /**
+     * @Route("/{user}/edit", name="admin_user_edit")
+     */
+    public function edit(User $user): Response
+    {
+        return $this->render('admin/user/edit.html.twig', [
+            'user' => $user,
+        ]);
+    }
+
 }
