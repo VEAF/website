@@ -1,10 +1,13 @@
 body {
     padding-top: 100px;
-    background-color:white;
-    background-image:url(https://cdn.veaf.org/website/dev/img/background-01-blur.jpg);
-    background-attachment:fixed;
+    background-color: white;
+    background-image: url(https://cdn.veaf.org/website/dev/img/background-01-blur.jpg);
+    background-attachment: fixed;
     background-repeat: no-repeat;
-    min-height: 100%;
+}
+
+body, html {
+    height: 100%;
 }
 
 pre {
@@ -152,6 +155,10 @@ iframe {
     margin-bottom: 10px
 }
 
+#main {
+    min-height: 100%;
+}
+
 #footer {
     margin: 1em 0
 }
@@ -165,6 +172,17 @@ iframe {
 #footer p {
     clear: left;
     margin-bottom: 0
+}
+
+#footer {
+    padding-top: 10px;
+    padding-left: 50px;
+    padding-right: 50px;
+    /*height:150px;*/
+    /*position:absolute;*/
+    width: 100%;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, .5);
 }
 
 .splash {

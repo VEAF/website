@@ -27,19 +27,20 @@ class UserType extends AbstractType
 
         $builder
             ->add('email', EmailType::class)
-            ->add('roles', ChoiceType::class,
-                [
-                    'choices' => $roles,
-                ])
-            ->add('password')
-            ->add('passwordRequestToken')
+//            ->add('roles', ChoiceType::class,
+//                [
+//                    'choices' => $roles,
+//                ])
             ->add('nickname')
-            ->add('createdAt')
-            ->add('updatedAt')
-            ->add('simBms', CheckboxType::class)
-            ->add('simDcs', CheckboxType::class)
-            ->add('status')// ->add('player')
-        ;
+            ->add('simDcs', CheckboxType::class, [
+                'required' => false
+            ])
+            ->add('simBms', CheckboxType::class, [
+                'required' => false
+            ])
+            ->add('status', ChoiceType::class, [
+                'choices' => array_flip(User::STATUSES)
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

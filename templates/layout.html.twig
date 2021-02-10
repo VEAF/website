@@ -33,10 +33,12 @@
                         <a href="/" class="nav-link"><span class="fa fa-newspaper"></span> Les nouvelles</a>
                     </li>
                     <li class="nav-item">
-                        <a href="https://community.veaf.org/" class="nav-link"><span class="fa fa-envelope"></span> Forum</a>
+                        <a href="https://community.veaf.org/" class="nav-link"><span class="fa fa-envelope"></span>
+                            Forum</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="association"><span class="fa fa-hotel"></span> Association
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="association"><span
+                                    class="fa fa-hotel"></span> Association
                             <span class="caret"></span></a>
                         <div class="dropdown-menu" aria-labelledby="association">
                             <a class="dropdown-item" href="/association/presentation-association">Présentation</a>
@@ -49,7 +51,8 @@
                         </div>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="webstv"><span class="fa fa-tv"></span> Webs TV
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="webstv"><span
+                                    class="fa fa-tv"></span> Webs TV
                             <span class="caret"></span></a>
                         <div class="dropdown-menu" aria-labelledby="webstv">
                             <a class="dropdown-item" href="http://www.youtube.com/user/AssociationVEAF/">
@@ -85,7 +88,8 @@
                         </li>
                     {% else %}
                         <li class="nav-item">
-                            <a href="{{ path("app_login") }}" class="nav-link"><span class="fa fa-sign-in-alt"></span> Connexion</a>
+                            <a href="{{ path("app_login") }}" class="nav-link"><span class="fa fa-sign-in-alt"></span>
+                                Connexion</a>
                         </li>
                     {% endif %}
                 </ul>
@@ -101,29 +105,29 @@
 {% endblock pageContent %}
 
 {% block footer %}
-    <div class="container container-main pt-2 mt-5">
-        <footer id="footer">
-            <div class="row mb-2">
-                <div class="col-lg-12 text-center">
-                    Sauf précision contraire, le contenu de ce site est mis à disposition selon les termes<br>
-                    de la
-                    <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/fr/">
-                        Licence Creative Commons Attribution - Pas d’Utilisation Commerciale - Partage dans les
-                        Mêmes Conditions 3.0 France.
-                    </a>
-                </div>
+    {# <div class="container container-main pt-2 mt-5"> #}
+    <footer id="footer">
+        <div class="row mb-2">
+            <div class="col-lg-12 text-center">
+                Sauf précision contraire, le contenu de ce site est mis à disposition selon les termes<br>
+                de la
+                <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/fr/">
+                    Licence Creative Commons Attribution - Pas d’Utilisation Commerciale - Partage dans les
+                    Mêmes Conditions 3.0 France.
+                </a>
             </div>
-            <div class="row">
-                <div class="col-sm-3">
-                    © 2004 - 2021 VEAF
-                </div>
-                <div class="col-sm-6">
-                    &nbsp;
-                </div>
-                <div class="col-sm-3 text-right">
-                    Virtual European Air Force
-                </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                © 2004 - 2021 VEAF
             </div>
-        </footer>
-    </div>
+            <div class="col-sm-6">
+                &nbsp;
+            </div>
+            <div class="col-sm-3 text-right">
+                Virtual European Air Force
+            </div>
+        </div>
+    </footer>
+    {# </div> #}
 {% endblock footer %}

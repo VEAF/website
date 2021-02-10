@@ -10,6 +10,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * @ORM\Table(uniqueConstraints={
+ *     @ORM\UniqueConstraint(name="email_idx", columns={"email"}),
+ *     @ORM\UniqueConstraint(name="nickname_idx", columns={"nickname"})
+ * })
+ *
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @UniqueEntity("email")
  * @UniqueEntity("nickname")

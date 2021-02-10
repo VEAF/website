@@ -3,6 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
+use App\Form\UserType;
+use App\Manager\UserManager;
 use Kilik\TableBundle\Components\Column;
 use Kilik\TableBundle\Components\Filter;
 use Kilik\TableBundle\Components\FilterSelect;
@@ -143,9 +145,21 @@ class UserController extends AbstractController
     /**
      * @Route("/{user}/edit", name="admin_user_edit")
      */
-    public function edit(User $user): Response
+    public function edit(UserManager $userManager, Request $request, User $user): Response
     {
+        $form = $this->createForm(UserType::class, $user);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $userManager->save($user, true, true);
+            $this->addFlash('success', 'L\'utilisateur a été enregistré');
+
+            return $this->redirectToRoute('admin_user_view', ['user' => $user->getId()]);
+        }
+
         return $this->render('admin/user/edit.html.twig', [
+            'form' => $form->createView(),
             'user' => $user,
         ]);
     }

@@ -30,7 +30,7 @@ App\Entity\User:
     # test1234
     password: '\$2y\$10\$rXysKOG/6HEW9acoV3gISuaxQ6yX5K6aN/.ogx3lQtdsD8R6.E3Ry'
     roles: [ROLE_USER]
-    nickname: 'zip'
+    nickname: 'fifi'
     createdAt: "<dateTimeBetween('-1 month', 'now')>"
     updatedAt: "<dateTimeBetween('-1 month', 'now')>"
     simBms: false
@@ -42,7 +42,7 @@ App\Entity\User:
     # test1234
     password: '\$2y\$10\$rXysKOG/6HEW9acoV3gISuaxQ6yX5K6aN/.ogx3lQtdsD8R6.E3Ry'
     roles: [ROLE_USER]
-    nickname: 'user'
+    nickname: 'lost'
     createdAt: "<dateTimeBetween('-1 month', 'now')>"
     updatedAt: "<dateTimeBetween('-1 month', 'now')>"
     simBms: false
@@ -174,7 +174,7 @@ App\Entity\User:
     # test1234
     password: '\$2y\$10\$rXysKOG/6HEW9acoV3gISuaxQ6yX5K6aN/.ogx3lQtdsD8R6.E3Ry'
     roles: [ROLE_USER]
-    nickname: 'sky'
+    nickname: 'mge'
     createdAt: "<dateTimeBetween('-1 month', 'now')>"
     updatedAt: "<dateTimeBetween('-1 month', 'now')>"
     simBms: true
@@ -186,7 +186,7 @@ App\Entity\User:
     # test1234
     password: '\$2y\$10\$rXysKOG/6HEW9acoV3gISuaxQ6yX5K6aN/.ogx3lQtdsD8R6.E3Ry'
     roles: [ROLE_USER]
-    nickname: 'firstName'
+    nickname: '<firstName()>'
     createdAt: "<dateTimeBetween('-1 month', 'now')>"
     updatedAt: "<dateTimeBetween('-1 month', 'now')>"
     simBms: true
