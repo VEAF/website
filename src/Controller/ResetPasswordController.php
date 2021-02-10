@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\NewPasswordType;
 use App\Form\PasswordRequestType;
+use App\Manager\UserManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,8 +34,10 @@ class ResetPasswordController extends AbstractController
     public function reset(
         Request $request,
         EntityManagerInterface $entityManager,
-        \Swift_Mailer $mailer
-    ) {
+        \Swift_Mailer $mailer,
+        UserManager $userManager
+    )
+    {
         $form = $this->createForm(PasswordRequestType::class);
         $form->handleRequest($request);
 
@@ -45,7 +48,7 @@ class ResetPasswordController extends AbstractController
             if ($user instanceof User) {
                 $token = bin2hex(random_bytes(32));
                 $user->setPasswordRequestToken($token);
-                $entityManager->flush();
+                $userManager->save($user, true, true);
                 // send your email with SwiftMailer or anything else here
                 $this->addFlash('success', 'Si l\'adresse email est correcte, vous allez recevoir un email');
 
@@ -95,8 +98,10 @@ class ResetPasswordController extends AbstractController
         EntityManagerInterface $entityManager,
         UserPasswordEncoderInterface $encoder,
         TokenStorageInterface $tokenStorage,
-        SessionInterface $session
-    ) {
+        SessionInterface $session,
+        UserManager $userManager
+    )
+    {
         $user = $entityManager->getRepository(User::class)->findOneBy(['passwordRequestToken' => $token]);
 
         if (!$token || !$user instanceof User) {
@@ -113,7 +118,7 @@ class ResetPasswordController extends AbstractController
             $password = $encoder->encodePassword($user, $plainPassword);
             $user->setPassword($password);
             $user->setPasswordRequestToken(null);
-            $entityManager->flush();
+            $userManager->save($user, true, true);
 
             $token = new UsernamePasswordToken($user, $password, 'main');
             $tokenStorage->setToken($token);

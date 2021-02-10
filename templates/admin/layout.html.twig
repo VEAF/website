@@ -65,7 +65,7 @@
         <li class="nav-item{% if section == "dcs" and subSection == "player" %} active{% endif %}">
             <a class="nav-link" href="{{ path("admin_dcs_player_list") }}">
                 <i class="fas fa-users fa-chart-area"></i>
-                <span>Joueurs DCS</span>
+                <span>Joueurs</span>
             </a>
         </li>
 
@@ -343,7 +343,7 @@
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ app.user.nickname }}</span>
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small"><i class="fa fa-user"></i> {{ app.user.nickname }}</span>
                         </a>
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"

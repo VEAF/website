@@ -33,45 +33,44 @@
     {% block header %}
     {% endblock header %}
 
-    {% block pageContent %}
-    {% endblock pageContent %}
+    <div id="main">
+        {% block pageContent %}
+        {% endblock pageContent %}
+    </div>
 
     {% block footer %}
-    {% endblock footer %}
-
-    {% block javascript %}
-    <script>
-    {% for message in app.flashes('success') %}
-        $.notify("{{ message|escape('js') }}", "success");
-    {% endfor %}
-    {% for message in app.flashes('warning') %}
-        $.notify("{{ message|escape('js') }}", "warn");
-    {% endfor %}
-    {% for message in app.flashes('error') %}
-        $.notify("{{ message|escape('js') }}", "error");
-    {% endfor %}
-    $(document).ready(function () {
-        {% if libKilikTable is defined and libKilikTable == true %}
-        var loadKiliktables = function () {
-            var $kilikTables = $("[data-kiliktable-id]");
-            if ($kilikTables && $kilikTables.length > 0) {
-                $kilikTables.each(function (index, currentTable) {
-                    var $currentTable = $(currentTable);
-                    var id = $currentTable.data("kiliktable-id");
-                    if (id.length > 0) {
-                            console.log(id);
-                        var path = $currentTable.data("kiliktable-path");
-                        var options = $currentTable.html();
-                        new KilikTableFA(id, path, JSON.parse(options)).init();
-                    }
-                });
-            }
+    {% endblock footer %} {% block javascript %}
+<script>
+{% for message in app.flashes('success') %}
+    $.notify("{{ message|escape('js') }}", "success");
+{% endfor %}
+{% for message in app.flashes('warning') %}
+    $.notify("{{ message|escape('js') }}", "warn");
+{% endfor %}
+{% for message in app.flashes('error') %}
+    $.notify("{{ message|escape('js') }}", "error");
+{% endfor %}
+$(document).ready(function () {
+    {% if libKilikTable is defined and libKilikTable == true %}
+    var loadKiliktables = function () {
+        var $kilikTables = $("[data-kiliktable-id]");
+        if ($kilikTables && $kilikTables.length > 0) {
+            $kilikTables.each(function (index, currentTable) {
+                var $currentTable = $(currentTable);
+                var id = $currentTable.data("kiliktable-id");
+                if (id.length > 0) {
+                        console.log(id);
+                    var path = $currentTable.data("kiliktable-path");
+                    var options = $currentTable.html();
+                    new KilikTableFA(id, path, JSON.parse(options)).init();
+                }
+            });
         }
-        loadKiliktables();
-        {% endif %}
-    });
+    }
+    loadKiliktables();
+    {% endif %}
+});
 </script>
-{% endblock %}
-{% endblock body %}
+{% endblock %} {% endblock body %}
 </body>
 </html>

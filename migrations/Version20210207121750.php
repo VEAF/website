@@ -41,6 +41,7 @@ final class Version20210207121750 extends AbstractMigration
         $this->addSql('ALTER TABLE pe_OnlinePlayers ADD CONSTRAINT FK_676CFD2FB0467609 FOREIGN KEY (pe_OnlinePlayers_id) REFERENCES pe_DataPlayers (pe_DataPlayers_id)');
         $this->addSql('ALTER TABLE pe_OnlinePlayers ADD CONSTRAINT FK_676CFD2FC31A124 FOREIGN KEY (pe_OnlinePlayers_instance) REFERENCES pe_OnlineStatus (pe_OnlineStatus_instance)');
         $this->addSql('ALTER TABLE user ADD CONSTRAINT FK_8D93D64999E6F5DF FOREIGN KEY (player_id) REFERENCES pe_DataPlayers (pe_DataPlayers_id)');
+        $this->addSql('CREATE TABLE pe_LogEvent (pe_LogEvent_id BIGINT AUTO_INCREMENT NOT NULL, pe_LogEvent_datetime DATETIME DEFAULT CURRENT_TIMESTAMP, pe_LogEvent_missionhash_id BIGINT DEFAULT NULL, pe_LogEvent_type VARCHAR(100) CHARACTER SET utf8 NOT NULL COLLATE `utf8_general_ci`, pe_LogEvent_content TEXT CHARACTER SET utf8 NOT NULL COLLATE `utf8_general_ci`, pe_LogEvent_arg1 VARCHAR(150) CHARACTER SET utf8 DEFAULT NULL COLLATE `utf8_general_ci`, pe_LogEvent_arg2 VARCHAR(150) CHARACTER SET utf8 DEFAULT NULL COLLATE `utf8_general_ci`, pe_LogEvent_argPlayers VARCHAR(150) CHARACTER SET utf8 DEFAULT NULL COLLATE `utf8_general_ci`, INDEX pe_LogEvent_datetime (pe_LogEvent_datetime), INDEX pe_LogEvent_type_2 (pe_LogEvent_type), INDEX pe_LogEvent_missionhash_id (pe_LogEvent_missionhash_id), PRIMARY KEY(pe_LogEvent_id)) DEFAULT CHARACTER SET utf8 COLLATE `utf8_unicode_ci` ENGINE = InnoDB COMMENT = \'\' ');
     }
 
     public function down(Schema $schema) : void

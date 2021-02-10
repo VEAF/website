@@ -16,11 +16,10 @@
 
                             {% if app.user %}
                                 <div class="mb-3">
-                                    You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                                    Vous êtes déjà connecté en tant que {{ app.user.username }}, <a href="{{ path('app_logout') }}">me déconnecter</a>
                                 </div>
                             {% endif %}
 
-                            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
                             <div class="form-group">
                                 <label for="inputEmail">Email</label>
                                 <input type="email" value="{{ last_username }}" name="email" id="inputEmail"
@@ -28,7 +27,7 @@
                                        required autofocus>
                             </div>
                             <div class="form-group">
-                                <label for="inputPassword">Password</label>
+                                <label for="inputPassword">Mot de passe</label>
                                 <input type="password" name="password" id="inputPassword" class="form-control" required>
                             </div>
 

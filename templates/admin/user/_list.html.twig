@@ -15,7 +15,7 @@
 {% endblock tableHeadStdFilters %}
 {% block tableBodyStdColumns %}
     <td>
-        <a href="#todo"><span class="fa fa-eye"></span></a>
+        <a href="{{ path('admin_user_view', {'user': row.object.id}) }}"><span class="fa fa-eye"></span></a>
     </td>
     {{ parent() }}
 {% endblock tableBodyStdColumns %}

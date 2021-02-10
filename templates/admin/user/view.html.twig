@@ -1,0 +1,110 @@
+{% extends 'admin/layout.html.twig' %}
+{% set libKilikTable=true %}
+{% set section="admin" %}
+{% set subSection="user" %}
+
+{% block pageContent %}
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="bs-component">
+                <div class="card mb-3">
+                    <h3 class="card-header">Consulter l'utilisateur</h3>
+                    <div class="card-body">
+                        <table class="table">
+                            <tr>
+                                <td>
+                                    Email:
+                                </td>
+                                <td>
+                                    {{ user.email }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Pseudo:
+                                </td>
+                                <td>
+                                    {{ user.nickname }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    DCS:
+                                </td>
+                                <td>
+                                    {% if user.simDcs %}
+                                        <i class="fa fa-check-circle text-success"></i>
+                                        {% if user.player is not null %}
+                                            {# @todo add link to DCS player #}
+                                            <a href="#" class="btn btn-link disabled">détails</a>
+                                        {% endif %}
+                                    {% else %}
+                                        <i class="fa fa-times-circle text-light"></i>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    BMS:
+                                </td>
+                                <td>
+                                    {% if user.simBms %}
+                                        <i class="fa fa-check-circle text-success"></i>
+                                    {% else %}
+                                        <i class="fa fa-times-circle text-light"></i>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Statut:
+                                </td>
+                                <td>
+                                    {% if user.office %}
+                                        <div class="text-danger">{{ user.statusAsString }}</div>
+                                    {% elseif user.member %}
+                                        <div class="text-success">{{ user.statusAsString }}</div>
+                                    {% else %}
+                                        {{ user.statusAsString }}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Créé:
+                                </td>
+                                <td>
+                                    <div data-toggle="tooltip" data-placement="top"
+                                         title="{{ user.createdAt | date('d/m/Y H:i:s') }}">
+                                        {{ user.createdAt | ago }}
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Modifié:
+                                </td>
+                                <td>
+                                    <div data-toggle="tooltip" data-placement="top"
+                                         title="{{ user.updatedAt | date('d/m/Y H:i:s') }}">
+                                        {{ user.updatedAt | ago }}
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <a href="{{ path('admin_user_list') }}" class="btn btn-primary form-control"><i
+                                            class="fa fa-arrow-left"></i> Retour liste</a>
+                            </div>
+                            <div class="col-sm-6">
+                                <a href="{{ path('admin_user_edit', {'user': user.id}) }}"
+                                   class="btn btn-outline-warning form-control"><i class="fa fa-edit"></i> Modifier</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock pageContent %}

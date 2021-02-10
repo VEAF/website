@@ -10,6 +10,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * @ORM\Table(uniqueConstraints={
+ *     @ORM\UniqueConstraint(name="email_idx", columns={"email"}),
+ *     @ORM\UniqueConstraint(name="nickname_idx", columns={"nickname"})
+ * })
+ *
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @UniqueEntity("email")
  * @UniqueEntity("nickname")
@@ -46,6 +51,23 @@ class User implements UserInterface
         self::STATUS_TREASURER,
         self::STATUS_PRESIDENT_DEPUTY,
         self::STATUS_PRESIDENT,
+    ];
+
+    const STATUSES_OFFICE = [
+        self::STATUS_SECRETARY_DEPUTY,
+        self::STATUS_SECRETARY,
+        self::STATUS_TREASURER_DEPUTY,
+        self::STATUS_TREASURER,
+        self::STATUS_PRESIDENT_DEPUTY,
+        self::STATUS_PRESIDENT,
+    ];
+
+    const ROLE_USER = 'user';
+    const ROLE_ADMIN = 'admin';
+
+    const ROLES = [
+        self::ROLE_USER,
+        self::ROLE_ADMIN,
     ];
 
     /**
@@ -301,7 +323,7 @@ class User implements UserInterface
 
     public function getStatusAsString(): string
     {
-        $statuses=self::STATUSES;
+        $statuses = self::STATUSES;
         if (isset($statuses[$this->status])) {
             return $statuses[$this->status];
         }
@@ -318,5 +340,10 @@ class User implements UserInterface
     public function isMember(): ?bool
     {
         return in_array($this->status, self::STATUSES_MEMBER);
+    }
+
+    public function isOffice(): ?bool
+    {
+        return in_array($this->status, self::STATUSES_OFFICE);
     }
 }
