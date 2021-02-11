@@ -3,11 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Module;
-use App\Entity\User;
 use App\Form\ModuleType;
-use App\Form\UserType;
 use App\Manager\ModuleManager;
-use App\Manager\UserManager;
 use Kilik\TableBundle\Components\Column;
 use Kilik\TableBundle\Components\Filter;
 use Kilik\TableBundle\Components\FilterSelect;
@@ -38,7 +35,7 @@ class ModuleController extends AbstractController
 
         $table
             ->addColumn(
-                (new Column())->setLabel('Statut')
+                (new Column())->setLabel('Type')
                     ->setSort(['m.type' => 'asc'])
                     ->setFilter((new FilterSelect())
                         ->setField('m.type')
@@ -74,7 +71,6 @@ class ModuleController extends AbstractController
                         ->setName('m_name')
                     )
             );
-
 
         return $table;
     }

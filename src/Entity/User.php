@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Perun\Entity\Player;
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -43,6 +45,18 @@ class User implements UserInterface
         self::STATUS_PRESIDENT => 'président',
     ];
 
+    const STATUSES_ALL = [
+        self::STATUS_GUEST,
+        self::STATUS_CADET,
+        self::STATUS_MEMBER,
+        self::STATUS_SECRETARY_DEPUTY,
+        self::STATUS_SECRETARY,
+        self::STATUS_TREASURER_DEPUTY,
+        self::STATUS_TREASURER,
+        self::STATUS_PRESIDENT_DEPUTY,
+        self::STATUS_PRESIDENT,
+    ];
+
     const STATUSES_MEMBER = [
         self::STATUS_MEMBER,
         self::STATUS_SECRETARY_DEPUTY,
@@ -60,6 +74,18 @@ class User implements UserInterface
         self::STATUS_TREASURER,
         self::STATUS_PRESIDENT_DEPUTY,
         self::STATUS_PRESIDENT,
+    ];
+
+    const GROUP_ALL = 'all';
+    const GROUP_CADETS = 'cadets';
+    const GROUP_MEMBERS = 'members';
+    const GROUP_OFFICE = 'office';
+
+    const GROUPS = [
+        self::GROUP_ALL => 'Tout le monde',
+        self::GROUP_CADETS => 'Cadets',
+        self::GROUP_MEMBERS => 'Membres',
+        self::GROUP_OFFICE => 'Bureau',
     ];
 
     const ROLE_USER = 'user';
@@ -137,6 +163,18 @@ class User implements UserInterface
      * @ORM\Column(type="integer", nullable=true)
      */
     private int $status = self::STATUS_GUEST;
+
+    /**
+     * @var UserModule[]|ArrayCollection|array
+     *
+     * @ORM\OneToMany(targetEntity=UserModule::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $modules;
+
+    public function __construct()
+    {
+        $this->modules = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -318,9 +356,8 @@ class User implements UserInterface
 
     public function getStatusAsString(): string
     {
-        $statuses = self::STATUSES;
-        if (isset($statuses[$this->status])) {
-            return $statuses[$this->status];
+        if (isset(self::STATUSES[$this->status])) {
+            return self::STATUSES[$this->status];
         }
 
         return 'inconnu';
@@ -341,5 +378,53 @@ class User implements UserInterface
     public function isOffice(): ?bool
     {
         return in_array($this->status, self::STATUSES_OFFICE);
+    }
+
+    /**
+     * @return Collection|UserModule[]
+     */
+    public function getModules(): Collection
+    {
+        return $this->modules;
+    }
+
+    public function addModule(UserModule $module): self
+    {
+        if (!$this->modules->contains($module)) {
+            $this->modules[] = $module;
+            $module->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeModule(UserModule $module): self
+    {
+        if ($this->modules->removeElement($module)) {
+            // set the owning side to null (unless already changed)
+            if ($module->getUser() === $this) {
+                $module->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public static function getGroupStatuses(string $group)
+    {
+        switch ($group) {
+            case self::GROUP_ALL:
+                return self::STATUSES_ALL;
+            case self::GROUP_CADETS:
+                return [self::STATUS_CADET];
+            case self::GROUP_MEMBERS:
+                return self::STATUSES_MEMBER;
+            case self::GROUP_OFFICE:
+                return self::STATUSES_OFFICE;
+            default:
+                if (!isset(self::GROUPS[$group])) {
+                    throw new \InvalidArgumentException(sprintf('unknown group %s', $group));
+                }
+        }
     }
 }
