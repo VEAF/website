@@ -1,0 +1,54 @@
+{% extends 'admin/layout.html.twig' %}
+{% set libKilikTable=true %}
+{% set section="admin" %}
+{% set subSection="module" %}
+
+{% block pageContent %}
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="bs-component">
+                <div class="card mb-3">
+                    <h3 class="card-header">Consulter le module</h3>
+                    <div class="card-body">
+                        <table class="table">
+                            <tr>
+                                <td>
+                                    Module:
+                                </td>
+                                <td>
+                                    {{ module.name }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Code:
+                                </td>
+                                <td>
+                                    {{ module.code }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Type:
+                                </td>
+                                <td>
+                                    {{ module.typeAsString }}
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <a href="{{ path('admin_module_list') }}" class="btn btn-primary form-control"><i
+                                            class="fa fa-arrow-left"></i> Retour liste</a>
+                            </div>
+                            <div class="col-sm-6">
+                                <a href="{{ path('admin_module_edit', {'module': module.id}) }}"
+                                   class="btn btn-outline-warning form-control"><i class="fa fa-edit"></i> Modifier</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock pageContent %}

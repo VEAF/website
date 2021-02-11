@@ -1,24 +1,31 @@
 {% extends 'admin/layout.html.twig' %}
 {% set libKilikTable=true %}
 {% set section="admin" %}
-{% set subSection="user" %}
+{% set subSection="module" %}
 
 {% block pageContent %}
     <div class="row mb-4">
         <div class="col-md-6">
             <div class="bs-component">
                 <div class="card mb-3">
-                    <h3 class="card-header">Modifier l'utilisateur</h3>
+                    <h3 class="card-header">{% if module is defined %}Modifier le module{% else %}Ajouter un module{% endif %}</h3>
                     <div class="card-body">
                         {{ form_start(form) }}
                         {{ form_rest(form) }}
                         {{ form_errors(form) }}
                         <div class="row">
                             <div class="col-sm-6">
-                                <a href="{{ path('admin_user_view', {'user': user.id}) }}"
-                                   class="btn btn-lg btn-primary form-control">
-                                    <i class="fa fa-arrow-circle-left"></i> Annuler
-                                </a>
+                                {% if module is defined %}
+                                    <a href="{{ path('admin_module_view', {'module': module.id}) }}"
+                                       class="btn btn-lg btn-primary form-control">
+                                        <i class="fa fa-arrow-circle-left"></i> Annuler
+                                    </a>
+                                {% else %}
+                                    <a href="{{ path('admin_module_list') }}"
+                                       class="btn btn-lg btn-primary form-control">
+                                        <i class="fa fa-arrow-circle-left"></i> Annuler
+                                    </a>
+                                {% endif %}
                             </div>
                             <div class="col-sm-6">
                                 <button class="btn btn-lg btn-danger form-control " type="submit">

@@ -65,7 +65,7 @@ class UserController extends AbstractController
                         ->disableTranslation() // disable translations of placeholder and values
                     )
                     ->setDisplayCallback(function ($value, $row, $lines) {
-                        /** @var User $row */
+                        /** @var User $user */
                         $user = $row['object'];
 
                         return $user->getStatusAsString();

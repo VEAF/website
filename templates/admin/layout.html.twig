@@ -58,7 +58,7 @@
                 <span>Utilisateurs</span>
             </a>
         </li>
-
+        <hr class="sidebar-divider">
         <div class="sidebar-heading">
             DCS
         </div>
@@ -66,6 +66,12 @@
             <a class="nav-link" href="{{ path("admin_dcs_player_list") }}">
                 <i class="fas fa-users fa-chart-area"></i>
                 <span>Joueurs</span>
+            </a>
+        </li>
+        <li class="nav-item{% if section == "dcs" and subSection == "module" %} active{% endif %}">
+            <a class="nav-link" href="{{ path("admin_module_list") }}">
+                <i class="fas fa-cubes fa-chart-area"></i>
+                <span>Modules</span>
             </a>
         </li>
 
