@@ -67,6 +67,7 @@ class UserController extends AbstractController
                     ->setDisplayCallback(function ($value, $row, $lines) {
                         /** @var User $row */
                         $user = $row['object'];
+
                         return $user->getStatusAsString();
                     })
             );
@@ -163,5 +164,4 @@ class UserController extends AbstractController
             'user' => $user,
         ]);
     }
-
 }

@@ -18,6 +18,5 @@ class PasswordRequestType extends AbstractType
             'constraints' => new Recaptcha3(['message' => 'Erreur lors de la vérification anti-bot: {{ errorCodes }}']),
             'action_name' => 'homepage',
         ]);
-
     }
 }
