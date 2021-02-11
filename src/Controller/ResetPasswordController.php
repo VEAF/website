@@ -36,8 +36,7 @@ class ResetPasswordController extends AbstractController
         EntityManagerInterface $entityManager,
         \Swift_Mailer $mailer,
         UserManager $userManager
-    )
-    {
+    ) {
         $form = $this->createForm(PasswordRequestType::class);
         $form->handleRequest($request);
 
@@ -100,8 +99,7 @@ class ResetPasswordController extends AbstractController
         TokenStorageInterface $tokenStorage,
         SessionInterface $session,
         UserManager $userManager
-    )
-    {
+    ) {
         $user = $entityManager->getRepository(User::class)->findOneBy(['passwordRequestToken' => $token]);
 
         if (!$token || !$user instanceof User) {

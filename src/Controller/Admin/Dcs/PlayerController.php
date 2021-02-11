@@ -2,7 +2,6 @@
 
 namespace App\Controller\Admin\Dcs;
 
-use App\Entity\User;
 use App\Perun\Entity\Player;
 use Kilik\TableBundle\Components\Column;
 use Kilik\TableBundle\Components\Filter;

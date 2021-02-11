@@ -94,14 +94,9 @@ class User implements UserInterface
      */
     private ?string $password;
 
-    /**
-     * @var string|null
-     */
     protected ?string $plainPassword;
 
     /**
-     * @var string|null
-     *
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected ?string $passwordRequestToken;
@@ -167,7 +162,7 @@ class User implements UserInterface
      */
     public function getUsername(): string
     {
-        return (string)$this->email;
+        return (string) $this->email;
     }
 
     /**
@@ -194,7 +189,7 @@ class User implements UserInterface
      */
     public function getPassword(): string
     {
-        return (string)$this->password;
+        return (string) $this->password;
     }
 
     public function setPassword(string $password): self
@@ -327,6 +322,7 @@ class User implements UserInterface
         if (isset($statuses[$this->status])) {
             return $statuses[$this->status];
         }
+
         return 'inconnu';
     }
 

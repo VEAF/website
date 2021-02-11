@@ -1,0 +1,49 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ parent() }}: simulation de vol de combat - Falcon 4 - Black Shark - ROF - Accueil{% endblock %}
+
+{% block pageContent %}
+    <div class="container container-main pt-3 pb-3 mb-3">
+        <h1>Le Bureau de l'association</h1>
+        <p>
+            La VEAF est une association française à but non lucratif - loi 1901.<br/>
+            <br/>
+            Elle dispose ainsi d'un cadre juridique pour encadrer la mise à disposition de moyens techniques afin de promouvoir des activités de loisir liées à la simulation de combat aérien.
+        </p>
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <div class="card bg-primary mb-3" style="max-width: 20rem;">
+                    <div class="card-header text-center">Présidence<br/><i class="fa fa-dollar-sign fa-4x"></i></div>
+                    <div class="card-body">
+                        <h4 class="card-title">Président</h4>
+                        <p class="card-text">{% if president is not null %}{{ president.nickname }}{% else %}-{% endif %}</p>
+                        <h4 class="card-title text-right">Adjoint</h4>
+                        <p class="card-text text-right">{% if presidentDeputy is not null %}{{ presidentDeputy.nickname }}{% else %}-{% endif %}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card bg-light mb-3" style="max-width: 20rem;">
+                    <div class="card-header text-center">Trésorerie<br/><i class="fa fa-dollar-sign fa-4x"></i></div>
+                    <div class="card-body">
+                        <h4 class="card-title">Trésorier</h4>
+                        <p class="card-text">{% if treasurer is not null %}{{ treasurer.nickname }}{% else %}-{% endif %}</p>
+                        <h4 class="card-title text-right">Adjoint</h4>
+                        <p class="card-text text-right">{% if treasurerDeputy is not null %}{{ treasurerDeputy.nickname }}{% else %}-{% endif %}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card bg-primary mb-3" style="max-width: 20rem;">
+                    <div class="card-header text-center">Secrétariat<br/><i class="fa fa-pen-alt fa-4x"></i></div>
+                    <div class="card-body">
+                        <h4 class="card-title">Secrétaire</h4>
+                        <p class="card-text">{% if secretary is not null %}{{ secretary.nickname }}{% else %}-{% endif %}</p>
+                        <h4 class="card-title text-right">Adjoint</h4>
+                        <p class="card-text text-right">{% if secretaryDeputy is not null %}{{ secretaryDeputy.nickname }}{% else %}-{% endif %}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock pageContent %}
