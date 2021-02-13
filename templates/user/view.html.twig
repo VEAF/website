@@ -1,0 +1,55 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ parent() }} - Profil de {{ user.nickname }}{% endblock %}
+
+{% block pageContent %}
+    <div class="container container-main pt-3 pb-3 mb-3">
+        <h1>
+            Profil de {{ user.nickname }}
+            {% if app.user is not null and user == app.user %}
+                <div class="float-right">
+                    <a href="{{ path('profile') }}" class="btn btn-link" title="Modifier mon profil">
+                        <i class="fa fa-edit fa-2x"></i>
+                    </a>
+                </div>
+            {% endif %}
+        </h1>
+    </div>
+    <div class="container container-main pt-3 pb-3 mb-3">
+        <h1>Modules</h1>
+
+        {% for moduleTypeKey,moduleType in moduleTypes %}
+            {% if attribute(userModulesTypes,moduleTypeKey) is defined %}
+                {% set userModules=attribute(userModulesTypes,moduleTypeKey) %}
+                <hr/>
+                <h2>{{ moduleType }}
+                    <div class="float-right">
+                        <span class="badge badge-primary badge-pill"
+                              title="Nombre de modules en sa possession">{{ userModules|length }}</span>
+                    </div>
+                </h2>
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th>
+                            Module
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for userModule in userModules %}
+                        <tr>
+                            <td>
+                                {{ userModule.module.name }}
+                                <div class="float-right">
+                                    {% include 'roster/_user_module.html.twig' with {'userModule': userModule} %}
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock pageContent %}

@@ -46,6 +46,8 @@ class UserModuleRepository extends ServiceEntityRepository
                      ->leftJoin('user_module.module', 'module')
                      ->andWhere('user_module.user = :user')
                      ->setParameter('user', $user)
+                     ->addOrderBy('module.type','asc')
+                     ->addOrderBy('module.name','asc')
                      ->getQuery()
                      ->getResult() as $userModule) {
             $userModules[$userModule->getModule()->getId()] = $userModule;
@@ -53,4 +55,23 @@ class UserModuleRepository extends ServiceEntityRepository
 
         return $userModules;
     }
+
+    /**
+     * @return UserModule[] indexed by module type and module reference
+     */
+    public function findByUserIndexedByTypeAndModule(User $user)
+    {
+        $modules=[];
+
+        foreach($this->findByUserIndexedByModule($user) as $userModule) {
+            $type=$userModule->getModule()->getType();
+            if(!isset($modules[$type])) {
+                $modules[$type]=[];
+            }
+            $modules[$type][]=$userModule;
+        }
+
+        return $modules;
+    }
+
 }
