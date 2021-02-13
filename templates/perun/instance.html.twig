@@ -30,7 +30,19 @@
                             {% if onlinePlayer.player is null %}
                                 n/a
                             {% else %}
-                                {{ onlinePlayer.player.lastName }}
+                                {% if onlinePlayer.player.user is not null %}
+                                    {% if onlinePlayer.player.user.member %}
+                                        <i class="fa fa-user text-success" title="Membre"></i>
+                                    {% elseif onlinePlayer.player.user.status == constant('\\App\\Entity\\UserModule::LEVEL_CADET') %}
+                                        <i class="fa fa-book-reader text-success" title="Cadet"></i>
+                                    {% else %}
+                                        <i class="fa fa-user text-primary" title="Invité"></i>
+                                    {% endif %}
+                                    <a href="{{ path('user_view', {'user': onlinePlayer.player.user.nickname}) }}">{{ onlinePlayer.player.user.nickname }}</a>
+                                {% else %}
+                                    <i class="fa fa-user-secret text-secondary" title="Inconnu - non enregistré sur le site"></i>
+                                    {{ onlinePlayer.player.lastName }}
+                                {% endif %}
                             {% endif %}
                         </td>
                         <td>
