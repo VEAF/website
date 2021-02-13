@@ -147,17 +147,14 @@ internal_update:
 	$(COMPOSE_PHP_CMD) composer install
 	$(COMPOSE_PHP_CMD) ./bin/console doctrine:migrations:migrate -n
 
-## Load fixtures (with migrations)
-fixtures:
-	$(COMPOSE_PHP_CMD) ./bin/console doctrine:database:drop --force
-	$(COMPOSE_PHP_CMD) ./bin/console doctrine:database:create
-	$(COMPOSE_PHP_CMD) ./bin/console doctrine:migrations:migrate -n
-	$(COMPOSE_PHP_CMD) ./bin/console hautelook:fixtures:load --env=test -n
-
 ## Load fixtures (without migrations)
-fixtures-no-migrations:
-	$(COMPOSE_PHP_CMD) ./bin/console doctrine:database:drop --force
-	$(COMPOSE_PHP_CMD) ./bin/console doctrine:database:create
-	$(COMPOSE_PHP_CMD) ./bin/console doctrine:schema:update --force
-	$(COMPOSE_PHP_CMD) ./bin/console hautelook:fixtures:load --env=test -n
+fixtures:
+	$(COMPOSE_PHP_CMD) ./scripts/dev/fixtures.sh
 
+## Load fixtures (with migrations)
+fixtures-with-migrations:
+	$(COMPOSE_PHP_CMD) ./scripts/dev/fixtures.sh --with-migrations
+
+## Prepare database to generate migration
+prepare-migration:
+	$(COMPOSE_PHP_CMD) ./scripts/dev/fixtures.sh --with-migrations --without-fixtures
