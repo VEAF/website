@@ -71,7 +71,7 @@
                             {% for pilot in pilots %}
                                 <tr>
                                     <td>
-                                        {{ pilot.nickname }}
+                                        <a href="{{ path('user_view', {'user': pilot.nickname}) }}">{{ pilot.nickname }}</a>
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -98,27 +98,9 @@
                             {% for pilot_module in pilots_modules %}
                                 <tr class="{% if pilot_module.user == app.user %}table-primary{% endif %}">
                                     <td>
-                                        {{ pilot_module.user.nickname }}
+                                        <a href="{{ path('user_view', {'user': pilot_module.user.nickname}) }}">{{ pilot_module.user.nickname }}</a>
                                         <div class="float-right">
-                                            {% if pilot_module.active %}
-                                                <i class="fa fa-plane fa-2x text-success mr-3"
-                                                   title="Vole dessus en ce moment"></i>
-                                            {% else %}
-                                                <i class="fa fa-warehouse fa-2x text-secondary mr-3"
-                                                   title="Laisse ce module au hangar en ce moment"></i>
-                                            {% endif %}
-                                            {% if module.withLevel %}
-                                                {% if pilot_module.level == constant('\App\\Entity\\UserModule::LEVEL_INSTRUCTOR') %}
-                                                    <i class="fa fa-user-tie fa-2x text-success mr-3"
-                                                       title="Instructeur"></i>
-                                                {% elseif pilot_module.level == constant('\App\\Entity\\UserModule::LEVEL_MISSION') %}
-                                                    <i class="fa fa-shield-alt fa-2x text-success mr-3"
-                                                       title="Mission"></i>
-                                                {% else %}
-                                                    <i class="fa fa-book-reader fa-2x text-secondary mr-3"
-                                                       title="Cadet"></i>
-                                                {% endif %}
-                                            {% endif %}
+                                            {% include 'roster/_user_module.html.twig' with {'userModule': pilot_module} %}
                                         </div>
                                     </td>
                                 </tr>

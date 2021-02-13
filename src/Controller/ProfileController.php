@@ -11,8 +11,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
 /**
+ * Protected with security firewall
  * @Route("/profile")
- * @IsGranted("ROLE_USER")
  */
 class ProfileController extends AbstractController
 {
