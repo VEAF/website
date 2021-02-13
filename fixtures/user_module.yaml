@@ -1,0 +1,36 @@
+App\Entity\UserModule:
+  usermodule_mitch_a10c:
+    user: '@user_mitch'
+    module: '@module_a10c'
+    active: true
+    level: <(App\Entity\UserModule::LEVEL_INSTRUCTOR)>
+
+  usermodule_mitch_caucasus:
+    user: '@user_mitch'
+    module: '@module_caucasus'
+    active: true
+    level: <(App\Entity\UserModule::LEVEL_INSTRUCTOR)>
+
+  usermodule_mitch_nevada:
+    user: '@user_mitch'
+    module: '@module_nevada'
+    active: true
+    level: <(App\Entity\UserModule::LEVEL_INSTRUCTOR)>
+
+  usermodule_zip_a10c:
+    user: '@user_zip'
+    module: '@module_a10c'
+    active: true
+    level: <(App\Entity\UserModule::LEVEL_INSTRUCTOR)>
+
+  usermodule_zip_caucasus:
+    user: '@user_zip'
+    module: '@module_caucasus'
+    active: true
+    level: <(App\Entity\UserModule::LEVEL_INSTRUCTOR)>
+
+  usermodule_dcs_{1..20}:
+    user: '@user_dcs_*'
+    module: '@module_*'
+    active: true
+    level: <randomElement(<(App\Entity\UserModule::LEVEL_KEYS)>)>

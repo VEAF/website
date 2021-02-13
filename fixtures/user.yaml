@@ -181,14 +181,38 @@ App\Entity\User:
     simDcs: true
     status: <(App\Entity\User::STATUS_MEMBER)>
 
-  user_bms{1..5}:
-    email: "<email()>"
+  user_bms_{1..5}:
+    email (unique): "<email()>"
     # test1234
     password: '\$2y\$10\$rXysKOG/6HEW9acoV3gISuaxQ6yX5K6aN/.ogx3lQtdsD8R6.E3Ry'
     roles: [ROLE_USER]
-    nickname: '<firstName()>'
+    nickname (unique): '<firstName()>'
     createdAt: "<dateTimeBetween('-1 month', 'now')>"
     updatedAt: "<dateTimeBetween('-1 month', 'now')>"
     simBms: true
     simDcs: false
     status: <(App\Entity\User::STATUS_MEMBER)>
+
+  user_dcs_{1..20}:
+    email (unique): "a<email()>"
+    # test1234
+    password: '\$2y\$10\$rXysKOG/6HEW9acoV3gISuaxQ6yX5K6aN/.ogx3lQtdsD8R6.E3Ry'
+    roles: [ROLE_USER]
+    nickname (unique): '<firstName()>'
+    createdAt: "<dateTimeBetween('-1 month', 'now')>"
+    updatedAt: "<dateTimeBetween('-1 month', 'now')>"
+    simBms: false
+    simDcs: true
+    status: <(App\Entity\User::STATUS_MEMBER)>
+
+  user_dcs_{21..30}:
+    email (unique): "b<email()>"
+    # test1234
+    password: '\$2y\$10\$rXysKOG/6HEW9acoV3gISuaxQ6yX5K6aN/.ogx3lQtdsD8R6.E3Ry'
+    roles: [ROLE_USER]
+    nickname (unique): '<firstName()>'
+    createdAt: "<dateTimeBetween('-1 month', 'now')>"
+    updatedAt: "<dateTimeBetween('-1 month', 'now')>"
+    simBms: false
+    simDcs: true
+    status: <(App\Entity\User::STATUS_CADET)>

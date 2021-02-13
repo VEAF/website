@@ -3,8 +3,11 @@
 namespace App\Entity;
 
 use App\Repository\ModuleRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -31,29 +34,48 @@ class Module
         self::TYPE_SPECIAL => 'Spécial',
     ];
 
+    const TYPES_WITH_LEVEL = [
+        self::TYPE_AIRCRAFT,
+        self::TYPE_HELICOPTER,
+    ];
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"id", "module"})
      */
     private ?int $id;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"module"})
      */
     private int $type;
 
     /**
      * @ORM\Column(type="string", length=64)
      * @Assert\Length(min=3)
+     * @Groups({"module"})
      */
     private ?string $name;
 
     /**
      * @ORM\Column(type="string", length=16)
      * @Assert\Length(min=3)
+     * @Groups({"module"})
      */
     private ?string $code;
+
+    /**
+     * @ORM\OneToMany(targetEntity=UserModule::class, mappedBy="module", orphanRemoval=true)
+     */
+    private $users;
+
+    public function __construct()
+    {
+        $this->users = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -107,5 +129,40 @@ class Module
         }
 
         return 'inconnu';
+    }
+
+    /**
+     * @return Collection|UserModule[]
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(UserModule $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->setModule($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(UserModule $user): self
+    {
+        if ($this->users->removeElement($user)) {
+            // set the owning side to null (unless already changed)
+            if ($user->getModule() === $this) {
+                $user->setModule(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function isWithLevel(): bool
+    {
+        return in_array($this->type, self::TYPES_WITH_LEVEL);
     }
 }

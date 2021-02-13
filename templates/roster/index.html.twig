@@ -1,0 +1,210 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ parent() }}: Roster des pilotes{% endblock %}
+
+{% block pageContent %}
+    <div class="container container-main pt-3 pb-3 mb-3">
+        <div class="btn-group btn-group-toggle">
+            {% for group,groupLabel in groups %}
+                {% set routeParams={'group': group} %}
+                {% if selectedMap is defined and selectedMap is not null %}
+                    {% set routeParams=routeParams|merge({'map': selectedMap.code}) %}
+                {% endif %}
+                {% if selectedAircraft is defined and selectedAircraft is not null %}
+                    {% set routeParams=routeParams|merge({'aircraft': selectedAircraft.code}) %}
+                {% endif %}
+                {% if selectedHelicopter is defined and selectedHelicopter is not null %}
+                    {% set routeParams=routeParams|merge({'helicopter': selectedHelicopter.code}) %}
+                {% endif %}
+                <a href="{{ path(app.request.get('_route'), routeParams) }}"
+                   class="btn {% if group == groupSelected %}btn-info{% else %}btn-primary{% endif %}">{{ groupLabel }}</a>
+            {% endfor %}
+        </div>
+        <div class="btn-group btn-group-toggle float-right">
+            <a href="{{ path('roster_pilots', {'group': groupSelected}) }}"
+               class="btn {% if tab == "pilots" %}btn-info{% else %}btn-primary{% endif %}">{{ tabs['pilots'] }}</a>
+            <a href="{{ path('roster_maps', {'group': groupSelected}) }}"
+               class="btn {% if tab == "maps" %}btn-info{% else %}btn-primary{% endif %}">{{ tabs['maps'] }}</a>
+            <a href="{{ path('roster_aircrafts', {'group': groupSelected}) }}"
+               class="btn {% if tab == "aircrafts" %}btn-info{% else %}btn-primary{% endif %}">{{ tabs['aircrafts'] }}</a>
+            <a href="{{ path('roster_helicopters', {'group': groupSelected}) }}"
+               class="btn {% if tab == "helicopters" %}btn-info{% else %}btn-primary{% endif %}">{{ tabs['helicopters'] }}</a>
+        </div>
+    </div>
+
+    {% if selectedMap is defined and selectedMap is not null %}
+        <div class="container container-main pt-3 pb-3 mb-3">
+            <div class="row">
+                <div class="col-md-12">
+                    {{ selectedMap.name }}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if selectedAircraft is defined and selectedAircraft is not null %}
+        <div class="container container-main pt-3 pb-3 mb-3">
+            <div class="row">
+                <div class="col-md-12">
+                    {{ selectedAircraft.name }}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if selectedHelicopter is defined and selectedHelicopter is not null %}
+        <div class="container container-main pt-3 pb-3 mb-3">
+            <div class="row">
+                <div class="col-md-12">
+                    {{ selectedHelicopter.name }}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if pilots is defined %}
+        <div class="container container-main pt-3 pb-3 mb-3">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            {% for pilot in pilots %}
+                                <tr>
+                                    <td>
+                                        {{ pilot.nickname }}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if pilots_modules is defined %}
+        <div class="container container-main pt-3 pb-3 mb-3">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>
+                                    Pilote
+                                </th>
+                                <th>
+                                    Actif <sup><i class="fa fa-question-circle"
+                                                  title="Envie d'utiliser le module en ce moment"></i></sup>
+                                </th>
+                                {% if module.withLevel %}
+                                    <th>
+                                        Niveau
+                                    </th>
+                                {% endif %}
+                            </tr>
+                            </thead>
+                            {% for pilot_module in pilots_modules %}
+                                <tr>
+                                    <td>
+                                        {{ pilot_module.user.nickname }}
+                                    </td>
+                                    <td>
+                                        {% if pilot_module.active %}
+                                            <i class="fa fa-check-circle fa-2x text-success"></i>
+                                        {% else %}
+                                            <i class="fa fa-times-circle fa-2x text-secondary"></i>
+                                        {% endif %}
+                                    </td>
+                                    {% if module.withLevel %}
+                                        <td>
+                                            {% if pilot_module.level == constant('\App\\Entity\\UserModule::LEVEL_CADET') %}
+                                                <i class="far fa-star fa-2x text-danger"></i>
+                                            {% elseif pilot_module.level == constant('\App\\Entity\\UserModule::LEVEL_MISSION') %}
+                                                {% for i in 0..1 %}
+                                                    <i class="far fa-star fa-2x text-success"></i>
+                                                {% endfor %}
+                                            {% elseif pilot_module.level == constant('\App\\Entity\\UserModule::LEVEL_INSTRUCTOR') %}
+                                                {% for i in 0..2 %}
+                                                    <i class="far fa-star fa-2x text-primary"></i>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </td>
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if maps is defined %}
+        <div class="container container-main pt-3 pb-3 mb-3">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            {% for map in maps %}
+                                <tr>
+                                    <td>
+                                        <a href="{{ path('roster_map', {'group': groupSelected, 'map': map.code}) }}"
+                                           class="">{{ map.name }}</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if aircrafts is defined %}
+        <div class="container container-main pt-3 pb-3 mb-3">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            {% for aircraft in aircrafts %}
+                                <tr>
+                                    <td>
+                                        <a href="{{ path('roster_aircraft', {'group': groupSelected, 'aircraft': aircraft.code}) }}"
+                                           class="">
+                                            {{ aircraft.name }}
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if helicopters is defined %}
+        <div class="container container-main pt-3 pb-3 mb-3">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            {% for helicopter in helicopters %}
+                                <tr>
+                                    <td>
+                                        <a href="{{ path('roster_helicopter', {'group': groupSelected, 'helicopter': helicopter.code}) }}"
+                                           class="">
+                                            {{ helicopter.name }}
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock pageContent %}
+
