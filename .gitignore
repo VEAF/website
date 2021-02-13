@@ -16,7 +16,7 @@
 ###< symfony/phpunit-bridge ###
 /.idea
 /docker-compose.yml
-
+/.fixtures
 
 ###> friendsofphp/php-cs-fixer ###
 /.php_cs
