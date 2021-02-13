@@ -87,50 +87,40 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="table-responsive">
-                        <table class="table table-bordered">
+                        <table class="table table-bordered table-striped table-hover">
                             <thead>
                             <tr>
                                 <th>
                                     Pilote
                                 </th>
-                                <th>
-                                    Actif <sup><i class="fa fa-question-circle"
-                                                  title="Envie d'utiliser le module en ce moment"></i></sup>
-                                </th>
-                                {% if module.withLevel %}
-                                    <th>
-                                        Niveau
-                                    </th>
-                                {% endif %}
                             </tr>
                             </thead>
                             {% for pilot_module in pilots_modules %}
-                                <tr>
+                                <tr class="{% if pilot_module.user == app.user %}table-primary{% endif %}">
                                     <td>
                                         {{ pilot_module.user.nickname }}
-                                    </td>
-                                    <td>
-                                        {% if pilot_module.active %}
-                                            <i class="fa fa-check-circle fa-2x text-success"></i>
-                                        {% else %}
-                                            <i class="fa fa-times-circle fa-2x text-secondary"></i>
-                                        {% endif %}
-                                    </td>
-                                    {% if module.withLevel %}
-                                        <td>
-                                            {% if pilot_module.level == constant('\App\\Entity\\UserModule::LEVEL_CADET') %}
-                                                <i class="far fa-star fa-2x text-danger"></i>
-                                            {% elseif pilot_module.level == constant('\App\\Entity\\UserModule::LEVEL_MISSION') %}
-                                                {% for i in 0..1 %}
-                                                    <i class="far fa-star fa-2x text-success"></i>
-                                                {% endfor %}
-                                            {% elseif pilot_module.level == constant('\App\\Entity\\UserModule::LEVEL_INSTRUCTOR') %}
-                                                {% for i in 0..2 %}
-                                                    <i class="far fa-star fa-2x text-primary"></i>
-                                                {% endfor %}
+                                        <div class="float-right">
+                                            {% if pilot_module.active %}
+                                                <i class="fa fa-plane fa-2x text-success mr-3"
+                                                   title="Vole dessus en ce moment"></i>
+                                            {% else %}
+                                                <i class="fa fa-warehouse fa-2x text-secondary mr-3"
+                                                   title="Laisse ce module au hangar en ce moment"></i>
                                             {% endif %}
-                                        </td>
-                                    {% endif %}
+                                            {% if module.withLevel %}
+                                                {% if pilot_module.level == constant('\App\\Entity\\UserModule::LEVEL_INSTRUCTOR') %}
+                                                    <i class="fa fa-user-tie fa-2x text-success mr-3"
+                                                       title="Instructeur"></i>
+                                                {% elseif pilot_module.level == constant('\App\\Entity\\UserModule::LEVEL_MISSION') %}
+                                                    <i class="fa fa-shield-alt fa-2x text-success mr-3"
+                                                       title="Mission"></i>
+                                                {% else %}
+                                                    <i class="fa fa-book-reader fa-2x text-secondary mr-3"
+                                                       title="Cadet"></i>
+                                                {% endif %}
+                                            {% endif %}
+                                        </div>
+                                    </td>
                                 </tr>
                             {% endfor %}
                         </table>

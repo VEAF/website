@@ -76,7 +76,7 @@ class RosterController extends AbstractController
             $data['pilots_modules'] = $this->getDoctrine()->getRepository(UserModule::class)->findByModuleAndUserStatus($map, User::getGroupStatuses($group));
             $data['module'] = $map;
         } else {
-            $data['maps'] = $this->getDoctrine()->getRepository(Module::class)->findByType(Module::TYPE_MAP);
+            $data['maps'] = $this->getDoctrine()->getRepository(Module::class)->findBy(['type' => Module::TYPE_MAP], ['name' => 'asc']);
         }
 
         return $this->render('roster/index.html.twig', $data);
@@ -104,7 +104,7 @@ class RosterController extends AbstractController
             $data['pilots_modules'] = $this->getDoctrine()->getRepository(UserModule::class)->findByModuleAndUserStatus($aircraft, User::getGroupStatuses($group));
             $data['module'] = $aircraft;
         } else {
-            $data['aircrafts'] = $this->getDoctrine()->getRepository(Module::class)->findByType(Module::TYPE_AIRCRAFT);
+            $data['aircrafts'] = $this->getDoctrine()->getRepository(Module::class)->findBy(['type' => Module::TYPE_AIRCRAFT], ['name' => 'asc']);
         }
 
         return $this->render('roster/index.html.twig', $data);
@@ -132,7 +132,7 @@ class RosterController extends AbstractController
             $data['pilots_modules'] = $this->getDoctrine()->getRepository(UserModule::class)->findByModuleAndUserStatus($helicopter, User::getGroupStatuses($group));
             $data['module'] = $helicopter;
         } else {
-            $data['helicopters'] = $this->getDoctrine()->getRepository(Module::class)->findByType(Module::TYPE_HELICOPTER);
+            $data['helicopters'] = $this->getDoctrine()->getRepository(Module::class)->findBy(['type' => Module::TYPE_HELICOPTER], ['name' => 'asc']);
         }
 
         return $this->render('roster/index.html.twig', $data);

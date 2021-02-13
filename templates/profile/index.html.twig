@@ -10,29 +10,41 @@
         <h1>Mes modules</h1>
 
         <div class="alert alert-secondary">
-            <b>Notice:</b> afin de mieux vous connaître (et de mieux connaître les autres membres de l'association), nous vous invitons à compléter cette liste et à l'actualiser à chaque nouvelle acquisition de module ou changement d'état (envie d'utilisation, évolution de votre niveau, etc...).<br/>
+            <b>Notice:</b> afin de mieux vous connaître (et de mieux connaître les autres membres de l'association),
+            nous vous invitons à compléter cette liste et à l'actualiser à chaque nouvelle acquisition de module ou
+            changement d'état (envie d'utilisation, évolution de votre niveau, etc...).<br/>
             <br/>
             Mon activité du moment:
             <ul>
-                <li><i class="fa fa-plane text-success"></i> <b>Je vole dessus</b>: c'est un module que j'utilise en ce moment</li>
-                <li><i class="fa fa-warehouse text-warning"></i> <b>Au hangar</b>: j'ai ce module, mais je ne l'utilise pas (ex: je me concentre sur d'autres modules)</li>
+                <li><i class="fa fa-plane text-success"></i> <b>Je vole dessus</b>: c'est un module que j'utilise en ce
+                    moment
+                </li>
+                <li><i class="fa fa-warehouse text-warning"></i> <b>Au hangar</b>: j'ai ce module, mais je ne l'utilise
+                    pas (ex: je me concentre sur d'autres modules)
+                </li>
             </ul>
 
             Mon niveau (auto évalué):
             <ul>
-                <li><i class="fa fa-book-reader text-success"></i> <b>Cadet</b>: Je suis nouveau sur le module ou en cours d'apprentissage</li>
-                <li><i class="fa fa-shield-alt text-success"></i> <b>Mission</b>: Je suis près pour participer aux missions avec ce module</li>
-                <li><i class="fa fa-user-tie text-success"></i> <b>Instructeur</b>: Je maîtrise suffisament le module pour aider les autres à progresser sur le module</li>
+                <li><i class="fa fa-book-reader text-success"></i> <b>Cadet</b>: Je suis nouveau sur le module ou en
+                    cours d'apprentissage
+                </li>
+                <li><i class="fa fa-shield-alt text-success"></i> <b>Mission</b>: Je suis près pour participer aux
+                    missions avec ce module
+                </li>
+                <li><i class="fa fa-user-tie text-success"></i> <b>Instructeur</b>: Je maîtrise suffisament le module
+                    pour aider les autres à progresser sur le module
+                </li>
                 <li><i class="fa fa-times-circle text-danger"></i> <b>Je ne l'ai pas</b>: Je n'ai pas ce module</li>
             </ul>
         </div>
         {% for moduleTypeKey,moduleType in moduleTypes %}
             <hr/>
             <h2>{{ moduleType }}
-{# @todo add modules count for this module type #}
-{#                <div class="float-right">#}
-{#                    <span class="badge badge-primary badge-pill" title="Nombre de modules en ma possession">14</span>#}
-{#                </div>#}
+                {# @todo add modules count for this module type #}
+                {# <div class="float-right"> #}
+                {# <span class="badge badge-primary badge-pill" title="Nombre de modules en ma possession">14</span> #}
+                {# </div> #}
             </h2>
             <table class="table table-striped table-bordered table-hover">
                 <thead>
@@ -54,7 +66,7 @@
                             <td id="module-{{ module.id }}">
                                 {{ module.name }}
                                 <div class="float-right">
-                                    <div class="btn-group">
+                                    <div class="btn-group mr-3">
                                         <button class="btn {% if myModule is not null and myModule.active %}btn-success{% else %}btn-secondary{% endif %}"
                                                 data-module-type="{{ module.type }}"
                                                 data-module="{{ module.id }}"
@@ -62,7 +74,7 @@
                                                 title="Je vole dessus">
                                             <i class="fa fa-plane"></i>
                                         </button>
-                                        <button class="btn {% if myModule is not null and myModule.active %}btn-secondary{% else %}btn-warning{% endif %}"
+                                        <button class="btn {% if myModule is null or myModule.active %}btn-secondary{% else %}btn-warning{% endif %}"
                                                 data-module-type="{{ module.type }}"
                                                 data-module="{{ module.id }}"
                                                 data-active="0"
@@ -125,20 +137,25 @@ $(document).ready(function () {
             $this.removeClass('btn-success');
             $this.removeClass('btn-warning');
 
-            if($this.data('active')) {
-                if(active) {
-                    $this.addClass('btn-success');
-                }
-                else {
+            if(0 == level) {
                     $this.addClass('btn-secondary');
-                }
             }
             else {
-                if(active) {
-                    $this.addClass('btn-secondary');
+                if($this.data('active')) {
+                    if(active) {
+                        $this.addClass('btn-success');
+                    }
+                    else {
+                        $this.addClass('btn-secondary');
+                    }
                 }
                 else {
-                    $this.addClass('btn-warning');
+                    if(active) {
+                        $this.addClass('btn-secondary');
+                    }
+                    else {
+                        $this.addClass('btn-warning');
+                    }
                 }
             }
         });
