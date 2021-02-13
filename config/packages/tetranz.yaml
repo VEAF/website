@@ -1,0 +1,3 @@
+services:
+  Tetranz\Select2EntityBundle\Service\AutocompleteService:
+      alias: tetranz_select2entity.autocomplete_service

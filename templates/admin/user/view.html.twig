@@ -35,8 +35,7 @@
                                     {% if user.simDcs %}
                                         <i class="fa fa-check-circle text-success"></i>
                                         {% if user.player is not null %}
-                                            {# @todo add link to DCS player #}
-                                            <a href="#" class="btn btn-link disabled">détails</a>
+                                            <a href="{{ path('admin_dcs_player_view', {'player': user.player.id}) }}" class="btn btn-link">détails</a>
                                         {% endif %}
                                     {% else %}
                                         <i class="fa fa-times-circle text-light"></i>

@@ -2,15 +2,18 @@
 
 namespace App\Controller\Admin\Dcs;
 
+use App\Form\PlayerLinkType;
 use App\Perun\Entity\Player;
 use Kilik\TableBundle\Components\Column;
 use Kilik\TableBundle\Components\Filter;
 use Kilik\TableBundle\Components\Table;
 use Kilik\TableBundle\Services\TableService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Tetranz\Select2EntityBundle\Service\AutocompleteService;
 
 /**
  * @Route("/admin/dcs/player")
@@ -79,4 +82,79 @@ class PlayerController extends AbstractController
     {
         return $tableService->handleRequest($this->getTable(), $request);
     }
+
+    /**
+     * Used on player link form
+     *
+     * @Route("/autocomplete", name="admin_dcs_player_autocomplete")
+     */
+    public function search(AutocompleteService $autocompleteService, Request $request): Response
+    {
+        $result = $autocompleteService->getAutocompleteResults($request, PlayerLinkType::class);
+
+        return new JsonResponse($result);
+    }
+
+    /**
+     * @Route("/{player}/edit", name="admin_dcs_player_edit")
+     */
+    public function edit(Request $request, Player $player): Response
+    {
+        $form = $this->createForm(PlayerLinkType::class, $player);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user = $player->getUser();
+            $user->setPlayer($player); // User own the OneToOne relation
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'Le joueur a été enregistré');
+
+            return $this->redirectToRoute('admin_dcs_player_view', ['player' => $player->getId()]);
+        }
+
+        return $this->render('admin/dcs/player/edit.html.twig', [
+            'form' => $form->createView(),
+            'player' => $player,
+        ]);
+    }
+
+    /**
+     * @Route("/{player}/remove-link", name="admin_dcs_player_remove_link")
+     */
+    public function removeLink(Request $request, Player $player): Response
+    {
+        $form = $this->createFormBuilder()->setMethod('POST')->getForm();
+
+        $form->handleRequest($request);
+
+        if (null === $player->getUser()) {
+            return $this->redirectToRoute('admin_dcs_player_view', ['player' => $player->getId()]);
+        }
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user = $player->getUser();
+            $user->setPlayer(null); // User own the OneToOne relation
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'Le joueur a été enregistré');
+
+            return $this->redirectToRoute('admin_dcs_player_view', ['player' => $player->getId()]);
+        }
+
+        return $this->render('admin/dcs/player/remove_link.html.twig', [
+            'form' => $form->createView(),
+            'player' => $player,
+        ]);
+    }
+
+    /**
+     * @Route("/{player}", name="admin_dcs_player_view")
+     */
+    public function view(Request $request, Player $player): Response
+    {
+        return $this->render('admin/dcs/player/view.html.twig', [
+            'player' => $player,
+        ]);
+    }
+
 }

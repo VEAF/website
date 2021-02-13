@@ -23,7 +23,8 @@ class UserController extends AbstractController
     public function getTable(): Table
     {
         $queryBuilder = $this->getDoctrine()->getRepository(User::class)->createQueryBuilder('u')
-            ->select('u');
+            ->select('u, p')
+            ->leftJoin('u.player', 'p');
 
         $booleanFilterChoices = ['Oui' => true, 'Non' => false];
 
@@ -110,6 +111,16 @@ class UserController extends AbstractController
                             return 'non';
                         }
                     })
+            );
+
+        $table
+            ->addColumn(
+                (new Column())->setLabel('Pseudo DCS')
+                    ->setSort(['p.lastName' => 'asc'])
+                    ->setFilter((new Filter())
+                        ->setField('p.lastName')
+                        ->setName('p_lastName')
+                    )
             );
 
         return $table;
