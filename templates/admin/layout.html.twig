@@ -63,8 +63,14 @@
 
             <li class="nav-item{% if section == "admin" and subSection == "user" %} active{% endif %}">
                 <a class="nav-link" href="{{ path("admin_user_list") }}">
-                    <i class="fas fa-users fa-chart-area"></i>
+                    <i class="fas fa-users"></i>
                     <span>Utilisateurs</span>
+                </a>
+            </li>
+            <li class="nav-item{% if section == "admin" and subSection == "page" %} active{% endif %}">
+                <a class="nav-link" href="{{ path("admin_page_list") }}">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Pages</span>
                 </a>
             </li>
             <hr class="sidebar-divider">
@@ -73,13 +79,13 @@
             </div>
             <li class="nav-item{% if section == "dcs" and subSection == "player" %} active{% endif %}">
                 <a class="nav-link" href="{{ path("admin_dcs_player_list") }}">
-                    <i class="fas fa-users fa-chart-area"></i>
+                    <i class="fas fa-users"></i>
                     <span>Joueurs</span>
                 </a>
             </li>
             <li class="nav-item{% if section == "dcs" and subSection == "module" %} active{% endif %}">
                 <a class="nav-link" href="{{ path("admin_module_list") }}">
-                    <i class="fas fa-cubes fa-chart-area"></i>
+                    <i class="fas fa-cubes"></i>
                     <span>Modules</span>
                 </a>
             </li>

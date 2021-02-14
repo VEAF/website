@@ -146,6 +146,9 @@
     "kilik/table": {
         "version": "2.5.0"
     },
+    "knplabs/knp-markdown-bundle": {
+        "version": "1.8.1"
+    },
     "knplabs/knp-time-bundle": {
         "version": "v1.15.0"
     },
@@ -157,6 +160,9 @@
     },
     "laminas/laminas-zendframework-bridge": {
         "version": "1.1.1"
+    },
+    "michelf/php-markdown": {
+        "version": "1.9.0"
     },
     "monolog/monolog": {
         "version": "1.26.0"

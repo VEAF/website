@@ -1,0 +1,37 @@
+App\Entity\PageBlock:
+
+  pageblock_association_presentation:
+    page: '@page_association_presentation'
+    type: <(App\Entity\PageBlock::TYPE_MARKDOWN)>
+    number: 1
+    enabled: true
+    content: >
+      Bienvenue dans la section du site dédiée à l'association.
+      L'association *Virtual European Air Force (VEAF)* a pour objet le développement de la pratique de la simulation de combat ludique.
+      Ceci dans une optique "sportive" en privilégiant les rencontres "humains contre humains".
+
+
+  pageblock_association_status_article1:
+    page: '@page_association_status'
+    type: <(App\Entity\PageBlock::TYPE_MARKDOWN)>
+    number: 1
+    enabled: true
+    content: >
+      ## Article 1
+
+      Il est créé entre les adhérents aux présents statuts une association régie par la loi du 1er juillet
+      1901 et le décret du 16 août 1901, ayant pour dénomination : Virtual European Air Force.
+
+
+  pageblock_association_status_article2:
+    page: '@page_association_status'
+    type: <(App\Entity\PageBlock::TYPE_MARKDOWN)>
+    number: 1
+    enabled: true
+    content: >
+      ## Article 2 - objet
+
+      Cette association a pour objet la pratique de la simulation de vol de combat ludique. Ceci plus spécifiquement orienté vers les vols humains contre humains sur l'internet et dans les LANs, au travers d'entraînements, de rencontres amicales ou de compétitions sans limites géographiques.
+      L'association permettra d'organiser, structurer et développer la pratique de cette activité.
+
+
