@@ -93,7 +93,7 @@ fi
 if [ ${WITH_COMPOSER} -ne 0 ];
 then
     echo -e "${COLOR_GREEN}installing composer dependencies${COLOR_DEFAULT}"
-    echo ${DOCKER_PHP_COMMAND} ./bin/console composer install
+    echo ${DOCKER_PHP_COMMAND} composer install
 fi
 
 if [ ${WITH_MIGRATIONS} -ne 0 ];
