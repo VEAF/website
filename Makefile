@@ -140,7 +140,7 @@ wait:
 	@$(COMPOSE) run php echo "Container : php is now ready"
 
 ## Upgrade sources + rebuild container + launch migrations
-upgrade: pull up wait internal_update front_update
+upgrade: pull up wait internal_update
 
 ## composer + upgrade (migrations,...)
 internal_update:
