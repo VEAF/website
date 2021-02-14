@@ -33,3 +33,7 @@ services:
     App\Controller\ResetPasswordController:
         arguments:
             $mailFrom: "%mail_from%"
+
+    # cms pages routes
+    App\Routing\PageLoader:
+        tags: [routing.loader]

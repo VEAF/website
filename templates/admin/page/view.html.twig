@@ -1,0 +1,139 @@
+{% extends 'admin/layout.html.twig' %}
+{% set libKilikTable=true %}
+{% set section="admin" %}
+{% set subSection="page" %}
+
+{% block pageContent %}
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="bs-component">
+                <div class="card mb-3">
+                    <h3 class="card-header">Consulter la page</h3>
+                    <div class="card-body">
+                        <table class="table">
+                            <tr>
+                                <td>
+                                    Titre:
+                                </td>
+                                <td>
+                                    {{ page.title }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Route:
+                                </td>
+                                <td>
+                                    {{ page.route }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Url:
+                                </td>
+                                <td>
+                                    {{ page.path }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Activée:
+                                </td>
+                                <td>
+                                    {% if page.enabled %}
+                                        <i class="fa fa-check-circle text-success"></i>
+                                    {% else %}
+                                        <i class="fa fa-times-circle text-light"></i>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Créée:
+                                </td>
+                                <td>
+                                    <div data-toggle="tooltip" data-placement="top"
+                                         title="{{ page.createdAt | date('d/m/Y H:i:s') }}">
+                                        {{ page.createdAt | ago }}
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Modifiée:
+                                </td>
+                                <td>
+                                    <div data-toggle="tooltip" data-placement="top"
+                                         title="{{ page.updatedAt | date('d/m/Y H:i:s') }}">
+                                        {{ page.updatedAt | ago }}
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <a href="{{ path('admin_page_list') }}" class="btn btn-primary form-control"><i
+                                            class="fa fa-arrow-left"></i> Retour liste</a>
+                            </div>
+                            <div class="col-sm-6">
+                                <a href="{{ path('admin_page_edit', {'page': page.id}) }}"
+                                   class="btn btn-outline-warning form-control"><i class="fa fa-edit"></i> Modifier</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-xl-10">
+            <div class="bs-component">
+                <div class="card mb-3">
+                    <h3 class="card-header">
+                        <div class="float-right">
+                            <a href="{{ path('admin_page_block_add', {'page': page.id, 'number': 1}) }}"><i
+                                        class="fa fa-plus"></i> ajouter un bloc ici</a>
+                        </div>
+                    </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% for block in page.blocks|sort((a, b) => a.number <=> b.number) %}
+        <div class="row mb-4">
+            <div class="col-xl-10">
+                <div class="bs-component">
+                    <div class="card mb-3">
+                        <h3 class="card-header">
+                            Bloc n°{{ block.number }}
+                            <div class="float-right">
+                                <a href="{{ path('admin_page_block_edit', {'block': block.id} ) }}"><i
+                                            class="fa fa-edit"></i></a>
+                            </div>
+                        </h3>
+                        <div class="card-body">
+                            {{ block.content | markdown }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-xl-10">
+                <div class="bs-component">
+                    <div class="card mb-3">
+                        <h3 class="card-header">
+                            <div class="float-right">
+                                <a href="{{ path('admin_page_block_add', {'page': page.id, 'number': block.number+1}) }}"><i
+                                            class="fa fa-plus"></i> ajouter un bloc ici</a>
+                            </div>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock pageContent %}

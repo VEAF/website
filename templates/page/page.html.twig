@@ -1,0 +1,16 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ parent() }}: {{ page.title }}{% endblock %}
+
+{% block pageContent %}
+    <div class="container container-main pt-3 pb-3 mb-3">
+        <h1>{{ page.title }}</h1>
+    </div>
+    {% for block in page.blocks %}
+        {% if block.enabled %}
+            <div class="container container-main pt-3 pb-3 mb-3">
+                {{ block.content | markdown }}
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endblock pageContent %}

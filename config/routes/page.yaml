@@ -1,0 +1,4 @@
+# load dynamic routes from page module
+app_page:
+  resource: .
+  type: page
