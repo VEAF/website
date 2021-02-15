@@ -8,13 +8,13 @@
 {% endif %}
 {% if userModule.module.withLevel %}
     {% if userModule.level == constant('\App\\Entity\\UserModule::LEVEL_INSTRUCTOR') %}
-        <i class="fa fa-user-tie fa-2x text-success mr-3"
+        <i class="fa fa-user-tie fa-2x text-primary mr-3"
            title="Instructeur"></i>
     {% elseif userModule.level == constant('\App\\Entity\\UserModule::LEVEL_MISSION') %}
         <i class="fa fa-shield-alt fa-2x text-success mr-3"
            title="Mission"></i>
     {% else %}
-        <i class="fa fa-book-reader fa-2x text-secondary mr-3"
+        <i class="fa fa-book-reader fa-2x text-warning mr-3"
            title="Cadet"></i>
     {% endif %}
 {% endif %}

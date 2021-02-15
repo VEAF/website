@@ -90,7 +90,7 @@
                                         </button>
                                     </div>
                                     <div class="btn-group">
-                                        <button class="btn {% if myModule is not null and myModule.level == constant('\\App\\Entity\\UserModule::LEVEL_CADET') %}btn-success{% else %}btn-secondary{% endif %}"
+                                        <button class="btn {% if myModule is not null and myModule.level == constant('\\App\\Entity\\UserModule::LEVEL_CADET') %}btn-warning{% else %}btn-secondary{% endif %}"
                                                 {% if not module.withLevel %}disabled{% endif %}
                                                 data-module-type="{{ module.type }}"
                                                 data-module="{{ module.id }}"
@@ -105,7 +105,7 @@
                                                 title="Mission">
                                             <i class="fa fa-shield-alt"></i>
                                         </button>
-                                        <button class="btn {% if myModule is not null and myModule.level == constant('\\App\\Entity\\UserModule::LEVEL_INSTRUCTOR') %}btn-success{% else %}btn-secondary{% endif %}"
+                                        <button class="btn {% if myModule is not null and myModule.level == constant('\\App\\Entity\\UserModule::LEVEL_INSTRUCTOR') %}btn-primary{% else %}btn-secondary{% endif %}"
                                                 {% if not module.withLevel %}disabled{% endif %}
                                                 data-module-type="{{ module.type }}"
                                                 data-module="{{ module.id }}"
@@ -166,17 +166,24 @@ $(document).ready(function () {
             $this.removeClass('btn-secondary');
             $this.removeClass('btn-success');
             $this.removeClass('btn-danger');
+            $this.removeClass('btn-warning');
+            $this.removeClass('btn-warning');
 
-            if($this.data('level')==0) {
-                if(level==0) {
-                    $this.addClass('btn-danger');
+            if($this.data('level')==level) {
+                switch(level) {
+                    case 0:
+                        $this.addClass('btn-danger');
+                        break;
+                    case 1:
+                        $this.addClass('btn-warning');
+                        break;
+                    case 2:
+                        $this.addClass('btn-success');
+                        break;
+                    case 3:
+                        $this.addClass('btn-primary');
+                        break;
                 }
-                else {
-                    $this.addClass('btn-secondary');
-                }
-            }
-            else if($this.data('level')==level) {
-                    $this.addClass('btn-success');
             }
             else {
                 $this.addClass('btn-secondary');
