@@ -123,6 +123,12 @@
                                     <td>
                                         <a href="{{ path('roster_map', {'group': groupSelected, 'map': map.code}) }}"
                                            class="">{{ map.name }}</a>
+                                        {% if attribute(mapsCount, map.id) is defined %}
+                                            <div class="float-right">
+                                                <span class="badge badge-primary badge-pill"
+                                                    title="Nombre de pilotes">{{ attribute(mapsCount, map.id) }}</span>
+                                            </div>
+                                        {% endif %}
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -146,6 +152,12 @@
                                            class="">
                                             {{ aircraft.name }}
                                         </a>
+                                        {% if attribute(aircraftsCount, aircraft.id) is defined %}
+                                            <div class="float-right">
+                                                <span class="badge badge-primary badge-pill"
+                                                      title="Nombre de pilotes">{{ attribute(aircraftsCount, aircraft.id) }}</span>
+                                            </div>
+                                        {% endif %}
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -169,6 +181,12 @@
                                            class="">
                                             {{ helicopter.name }}
                                         </a>
+                                        {% if attribute(helicoptersCount, helicopter.id) is defined %}
+                                            <div class="float-right">
+                                                <span class="badge badge-primary badge-pill"
+                                                      title="Nombre de pilotes">{{ attribute(helicoptersCount, helicopter.id) }}</span>
+                                            </div>
+                                        {% endif %}
                                     </td>
                                 </tr>
                             {% endfor %}
