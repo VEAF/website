@@ -81,6 +81,13 @@
                                                 title="Au hangar">
                                             <i class="fa fa-warehouse"></i>
                                         </button>
+                                        <button class="btn {% if myModule is not null %}btn-secondary{% else %}btn-danger{% endif %}"
+                                                data-module-type="{{ module.type }}"
+                                                data-module="{{ module.id }}"
+                                                data-level="{{ constant('\\App\\Entity\\UserModule::LEVEL_UNKNOWN') }}"
+                                                title="Je ne l'ai pas">
+                                            <i class="fa fa-times-circle"></i>
+                                        </button>
                                     </div>
                                     <div class="btn-group">
                                         <button class="btn {% if myModule is not null and myModule.level == constant('\\App\\Entity\\UserModule::LEVEL_CADET') %}btn-success{% else %}btn-secondary{% endif %}"
@@ -105,13 +112,6 @@
                                                 data-level="{{ constant('\\App\\Entity\\UserModule::LEVEL_INSTRUCTOR') }}"
                                                 title="Instructeur">
                                             <i class="fa fa-user-tie"></i>
-                                        </button>
-                                        <button class="btn {% if myModule is not null %}btn-secondary{% else %}btn-danger{% endif %}"
-                                                data-module-type="{{ module.type }}"
-                                                data-module="{{ module.id }}"
-                                                data-level="{{ constant('\\App\\Entity\\UserModule::LEVEL_UNKNOWN') }}"
-                                                title="Je ne l'ai pas">
-                                            <i class="fa fa-times-circle"></i>
                                         </button>
                                     </div>
                                 </div>
