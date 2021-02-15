@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\File;
 use App\Entity\Module;
 use App\Entity\Page;
 use App\Entity\User;
@@ -27,6 +28,7 @@ class DefaultController extends AbstractController
             'dcsPlayers' => $this->getDoctrine()->getRepository(Player::class)->count([]),
             'modules' => $this->getDoctrine()->getRepository(Module::class)->count([]),
             'pages' => $this->getDoctrine()->getRepository(Page::class)->count([]),
+            'files' => $this->getDoctrine()->getRepository(File::class)->count([]),
         ];
 
         return $this->render('admin/default/index.html.twig', $data);

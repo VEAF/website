@@ -1,0 +1,23 @@
+App\Entity\File:
+
+  file_test_image:
+    uuid: "<(Ramsey\\Uuid\\Uuid::fromString('9fa08b67-2a21-411b-be3c-cd89b49147e3'))>"
+    type: '<(App\Entity\File::TYPE_IMAGE)>'
+    mimeType: 'application/jpeg'
+    originalName: 'test.jpeg'
+    description: 'Image de test'
+    owner: '@user_mitch'
+    size: 50
+    createdAt: <(new DateTime('2021-02-01 14:00:00'))>
+    extension: 'jpg'
+
+  file_test_pdf:
+    uuid: "<(Ramsey\\Uuid\\Uuid::fromString('e2991717-f50d-4ad0-905b-bc49a711b223'))>"
+    type: '<(App\Entity\File::TYPE_IMAGE)>'
+    mimeType: 'application/pdf'
+    originalName: 'test.pdf'
+    description: 'Fichier de test PDF'
+    owner: '@user_mitch'
+    size: 60
+    createdAt: <(new DateTime('2021-02-02 15:00:00'))>
+    extension: 'pdf'

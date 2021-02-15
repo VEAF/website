@@ -37,3 +37,7 @@ services:
     # cms pages routes
     App\Routing\PageLoader:
         tags: [routing.loader]
+
+    App\Service\FileService:
+        arguments:
+            $dataDirectory: '%kernel.project_dir%/var/data/files'

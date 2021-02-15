@@ -1,0 +1,107 @@
+{% extends 'admin/layout.html.twig' %}
+{% set libKilikTable=true %}
+{% set section="admin" %}
+{% set subSection="file" %}
+
+{% block pageContent %}
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="bs-component">
+                <div class="card mb-3">
+                    <h3 class="card-header">Consulter un fichier</h3>
+                    <div class="card-body">
+                        <table class="table">
+                            <tr>
+                                <td>
+                                    Uuid:
+                                </td>
+                                <td>
+                                    {{ file.uuid }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Nom d'origine:
+                                </td>
+                                <td>
+                                    {{ file.originalName }}.{{ file.extension }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Taille:
+                                </td>
+                                <td>
+                                    {{ file.size }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Type mime:
+                                </td>
+                                <td>
+                                    {{ file.mimeType }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Chemin absolu du fichier:
+                                </td>
+                                <td>
+                                    @todo
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Propriétaire:
+                                </td>
+                                <td>
+                                    {% if file.owner is not null %}
+                                        {{ file.owner.nickname }}
+                                    {% else %}
+                                        personne
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Créé:
+                                </td>
+                                <td>
+                                    <div data-toggle="tooltip" data-placement="top"
+                                         title="{{ file.createdAt | date('d/m/Y H:i:s') }}">
+                                        {{ file.createdAt | ago }}
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <a href="{{ path('admin_file_list') }}" class="btn btn-primary form-control"><i
+                                            class="fa fa-arrow-left"></i> Retour liste</a>
+                            </div>
+                            <div class="col-sm-6">
+                                <a href="{{ path('admin_file_delete', {'file': file.uuid}) }}"
+                                   class="btn btn-outline-warning form-control"><i class="fa fa-times-circle"></i>
+                                    Supprimer</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if file.image %}
+            <div class="col-md-6">
+                <div class="bs-component">
+                    <div class="card mb-3">
+                        <h3 class="card-header">Image</h3>
+                        <div class="card-body">
+                            <img src="{{ image(file_path(file)).resize(800) }} }}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+    </div>
+{% endblock pageContent %}
