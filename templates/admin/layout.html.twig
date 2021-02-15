@@ -73,6 +73,12 @@
                     <span>Pages</span>
                 </a>
             </li>
+            <li class="nav-item{% if section == "admin" and subSection == "file" %} active{% endif %}">
+                <a class="nav-link" href="{{ path("admin_file_list") }}">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Fichiers</span>
+                </a>
+            </li>
             <hr class="sidebar-divider">
             <div class="sidebar-heading">
                 DCS

@@ -8,6 +8,7 @@
 * ADD admin - administration des joueurs DCS (perun)
 * ADD admin - administration des utilisateurs du site
 * ADD admin - interface d'admnistration des pages (CMS)
+* ADD admin - interface d'admnistration des fichiers (images)
 * ADD utilisateur - inscription (+ recaptcha)
 * ADD utilisateur - mot de passe perdu (+ recaptcha), validation par email
 * ADD utilisateur - interface de connexion / déconnexion

@@ -1,0 +1,19 @@
+{% extends 'admin/layout.html.twig' %}
+{% set libKilikTable=true %}
+{% set section="admin" %}
+{% set subSection="file" %}
+
+{% block pageContent %}
+    <div class="row mb-4">
+        <div class="col-xl-8">
+            {% embed "admin/file/_list.html.twig" with {"table": table} %}
+                {% block tableTitle %}
+                    <b>Fichiers</b>
+                    <div class="float-right">
+                        <a class="btn btn-primary" href="{{ path("admin_file_upload") }}"><i class="fa fa-plus"></i> Ajouter</a>
+                    </div>
+                {% endblock tableTitle %}
+            {% endembed %}
+        </div>
+    </div>
+{% endblock pageContent %}
