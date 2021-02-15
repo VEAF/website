@@ -13,6 +13,8 @@ function display_help()
     echo -e "  ${COLOR_GREEN}--no-docker-up${COLOR_DEFAULT}     to avoid docker up"
     echo -e "  ${COLOR_GREEN}--no-git-pull${COLOR_DEFAULT}      to avoid git pull on current branch"
     echo -e "  ${COLOR_GREEN}--no-composer${COLOR_DEFAULT}      to avoid composer install"
+    echo -e "  ${COLOR_GREEN}--no-dev${COLOR_DEFAULT}           to avoid composer install dev dependencies"
+    echo -e "  ${COLOR_GREEN}--no-scripts${COLOR_DEFAULT}       to avoid composer launch warmup scripts"
     echo -e "  ${COLOR_GREEN}--no-migrations${COLOR_DEFAULT}    to avoid doctrine migrations"
 }
 
@@ -24,6 +26,8 @@ WITH_DOCKER_PULL=1
 WITH_DOCKER_UP=1
 WITH_GIT_PULL=1
 WITH_COMPOSER=1
+WITH_COMPOSER_DEV=1
+WITH_COMPOSER_SCRIPTS=1
 WITH_MIGRATIONS=1
 
 DOCKER_PHP_COMMAND="docker-compose exec -u www-data php"
@@ -53,6 +57,14 @@ case $key in
     ;;
     --no-composer)
     WITH_COMPOSER=0
+    shift # past argument
+    ;;
+    --no-dev)
+    WITH_COMPOSER_DEV=0
+    shift # past argument
+    ;;
+    --no-scripts)
+    WITH_COMPOSER_SCRIPTS=0
     shift # past argument
     ;;
     *)    # unknown option
@@ -92,8 +104,22 @@ fi
 
 if [ ${WITH_COMPOSER} -ne 0 ];
 then
+    COMPOSER_ARGS=""
+    if [ "${APP_ENV}" == 'prod' ];
+    then
+        COMPOSER_ARGS="${COMPOSER_ARGS} --no-dev"
+    else
+        if [ ${WITH_COMPOSER_DEV} -eq 0 ];
+        then
+            COMPOSER_ARGS="${COMPOSER_ARGS} --no-dev"
+        fi
+    fi
+    if [ ${WITH_COMPOSER_SCRIPTS} -eq 0 ];
+    then
+        COMPOSER_ARGS="${COMPOSER_ARGS} --no-scripts"
+    fi
     echo -e "${COLOR_GREEN}installing composer dependencies${COLOR_DEFAULT}"
-    ${DOCKER_PHP_COMMAND} composer install
+    ${DOCKER_PHP_COMMAND} composer install ${COMPOSER_ARGS}
 fi
 
 if [ ${WITH_MIGRATIONS} -ne 0 ];
