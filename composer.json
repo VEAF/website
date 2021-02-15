@@ -10,6 +10,7 @@
         "doctrine/doctrine-bundle": "^2.2",
         "doctrine/doctrine-migrations-bundle": "^3.0",
         "doctrine/orm": "^2.8",
+        "gregwar/image-bundle": "^3.0",
         "karser/karser-recaptcha3-bundle": "^0.1.15",
         "kilik/table": "^2.5",
         "knplabs/knp-markdown-bundle": "^1.8",
@@ -41,8 +42,8 @@
         "symfony/web-link": "4.4.*",
         "symfony/yaml": "4.4.*",
         "tetranz/select2entity-bundle": "^3.1",
-        "twig/extra-bundle": "^2.12|^3.0",
-        "twig/twig": "^2.12|^3.0"
+        "twig/extra-bundle": "^3.3",
+        "twig/twig": "^2.12"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.18",

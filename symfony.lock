@@ -120,6 +120,15 @@
             "ref": "d087df3e087f50da3955f2def05079380da5894b"
         }
     },
+    "gregwar/cache": {
+        "version": "v1.0.12"
+    },
+    "gregwar/image": {
+        "version": "v2.0.28"
+    },
+    "gregwar/image-bundle": {
+        "version": "v3.0.0"
+    },
     "hautelook/alice-bundle": {
         "version": "2.1",
         "recipe": {
@@ -651,7 +660,7 @@
         }
     },
     "twig/extra-bundle": {
-        "version": "v3.2.1"
+        "version": "v3.3.0"
     },
     "twig/twig": {
         "version": "v3.2.1"

@@ -23,9 +23,9 @@ class File
 
     const MIME_TYPES = [
         'application/pdf' => self::TYPE_PDF,
-        'application/jpg' => self::TYPE_IMAGE,
-        'application/jpeg' => self::TYPE_IMAGE,
-        'application/png' => self::TYPE_IMAGE,
+        'image/jpg' => self::TYPE_IMAGE,
+        'image/jpeg' => self::TYPE_IMAGE,
+        'image/png' => self::TYPE_IMAGE,
     ];
 
     /**
