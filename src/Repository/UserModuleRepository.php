@@ -46,8 +46,8 @@ class UserModuleRepository extends ServiceEntityRepository
                      ->leftJoin('user_module.module', 'module')
                      ->andWhere('user_module.user = :user')
                      ->setParameter('user', $user)
-                     ->addOrderBy('module.type','asc')
-                     ->addOrderBy('module.name','asc')
+                     ->addOrderBy('module.type', 'asc')
+                     ->addOrderBy('module.name', 'asc')
                      ->getQuery()
                      ->getResult() as $userModule) {
             $userModules[$userModule->getModule()->getId()] = $userModule;
@@ -61,17 +61,45 @@ class UserModuleRepository extends ServiceEntityRepository
      */
     public function findByUserIndexedByTypeAndModule(User $user)
     {
-        $modules=[];
+        $modules = [];
 
-        foreach($this->findByUserIndexedByModule($user) as $userModule) {
-            $type=$userModule->getModule()->getType();
-            if(!isset($modules[$type])) {
-                $modules[$type]=[];
+        foreach ($this->findByUserIndexedByModule($user) as $userModule) {
+            $type = $userModule->getModule()->getType();
+            if (!isset($modules[$type])) {
+                $modules[$type] = [];
             }
-            $modules[$type][]=$userModule;
+            $modules[$type][] = $userModule;
         }
 
         return $modules;
+    }
+
+    /**
+     * Count module owners
+     *
+     * @param int $moduleType filter by module type
+     * @param array $statuses filter by user status
+     * @return array[] indexed by module id
+     */
+    public function countUsersByModule(int $moduleType, array $statuses): array
+    {
+        $rows = [];
+
+        foreach ($this->createQueryBuilder('user_module')
+                     ->select('COUNT(user_module.user) AS nb, module.id AS moduleId')
+                     ->join('user_module.module', 'module')
+                     ->join('user_module.user', 'user')
+                     ->andWhere('module.type = :type')
+                     ->setParameter('type', $moduleType)
+                     ->andWhere('user.status IN (:statuses)')
+                     ->setParameter('statuses', $statuses)
+                     ->groupBy('moduleId')
+                     ->getQuery()
+                     ->getArrayResult() as $row) {
+            $rows[$row['moduleId']] = $row['nb'];
+        }
+
+        return $rows;
     }
 
 }
