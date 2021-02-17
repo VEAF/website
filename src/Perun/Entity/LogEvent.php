@@ -2,7 +2,6 @@
 
 namespace App\Perun\Entity;
 
-use App\Perun\Repository\LogChatRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

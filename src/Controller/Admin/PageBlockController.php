@@ -4,17 +4,8 @@ namespace App\Controller\Admin;
 
 use App\Entity\Page;
 use App\Entity\PageBlock;
-use App\Entity\User;
 use App\Form\PageBlockType;
-use App\Form\PageType;
-use App\Form\UserType;
 use App\Manager\PageManager;
-use App\Manager\UserManager;
-use Kilik\TableBundle\Components\Column;
-use Kilik\TableBundle\Components\Filter;
-use Kilik\TableBundle\Components\FilterSelect;
-use Kilik\TableBundle\Components\Table;
-use Kilik\TableBundle\Services\TableService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

@@ -84,7 +84,7 @@ class PlayerController extends AbstractController
     }
 
     /**
-     * Used on player link form
+     * Used on player link form.
      *
      * @Route("/autocomplete", name="admin_dcs_player_autocomplete")
      */
@@ -156,5 +156,4 @@ class PlayerController extends AbstractController
             'player' => $player,
         ]);
     }
-
 }

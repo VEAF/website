@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Module;
 use App\Entity\UserModule;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,7 +12,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
 /**
- * Protected with security firewall
+ * Protected with security firewall.
+ *
  * @Route("/profile")
  */
 class ProfileController extends AbstractController

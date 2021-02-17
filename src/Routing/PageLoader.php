@@ -1,6 +1,7 @@
 <?php
 
 // src/Routing/ExtraLoader.php
+
 namespace App\Routing;
 
 use App\Controller\PageController;
@@ -37,7 +38,7 @@ class PageLoader extends Loader
             // prepare a new route
             $path = $page->getPath();
             $defaults = [
-                '_controller' => PageController::class . '::page',
+                '_controller' => PageController::class.'::page',
                 'page' => $page->getId(),
             ];
             $requirements = [
@@ -47,7 +48,7 @@ class PageLoader extends Loader
             $route = new Route($path, $defaults, $requirements);
 
             // add the new route to the route collection
-            $routeName = 'page_' . $page->getRoute();
+            $routeName = 'page_'.$page->getRoute();
             $routes->add($routeName, $route);
         }
 

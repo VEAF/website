@@ -109,7 +109,6 @@ class ModuleController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             /** @var UploadedFile $uploadedImageHeader */
             $uploadedImageHeader = $form->get('imageHeader')->getData();
             if ($uploadedImageHeader) {

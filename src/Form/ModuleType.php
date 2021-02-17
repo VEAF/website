@@ -41,7 +41,7 @@ class ModuleType extends AbstractType
                             'image/png',
                         ],
                         'mimeTypesMessage' => 'Format accepté: uniquement les images jpg et png',
-                    ])
+                    ]),
                 ],
             ]);
 
@@ -59,7 +59,7 @@ class ModuleType extends AbstractType
                             'image/png',
                         ],
                         'mimeTypesMessage' => 'Format accepté: uniquement les images jpg et png',
-                    ])
+                    ]),
                 ],
             ]);
     }

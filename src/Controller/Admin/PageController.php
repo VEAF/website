@@ -3,11 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Page;
-use App\Entity\User;
 use App\Form\PageType;
-use App\Form\UserType;
 use App\Manager\PageManager;
-use App\Manager\UserManager;
 use Kilik\TableBundle\Components\Column;
 use Kilik\TableBundle\Components\Filter;
 use Kilik\TableBundle\Components\FilterSelect;
@@ -65,7 +62,6 @@ class PageController extends AbstractController
                         ->setName('p_path')
                     )
             );
-
 
         $table
             ->addColumn(
@@ -159,5 +155,4 @@ class PageController extends AbstractController
     {
         return $this->render('admin/page/view.html.twig', ['page' => $page]);
     }
-
 }

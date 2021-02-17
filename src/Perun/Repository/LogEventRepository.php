@@ -2,7 +2,6 @@
 
 namespace App\Perun\Repository;
 
-use App\Perun\Entity\LogChat;
 use App\Perun\Entity\LogEvent;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;

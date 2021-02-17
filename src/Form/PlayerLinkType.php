@@ -30,9 +30,8 @@ class PlayerLinkType extends AbstractType
                 'delay' => 250,
                 'language' => 'fr',
                 'placeholder' => 'Sélectionner un utilisateur',
-                'callback'    => function (QueryBuilder $qb, $data) {
+                'callback' => function (QueryBuilder $qb, $data) {
                     $qb->andWhere('e.player is null');
-
                 },
             ]);
     }

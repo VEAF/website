@@ -75,10 +75,11 @@ class UserModuleRepository extends ServiceEntityRepository
     }
 
     /**
-     * Count module owners
+     * Count module owners.
      *
-     * @param int $moduleType filter by module type
-     * @param array $statuses filter by user status
+     * @param int   $moduleType filter by module type
+     * @param array $statuses   filter by user status
+     *
      * @return array[] indexed by module id
      */
     public function countUsersByModule(int $moduleType, array $statuses): array
@@ -101,5 +102,4 @@ class UserModuleRepository extends ServiceEntityRepository
 
         return $rows;
     }
-
 }
