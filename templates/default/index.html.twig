@@ -25,7 +25,7 @@
                 <div class="col-lg-3 col-md-6 pt-3 pb-3">
                     <div class="module-wrap">
                         <a href="{{ path('roster_aircraft', {'group': 'members', 'aircraft': aircraft.code}) }}">
-                            <img class="img-fluid" src="{{ image(image_path(aircraft.image)).zoomCrop(1000,560) }}"/>
+                            <img class="img-fluid" src="{{ image(image_path(aircraft.image)).zoomCrop(1000,560).jpeg }}"/>
                             <div class="module-description-layer">
                                 <p class="module-description">{{ aircraft.code | upper }}</p>
                             </div>
@@ -43,7 +43,7 @@
                 <div class="col-lg-3 col-md-6 pt-3 pb-3">
                     <div class="module-wrap">
                         <a href="{{ path('roster_helicopter', {'group': 'members', 'helicopter': helicopter.code}) }}">
-                            <img class="img-fluid" src="{{ image(image_path(helicopter.image)).zoomCrop(1000,560) }}"/>
+                            <img class="img-fluid" src="{{ image(image_path(helicopter.image)).zoomCrop(1000,560).jpeg }}"/>
                             <div class="module-description-layer">
                                 <p class="module-description">{{ helicopter.code | upper }}</p>
                             </div>
@@ -61,7 +61,7 @@
                 <div class="col-sm-12 pt-3 pb-3">
                     <div class="module-wrap">
                         <a href="{{ path('roster_map', {'group': 'members', 'map': map.code}) }}">
-                            <img class="img-fluid" src="{{ image(image_header_path(map.imageHeader)).zoomCrop(1110,222) }}"/>
+                            <img class="img-fluid" src="{{ image(image_header_path(map.imageHeader)).zoomCrop(1110,222).jpeg }}"/>
                             <div class="module-description-layer">
                                 <p class="module-description">{{ map.name | upper }}</p>
                             </div>
@@ -86,7 +86,7 @@
     <div class="container container-main pt-3 pb-3">
         <div class="row mb-1">
             <div class="col-lg-12">
-                <img src="{{ cdn_veaf }}/img/uh-1h-boat.png" class="img-fluid">
+                <img src="{{ cdn_veaf }}/img/uh-1h-boat.jpg" class="img-fluid">
             </div>
         </div>
     </div>
