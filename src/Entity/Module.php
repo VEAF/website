@@ -72,6 +72,26 @@ class Module
      */
     private $users;
 
+    /**
+     * @ORM\OneToOne(targetEntity=File::class, cascade={"persist", "remove"})
+     */
+    private $imageHeader;
+
+    /**
+     * @ORM\OneToOne(targetEntity=File::class, cascade={"persist", "remove"})
+     */
+    private $image;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $landingPage;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $landingPageNumber;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -164,5 +184,53 @@ class Module
     public function isWithLevel(): bool
     {
         return in_array($this->type, self::TYPES_WITH_LEVEL);
+    }
+
+    public function getImageHeader(): ?File
+    {
+        return $this->imageHeader;
+    }
+
+    public function setImageHeader(?File $imageHeader): self
+    {
+        $this->imageHeader = $imageHeader;
+
+        return $this;
+    }
+
+    public function getImage(): ?File
+    {
+        return $this->image;
+    }
+
+    public function setImage(?File $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getLandingPage(): ?bool
+    {
+        return $this->landingPage;
+    }
+
+    public function setLandingPage(bool $landingPage): self
+    {
+        $this->landingPage = $landingPage;
+
+        return $this;
+    }
+
+    public function getLandingPageNumber(): ?int
+    {
+        return $this->landingPageNumber;
+    }
+
+    public function setLandingPageNumber(int $landingPageNumber): self
+    {
+        $this->landingPageNumber = $landingPageNumber;
+
+        return $this;
     }
 }

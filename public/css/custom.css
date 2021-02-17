@@ -323,6 +323,38 @@ iframe {
     margin-bottom: 0px;
 }
 
+.module-description-layer {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(100, 100, 100, 0.5);
+    color: #fff;
+    visibility: hidden;
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* transition effect. not necessary */
+    transition: opacity .2s, visibility .2s;
+}
+
+.module-wrap:hover .module-description-layer {
+    visibility: visible;
+    opacity: 1;
+}
+
+.module-description {
+    transition: .2s;
+    transform: translateY(1em);
+}
+
+.module-wrap:hover .module-description {
+    transform: translateY(0);
+}
+
 @media (max-width: 767px) {
     .splash {
         padding-top: 8em

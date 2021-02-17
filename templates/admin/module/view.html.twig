@@ -51,4 +51,28 @@
             </div>
         </div>
     </div>
+    {% if module.image is not null and module.image.image %}
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <h3 class="card-header">Image</h3>
+                    <div class="card-body">
+                        <img class="img-fluid" src="{{ image(file_path(module.image)).zoomCrop(1000,560) }}"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    {% if module.imageHeader is not null and module.imageHeader.image %}
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <h3 class="card-header">Image (Header)</h3>
+                    <div class="card-body">
+                        <img class="img-fluid" src="{{ image(file_path(module.imageHeader)).zoomCrop(1110,222) }}"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
 {% endblock pageContent %}
