@@ -5,19 +5,21 @@
     {{ parent() }}
     <link rel="stylesheet" href="{{ cdn_veaf }}/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/custom.css">
-    <!--    &lt;!&ndash; Global Site Tag (gtag.js) - Google Analytics &ndash;&gt;-->
-    <!--    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23019901-1"></script>-->
-    <!--    <script>-->
-    <!--        window.dataLayer = window.dataLayer || [];-->
 
-    <!--        function gtag() {-->
-    <!--            dataLayer.push(arguments);-->
-    <!--        }-->
+    {% if google_agent is not empty %}
+        <script type="text/javascript">
 
-    <!--        gtag('js', new Date());-->
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', '{{ google_agent }}']);
+            _gaq.push(['_trackPageview']);
 
-    <!--        gtag('config', 'UA-23019901-1');-->
-    <!--    </script>-->
+            (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+    {% endif %}
 {% endblock head %}
 {% block header %}
     <div class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
