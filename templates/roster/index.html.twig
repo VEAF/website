@@ -33,30 +33,45 @@
     </div>
 
     {% if selectedMap is defined and selectedMap is not null %}
-        <div class="container container-main pt-3 pb-3 mb-3">
+        <div class="container container-main mb-3">
             <div class="row">
-                <div class="col-md-12">
-                    {{ selectedMap.name }}
+                <div class="col-sm-12 pt-3 pb-3">
+                    <div class="">
+                        <img class="img-fluid" src="{{ image(image_header_path(selectedMap.imageHeader)).zoomCrop(1110,222) }}"/>
+                        <div class="module-roster-description-layer">
+                            <p class="">{{ selectedMap.name | upper }}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     {% endif %}
 
     {% if selectedAircraft is defined and selectedAircraft is not null %}
-        <div class="container container-main pt-3 pb-3 mb-3">
+        <div class="container container-main mb-3">
             <div class="row">
-                <div class="col-md-12">
-                    {{ selectedAircraft.name }}
+                <div class="col-sm-12 pt-3 pb-3">
+                    <div class="">
+                        <img class="img-fluid" src="{{ image(image_header_path(selectedAircraft.imageHeader)).zoomCrop(1110,222) }}"/>
+                        <div class="module-roster-description-layer">
+                            <p class="">{{ selectedAircraft.name | upper }}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     {% endif %}
 
     {% if selectedHelicopter is defined and selectedHelicopter is not null %}
-        <div class="container container-main pt-3 pb-3 mb-3">
+        <div class="container container-main mb-3">
             <div class="row">
-                <div class="col-md-12">
-                    {{ selectedHelicopter.name }}
+                <div class="col-sm-12 pt-3 pb-3">
+                    <div class="">
+                        <img class="img-fluid" src="{{ image(image_header_path(selectedHelicopter.imageHeader)).zoomCrop(1110,222) }}"/>
+                        <div class="module-roster-description-layer">
+                            <p class="">{{ selectedHelicopter.name | upper }}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

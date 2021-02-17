@@ -323,6 +323,7 @@ iframe {
     margin-bottom: 0px;
 }
 
+/* module landing page */
 .module-description-layer {
     position: absolute;
     top: 0;
@@ -354,6 +355,21 @@ iframe {
 .module-wrap:hover .module-description {
     transform: translateY(0);
 }
+
+/* module roster page */
+.module-roster-description-layer {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+}
+
 
 @media (max-width: 767px) {
     .splash {
