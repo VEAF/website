@@ -3,49 +3,104 @@ App\Entity\Module:
   module_caucasus:
     code: 'caucasus'
     name: 'Caucase'
+    landingPage: true
+    landingPageNumber: 1
     type: <(App\Entity\Module::TYPE_MAP)>
 
   module_nevada:
     code: 'nevada'
     name: 'Nevada'
+    landingPage: true
+    landingPageNumber: 2
     type: <(App\Entity\Module::TYPE_MAP)>
 
   module_syria:
     code: 'syria'
     name: 'syrie'
+    landingPage: true
+    landingPageNumber: 3
+    type: <(App\Entity\Module::TYPE_MAP)>
+
+  module_channel:
+    code: 'channel'
+    name: 'La manche'
+    landingPage: false
+    landingPageNumber: 4
     type: <(App\Entity\Module::TYPE_MAP)>
 
   module_supercarrier:
     code: 'supercarrier'
     name: 'Supercarrier'
+    landingPage: false
+    landingPageNumber: 1
     type: <(App\Entity\Module::TYPE_SPECIAL)>
 
   module_ca:
     code: 'ca'
     name: 'Combined Arms'
+    landingPage: false
+    landingPageNumber: 1
     type: <(App\Entity\Module::TYPE_SPECIAL)>
 
   module_a10c:
     code: 'a-10c'
     name: 'A-10C'
+    landingPage: false
+    landingPageNumber: 2
     type: <(App\Entity\Module::TYPE_AIRCRAFT)>
 
   module_a10c2:
     code: 'a-10c-2'
     name: 'A-10C II'
+    landingPage: true
+    landingPageNumber: 3
     type: <(App\Entity\Module::TYPE_AIRCRAFT)>
 
   module_m2000c:
     code: 'm2000c'
     name: 'M-2000C'
+    landingPage: true
+    landingPageNumber: 1
+    type: <(App\Entity\Module::TYPE_AIRCRAFT)>
+
+  module_mig15:
+    code: 'mig-15'
+    name: 'MiG-15'
+    landingPage: true
+    landingPageNumber: 4
+    type: <(App\Entity\Module::TYPE_AIRCRAFT)>
+
+  module_mig21:
+    code: 'mig-21'
+    name: 'MiG-21'
+    landingPage: true
+    landingPageNumber: 5
+    type: <(App\Entity\Module::TYPE_AIRCRAFT)>
+
+  module_mig29:
+    code: 'mig-29'
+    name: 'MiG-29'
+    landingPage: true
+    landingPageNumber: 6
+    type: <(App\Entity\Module::TYPE_AIRCRAFT)>
+
+  module_su27:
+    code: 'su-27'
+    name: 'Su-27'
+    landingPage: true
+    landingPageNumber: 7
     type: <(App\Entity\Module::TYPE_AIRCRAFT)>
 
   module_sa342:
     code: 'sa342'
     name: 'SA-342'
+    landingPage: true
+    landingPageNumber: 1
     type: <(App\Entity\Module::TYPE_HELICOPTER)>
 
   module_ka50:
     code: 'ka-50'
     name: 'KA-50'
+    landingPage: true
+    landingPageNumber: 2
     type: <(App\Entity\Module::TYPE_HELICOPTER)>

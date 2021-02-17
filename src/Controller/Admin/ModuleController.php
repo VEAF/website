@@ -5,12 +5,14 @@ namespace App\Controller\Admin;
 use App\Entity\Module;
 use App\Form\ModuleType;
 use App\Manager\ModuleManager;
+use App\Service\FileUploaderService;
 use Kilik\TableBundle\Components\Column;
 use Kilik\TableBundle\Components\Filter;
 use Kilik\TableBundle\Components\FilterSelect;
 use Kilik\TableBundle\Components\Table;
 use Kilik\TableBundle\Services\TableService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -95,30 +97,9 @@ class ModuleController extends AbstractController
 
     /**
      * @Route("/add", name="admin_module_add")
-     */
-    public function add(ModuleManager $moduleManager, Request $request): Response
-    {
-        $module = new Module();
-        $form = $this->createForm(ModuleType::class, $module);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $moduleManager->save($module, true, true);
-            $this->addFlash('success', 'Le module a été enregistré');
-
-            return $this->redirectToRoute('admin_module_view', ['module' => $module->getId()]);
-        }
-
-        return $this->render('admin/module/edit.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
      * @Route("/{module}/edit", name="admin_module_edit")
      */
-    public function edit(ModuleManager $moduleManager, Request $request, Module $module = null): Response
+    public function edit(FileUploaderService $uploaderService, ModuleManager $moduleManager, Request $request, Module $module = null): Response
     {
         if (null === $module) {
             $module = new Module();
@@ -128,7 +109,22 @@ class ModuleController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $moduleManager->save($module, true, true);
+
+            /** @var UploadedFile $uploadedImageHeader */
+            $uploadedImageHeader = $form->get('imageHeader')->getData();
+            if ($uploadedImageHeader) {
+                $imageHeader = $uploaderService->upload($uploadedImageHeader, $this->getUser());
+                $module->setImageHeader($imageHeader);
+            }
+
+            /** @var UploadedFile $uploadedImage */
+            $uploadedImage = $form->get('image')->getData();
+            if ($uploadedImage) {
+                $image = $uploaderService->upload($uploadedImage, $this->getUser());
+                $module->setImage($image);
+            }
+
+            $moduleManager->save($module, true);
             $this->addFlash('success', 'Le module a été enregistré');
 
             return $this->redirectToRoute('admin_module_view', ['module' => $module->getId()]);

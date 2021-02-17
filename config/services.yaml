@@ -41,3 +41,7 @@ services:
     App\Service\FileService:
         arguments:
             $dataDirectory: '%kernel.project_dir%/var/data/files'
+
+    App\Twig\ImageExtension:
+        arguments:
+            $projectDir: '%kernel.project_dir%'

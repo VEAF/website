@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Module;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,9 +15,13 @@ class DefaultController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('default/index.html.twig', [
-            'controller_name' => 'DefaultController',
-        ]);
+        $data = [];
+
+        $data['maps'] = $this->getDoctrine()->getRepository(Module::class)->findBy(['type' => Module::TYPE_MAP, 'landingPage' => true], ['landingPageNumber' => 'asc', 'name' => 'asc']);
+        $data['aircrafts'] = $this->getDoctrine()->getRepository(Module::class)->findBy(['type' => Module::TYPE_AIRCRAFT, 'landingPage' => true], ['landingPageNumber' => 'asc', 'name' => 'asc']);
+        $data['helicopters'] = $this->getDoctrine()->getRepository(Module::class)->findBy(['type' => Module::TYPE_HELICOPTER, 'landingPage' => true], ['landingPageNumber' => 'asc', 'name' => 'asc']);
+
+        return $this->render('default/index.html.twig', $data);
     }
 
     /**
