@@ -17,20 +17,20 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class UserModule
 {
     const LEVEL_UNKNOWN = 0;
-    const LEVEL_CADET = 1;
+    const LEVEL_ROOKIE = 1;
     const LEVEL_MISSION = 2;
     const LEVEL_INSTRUCTOR = 3;
 
     const LEVELS = [
         self::LEVEL_UNKNOWN => 'inconnu',
-        self::LEVEL_CADET => 'cadet',
+        self::LEVEL_ROOKIE => 'débutant',
         self::LEVEL_MISSION => 'mission',
         self::LEVEL_INSTRUCTOR => 'instructeur',
     ];
 
     const LEVEL_KEYS = [
         self::LEVEL_UNKNOWN,
-        self::LEVEL_CADET,
+        self::LEVEL_ROOKIE,
         self::LEVEL_MISSION,
         self::LEVEL_INSTRUCTOR,
     ];

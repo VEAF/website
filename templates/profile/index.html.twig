@@ -22,20 +22,21 @@
                 <li><i class="fa fa-warehouse text-warning"></i> <b>Au hangar</b>: j'ai ce module, mais je ne l'utilise
                     pas (ex: je me concentre sur d'autres modules)
                 </li>
+                <li><i class="fa fa-times-circle text-danger"></i> <b>Je ne l'ai pas</b>: Je n'ai pas ce module</li>
             </ul>
 
             Mon niveau (auto évalué):
             <ul>
-                <li><i class="fa fa-book-reader text-success"></i> <b>Cadet</b>: Je suis nouveau sur le module ou en
+                <li><i class="fa fa-book-reader text-warning"></i> <b>Débutant</b>: Je suis nouveau sur le module ou en
                     cours d'apprentissage
                 </li>
                 <li><i class="fa fa-shield-alt text-success"></i> <b>Mission</b>: Je suis près pour participer aux
                     missions avec ce module
                 </li>
-                <li><i class="fa fa-user-tie text-success"></i> <b>Instructeur</b>: Je maîtrise suffisament le module
-                    pour aider les autres à progresser sur le module
+                <li><i class="fa fa-user-tie text-success"></i> <b>Instructeur</b>: Je maîtrise suffisament ce module
+                    pour aider les autres à progresser dessus<br/>
+                    <i>niveau réservé aux membres de l'association</i>
                 </li>
-                <li><i class="fa fa-times-circle text-danger"></i> <b>Je ne l'ai pas</b>: Je n'ai pas ce module</li>
             </ul>
         </div>
         {% for moduleTypeKey,moduleType in moduleTypes %}
@@ -90,12 +91,12 @@
                                         </button>
                                     </div>
                                     <div class="btn-group">
-                                        <button class="btn {% if myModule is not null and myModule.level == constant('\\App\\Entity\\UserModule::LEVEL_CADET') %}btn-warning{% else %}btn-secondary{% endif %}"
+                                        <button class="btn {% if myModule is not null and myModule.level == constant('\\App\\Entity\\UserModule::LEVEL_ROOKIE') %}btn-warning{% else %}btn-secondary{% endif %}"
                                                 {% if not module.withLevel %}disabled{% endif %}
                                                 data-module-type="{{ module.type }}"
                                                 data-module="{{ module.id }}"
-                                                data-level="{{ constant('\\App\\Entity\\UserModule::LEVEL_CADET') }}"
-                                                title="Cadet">
+                                                data-level="{{ constant('\\App\\Entity\\UserModule::LEVEL_ROOKIE') }}"
+                                                title="Débutant">
                                             <i class="fa fa-book-reader"></i>
                                         </button>
                                         <button class="btn {% if myModule is not null and myModule.level == constant('\\App\\Entity\\UserModule::LEVEL_MISSION') %}btn-success{% else %}btn-secondary{% endif %}"
@@ -106,7 +107,7 @@
                                             <i class="fa fa-shield-alt"></i>
                                         </button>
                                         <button class="btn {% if myModule is not null and myModule.level == constant('\\App\\Entity\\UserModule::LEVEL_INSTRUCTOR') %}btn-primary{% else %}btn-secondary{% endif %}"
-                                                {% if not module.withLevel %}disabled{% endif %}
+                                                {% if not module.withLevel or not app.user.member %}disabled{% endif %}
                                                 data-module-type="{{ module.type }}"
                                                 data-module="{{ module.id }}"
                                                 data-level="{{ constant('\\App\\Entity\\UserModule::LEVEL_INSTRUCTOR') }}"

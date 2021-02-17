@@ -6,7 +6,9 @@ use App\Entity\Module;
 use App\Entity\UserModule;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
@@ -34,8 +36,12 @@ class ProfileController extends AbstractController
     /**
      * @Route("/module/{module}/level/{level}", name="profile_change_level")
      */
-    public function changeLevel(SerializerInterface $serializer, Module $module, int $level): Response
+    public function changeLevel(Request $request, SerializerInterface $serializer, Module $module, int $level): Response
     {
+        if (!$request->isXmlHttpRequest()) {
+            throw new AccessDeniedHttpException();
+        }
+
         $userModule = $this->getDoctrine()->getRepository(UserModule::class)->findOneBy(['module' => $module, 'user' => $this->getUser()]);
         if (null === $userModule) {
             $userModule = new UserModule();
@@ -49,6 +55,10 @@ class ProfileController extends AbstractController
             $userModule->setActive(false);
             $this->getDoctrine()->getManager()->remove($userModule);
         }
+        // restriction: Instructor only for members
+        if (!$userModule->getUser()->isMember() && UserModule::LEVEL_INSTRUCTOR === $level) {
+            throw new AccessDeniedHttpException();
+        }
         $userModule->setLevel($level);
         $this->getDoctrine()->getManager()->flush();
 
@@ -58,15 +68,19 @@ class ProfileController extends AbstractController
     /**
      * @Route("/module/{module}/active/{active}", name="profile_change_active")
      */
-    public function changeActive(SerializerInterface $serializer, Module $module, bool $active): Response
+    public function changeActive(Request $request, SerializerInterface $serializer, Module $module, bool $active): Response
     {
+        if (!$request->isXmlHttpRequest()) {
+            throw new AccessDeniedHttpException();
+        }
+
         $userModule = $this->getDoctrine()->getRepository(UserModule::class)->findOneBy(['module' => $module, 'user' => $this->getUser()]);
         if (null === $userModule) {
             $userModule = new UserModule();
             $userModule->setModule($module);
             $userModule->setUser($this->getUser());
             if ($module->isWithLevel()) {
-                $userModule->setLevel(UserModule::LEVEL_CADET);
+                $userModule->setLevel(UserModule::LEVEL_ROOKIE);
             } else {
                 $userModule->setLevel(UserModule::LEVEL_MISSION);
             }
