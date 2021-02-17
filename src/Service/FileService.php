@@ -5,7 +5,6 @@ namespace App\Service;
 use App\Entity\File;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Ramsey\Uuid\Rfc4122\UuidV4;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -42,7 +41,7 @@ class FileService
     {
         $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
         $safeFilename = $this->slugger->slug($originalFilename);
-        $fileName = $safeFilename . '-' . uniqid() . '.' . $file->guessExtension();
+        $fileName = $safeFilename.'-'.uniqid().'.'.$file->guessExtension();
 
         try {
             $file->move($this->getTargetDirectory(), $fileName);
@@ -54,7 +53,7 @@ class FileService
     }
 
     /**
-     * Get file directory - the main directory where all files are stored
+     * Get file directory - the main directory where all files are stored.
      *
      * Ex: /var/www/html/var/data/files
      */
@@ -64,7 +63,7 @@ class FileService
     }
 
     /**
-     * Get file relative directory - dynamic part to split files in many directories
+     * Get file relative directory - dynamic part to split files in many directories.
      *
      * Ex: a/b
      */
@@ -73,21 +72,21 @@ class FileService
         $uuid = $file->getUuid()->toString();
 
         // split files into 2 directories level (36*36 => 1296 directories)
-        return $uuid[0] . '/' . $uuid[1];
+        return $uuid[0].'/'.$uuid[1];
     }
 
     /**
-     * Get file directory - the directory where the file is stored
+     * Get file directory - the directory where the file is stored.
      *
      * Ex: /var/www/html/var/data/files/a/b
      */
     public function getFileDirectory(File $file): string
     {
-        return $this->getDataDirectory() . '/' . $this->getRelativeDirectory($file);
+        return $this->getDataDirectory().'/'.$this->getRelativeDirectory($file);
     }
 
     /**
-     * Get stored file name
+     * Get stored file name.
      *
      * Ex: ab4680f3-8854-44c5-b804-1aa16cab6a04
      */
@@ -97,12 +96,12 @@ class FileService
     }
 
     /**
-     * Get file path
+     * Get file path.
      *
      * Ex: /var/www/html/var/data/files/a/b/ab4680f3-8854-44c5-b804-1aa16cab6a04
      */
     public function getFilePath(File $file): string
     {
-        return $this->getFileDirectory($file) . '/' . $this->getStoredFilename($file);
+        return $this->getFileDirectory($file).'/'.$this->getStoredFilename($file);
     }
 }

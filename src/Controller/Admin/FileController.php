@@ -3,14 +3,10 @@
 namespace App\Controller\Admin;
 
 use App\Entity\File;
-use App\Entity\User;
 use App\Form\FileUploadType;
-use App\Form\UserType;
-use App\Manager\UserManager;
 use App\Service\FileUploaderService;
 use Kilik\TableBundle\Components\Column;
 use Kilik\TableBundle\Components\Filter;
-use Kilik\TableBundle\Components\FilterSelect;
 use Kilik\TableBundle\Components\Table;
 use Kilik\TableBundle\Services\TableService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -65,7 +61,6 @@ class FileController extends AbstractController
                         ->setName('f_size')
                     )
             );
-
 
         $table
             ->addColumn(
@@ -152,5 +147,4 @@ class FileController extends AbstractController
     {
         throw new \Exception('WIP feature'); // @todo
     }
-
 }

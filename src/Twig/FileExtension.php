@@ -4,11 +4,7 @@ namespace App\Twig;
 
 use App\Entity\File;
 use App\Service\FileService;
-use Symfony\Component\Routing\RouteCollection;
-use Symfony\Component\Routing\Router;
-use Symfony\Component\Routing\RouterInterface;
 use Twig\Extension\AbstractExtension;
-use Twig\TwigFilter;
 use Twig\TwigFunction;
 
 class FileExtension extends AbstractExtension

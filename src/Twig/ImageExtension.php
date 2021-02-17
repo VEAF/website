@@ -4,11 +4,7 @@ namespace App\Twig;
 
 use App\Entity\File;
 use App\Service\FileService;
-use Symfony\Component\Routing\RouteCollection;
-use Symfony\Component\Routing\Router;
-use Symfony\Component\Routing\RouterInterface;
 use Twig\Extension\AbstractExtension;
-use Twig\TwigFilter;
 use Twig\TwigFunction;
 
 class ImageExtension extends AbstractExtension
@@ -36,7 +32,7 @@ class ImageExtension extends AbstractExtension
     public function imagePath(?File $file, string $fallBack = self::IMAGE_FALLBACK)
     {
         if (null === $file) {
-            return $this->projectDir . '/' . $fallBack;
+            return $this->projectDir.'/'.$fallBack;
         }
 
         return $this->fileService->getFilePath($file);
@@ -46,5 +42,4 @@ class ImageExtension extends AbstractExtension
     {
         return $this->imagePath($file, $fallBack);
     }
-
 }

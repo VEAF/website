@@ -4,7 +4,6 @@ namespace App\Manager;
 
 use App\Entity\Page;
 use App\Entity\PageBlock;
-use App\Entity\User;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
