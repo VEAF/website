@@ -5,6 +5,7 @@ twig:
     exception_controller: null
     globals:
         cdn_veaf: '%cdn_veaf%'
+        google_agent: '%google_agent%'
     form_themes:
       - 'bootstrap_4_layout.html.twig'
       - '@TetranzSelect2Entity/Form/fields.html.twig'
