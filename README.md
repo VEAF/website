@@ -34,3 +34,21 @@ Accès par défaut:
 cd website
 ./scripts/upgrade.sh
 ```
+
+## Git flow
+
+```shell
+read VERSION
+git checkout develop
+git pull
+git flow release start ${VERSION}
+./scripts/changelog.sh ${VERSION}
+git add .
+git commit -m ${VERSION}
+git flow release publish
+git flow release finish
+
+git push --tags
+git push
+git checkout master && git push
+```
