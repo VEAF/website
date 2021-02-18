@@ -8,6 +8,7 @@ use App\Entity\File;
 use App\Entity\Player;
 use App\Entity\Server;
 use App\Entity\Variant;
+use App\Entity\VariantStat;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use GuzzleHttp\Client;
@@ -83,7 +84,7 @@ class SlmodImportService
     /**
      * @param SlmodPlayerStat[]|array $stats
      */
-    public function importStats(array $stats)
+    public function importStats(Server $server, array $stats)
     {
         $variantByCode = [];
 
@@ -96,16 +97,30 @@ class SlmodImportService
             }
             $player->setJoinAt($stat->getJoinAt());
             $player->setLastJoinAt($stat->getLastJoinAt());
-            foreach ($stat->getVariants() as $variantStat) {
-                if (!isset($variantByCode[$variantStat->getVariantCode()])) {
-                    $variant = $this->entityManager->getRepository(Variant::class)->findOneByCode($variantStat->getVariantCode());
+            foreach ($stat->getVariants() as $variantStatDTO) {
+                if (!isset($variantByCode[$variantStatDTO->getVariantCode()])) {
+                    $variant = $this->entityManager->getRepository(Variant::class)->findOneByCode($variantStatDTO->getVariantCode());
                     if (null === $variant) {
                         $variant = new Variant();
-                        $variant->setCode($variantStat->getVariantCode());
+                        $variant->setCode($variantStatDTO->getVariantCode());
                         $this->entityManager->persist($variant);
                     }
-                    $variantByCode[$variantStat->getVariantCode()] = $variant;
+                    $variantByCode[$variantStatDTO->getVariantCode()] = $variant;
+                } else {
+                    $variant = $variantByCode[$variantStatDTO->getVariantCode()];
                 }
+
+                // find existing data
+                $variantStat = $this->entityManager->getRepository(VariantStat::class)->findOneBy(['server' => $server, 'variant' => $variant, 'player' => $player]);
+                if (null === $variantStat) {
+                    $variantStat = new VariantStat();
+                    $variantStat->setServer($server);
+                    $variantStat->setVariant($variant);
+                    $variantStat->setPlayer($player);
+                    $this->entityManager->persist($variantStat);
+                }
+                $variantStat->setTotal($variantStatDTO->getTotal());
+                $variantStat->setInAir($variantStatDTO->getInAir());
             }
         }
 
@@ -115,6 +130,6 @@ class SlmodImportService
     public function import(Server $server)
     {
         $stats = $this->loadStats($server);
-        $this->importStats($stats);
+        $this->importStats($server, $stats);
     }
 }
