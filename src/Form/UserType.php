@@ -14,22 +14,14 @@ class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $roles = [];
-        foreach (User::ROLES as $role) {
-            $pos = strpos('_', $role);
-            if ($pos) {
-                $roles[substr($role, $pos)] = $role;
-            } else {
-                $roles[$role] = $role;
-            }
-        }
-
         $builder
             ->add('email', EmailType::class)
-//            ->add('roles', ChoiceType::class,
-//                [
-//                    'choices' => $roles,
-//                ])
+            ->add('roles', ChoiceType::class,
+                [
+                    'choices' => array_flip(User::ROLES),
+                    'multiple' => true,
+                    'expanded' => true,
+                ])
             ->add('nickname')
             ->add('simDcs', CheckboxType::class, [
                 'required' => false,
