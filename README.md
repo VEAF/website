@@ -42,6 +42,8 @@ read VERSION
 git checkout develop
 git pull
 git flow release start ${VERSION}
+sed -i "/  app_version:/c\  app_version: ${VERSION}" config/packages/parameters.yaml
+
 ./scripts/changelog.sh ${VERSION}
 git add .
 git commit -m ${VERSION}

@@ -92,8 +92,8 @@ class User implements UserInterface
     const ROLE_ADMIN = 'admin';
 
     const ROLES = [
-        self::ROLE_USER,
-        self::ROLE_ADMIN,
+        'ROLE_USER' => self::ROLE_USER,
+        'ROLE_ADMIN' => self::ROLE_ADMIN,
     ];
 
     /**
@@ -211,7 +211,7 @@ class User implements UserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
 
     /**
@@ -238,7 +238,7 @@ class User implements UserInterface
      */
     public function getPassword(): string
     {
-        return (string) $this->password;
+        return (string)$this->password;
     }
 
     public function setPassword(string $password): self
