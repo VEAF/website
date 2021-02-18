@@ -1,3 +1,4 @@
+### 1.0.0
 * ADD public - page d'accueil
 * ADD public - liste des serveurs DCS de l'association (perun)
 * ADD public - liste des joueurs connectés aux serveurs DCS (perun)
