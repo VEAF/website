@@ -16,6 +16,9 @@
                 {% if selectedHelicopter is defined and selectedHelicopter is not null %}
                     {% set routeParams=routeParams|merge({'helicopter': selectedHelicopter.code}) %}
                 {% endif %}
+                {% if selectedSpecial is defined and selectedSpecial is not null %}
+                    {% set routeParams=routeParams|merge({'special': selectedSpecial.code}) %}
+                {% endif %}
                 <a href="{{ path(app.request.get('_route'), routeParams) }}"
                    class="btn {% if group == groupSelected %}btn-info{% else %}btn-primary{% endif %}">{{ groupLabel }}</a>
             {% endfor %}
@@ -29,6 +32,8 @@
                class="btn {% if tab == "aircrafts" %}btn-info{% else %}btn-primary{% endif %}">{{ tabs['aircrafts'] }}</a>
             <a href="{{ path('roster_helicopters', {'group': groupSelected}) }}"
                class="btn {% if tab == "helicopters" %}btn-info{% else %}btn-primary{% endif %}">{{ tabs['helicopters'] }}</a>
+            <a href="{{ path('roster_specials', {'group': groupSelected}) }}"
+               class="btn {% if tab == "specials" %}btn-info{% else %}btn-primary{% endif %}">{{ tabs['specials'] }}</a>
         </div>
     </div>
 
@@ -37,7 +42,8 @@
             <div class="row">
                 <div class="col-sm-12 pt-3 pb-3">
                     <div class="">
-                        <img class="img-fluid" src="{{ image(image_header_path(selectedMap.imageHeader)).zoomCrop(1110,222).jpeg }}"/>
+                        <img class="img-fluid"
+                             src="{{ image(image_header_path(selectedMap.imageHeader)).zoomCrop(1110,222).jpeg }}"/>
                         <div class="module-roster-description-layer">
                             <p class="">{{ selectedMap.name | upper }}</p>
                         </div>
@@ -52,7 +58,8 @@
             <div class="row">
                 <div class="col-sm-12 pt-3 pb-3">
                     <div class="">
-                        <img class="img-fluid" src="{{ image(image_header_path(selectedAircraft.imageHeader)).zoomCrop(1110,222).jpeg }}"/>
+                        <img class="img-fluid"
+                             src="{{ image(image_header_path(selectedAircraft.imageHeader)).zoomCrop(1110,222).jpeg }}"/>
                         <div class="module-roster-description-layer">
                             <p class="">{{ selectedAircraft.name | upper }}</p>
                         </div>
@@ -67,9 +74,26 @@
             <div class="row">
                 <div class="col-sm-12 pt-3 pb-3">
                     <div class="">
-                        <img class="img-fluid" src="{{ image(image_header_path(selectedHelicopter.imageHeader)).zoomCrop(1110,222).jpeg }}"/>
+                        <img class="img-fluid"
+                             src="{{ image(image_header_path(selectedHelicopter.imageHeader)).zoomCrop(1110,222).jpeg }}"/>
                         <div class="module-roster-description-layer">
                             <p class="">{{ selectedHelicopter.name | upper }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if selectedSpecial is defined and selectedSpecial is not null %}
+        <div class="container container-main mb-3">
+            <div class="row">
+                <div class="col-sm-12 pt-3 pb-3">
+                    <div class="">
+                        <img class="img-fluid"
+                             src="{{ image(image_header_path(selectedSpecial.imageHeader)).zoomCrop(1110,222).jpeg }}"/>
+                        <div class="module-roster-description-layer">
+                            <p class="">{{ selectedSpecial.name | upper }}</p>
                         </div>
                     </div>
                 </div>
@@ -82,11 +106,22 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="table-responsive">
-                        <table class="table table-bordered">
+                        <table class="table table-bordered roster-table">
                             {% for pilot in pilots %}
                                 <tr>
                                     <td>
-                                        <a href="{{ path('user_view', {'user': pilot.nickname}) }}">{{ pilot.nickname }}</a>
+                                        <span class="roster-icon-wrap mr-2">
+                                            {% if pilot.member %}
+                                                <i class="fa fa-user fa-2x text-success" title="Membre"></i>
+                                            {% elseif pilot.cadet %}
+                                                <i class="fa fa-user-graduate fa-2x text-primary" title="Cadet"></i>
+                                            {% else %}
+                                                <i class="fa fa-user fa-2x text-default" title="Invité"></i>
+                                            {% endif %}
+                                        </span>
+                                        <span class="roster-text-valign">
+                                            <a href="{{ path('user_view', {'user': pilot.nickname}) }}">{{ pilot.nickname }}</a>
+                                        </span>
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -102,18 +137,29 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-striped table-hover">
-                            <thead>
-                            <tr>
-                                <th>
-                                    Pilote
-                                </th>
-                            </tr>
-                            </thead>
+                        <table class="table table-bordered table-striped table-hover roster-table">
+{#                            <thead>#}
+{#                            <tr>#}
+{#                                <th>#}
+{#                                    Pilote#}
+{#                                </th>#}
+{#                            </tr>#}
+{#                            </thead>#}
                             {% for pilot_module in pilots_modules %}
                                 <tr class="{% if pilot_module.user == app.user %}table-primary{% endif %}">
                                     <td>
-                                        <a href="{{ path('user_view', {'user': pilot_module.user.nickname}) }}">{{ pilot_module.user.nickname }}</a>
+                                        <span class="roster-icon-wrap mr-2">
+                                            {% if pilot_module.user.member %}
+                                                <i class="fa fa-user fa-2x text-success" title="Membre"></i>
+                                            {% elseif pilot_module.user.cadet %}
+                                                <i class="fa fa-user-graduate fa-2x text-primary" title="Cadet"></i>
+                                            {% else %}
+                                                <i class="fa fa-user fa-2x text-default" title="Invité"></i>
+                                            {% endif %}
+                                        </span>
+                                        <span class="roster-text-valign">
+                                            <a href="{{ path('user_view', {'user': pilot_module.user.nickname}) }}">{{ pilot_module.user.nickname }}</a>
+                                        </span>
                                         <div class="float-right">
                                             {% include 'roster/_user_module.html.twig' with {'userModule': pilot_module} %}
                                         </div>
@@ -132,7 +178,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="table-responsive">
-                        <table class="table table-bordered">
+                        <table class="table table-bordered roster-table">
                             {% for map in maps %}
                                 <tr>
                                     <td>
@@ -141,7 +187,7 @@
                                         {% if attribute(mapsCount, map.id) is defined %}
                                             <div class="float-right">
                                                 <span class="badge badge-primary badge-pill"
-                                                    title="Nombre de pilotes">{{ attribute(mapsCount, map.id) }}</span>
+                                                      title="Nombre de pilotes">{{ attribute(mapsCount, map.id) }}</span>
                                             </div>
                                         {% endif %}
                                     </td>
@@ -159,7 +205,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="table-responsive">
-                        <table class="table table-bordered">
+                        <table class="table table-bordered roster-table">
                             {% for aircraft in aircrafts %}
                                 <tr>
                                     <td>
@@ -188,7 +234,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="table-responsive">
-                        <table class="table table-bordered">
+                        <table class="table table-bordered roster-table">
                             {% for helicopter in helicopters %}
                                 <tr>
                                     <td>

@@ -45,7 +45,7 @@ class Module
      * @ORM\Column(type="integer")
      * @Groups({"id", "module"})
      */
-    private ?int $id;
+    private ?int $id = null;
 
     /**
      * @ORM\Column(type="integer")

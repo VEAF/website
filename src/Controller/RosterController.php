@@ -26,6 +26,7 @@ class RosterController extends AbstractController
         'aircrafts' => 'Avions',
         'helicopters' => 'Hélicoptères',
         'maps' => 'Cartes',
+        'specials' => 'Spéciaux',
     ];
 
     /**
@@ -136,6 +137,35 @@ class RosterController extends AbstractController
         } else {
             $data['helicopters'] = $this->getDoctrine()->getRepository(Module::class)->findBy(['type' => Module::TYPE_HELICOPTER], ['name' => 'asc']);
             $data['helicoptersCount'] = $this->getDoctrine()->getRepository(UserModule::class)->countUsersByModule(Module::TYPE_HELICOPTER, User::getGroupStatuses($group));
+        }
+
+        return $this->render('roster/index.html.twig', $data);
+    }
+
+    /**
+     * @Route("/specials/{group}", name="roster_specials")
+     * @Route("/special/{special}/{group}", name="roster_special")
+     * @ParamConverter("special", options={"mapping": {"special": "code"}})
+     */
+    public function specials(Module $special = null, string $group = null): Response
+    {
+        if (!isset(self::GROUPS[$group])) {
+            return $this->redirectToRoute('roster_specials', ['group' => 'all']);
+        }
+
+        $data = [];
+        $data['groupSelected'] = $group;
+        $data['groups'] = self::GROUPS;
+        $data['tabs'] = self::TABS;
+        $data['tab'] = 'specials';
+
+        if (null !== $special) {
+            $data['selectedSpecial'] = $special;
+            $data['pilots_modules'] = $this->getDoctrine()->getRepository(UserModule::class)->findByModuleAndUserStatus($special, User::getGroupStatuses($group));
+            $data['module'] = $special;
+        } else {
+            $data['specials'] = $this->getDoctrine()->getRepository(Module::class)->findBy(['type' => Module::TYPE_SPECIAL], ['name' => 'asc']);
+            $data['specialsCount'] = $this->getDoctrine()->getRepository(UserModule::class)->countUsersByModule(Module::TYPE_SPECIAL, User::getGroupStatuses($group));
         }
 
         return $this->render('roster/index.html.twig', $data);

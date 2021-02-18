@@ -20,6 +20,7 @@ class DefaultController extends AbstractController
         $data['maps'] = $this->getDoctrine()->getRepository(Module::class)->findBy(['type' => Module::TYPE_MAP, 'landingPage' => true], ['landingPageNumber' => 'asc', 'name' => 'asc']);
         $data['aircrafts'] = $this->getDoctrine()->getRepository(Module::class)->findBy(['type' => Module::TYPE_AIRCRAFT, 'landingPage' => true], ['landingPageNumber' => 'asc', 'name' => 'asc']);
         $data['helicopters'] = $this->getDoctrine()->getRepository(Module::class)->findBy(['type' => Module::TYPE_HELICOPTER, 'landingPage' => true], ['landingPageNumber' => 'asc', 'name' => 'asc']);
+        $data['specials'] = $this->getDoctrine()->getRepository(Module::class)->findBy(['type' => Module::TYPE_SPECIAL, 'landingPage' => true], ['landingPageNumber' => 'asc', 'name' => 'asc']);
 
         return $this->render('default/index.html.twig', $data);
     }

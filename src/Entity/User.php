@@ -386,6 +386,11 @@ class User implements UserInterface
         return in_array($this->status, self::STATUSES_MEMBER);
     }
 
+    public function isCadet(): ?bool
+    {
+        return self::STATUS_CADET === $this->status;
+    }
+
     public function isOffice(): ?bool
     {
         return in_array($this->status, self::STATUSES_OFFICE);

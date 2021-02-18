@@ -12,13 +12,13 @@
         </p>
         <div class="row mb-3">
             <div class="col-md-4">
-                <div class="card bg-primary mb-3" style="max-width: 20rem;">
-                    <div class="card-header text-center">Présidence<br/><i class="fa fa-dollar-sign fa-4x"></i></div>
+                <div class="card bg-light mb-3" style="max-width: 20rem;">
+                    <div class="card-header text-center">Présidence<br/><i class="fa fa-crown fa-4x"></i></div>
                     <div class="card-body">
                         <h4 class="card-title">Président</h4>
-                        <p class="card-text">{% if president is not null %}{{ president.nickname }}{% else %}-{% endif %}</p>
+                        <p class="card-text">{% if president is not null %}<a href="{{ path('user_view', {'user': president.nickname}) }}">{{ president.nickname }}</a>{% else %}-{% endif %}</p>
                         <h4 class="card-title text-right">Adjoint</h4>
-                        <p class="card-text text-right">{% if presidentDeputy is not null %}{{ presidentDeputy.nickname }}{% else %}-{% endif %}</p>
+                        <p class="card-text text-right">{% if presidentDeputy is not null %}<a href="{{ path('user_view', {'user': presidentDeputy.nickname}) }}">{{ presidentDeputy.nickname }}</a>{% else %}-{% endif %}</p>
                     </div>
                 </div>
             </div>
@@ -27,20 +27,20 @@
                     <div class="card-header text-center">Trésorerie<br/><i class="fa fa-dollar-sign fa-4x"></i></div>
                     <div class="card-body">
                         <h4 class="card-title">Trésorier</h4>
-                        <p class="card-text">{% if treasurer is not null %}{{ treasurer.nickname }}{% else %}-{% endif %}</p>
+                        <p class="card-text">{% if treasurer is not null %}<a href="{{ path('user_view', {'user': treasurer.nickname}) }}">{{ treasurer.nickname }}</a>{% else %}-{% endif %}</p>
                         <h4 class="card-title text-right">Adjoint</h4>
-                        <p class="card-text text-right">{% if treasurerDeputy is not null %}{{ treasurerDeputy.nickname }}{% else %}-{% endif %}</p>
+                        <p class="card-text text-right">{% if treasurerDeputy is not null %}<a href="{{ path('user_view', {'user': treasurerDeputy.nickname}) }}">{{ treasurerDeputy.nickname }}</a>{% else %}-{% endif %}</p>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card bg-primary mb-3" style="max-width: 20rem;">
+                <div class="card bg-light mb-3" style="max-width: 20rem;">
                     <div class="card-header text-center">Secrétariat<br/><i class="fa fa-pen-alt fa-4x"></i></div>
                     <div class="card-body">
                         <h4 class="card-title">Secrétaire</h4>
-                        <p class="card-text">{% if secretary is not null %}{{ secretary.nickname }}{% else %}-{% endif %}</p>
+                        <p class="card-text">{% if secretary is not null %}<a href="{{ path('user_view', {'user': secretary.nickname}) }}">{{ secretary.nickname }}</a>{% else %}-{% endif %}</p>
                         <h4 class="card-title text-right">Adjoint</h4>
-                        <p class="card-text text-right">{% if secretaryDeputy is not null %}{{ secretaryDeputy.nickname }}{% else %}-{% endif %}</p>
+                        <p class="card-text text-right">{% if secretaryDeputy is not null %}<a href="{{ path('user_view', {'user': secretaryDeputy.nickname}) }}">{{ secretaryDeputy.nickname }}</a>{% else %}-{% endif %}</p>
                     </div>
                 </div>
             </div>
