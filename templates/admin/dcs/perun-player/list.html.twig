@@ -1,12 +1,12 @@
 {% extends 'admin/layout.html.twig' %}
 {% set libKilikTable=true %}
 {% set section="dcs" %}
-{% set subSection="player" %}
+{% set subSection="perun-player" %}
 
 {% block pageContent %}
     <div class="row mb-4">
         <div class="col-xl-8">
-            {% embed "admin/dcs/player/_list.html.twig" with {"table": table} %}
+            {% embed "admin/dcs/perun-player/_list.html.twig" with {"table": table} %}
                 {% block tableTitle %}
                     <b>Joueurs DCS</b>
                     {#                <div class="navbar navbar-right">#}

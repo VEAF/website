@@ -1,14 +1,14 @@
 {% extends 'admin/layout.html.twig' %}
 {% set libKilikTable=true %}
 {% set section="admin" %}
-{% set subSection="player" %}
+{% set subSection="perun-player" %}
 
 {% block pageContent %}
     <div class="row mb-4">
         <div class="col-md-6">
             <div class="bs-component">
                 <div class="card mb-3">
-                    <h3 class="card-header">Modifier le joueur DCS</h3>
+                    <h3 class="card-header">Modifier le joueur DCS (Perun)</h3>
                     <div class="card-body">
                         <table class="table">
                             <tr>
@@ -25,7 +25,7 @@
                         {{ form_errors(form) }}
                         <div class="row">
                             <div class="col-sm-6">
-                                <a href="{{ path('admin_dcs_player_view', {'player': player.id}) }}"
+                                <a href="{{ path('admin_dcs_perun_player_view', {'player': player.id}) }}"
                                    class="btn btn-lg btn-primary form-control">
                                     <i class="fa fa-arrow-circle-left"></i> Annuler
                                 </a>

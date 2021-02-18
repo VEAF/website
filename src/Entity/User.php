@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Perun\Entity\Player;
+use App\Perun\Entity\Player as PerunPlayer;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -128,10 +128,10 @@ class User implements UserInterface
     protected ?string $passwordRequestToken;
 
     /**
-     * @ORM\OneToOne(targetEntity=Player::class, cascade={"persist"}, fetch="EAGER", inversedBy="user")
-     * @ORM\JoinColumn(name="player_id", referencedColumnName="pe_DataPlayers_id", nullable=true)
+     * @ORM\OneToOne(targetEntity=PerunPlayer::class, cascade={"persist"}, fetch="EAGER", inversedBy="user")
+     * @ORM\JoinColumn(name="perun_player_id", referencedColumnName="pe_DataPlayers_id", nullable=true)
      */
-    private ?Player $player;
+    private ?PerunPlayer $perunPlayer;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -283,14 +283,14 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getPlayer(): ?Player
+    public function getPerunPlayer(): ?PerunPlayer
     {
-        return $this->player;
+        return $this->perunPlayer;
     }
 
-    public function setPlayer(?Player $player): self
+    public function setPerunPlayer(?PerunPlayer $perunPlayer): self
     {
-        $this->player = $player;
+        $this->perunPlayer = $perunPlayer;
 
         return $this;
     }
