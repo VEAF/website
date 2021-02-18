@@ -370,6 +370,17 @@ iframe {
     font-size: 32px;
 }
 
+.roster-table {
+    font-size: larger;
+}
+
+.roster-text-valign {
+    vertical-align: middle;
+}
+
+.roster-icon-wrap {
+    vertical-align: middle;
+}
 
 @media (max-width: 767px) {
     .splash {

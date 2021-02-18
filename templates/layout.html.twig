@@ -4,7 +4,7 @@
 {% block head %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ cdn_veaf }}/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/custom.css">
+    <link rel="stylesheet" href="/css/custom.css?version={{ app_version }}">
 
     {% if google_agent is not empty %}
         <script type="text/javascript">
