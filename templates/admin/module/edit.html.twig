@@ -8,14 +8,14 @@
         <div class="col-md-6">
             <div class="bs-component">
                 <div class="card mb-3">
-                    <h3 class="card-header">{% if module is defined %}Modifier le module{% else %}Ajouter un module{% endif %}</h3>
+                    <h3 class="card-header">{% if module.id is not null %}Modifier le module{% else %}Ajouter un module{% endif %}</h3>
                     <div class="card-body">
                         {{ form_start(form) }}
                         {{ form_rest(form) }}
                         {{ form_errors(form) }}
                         <div class="row">
                             <div class="col-sm-6">
-                                {% if module is defined %}
+                                {% if module.id is not null %}
                                     <a href="{{ path('admin_module_view', {'module': module.id}) }}"
                                        class="btn btn-lg btn-primary form-control">
                                         <i class="fa fa-arrow-circle-left"></i> Annuler
