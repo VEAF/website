@@ -24,7 +24,7 @@ class UserController extends AbstractController
     {
         $queryBuilder = $this->getDoctrine()->getRepository(User::class)->createQueryBuilder('u')
             ->select('u, p')
-            ->leftJoin('u.player', 'p');
+            ->leftJoin('u.perunPlayer', 'p');
 
         $booleanFilterChoices = ['Oui' => true, 'Non' => false];
 
