@@ -13,4 +13,6 @@
 * ADD utilisateur - mot de passe perdu (+ recaptcha), validation par email
 * ADD utilisateur - interface de connexion / déconnexion
 * ADD utilisateur - mon profil - gestion de mes modules
+* ADD import des stats SLMOD temps total par variante de module
 * ADD dev - script de mise à jour (semi) automatique: ./scripts/upgrade.sh
+* UPD normalisation du lien utilisateur/joueur DCS perun

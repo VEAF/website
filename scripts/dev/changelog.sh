@@ -29,7 +29,7 @@ do
 
 done
 
-echo "" > CHANGELOG.md.tmp
+echo "" >> CHANGELOG.md.tmp
 echo "keep original changes"
 cat CHANGELOG.md >> CHANGELOG.md.tmp
 
