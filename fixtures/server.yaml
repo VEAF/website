@@ -1,0 +1,11 @@
+App\Entity\Server:
+
+  server_public:
+    code: "public"
+    name: "Public"
+    perunInstance: '@perun_instance_public'
+
+  server_private:
+    code: "private"
+    name: "Privé"
+    perunInstance: '@perun_instance_private'

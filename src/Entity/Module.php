@@ -92,9 +92,15 @@ class Module
      */
     private $landingPageNumber;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Variant::class, mappedBy="module")
+     */
+    private $variants;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->variants = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -230,6 +236,36 @@ class Module
     public function setLandingPageNumber(int $landingPageNumber): self
     {
         $this->landingPageNumber = $landingPageNumber;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Variant[]
+     */
+    public function getVariants(): Collection
+    {
+        return $this->variants;
+    }
+
+    public function addVariant(Variant $variant): self
+    {
+        if (!$this->variants->contains($variant)) {
+            $this->variants[] = $variant;
+            $variant->setModule($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVariant(Variant $variant): self
+    {
+        if ($this->variants->removeElement($variant)) {
+            // set the owning side to null (unless already changed)
+            if ($variant->getModule() === $this) {
+                $variant->setModule(null);
+            }
+        }
 
         return $this;
     }

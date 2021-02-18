@@ -176,6 +176,11 @@ class User implements UserInterface
      */
     private $files;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Player::class, cascade={"persist", "remove"}, inversedBy="user")
+     */
+    private $player;
+
     public function __construct()
     {
         $this->modules = new ArrayCollection();
@@ -465,6 +470,18 @@ class User implements UserInterface
                 $file->setOwner(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPlayer(): ?Player
+    {
+        return $this->player;
+    }
+
+    public function setPlayer(?Player $player): self
+    {
+        $this->player = $player;
 
         return $this;
     }

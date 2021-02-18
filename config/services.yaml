@@ -45,3 +45,7 @@ services:
     App\Twig\ImageExtension:
         arguments:
             $projectDir: '%kernel.project_dir%'
+
+    App\Service\SlmodImportService:
+        arguments:
+            $apiClient: '@eight_points_guzzle.client.slmod'
