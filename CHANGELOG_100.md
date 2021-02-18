@@ -1,1 +1,0 @@
-* FIX icône du président

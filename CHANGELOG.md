@@ -1,3 +1,12 @@
+### 1.0.1
+* ADD ajout du statut du pilote dans le roster
+* ADD lien vers le profil de l'utilisateur dans la page bureau
+* ADD modules spéciaux sur la page d'accueil + roster pilotes
+* FIX icône du président
+* FIX erreur lors de l'ajout d'un nouveau module
+* FIX admin - surbrillance dans le menu de gauche pour les modules
+* FIX pseudo perun dans la liste des utilisateurs
+
 ### 1.0.0
 * ADD public - page d'accueil
 * ADD public - liste des serveurs DCS de l'association (perun)
