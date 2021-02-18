@@ -40,7 +40,7 @@ class Player
     private ?\DateTime $updated;
 
     /**
-     * @ORM\OneToOne(targetEntity=User::class, cascade={"persist"}, fetch="EAGER", mappedBy="player")
+     * @ORM\OneToOne(targetEntity=User::class, cascade={"persist"}, fetch="EAGER", mappedBy="perunPlayer")
      */
     private ?User $user;
 

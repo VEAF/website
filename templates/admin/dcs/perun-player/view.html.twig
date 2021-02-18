@@ -1,14 +1,14 @@
 {% extends 'admin/layout.html.twig' %}
 {% set libKilikTable=true %}
 {% set section="admin" %}
-{% set subSection="player" %}
+{% set subSection="perun-player" %}
 
 {% block pageContent %}
     <div class="row mb-4">
         <div class="col-md-6">
             <div class="bs-component">
                 <div class="card mb-3">
-                    <h3 class="card-header">Consulter le joueur DCS</h3>
+                    <h3 class="card-header">Consulter le joueur DCS (Perun)</h3>
                     <div class="card-body">
                         <table class="table">
                             <tr>
@@ -29,7 +29,7 @@
                                             {{ player.user.nickname }}
                                         </a>
                                         <div class="float-right">
-                                            <a href="{{ path('admin_dcs_player_remove_link', {'player': player.id}) }}" title="Supprimer le lien"><i class="fa fa-times-circle text-danger"></i></a>
+                                            <a href="{{ path('admin_dcs_perun_player_remove_link', {'player': player.id}) }}" title="Supprimer le lien"><i class="fa fa-times-circle text-danger"></i></a>
                                         </div>
                                     {% else %}
                                         <i>non associé</i>
@@ -39,11 +39,11 @@
                         </table>
                         <div class="row">
                             <div class="col-sm-6">
-                                <a href="{{ path('admin_dcs_player_list') }}" class="btn btn-primary form-control"><i
+                                <a href="{{ path('admin_dcs_perun_player_list') }}" class="btn btn-primary form-control"><i
                                             class="fa fa-arrow-left"></i> Retour liste</a>
                             </div>
                             <div class="col-sm-6">
-                                <a href="{{ path('admin_dcs_player_edit', {'player': player.id}) }}"
+                                <a href="{{ path('admin_dcs_perun_player_edit', {'player': player.id}) }}"
                                    class="btn btn-outline-warning form-control"><i class="fa fa-edit"></i> Modifier</a>
                             </div>
                         </div>
