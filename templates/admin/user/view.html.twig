@@ -29,6 +29,16 @@
                             </tr>
                             <tr>
                                 <td>
+                                    Rôles (site):
+                                </td>
+                                <td>
+                                    {% for role in user.roles %}
+                                        {% if not loop.first %}, {% endif %}{{ role }}
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
                                     DCS:
                                 </td>
                                 <td>
