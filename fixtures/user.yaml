@@ -4,7 +4,7 @@ App\Entity\User:
     # test1234
     password: '\$2y\$10\$rXysKOG/6HEW9acoV3gISuaxQ6yX5K6aN/.ogx3lQtdsD8R6.E3Ry'
     roles: [ROLE_ADMIN]
-    player: '@perun_player_mitch'
+    perunPlayer: '@perun_player_mitch'
     nickname: 'mitch'
     createdAt: "<dateTimeBetween('-1 month', 'now')>"
     updatedAt: "<dateTimeBetween('-1 month', 'now')>"
@@ -17,7 +17,7 @@ App\Entity\User:
     # test1234
     password: '\$2y\$10\$rXysKOG/6HEW9acoV3gISuaxQ6yX5K6aN/.ogx3lQtdsD8R6.E3Ry'
     roles: [ROLE_ADMIN]
-    player: '@perun_player_zip'
+    perunPlayer: '@perun_player_zip'
     nickname: 'zip'
     createdAt: "<dateTimeBetween('-1 month', 'now')>"
     updatedAt: "<dateTimeBetween('-1 month', 'now')>"
