@@ -76,8 +76,6 @@ class SlmodImportService
             $stats[] = $player;
         }
 
-        dump($stats);
-
         return $stats;
     }
 
@@ -95,8 +93,14 @@ class SlmodImportService
                 $player->setUcid($stat->getUcid());
                 $this->entityManager->persist($player);
             }
-            $player->setJoinAt($stat->getJoinAt());
-            $player->setLastJoinAt($stat->getLastJoinAt());
+            // we keep the older join at value, without server distinction
+            if (null === $player->getJoinAt() || $player->getJoinAt()->getTimestamp() < $stat->getJoinAt()->getTimestamp()) {
+                $player->setJoinAt($stat->getJoinAt());
+            }
+            // we keep the newer last join at value, without server distinction
+            if (null === $player->getLastJoinAt() || $player->getLastJoinAt()->getTimestamp() > $stat->getLastJoinAt()->getTimestamp()) {
+                $player->setLastJoinAt($stat->getLastJoinAt());
+            }
             foreach ($stat->getVariants() as $variantStatDTO) {
                 if (!isset($variantByCode[$variantStatDTO->getVariantCode()])) {
                     $variant = $this->entityManager->getRepository(Variant::class)->findOneByCode($variantStatDTO->getVariantCode());
