@@ -75,7 +75,10 @@
     <div class="container container-main pt-3 pb-3 mb-3">
         <div class="row mb-3 ml-1 mr-1">
             <div class="col-md-12">
-                <div id="history24h" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+                <div id="history24h" style="min-width: 400px; height: 300px; margin: 0 auto"></div>
+                <div class="float-right">
+                    <a href="{{ path('perun_instance_attendance', {'instance': instance.id}) }}">plus de stats ...</a>
+                </div>
             </div>
         </div>
     </div>

@@ -7,6 +7,7 @@ use App\Perun\Entity\Instance;
 use App\Perun\Entity\LogStat;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Laminas\Json\Expr;
 use Ob\HighchartsBundle\Highcharts\Highchart;
 
 class LogStatService
@@ -56,12 +57,12 @@ class LogStatService
             $results[$hourKey] = $stat;
         }
 
+        // remember already seen users on one same hour
         $countMap = [];
 
         foreach ($entries as $entry) {
             for ($hour = 0; $hour <= $entry->getTime() / 60; $hour++) {
                 $playerStartHour = (clone $entry->getDatetime())->modify(sprintf('-%d minutes +%d hours', $entry->getTime(), $hour))->format('Y-m-d H');
-                dump($playerStartHour);
                 if (isset($results[$playerStartHour])) {
                     /** @var LogStatHourly $stat */
                     $stat = $results[$playerStartHour];
@@ -95,10 +96,10 @@ class LogStatService
     public function getSeriesFromLogStatHourly(array $stats)
     {
         $series = [
-            0 => ['name' => 'Membres', 'color'=>'#73a839', 'data' => []],
-            1 => ['name' => 'Cadets', 'color'=>'#2fa4e7', 'data' => []],
-            2 => ['name' => 'Invités', 'color'=>'#033c73', 'data' => []],
-            3 => ['name' => 'Inconnus', 'color'=>'#868e96', 'data' => []],
+            0 => ['name' => 'Membres', 'color' => '#73a839', 'data' => []],
+            1 => ['name' => 'Cadets', 'color' => '#2fa4e7', 'data' => []],
+            2 => ['name' => 'Invités', 'color' => '#033c73', 'data' => []],
+            3 => ['name' => 'Inconnus', 'color' => '#868e96', 'data' => []],
         ];
 
         foreach ($stats as $stat) {
@@ -132,14 +133,137 @@ class LogStatService
         $history = new Highchart();
         $history->chart->renderTo($chartName);  // The #id of the div where to render the chart
         $history->chart->type('column');
+        $history->credits->enabled(false);
+        $history->legend->layout('vertical');
+        $history->legend->align('right');
+        $history->legend->verticalAlign('middle');
         $history->title->text('Fréquentation du serveur');
         $history->xAxis->title(array('text' => "Historique des 24 dernières heures"));
         $history->yAxis->title(array('text' => "Joueurs connectés"));
         $history->plotOptions->column(['stacking' => 'normal']);
-        $history->chart->credits(['enabled'=> false]); // should works, but no ...
         $history->xAxis->categories($this->getCategoriesFromLogStatHourly($stats));
         $history->series($this->getSeriesFromLogStatHourly($stats));
 
         return $history;
     }
+
+    /**
+     * @return array
+     */
+    public function loadAttendanceHeatmapHourly(Instance $instance = null, int $weeks): array
+    {
+        $now = new \DateTime();
+        $periodEnd = (clone $now)->modify('-1 day')->setTime(23, 59, 59);
+        $periodStart = (clone $periodEnd)->modify(sprintf('-%d weeks', $weeks))->setTime(0, 0, 0);
+
+        $query = $this->entityManager->getRepository(LogStat::class)->createQueryBuilder('stat')
+            ->select('(UNIX_TIMESTAMP(stat.datetime) - 60 * stat.time) AS session_start, UNIX_TIMESTAMP(stat.datetime) AS session_end, player.id AS player_id')
+            ->join('stat.player', 'player')
+            ->andHaving('session_start >= :periodStart')
+            ->setParameter('periodStart', $periodStart->getTimestamp())
+            ->andHaving('session_end >= :periodEnd')
+            ->setParameter('periodEnd', $periodEnd->getTimestamp())
+            ->andWhere('stat.datetime >= :startDate')
+            ->setParameter('startDate', (clone $periodStart)->modify('-4 hours')); // simple optimisation to use indexes
+        if (null !== $instance) {
+            $query->join('stat.mission', 'mission')
+                ->andWhere('mission.instance = :instance')
+                ->setParameter('instance', $instance);
+        }
+
+        /** @var LogStat[] $entries */
+        $entries = $query->getQuery()->getArrayResult();
+
+        // 2 dimensions array ? day, hour
+        $results = [];
+
+        // remember already seen users on one same hour
+        $countMap = [];
+
+        // prepare results
+        for ($dayOfWeek = 0; $dayOfWeek < 7; $dayOfWeek++) {
+            $results[$dayOfWeek] = [];
+            for ($hour = 0; $hour < 24; $hour++) {
+                $results[$dayOfWeek][$hour] = 0;
+            }
+        }
+
+        foreach ($entries as $entry) {
+            // advance with 1 hour resolution
+            for ($time = $entry['session_start']; $time <= $entry['session_start']; $time += 3600) {
+
+                $sessionKey = (new \DateTime())->setTimestamp($time)->format('Y-m-d H');
+                $startDate = (new \DateTime())->setTimestamp($time);
+
+                // deduplicate many entries from same player in same hour
+                if (!isset($countMap[$sessionKey][$entry['player_id']])) {
+                    $dateKey = $startDate->format('N') - 1; // day of week (0=monday - 6=sunday)
+                    $hourKey = $startDate->format('G'); // hour of day
+                    $results[$dateKey][$hourKey]++;
+
+                    // remember counted players
+                    $countMap[$sessionKey][$entry['player_id']] = true;
+                }
+            }
+        }
+
+        return $results;
+    }
+
+
+    /**
+     * @param array $stats
+     */
+    public function getSeriesFromHeatmapResult(array $stats, int $divider = 1)
+    {
+        $series = [
+            0 => [
+                'name' => 'Connectés',
+                'data' => [],
+            ],
+        ];
+
+        foreach ($stats as $dayOfWeek => $dayStats) {
+            foreach ($dayStats as $hourOfDay => $hourStats) {
+                $series[0]['data'][] = [$dayOfWeek, $hourOfDay, ceil($hourStats / $divider)];
+            }
+        }
+
+        return $series;
+    }
+
+
+    public function getHeatmapChart(string $chartName, Instance $instance = null, int $weeks = 2): Highchart
+    {
+
+        $stats = $this->loadAttendanceHeatmapHourly($instance, $weeks);
+
+        $heatmap = new Highchart();
+        $heatmap->chart->renderTo($chartName);  // The #id of the div where to render the chart
+        $heatmap->chart->type('heatmap');
+        $heatmap->credits->enabled(false);
+        $heatmap->tooltip->formatter(new Expr("function () {
+        return '<b>' + getPointCategoryName(this.point, 'x') + '<b><br/>' + 
+            this.point.value + '</b> joueurs connecté à ' + getPointCategoryName(this.point, 'y') + '</b>';
+        }"));
+        $heatmap->legend->layout('vertical');
+        $heatmap->legend->align('right');
+        $heatmap->legend->verticalAlign('middle');
+        $heatmap->title->text('Fréquentation du serveur - moyenne des 2 dernières semaines');
+        $heatmap->yAxis->title(array('text' => "Joueurs connectés"));
+        $heatmap->xAxis->categories(['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']);
+        $heatmap->colorAxis->min(0);
+        $heatmap->colorAxis->minColor('#FFFFFF');
+        $heatmap->colorAxis->maxColor(new Expr('Highcharts.getOptions().colors[0]'));
+
+        $hours = [];
+        for ($hour = 24; $hour >= 0; --$hour) {
+            $hours[] = sprintf('%02d:00', $hour);
+        }
+        $heatmap->yAxis->categories($hours);
+        $heatmap->series($this->getSeriesFromHeatmapResult($stats, $weeks));
+
+        return $heatmap;
+    }
+
 }
