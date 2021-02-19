@@ -6,7 +6,6 @@ use App\Perun\Entity\Instance;
 use App\Perun\Entity\OnlinePlayer;
 use App\Perun\Entity\Player;
 use App\Perun\Service\LogStatService;
-use Ob\HighchartsBundle\Highcharts\Highchart;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -54,7 +53,6 @@ class PerunController extends AbstractController
      */
     public function attendance(Instance $instance, LogStatService $logStatService): Response
     {
-
         return $this->render('perun/attendance.html.twig', [
             'instance' => $instance,
             'history24h' => $logStatService->getAttendanceChart('history24h', $instance),

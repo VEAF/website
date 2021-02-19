@@ -61,6 +61,9 @@ sed -i "/  app_version:/c\  app_version: ${VERSION}" config/packages/parameters.
 # merge waiting CHANGELOGS
 ./scripts/dev/changelog.sh ${VERSION}
 
+# fix coding standard
+make fix
+
 # fix some remaining things
 
 # then

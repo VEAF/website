@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Perun\DTO;
-
 
 class LogStatHourly
 {
