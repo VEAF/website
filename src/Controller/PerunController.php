@@ -56,7 +56,7 @@ class PerunController extends AbstractController
         return $this->render('perun/attendance.html.twig', [
             'instance' => $instance,
             'history24h' => $logStatService->getAttendanceChart('history24h', $instance),
-            'heatmap' => $logStatService->getHeatmapChart('heatmap', null /* @todo $instance*/),
+            'heatmap' => $logStatService->getHeatmapChart('heatmap', $instance),
         ]);
     }
 }

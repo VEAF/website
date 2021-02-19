@@ -3,6 +3,7 @@
 namespace App\Perun\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Perun\Repository\DataMissionHashRepository;
 
 /**
  * @ORM\Table(name="pe_DataMissionHashes")
