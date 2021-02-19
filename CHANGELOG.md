@@ -1,3 +1,6 @@
+### 1.1.1
+* FIX bug dans la sélection de la fréquentation heatmap
+
 ### 1.1.0
 * ADD public - graph de fréquentation du serveur DCS sur 24h
 * ADD public - ajout du graph heatmap de fréquentation du serveur sur 2 semaines
