@@ -1,3 +1,6 @@
+### 1.1.2
+* FIX session + ordre des heures sur la heatmap
+
 ### 1.1.1
 * FIX bug dans la sélection de la fréquentation heatmap
 
