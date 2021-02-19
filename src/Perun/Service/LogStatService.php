@@ -158,7 +158,7 @@ class LogStatService
             ->join('stat.player', 'player')
             ->andHaving('session_start >= :periodStart')
             ->setParameter('periodStart', $periodStart->getTimestamp())
-            ->andHaving('session_end >= :periodEnd')
+            ->andHaving('session_end <= :periodEnd')
             ->setParameter('periodEnd', $periodEnd->getTimestamp())
             ->andWhere('stat.datetime >= :startDate')
             ->setParameter('startDate', (clone $periodStart)->modify('-4 hours')); // simple optimisation to use indexes
@@ -168,7 +168,6 @@ class LogStatService
                 ->setParameter('instance', $instance);
         }
 
-        /** @var LogStat[] $entries */
         $entries = $query->getQuery()->getArrayResult();
 
         // 2 dimensions array ? day, hour

@@ -221,4 +221,17 @@ class LogStat
 
         return $this;
     }
+
+    public function getMission(): ?DataMissionHash
+    {
+        return $this->mission;
+    }
+
+    public function setMission(?DataMissionHash $mission): self
+    {
+        $this->mission = $mission;
+
+        return $this;
+    }
+
 }

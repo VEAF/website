@@ -1,0 +1,5 @@
+App\Perun\Entity\DataMissionHash:
+  perun_mision_public_ot:
+    hash: "<md5('perun_mision_public_ot')>"
+    datetime: "<dateTimeBetween('-1 minute', 'now')>"
+    instance: "@perun_instance_public"
