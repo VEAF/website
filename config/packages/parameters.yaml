@@ -3,4 +3,4 @@ parameters:
   mail_from: "%env(MAIL_FROM)%"
   google_agent: "%env(GOOGLE_AGENT)%"
   api_slmod_url: "%env(API_SLMOD_URL)%"
-  app_version: 1.0.3
+  app_version: 1.1.0

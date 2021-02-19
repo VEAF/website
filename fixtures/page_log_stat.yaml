@@ -1,0 +1,21 @@
+App\Perun\Entity\LogStat:
+
+  perun_log_stat_mitch_14:
+    player: '@perun_player_mitch'
+    datetime: "<dateTimeBetween('-14 hour', '-13 hour')>"
+    time: 20
+
+  perun_log_stat_mitch_10:
+    player: '@perun_player_mitch'
+    datetime: "<dateTimeBetween('-10 hour', '-9 hour')>"
+    time: 90
+
+  perun_log_stat_zip_10:
+    player: '@perun_player_zip'
+    datetime: "<dateTimeBetween('-10 hour', '-9 hour')>"
+    time: 65
+
+  perun_log_stat_zip_4:
+    player: '@perun_player_zip'
+    datetime: "<dateTimeBetween('-4 hour', '-2 hour')>"
+    time: 25

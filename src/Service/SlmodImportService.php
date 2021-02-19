@@ -4,7 +4,6 @@ namespace App\Service;
 
 use App\DTO\SlmodPlayerStat;
 use App\DTO\SlmodVariantStat;
-use App\Entity\File;
 use App\Entity\Player;
 use App\Entity\Server;
 use App\Entity\Variant;
@@ -12,9 +11,6 @@ use App\Entity\VariantStat;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use GuzzleHttp\Client;
-use Ramsey\Uuid\Uuid;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class SlmodImportService
 {
@@ -28,7 +24,7 @@ class SlmodImportService
     }
 
     /**
-     * Load stats from server (ex: /slmod/test/stats)
+     * Load stats from server (ex: /slmod/test/stats).
      *
      * @return SlmodPlayerStat[]|array
      */

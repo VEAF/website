@@ -26,6 +26,11 @@
         {% if libKilikTable is defined and libKilikTable == true %}
         <script src="/bundles/kiliktable/js/KilikTable.js"></script>
         {% endif %}
+        {% if libHighcharts is defined and libHighcharts == true %}
+        <script src="//code.highcharts.com/4.1.8/highcharts.js"></script>
+        <script src="//code.highcharts.com/4.1.8/modules/heatmap.js"></script>
+        <script src="//code.highcharts.com/4.1.8/modules/exporting.js"></script>
+        {% endif %}
     {% endblock head %}
 </head>
 <body{% block bodyAttributes %}{% endblock bodyAttributes %}>
@@ -39,7 +44,9 @@
     </div>
 
     {% block footer %}
-    {% endblock footer %} {% block javascript %}
+    {% endblock footer %}
+
+{% block javascript %}
 <script>
 {% for message in app.flashes('success') %}
     $.notify("{{ message|escape('js') }}", "success");
@@ -71,6 +78,7 @@ $(document).ready(function () {
     {% endif %}
 });
 </script>
-{% endblock %} {% endblock body %}
+{% endblock %}
+{% endblock body %}
 </body>
 </html>

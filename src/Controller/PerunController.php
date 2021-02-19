@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Perun\Entity\Instance;
 use App\Perun\Entity\OnlinePlayer;
 use App\Perun\Entity\Player;
+use App\Perun\Service\LogStatService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -30,7 +31,7 @@ class PerunController extends AbstractController
     /**
      * @Route("/{instance}", name="perun_instance")
      */
-    public function instance(Instance $instance): Response
+    public function instance(Instance $instance, LogStatService $logStatService): Response
     {
         /** @var OnlinePlayer[] $onlinePlayers */
         $onlinePlayers = $this->getDoctrine()->getRepository(OnlinePlayer::class)->findRealPlayersByInstance($instance);
@@ -43,6 +44,19 @@ class PerunController extends AbstractController
         return $this->render('perun/instance.html.twig', [
             'instance' => $instance,
             'onlinePlayers' => $onlinePlayers,
+            'history24h' => $logStatService->getAttendanceChart('history24h', $instance),
+        ]);
+    }
+
+    /**
+     * @Route("/{instance}/attendance", name="perun_instance_attendance")
+     */
+    public function attendance(Instance $instance, LogStatService $logStatService): Response
+    {
+        return $this->render('perun/attendance.html.twig', [
+            'instance' => $instance,
+            'history24h' => $logStatService->getAttendanceChart('history24h', $instance),
+            'heatmap' => $logStatService->getHeatmapChart('heatmap', null /* @todo $instance*/),
         ]);
     }
 }

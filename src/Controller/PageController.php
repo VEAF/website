@@ -10,15 +10,13 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Why PageController ? small hack to load routes from this controller
+ * Why PageController ? small hack to load routes from this controller.
  */
 class PageController extends AbstractController
 {
     /**
      * @Route("/{path}", name="page", requirements={"path"=".+"})
      * @ParamConverter("page", options={"mapping": {"path": "path"}})
-     *
-     * @return Response
      */
     public function page(Page $page): Response
     {
