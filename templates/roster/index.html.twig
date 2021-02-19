@@ -257,5 +257,35 @@
             </div>
         </div>
     {% endif %}
+
+    {% if specials is defined %}
+        <div class="container container-main pt-3 pb-3 mb-3">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered roster-table">
+                            {% for special in specials %}
+                                <tr>
+                                    <td>
+                                        <a href="{{ path('roster_special', {'group': groupSelected, 'special': special.code}) }}"
+                                           class="">
+                                            {{ special.name }}
+                                        </a>
+                                        {% if attribute(specialsCount, special.id) is defined %}
+                                            <div class="float-right">
+                                                <span class="badge badge-primary badge-pill"
+                                                      title="Nombre de pilotes">{{ attribute(specialsCount, special.id) }}</span>
+                                            </div>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
 {% endblock pageContent %}
 
