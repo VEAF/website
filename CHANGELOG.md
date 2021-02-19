@@ -1,3 +1,6 @@
+### 1.0.3
+* FIX public - format des url du module CMS
+
 ### 1.0.2
 * FIX public - liste des modules spéciaux dans le roster
 * FIX admin - erreur lors de la saisie d'un code de module trop long
