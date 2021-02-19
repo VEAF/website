@@ -48,4 +48,17 @@ class PerunController extends AbstractController
             'history24h' => $logStatService->getAttendanceChart('history24h', $instance),
         ]);
     }
+
+    /**
+     * @Route("/{instance}/attendance", name="perun_instance_attendance")
+     */
+    public function attendance(Instance $instance, LogStatService $logStatService): Response
+    {
+
+        return $this->render('perun/attendance.html.twig', [
+            'instance' => $instance,
+            'history24h' => $logStatService->getAttendanceChart('history24h', $instance),
+            'heatmap' => $logStatService->getHeatmapChart('heatmap', null /* @todo $instance*/),
+        ]);
+    }
 }
