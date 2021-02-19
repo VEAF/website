@@ -233,5 +233,4 @@ class LogStat
 
         return $this;
     }
-
 }
