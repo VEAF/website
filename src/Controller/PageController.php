@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class PageController extends AbstractController
 {
     /**
-     * @Route("/{path}", name="page")
+     * @Route("/{path}", name="page", requirements={"path"=".+"})
      * @ParamConverter("page", options={"mapping": {"path": "path"}})
      *
      * @return Response
