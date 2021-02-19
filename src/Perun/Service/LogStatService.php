@@ -186,7 +186,7 @@ class LogStatService
 
         foreach ($entries as $entry) {
             // advance with 1 hour resolution
-            for ($time = $entry['session_start']; $time <= $entry['session_start']; $time += 3600) {
+            for ($time = $entry['session_start']; $time <= $entry['session_end']; $time += 3600) {
                 $sessionKey = (new \DateTime())->setTimestamp($time)->format('Y-m-d H');
                 $startDate = (new \DateTime())->setTimestamp($time);
 
@@ -216,7 +216,8 @@ class LogStatService
 
         foreach ($stats as $dayOfWeek => $dayStats) {
             foreach ($dayStats as $hourOfDay => $hourStats) {
-                $series[0]['data'][] = [$dayOfWeek, $hourOfDay, ceil($hourStats / $divider)];
+                // note: inverse index of hour of day, else hours are inverted in heatmap
+                $series[0]['data'][] = [$dayOfWeek, 23 - $hourOfDay, ceil($hourStats / $divider)];
             }
         }
 
@@ -246,7 +247,7 @@ class LogStatService
         $heatmap->colorAxis->maxColor(new Expr('Highcharts.getOptions().colors[0]'));
 
         $hours = [];
-        for ($hour = 24; $hour >= 0; --$hour) {
+        for ($hour = 23; $hour >= 0; --$hour) {
             $hours[] = sprintf('%02d:00', $hour);
         }
         $heatmap->yAxis->categories($hours);
