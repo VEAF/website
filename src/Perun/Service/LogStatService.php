@@ -43,7 +43,7 @@ class LogStatService
 
         // prepare all records
         $results = [];
-        for ($hour = 24; $hour > 0; $hour--) {
+        for ($hour = 24; $hour > 0; --$hour) {
             $start = (clone $now)->modify(sprintf('-%d hours', $hour));
             $start->setTime($start->format('G'), 0, 0);
             $end = (clone $start)->modify('+1 hour -1 second');
@@ -61,7 +61,7 @@ class LogStatService
         $countMap = [];
 
         foreach ($entries as $entry) {
-            for ($hour = 0; $hour <= $entry->getTime() / 60; $hour++) {
+            for ($hour = 0; $hour <= $entry->getTime() / 60; ++$hour) {
                 $playerStartHour = (clone $entry->getDatetime())->modify(sprintf('-%d minutes +%d hours', $entry->getTime(), $hour))->format('Y-m-d H');
                 if (isset($results[$playerStartHour])) {
                     /** @var LogStatHourly $stat */
@@ -138,8 +138,8 @@ class LogStatService
         $history->legend->align('right');
         $history->legend->verticalAlign('middle');
         $history->title->text('Fréquentation du serveur');
-        $history->xAxis->title(array('text' => "Historique des 24 dernières heures"));
-        $history->yAxis->title(array('text' => "Joueurs connectés"));
+        $history->xAxis->title(['text' => 'Historique des 24 dernières heures']);
+        $history->yAxis->title(['text' => 'Joueurs connectés']);
         $history->plotOptions->column(['stacking' => 'normal']);
         $history->xAxis->categories($this->getCategoriesFromLogStatHourly($stats));
         $history->series($this->getSeriesFromLogStatHourly($stats));
@@ -147,9 +147,6 @@ class LogStatService
         return $history;
     }
 
-    /**
-     * @return array
-     */
     public function loadAttendanceHeatmapHourly(Instance $instance = null, int $weeks): array
     {
         $now = new \DateTime();
@@ -181,9 +178,9 @@ class LogStatService
         $countMap = [];
 
         // prepare results
-        for ($dayOfWeek = 0; $dayOfWeek < 7; $dayOfWeek++) {
+        for ($dayOfWeek = 0; $dayOfWeek < 7; ++$dayOfWeek) {
             $results[$dayOfWeek] = [];
-            for ($hour = 0; $hour < 24; $hour++) {
+            for ($hour = 0; $hour < 24; ++$hour) {
                 $results[$dayOfWeek][$hour] = 0;
             }
         }
@@ -191,7 +188,6 @@ class LogStatService
         foreach ($entries as $entry) {
             // advance with 1 hour resolution
             for ($time = $entry['session_start']; $time <= $entry['session_start']; $time += 3600) {
-
                 $sessionKey = (new \DateTime())->setTimestamp($time)->format('Y-m-d H');
                 $startDate = (new \DateTime())->setTimestamp($time);
 
@@ -199,7 +195,7 @@ class LogStatService
                 if (!isset($countMap[$sessionKey][$entry['player_id']])) {
                     $dateKey = $startDate->format('N') - 1; // day of week (0=monday - 6=sunday)
                     $hourKey = $startDate->format('G'); // hour of day
-                    $results[$dateKey][$hourKey]++;
+                    ++$results[$dateKey][$hourKey];
 
                     // remember counted players
                     $countMap[$sessionKey][$entry['player_id']] = true;
@@ -210,10 +206,6 @@ class LogStatService
         return $results;
     }
 
-
-    /**
-     * @param array $stats
-     */
     public function getSeriesFromHeatmapResult(array $stats, int $divider = 1)
     {
         $series = [
@@ -232,10 +224,8 @@ class LogStatService
         return $series;
     }
 
-
     public function getHeatmapChart(string $chartName, Instance $instance = null, int $weeks = 2): Highchart
     {
-
         $stats = $this->loadAttendanceHeatmapHourly($instance, $weeks);
 
         $heatmap = new Highchart();
@@ -250,7 +240,7 @@ class LogStatService
         $heatmap->legend->align('right');
         $heatmap->legend->verticalAlign('middle');
         $heatmap->title->text('Fréquentation du serveur - moyenne des 2 dernières semaines');
-        $heatmap->yAxis->title(array('text' => "Joueurs connectés"));
+        $heatmap->yAxis->title(['text' => 'Joueurs connectés']);
         $heatmap->xAxis->categories(['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']);
         $heatmap->colorAxis->min(0);
         $heatmap->colorAxis->minColor('#FFFFFF');
@@ -265,5 +255,4 @@ class LogStatService
 
         return $heatmap;
     }
-
 }

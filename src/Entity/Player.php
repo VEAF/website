@@ -40,7 +40,7 @@ class Player
     /**
      * @ORM\Column(type="datetime")
      */
-    private ?\DateTime $lastJoinAt=null;
+    private ?\DateTime $lastJoinAt = null;
 
     /**
      * @ORM\OneToOne(targetEntity=User::class, cascade={"persist"}, fetch="EAGER", mappedBy="player")
