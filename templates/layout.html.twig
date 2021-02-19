@@ -49,19 +49,15 @@
                                     class="fa fa-hotel"></span> Association
                             <span class="caret"></span></a>
                         <div class="dropdown-menu" aria-labelledby="association">
-                            {% if route_exists('page_presentation') %}
-                                <a class="dropdown-item" href="{{ path('page_presentation') }}">Présentation</a>
-                            {% endif %}
-                            <!--                        <div class="dropdown-divider"></div>-->
+                            {# @todo, refacto with cms menu builder #}
+                            <a class="dropdown-item" href="{{ path('page', {'path': 'fr/association/presentation-association'}) }}">Présentation</a>
                             <a class="dropdown-item" href="{{ path('office') }}">Le bureau</a>
-                            {% if route_exists('page_status') %}
-                                <a class="dropdown-item" href="{{ path('page_status') }}">Les statuts</a>
-                            {% endif %}
-                            {% if route_exists('page_reglement-interieur') %}
-                                <a class="dropdown-item" href="{{ path('page_reglement-interieur') }}">Règlement intérieur</a>
-                            {% endif %}
-                            <a class="dropdown-item" href="https://community.veaf.org/topic/21/nous-rejoindre" target="_blank">Rejoindre
-                                l'association</a>
+                            <a class="dropdown-item" href="{{ path('page', {'path': 'fr/association/statuts'}) }}">Les statuts</a>
+                            <a class="dropdown-item" href="{{ path('page', {'path': 'fr/association/reglement-interieur'}) }}">Règlement intérieur</a>
+                           <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="https://community.veaf.org/topic/21/nous-rejoindre" target="_blank">
+                                Rejoindre l'association
+                            </a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">

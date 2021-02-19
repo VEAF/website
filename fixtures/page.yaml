@@ -2,7 +2,7 @@ App\Entity\Page:
 
   page_association_presentation:
     route: 'presentation'
-    path: '/fr/association/presentation-association'
+    path: 'fr/association/presentation-association'
     title: "Présentation de l'association"
     enabled: true
     createdAt: <(new DateTime('2021-02-01 14:00:00'))>
@@ -10,7 +10,7 @@ App\Entity\Page:
 
   page_association_status:
     route: 'status'
-    path: '/fr/association/statuts'
+    path: 'fr/association/statuts'
     title: 'Les status'
     enabled: true
     createdAt: <(new DateTime('2021-02-01 14:00:00'))>
