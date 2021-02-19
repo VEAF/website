@@ -62,7 +62,7 @@ class Module
 
     /**
      * @ORM\Column(type="string", length=16)
-     * @Assert\Length(min=3)
+     * @Assert\Length(min=3, max=16)
      * @Groups({"module"})
      */
     private ?string $code;
