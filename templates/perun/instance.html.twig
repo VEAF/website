@@ -1,5 +1,7 @@
 {% extends 'layout.html.twig' %}
 
+{% set libHighcharts=1 %}
+
 {% block title %}{{ parent() }} - Serveur DCS {{ instance.id }}{% endblock %}
 
 {% block pageContent %}
@@ -69,4 +71,19 @@
             </table>
         </div>
     </div>
+
+    <div class="container container-main pt-3 pb-3 mb-3">
+        <div class="row mb-3 ml-1 mr-1">
+            <div class="col-md-12">
+                <div id="history24h" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+            </div>
+        </div>
+    </div>
+
 {% endblock pageContent %}
+
+{% block javascript %}
+<script type="text/javascript">
+{{ chart(history24h) }}
+</script>
+{% endblock javascript %}

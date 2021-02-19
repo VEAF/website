@@ -2,6 +2,7 @@
 
 namespace App\Perun\Entity;
 
+use App\Perun\Repository\LogStatRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -43,137 +44,137 @@ class LogStat
     /**
      * @ORM\Column(type="integer", name="pe_LogStats_masterslot", nullable=true)
      */
-    private ?int $masterSlot;
+    private int $masterSlot = 0;
 
     /**
      * @ORM\Column(type="integer", name="pe_LogStats_seat", nullable=true)
      */
-    private ?int $seat;
+    private int $seat = 0;
 
     /**
      * @ORM\Column(type="integer", name="ps_kills_X", options={"unsigned"=true, "default": 0})
      */
-    private ?int $killsX;
+    private int $killsX = 0;
 
     /**
      * @ORM\Column(type="integer", name="ps_pvp", options={"unsigned"=true, "default": 0})
      */
-    private ?int $pvp;
+    private int $pvp = 0;
 
     /**
      * @ORM\Column(type="integer", name="ps_deaths", options={"unsigned"=true, "default": 0})
      */
-    private ?int $deaths;
+    private int $deaths = 0;
 
     /**
      * @ORM\Column(type="integer", name="ps_ejections", options={"unsigned"=true, "default": 0})
      */
-    private ?int $ejections;
+    private int $ejections = 0;
 
     /**
      * @ORM\Column(type="integer", name="ps_crashes", options={"unsigned"=true, "default": 0})
      */
-    private ?int $crashes;
+    private int $crashes = 0;
 
     /**
      * @ORM\Column(type="integer", name="ps_teamkills", options={"unsigned"=true, "default": 0})
      */
-    private ?int $teamKills;
+    private int $teamKills = 0;
 
     /**
      * @ORM\Column(type="integer", name="ps_kills_planes", options={"unsigned"=true, "default": 0})
      */
-    private ?int $killsPlanes;
+    private int $killsPlanes = 0;
 
     /**
      * @ORM\Column(type="integer", name="ps_kills_helicopters", options={"unsigned"=true, "default": 0})
      */
-    private ?int $killsHelicopters;
+    private int $killsHelicopters = 0;
 
     /**
      * @ORM\Column(type="integer", name="ps_kills_air_defense", options={"unsigned"=true, "default": 0})
      */
-    private ?int $killsAirDefense;
+    private int $killsAirDefense = 0;
 
     /**
      * @ORM\Column(type="integer", name="ps_kills_armor", options={"unsigned"=true, "default": 0})
      */
-    private ?int $killsArmor;
+    private int $killsArmor = 0;
 
     /**
      * @ORM\Column(type="integer", name="ps_kills_unarmed", options={"unsigned"=true, "default": 0})
      */
-    private ?int $killsUnarmed;
+    private int $killsUnarmed = 0;
 
     /**
      * @ORM\Column(type="integer", name="ps_kills_infantry", options={"unsigned"=true, "default": 0})
      */
-    private ?int $killsInfantry;
+    private int $killsInfantry = 0;
 
     /**
      * @ORM\Column(type="integer", name="ps_kills_ships", options={"unsigned"=true, "default": 0})
      */
-    private ?int $killsShips;
+    private int $killsShips = 0;
 
     /**
      * @ORM\Column(type="integer", name="ps_kills_fortification", options={"unsigned"=true, "default": 0})
      */
-    private ?int $killsFortification;
+    private int $killsFortification = 0;
 
     /**
      * @ORM\Column(type="integer", name="ps_kills_artillery", options={"unsigned"=true, "default": 0})
      */
-    private ?int $killsArtillery;
+    private int $killsArtillery = 0;
 
     /**
      * @ORM\Column(type="integer", name="ps_kills_other", options={"unsigned"=true, "default": 0})
      */
-    private ?int $killsOther;
+    private int $killsOther = 0;
 
     /**
      * @ORM\Column(type="integer", name="ps_airfield_takeoffs", options={"unsigned"=true, "default": 0})
      */
-    private ?int $airefieldTakeoffs;
+    private int $airfieldTakeoffs = 0;
 
     /**
      * @ORM\Column(type="integer", name="ps_airfield_landings", options={"unsigned"=true, "default": 0})
      */
-    private ?int $airfieldLandings;
+    private int $airfieldLandings = 0;
 
     /**
      * @ORM\Column(type="integer", name="ps_ship_takeoffs", options={"unsigned"=true, "default": 0})
      */
-    private ?int $shipTakeoffs;
+    private int $shipTakeoffs = 0;
 
     /**
      * @ORM\Column(type="integer", name="ps_ship_landings", options={"unsigned"=true, "default": 0})
      */
-    private ?int $shipLandings;
+    private int $shipLandings = 0;
 
     /**
      * @ORM\Column(type="integer", name="ps_farp_takeoffs", options={"unsigned"=true, "default": 0})
      */
-    private ?int $farpTakeoffs;
+    private int $farpTakeoffs = 0;
 
     /**
      * @ORM\Column(type="integer", name="ps_farp_landings", options={"unsigned"=true, "default": 0})
      */
-    private ?int $farpLandings;
+    private int $farpLandings = 0;
 
     /**
      * @ORM\Column(type="integer", name="ps_other_landings", options={"unsigned"=true, "default": 0})
      */
-    private ?int $otherLandings;
+    private int $otherLandings = 0;
 
     /**
      * @ORM\Column(type="integer", name="ps_other_takeoffs", options={"unsigned"=true, "default": 0})
      */
-    private ?int $otherTakeoffs;
+    private int $otherTakeoffs = 0;
 
     /**
      * @ORM\Column(type="integer", name="ps_time", options={"unsigned"=true, "default": 0})
      */
-    private ?int $time;
+    private int $time = 0;
 
     /**
      * @ORM\Column(type="string", columnDefinition="enum('?', 'RTB', 'MIA', 'KIA')", name="pe_LogStats_mstatus", nullable=true)
@@ -183,5 +184,41 @@ class LogStat
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setPlayer(?Player $player): self
+    {
+        $this->player = $player;
+
+        return $this;
+    }
+
+    public function getPlayer(): ?Player
+    {
+        return $this->player;
+    }
+
+    public function getDatetime(): ?\DateTime
+    {
+        return $this->datetime;
+    }
+
+    public function setDatetime(?\DateTime $datetime): self
+    {
+        $this->datetime = $datetime;
+
+        return $this;
+    }
+
+    public function getTime(): ?int
+    {
+        return $this->time;
+    }
+
+    public function setTime(?int $time): self
+    {
+        $this->time = $time;
+
+        return $this;
     }
 }
