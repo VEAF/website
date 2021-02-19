@@ -1,11 +1,16 @@
+### 1.0.2
+* FIX public - liste des modules spéciaux dans le roster
+* FIX admin - erreur lors de la saisie d'un code de module trop long
+* FIX admin - problème sur l'ajout et sur le changement de routes
+
 ### 1.0.1
-* ADD ajout du statut du pilote dans le roster
-* ADD lien vers le profil de l'utilisateur dans la page bureau
-* ADD modules spéciaux sur la page d'accueil + roster pilotes
-* FIX icône du président
-* FIX erreur lors de l'ajout d'un nouveau module
+* ADD public - ajout du statut du pilote dans le roster
+* ADD public - lien vers le profil de l'utilisateur dans la page bureau
+* ADD public - modules spéciaux sur la page d'accueil + roster pilotes
+* FIX public - icône du président
+* FIX public - pseudo perun dans la liste des utilisateurs
+* FIX admin - erreur lors de l'ajout d'un nouveau module
 * FIX admin - surbrillance dans le menu de gauche pour les modules
-* FIX pseudo perun dans la liste des utilisateurs
 
 ### 1.0.0
 * ADD public - page d'accueil
