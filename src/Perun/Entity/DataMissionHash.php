@@ -2,6 +2,7 @@
 
 namespace App\Perun\Entity;
 
+use App\Perun\Repository\DataMissionHashRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

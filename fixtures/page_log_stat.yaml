@@ -2,20 +2,36 @@ App\Perun\Entity\LogStat:
 
   perun_log_stat_mitch_14:
     player: '@perun_player_mitch'
+    mission: "@perun_mision_public_ot"
     datetime: "<dateTimeBetween('-14 hour', '-13 hour')>"
     time: 20
 
   perun_log_stat_mitch_10:
     player: '@perun_player_mitch'
+    mission: "@perun_mision_public_ot"
     datetime: "<dateTimeBetween('-10 hour', '-9 hour')>"
     time: 90
 
   perun_log_stat_zip_10:
     player: '@perun_player_zip'
+    mission: "@perun_mision_public_ot"
     datetime: "<dateTimeBetween('-10 hour', '-9 hour')>"
     time: 65
 
   perun_log_stat_zip_4:
     player: '@perun_player_zip'
+    mission: "@perun_mision_public_ot"
     datetime: "<dateTimeBetween('-4 hour', '-2 hour')>"
     time: 25
+
+  perun_log_stat_mitch_14days..{1..20}:
+    player: '@perun_player_mitch'
+    mission: "@perun_mision_public_ot"
+    datetime: "<dateTimeBetween('-14 day', '-2 day')>"
+    time: "<numberBetween(30,120)>"
+
+  perun_log_stat_zip_14days..{1..20}:
+    player: '@perun_player_mitch'
+    mission: "@perun_mision_public_ot"
+    datetime: "<dateTimeBetween('-14 day', '-2 day')>"
+    time: "<numberBetween(30,120)>"

@@ -44,10 +44,8 @@ read VERSION
 read BRANCH
 
 # update all branches
-git checkout develop
-git pull
-git checkout master
-git pull
+git checkout develop && git pull
+git checkout master && git pull
 
 # switch on source release branch 
 git checkout ${BRANCH}
