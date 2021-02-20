@@ -6,7 +6,8 @@ use App\Entity\File;
 use App\Entity\Module;
 use App\Entity\Page;
 use App\Entity\User;
-use App\Perun\Entity\Player;
+use App\Entity\Player;
+use App\Perun\Entity\Player as PerunPlayer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,7 +26,8 @@ class DefaultController extends AbstractController
 
         $data['total'] = [
             'users' => $this->getDoctrine()->getRepository(User::class)->count([]),
-            'dcsPlayers' => $this->getDoctrine()->getRepository(Player::class)->count([]),
+            'players' => $this->getDoctrine()->getRepository(Player::class)->count([]),
+            'perunPlayers' => $this->getDoctrine()->getRepository(PerunPlayer::class)->count([]),
             'modules' => $this->getDoctrine()->getRepository(Module::class)->count([]),
             'pages' => $this->getDoctrine()->getRepository(Page::class)->count([]),
             'files' => $this->getDoctrine()->getRepository(File::class)->count([]),
