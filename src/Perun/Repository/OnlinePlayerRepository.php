@@ -33,7 +33,27 @@ class OnlinePlayerRepository extends ServiceEntityRepository
             ->andWhere('p.ping > 0')
             ->addOrderBy('p.side', 'ASC')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
+    }
+
+    /**
+     * Count live players [by instance], ignoring with 0 ping.
+     *
+     * @return OnlinePlayer[]
+     */
+    public function countRealPlayersByInstance(Instance $instance = null)
+    {
+        $query = $this->createQueryBuilder('p')
+            ->select('count(p) AS nb');
+
+        if (null !== $instance) {
+            $query->andWhere('p.instance = :instance')
+                ->setParameter('instance', $instance);
+
+        }
+
+        return $query->andWhere('p.ping > 0')
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 }

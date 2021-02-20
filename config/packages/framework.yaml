@@ -16,3 +16,6 @@ framework:
     #fragments: true
     php_errors:
         log: true
+
+    esi:
+        enabled: true
