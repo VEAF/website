@@ -102,6 +102,12 @@
                     <span>Variants</span>
                 </a>
             </li>
+            <li class="nav-item{% if section == "dcs" and subSection == "server" %} active{% endif %}">
+                <a class="nav-link" href="{{ path("admin_dcs_server_list") }}">
+                    <i class="fas fa-users"></i>
+                    <span>Serveurs</span>
+                </a>
+            </li>
 
         </ul>
         <!-- End of Sidebar -->

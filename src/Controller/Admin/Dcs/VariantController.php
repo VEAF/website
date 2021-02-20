@@ -2,15 +2,11 @@
 
 namespace App\Controller\Admin\Dcs;
 
-use App\Entity\User;
 use App\Entity\Variant;
-use App\Form\UserType;
 use App\Form\VariantType;
-use App\Manager\UserManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Kilik\TableBundle\Components\Column;
 use Kilik\TableBundle\Components\Filter;
-use Kilik\TableBundle\Components\FilterSelect;
 use Kilik\TableBundle\Components\Table;
 use Kilik\TableBundle\Services\TableService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -64,7 +60,6 @@ class VariantController extends AbstractController
                         ->setName('m_name')
                     )
             );
-
 
         return $table;
     }

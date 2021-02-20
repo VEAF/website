@@ -2,12 +2,15 @@
 
 namespace App\Controller;
 
+use App\Entity\Server;
 use App\Perun\Entity\Instance;
 use App\Perun\Entity\OnlinePlayer;
 use App\Perun\Entity\Player;
 use App\Perun\Service\LogStatService;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -29,12 +32,17 @@ class PerunController extends AbstractController
     }
 
     /**
-     * @Route("/{instance}", name="perun_instance")
+     * @Route("/{server}", name="perun_instance")
+     * @ParamConverter("server", options={"mapping": {"server": "code"}})
      */
-    public function instance(Instance $instance, LogStatService $logStatService): Response
+    public function instance(Server $server, LogStatService $logStatService): Response
     {
+        if (null === $server) {
+            throw new NotFoundHttpException('server is not linked to a perun instance');
+        }
+
         /** @var OnlinePlayer[] $onlinePlayers */
-        $onlinePlayers = $this->getDoctrine()->getRepository(OnlinePlayer::class)->findRealPlayersByInstance($instance);
+        $onlinePlayers = $this->getDoctrine()->getRepository(OnlinePlayer::class)->findRealPlayersByInstance($server->getPerunInstance());
 
         // append DTO because no proper link between online player and player tables
         foreach ($onlinePlayers as $onlinePlayer) {
@@ -42,21 +50,26 @@ class PerunController extends AbstractController
         }
 
         return $this->render('perun/instance.html.twig', [
-            'instance' => $instance,
+            'server' => $server,
             'onlinePlayers' => $onlinePlayers,
-            'history24h' => $logStatService->getAttendanceChart('history24h', $instance),
+            'history24h' => $logStatService->getAttendanceChart('history24h', $server->getPerunInstance()),
         ]);
     }
 
     /**
-     * @Route("/{instance}/attendance", name="perun_instance_attendance")
+     * @Route("/{server}/attendance", name="perun_instance_attendance")
+     * @ParamConverter("server", options={"mapping": {"server": "code"}})
      */
-    public function attendance(Instance $instance, LogStatService $logStatService): Response
+    public function attendance(Server $server, LogStatService $logStatService): Response
     {
+        if (null === $server) {
+            throw new NotFoundHttpException('server is not linked to a perun instance');
+        }
+
         return $this->render('perun/attendance.html.twig', [
-            'instance' => $instance,
-            'history24h' => $logStatService->getAttendanceChart('history24h', $instance),
-            'heatmap' => $logStatService->getHeatmapChart('heatmap', $instance),
+            'server' => $server,
+            'history24h' => $logStatService->getAttendanceChart('history24h', $server->getPerunInstance()),
+            'heatmap' => $logStatService->getHeatmapChart('heatmap', $server->getPerunInstance()),
         ]);
     }
 }
