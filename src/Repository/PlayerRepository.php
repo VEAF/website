@@ -19,32 +19,24 @@ class PlayerRepository extends ServiceEntityRepository
         parent::__construct($registry, Player::class);
     }
 
-    // /**
-    //  * @return Player[] Returns an array of Player objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function countAutolink(): int
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
+        return $this->createQueryBuilder('player')
+            ->select('count(player) AS nb')
+            ->innerJoin(\App\Perun\Entity\Player::class, 'perunPlayer', 'WITH', 'perunPlayer.ucid = player.ucid')
+            ->leftJoin('player.user', 'user')
+            ->andWhere('user is null')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getSingleResult()['nb'];
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Player
+    public function findAutolink(): int
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
+        return $this->createQueryBuilder('player')
+            ->innerJoin(\App\Perun\Entity\Player::class, 'perunPlayer', 'WITH', 'perunPlayer.ucid = player.ucid')
+            ->leftJoin('player.user', 'user')
+            ->andWhere('user is null')
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getResult();
     }
-    */
 }
