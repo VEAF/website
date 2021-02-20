@@ -1,21 +1,21 @@
 {% extends 'admin/layout.html.twig' %}
-{% set section="admin" %}
-{% set subSection="perun-player" %}
+{% set section="dcs" %}
+{% set subSection="variant" %}
 
 {% block pageContent %}
     <div class="row mb-4">
         <div class="col-md-6">
             <div class="bs-component">
                 <div class="card mb-3">
-                    <h3 class="card-header">Modifier le joueur DCS (Perun)</h3>
+                    <h3 class="card-header">Modifier le variant du module DCS</h3>
                     <div class="card-body">
                         <table class="table">
                             <tr>
                                 <td>
-                                    Dernier Pseudo:
+                                    Code (importé depuis SLMOD):
                                 </td>
                                 <td>
-                                    {{ player.lastName }}
+                                    {{ variant.code }}
                                 </td>
                             </tr>
                         </table>
@@ -24,7 +24,7 @@
                         {{ form_errors(form) }}
                         <div class="row">
                             <div class="col-sm-6">
-                                <a href="{{ path('admin_dcs_perun_player_view', {'player': player.id}) }}"
+                                <a href="{{ path('admin_dcs_variant_view', {'variant': variant.id}) }}"
                                    class="btn btn-lg btn-primary form-control">
                                     <i class="fa fa-arrow-circle-left"></i> Annuler
                                 </a>
@@ -42,3 +42,11 @@
         </div>
     </div>
 {% endblock pageContent %}
+
+{% block javascript %}
+<script>
+    $(document).ready(function () {
+    $('.select2').select2();
+});
+</script>
+{% endblock javascript %}

@@ -96,6 +96,12 @@
                     <span>Modules</span>
                 </a>
             </li>
+            <li class="nav-item{% if section == "dcs" and subSection == "variant" %} active{% endif %}">
+                <a class="nav-link" href="{{ path("admin_dcs_variant_list") }}">
+                    <i class="fas fa-cubes"></i>
+                    <span>Variants</span>
+                </a>
+            </li>
 
         </ul>
         <!-- End of Sidebar -->
