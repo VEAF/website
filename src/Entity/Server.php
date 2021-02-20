@@ -29,7 +29,7 @@ class Server
     private ?string $code;
 
     /**
-     * @ORM\OneToOne(targetEntity=Instance::class, cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Instance::class, cascade={"persist", "remove"}, inversedBy="server")
      * @ORM\JoinColumn(nullable=true, referencedColumnName="pe_OnlineStatus_instance")
      */
     private ?Instance $perunInstance;

@@ -7,34 +7,32 @@
         <div class="col-md-6">
             <div class="bs-component">
                 <div class="card mb-3">
-                    <h3 class="card-header">Consulter le variant du module DCS</h3>
+                    <h3 class="card-header">Consulter le serveur DCS</h3>
                     <div class="card-body">
                         <table class="table">
                             <tr>
                                 <td>
-                                    Nom:
+                                    Serveur:
                                 </td>
                                 <td>
-                                    {{ variant.name }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Code (convention DCS / SLMOD):
-                                </td>
-                                <td>
-                                    {{ variant.code }}
+                                    {{ server.name }}
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    Module:
+                                    Code:
                                 </td>
                                 <td>
-                                    {% if variant.module is not null %}
-                                        <a href="{{ path('admin_module_view', {'module': variant.module.id}) }}">
-                                            {{ variant.module.name }}
-                                        </a>
+                                    {{ server.code }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Instance Perun:
+                                </td>
+                                <td>
+                                    {% if server.perunInstance is not null %}
+                                        {{ server.perunInstance.id }}
                                     {% else %}
                                         <i>non associé</i>
                                     {% endif %}
@@ -43,11 +41,11 @@
                         </table>
                         <div class="row">
                             <div class="col-sm-6">
-                                <a href="{{ path('admin_dcs_variant_list') }}" class="btn btn-primary form-control"><i
+                                <a href="{{ path('admin_dcs_server_list') }}" class="btn btn-primary form-control"><i
                                             class="fa fa-arrow-left"></i> Retour liste</a>
                             </div>
                             <div class="col-sm-6">
-                                <a href="{{ path('admin_dcs_variant_edit', {'variant': variant.id}) }}"
+                                <a href="{{ path('admin_dcs_server_edit', {'server': server.id}) }}"
                                    class="btn btn-outline-warning form-control"><i class="fa fa-edit"></i> Modifier</a>
                             </div>
                         </div>

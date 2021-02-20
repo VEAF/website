@@ -10,7 +10,7 @@
                 <thead>
                 <tr>
                     <th>
-                        ID
+                        Serveur
                     </th>
                     <th>
                         Théâtre
@@ -26,15 +26,29 @@
                 <tbody>
                 {% for instance in instances %}
                     <tr>
-                        <td>
-                            <a href="{{ path("perun_instance", {"instance": instance.id}) }}">{{ instance.id }}</a>
-                        </td>
-                        <td>
-                            <a href="{{ path("perun_instance", {"instance": instance.id}) }}">{{ instance.theater }}</a>
-                        </td>
-                        <td>
-                            <a href="{{ path("perun_instance", {"instance": instance.id}) }}">{{ instance.mission }}</a>
-                        </td>
+                        {% if instance.server is not null %}
+                            <td>
+                                <a href="{{ path("perun_instance", {"server": instance.server.code}) }}">
+                                    {{ instance.server.name }}
+                                </a>
+                            </td>
+                            <td>
+                                <a href="{{ path("perun_instance", {"server": instance.server.code}) }}">{{ instance.theater }}</a>
+                            </td>
+                            <td>
+                                <a href="{{ path("perun_instance", {"server": instance.server.code}) }}">{{ instance.mission }}</a>
+                            </td>
+                        {% else %}
+                            <td>
+                                {{ instance.id }}
+                            </td>
+                            <td>
+                                {{ instance.theater }}
+                            </td>
+                            <td>
+                                {{ instance.mission }}
+                            </td>
+                        {% endif %}
                         <td>
                             {{ instance.playersCountCorrected }}
                         </td>

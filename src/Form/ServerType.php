@@ -2,16 +2,15 @@
 
 namespace App\Form;
 
-use App\Entity\Module;
-use App\Entity\Variant;
-use Doctrine\ORM\EntityRepository;
+use App\Entity\Server;
+use App\Perun\Entity\Instance;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class VariantType extends AbstractType
+class ServerType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -19,16 +18,16 @@ class VariantType extends AbstractType
             ->add('name', TextType::class,
                 [
                     'required' => true,
-                ])
-            ->add('module', EntityType::class,
+                ]
+            )
+            ->add('code', TextType::class,
                 [
-                    'class' => Module::class,
-                    'query_builder' => function (EntityRepository $er) {
-                        return $er->createQueryBuilder('m')
-                            ->andWhere('m.type IN (:types)')
-                            ->setParameter('types', [Module::TYPE_AIRCRAFT, Module::TYPE_HELICOPTER])
-                            ->orderBy('m.code', 'ASC');
-                    },
+                    'required' => true,
+                ]
+            )
+            ->add('perunInstance', EntityType::class,
+                [
+                    'class' => Instance::class,
                     'required' => false,
                     'attr' => [
                         'class' => 'select2',
@@ -39,7 +38,7 @@ class VariantType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Variant::class,
+            'data_class' => Server::class,
         ]);
     }
 }

@@ -26,7 +26,7 @@ class Variant
     private ?int $id = null;
 
     /**
-     * Code used by SLMOD
+     * Code used by SLMOD.
      *
      * @ORM\Column(type="string", length=32)
      */
