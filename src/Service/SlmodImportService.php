@@ -102,6 +102,7 @@ class SlmodImportService
                     $variant = $this->entityManager->getRepository(Variant::class)->findOneByCode($variantStatDTO->getVariantCode());
                     if (null === $variant) {
                         $variant = new Variant();
+                        $variant->setName($variantStatDTO->getVariantCode());
                         $variant->setCode($variantStatDTO->getVariantCode());
                         $this->entityManager->persist($variant);
                     }

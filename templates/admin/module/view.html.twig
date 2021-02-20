@@ -35,6 +35,20 @@
                                     {{ module.typeAsString }}
                                 </td>
                             </tr>
+                            <tr>
+                                <td>
+                                    Variants:
+                                </td>
+                                <td>
+                                    {% if module.variants | length > 0 %}
+                                        {% for variant in module.variants %}
+                                            <a href="{{ path('admin_dcs_variant_view', {'variant': variant.id}) }}">{{ variant.name }}</a><br/>
+                                        {% endfor %}
+                                    {% else %}
+                                        <i>-</i>
+                                    {% endif %}
+                                </td>
+                            </tr>
                         </table>
                         <div class="row">
                             <div class="col-sm-6">

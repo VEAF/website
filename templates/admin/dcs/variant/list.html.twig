@@ -1,0 +1,16 @@
+{% extends 'admin/layout.html.twig' %}
+{% set libKilikTable=true %}
+{% set section="dcs" %}
+{% set subSection="variant" %}
+
+{% block pageContent %}
+    <div class="row mb-4">
+        <div class="col-xl-8">
+            {% embed "admin/dcs/variant/_list.html.twig" with {"table": table} %}
+                {% block tableTitle %}
+                    <b>Variants des modules DCS</b>
+                {% endblock tableTitle %}
+            {% endembed %}
+        </div>
+    </div>
+{% endblock pageContent %}
