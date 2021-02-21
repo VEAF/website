@@ -1,3 +1,16 @@
+### 1.2.0
+* ADD public - normalisation des icônes des joueurs connectés
+* ADD public - ajout du nombre de joueurs connectés sur le top menu
+* ADD public - utilise le code et nom du serveur dans les stats
+* ADD public - affichage du nombre de pilotes dans le roster
+* ADD profil - gestion du niveau (skill) sur les modules spéciaux
+* ADD profil - ajout des stats globales heures + modules favoris
+* ADD admin - gestion des variants des modules (stats SLMOD)
+* ADD admin - gestion des serveurs DCS
+* ADD admin - gestion des utilisateurs importés depuis SLMOD
+* FIX mise en page sur smartphone
+* FIX public - légende incorrecte sur la heatmap d'un serveur
+
 ### 1.1.2
 * FIX session + ordre des heures sur la heatmap
 
