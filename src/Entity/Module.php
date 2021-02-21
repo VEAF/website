@@ -55,11 +55,18 @@ class Module
     private int $type;
 
     /**
-     * @ORM\Column(type="string", length=64)
-     * @Assert\Length(min=3)
+     * @ORM\Column(type="string", length=8)
+     * @Assert\Length(min=3, max=8)
      * @Groups({"module"})
      */
     private ?string $name;
+
+    /**
+     * @ORM\Column(type="string", length=64)
+     * @Assert\Length(min=3, max=64)
+     * @Groups({"module"})
+     */
+    private ?string $longName;
 
     /**
      * @ORM\Column(type="string", length=16)
@@ -76,22 +83,22 @@ class Module
     /**
      * @ORM\OneToOne(targetEntity=File::class, cascade={"persist", "remove"})
      */
-    private $imageHeader;
+    private ?File $imageHeader;
 
     /**
      * @ORM\OneToOne(targetEntity=File::class, cascade={"persist", "remove"})
      */
-    private $image;
+    private ?File $image;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $landingPage;
+    private bool $landingPage;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $landingPageNumber;
+    private ?int $landingPageNumber;
 
     /**
      * @ORM\OneToMany(targetEntity=Variant::class, mappedBy="module")
@@ -274,5 +281,17 @@ class Module
     public function __toString(): string
     {
         return $this->name;
+    }
+
+    public function getLongName(): ?string
+    {
+        return $this->longName;
+    }
+
+    public function setLongName(string $longName): self
+    {
+        $this->longName = $longName;
+
+        return $this;
     }
 }

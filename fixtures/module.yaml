@@ -3,6 +3,7 @@ App\Entity\Module:
   module_caucasus:
     code: 'caucasus'
     name: 'Caucase'
+    longName: 'Caucase'
     landingPage: true
     landingPageNumber: 1
     type: <(App\Entity\Module::TYPE_MAP)>
@@ -10,34 +11,39 @@ App\Entity\Module:
   module_nevada:
     code: 'nevada'
     name: 'Nevada'
+    longName: 'Nevada'
     landingPage: true
     landingPageNumber: 2
     type: <(App\Entity\Module::TYPE_MAP)>
 
   module_syria:
     code: 'syria'
-    name: 'syrie'
+    name: 'Syrie'
+    longName: 'Syrie'
     landingPage: true
     landingPageNumber: 3
     type: <(App\Entity\Module::TYPE_MAP)>
 
   module_channel:
     code: 'channel'
-    name: 'La manche'
+    name: 'Manche'
+    longName: 'La manche'
     landingPage: false
     landingPageNumber: 4
     type: <(App\Entity\Module::TYPE_MAP)>
 
   module_supercarrier:
     code: 'supercarrier'
-    name: 'Supercarrier'
+    name: 'S.C.'
+    longName: 'Supercarrier'
     landingPage: false
     landingPageNumber: 1
     type: <(App\Entity\Module::TYPE_SPECIAL)>
 
   module_ca:
     code: 'ca'
-    name: 'Combined Arms'
+    name: 'C.A.'
+    longName: 'Combined Arms'
     landingPage: false
     landingPageNumber: 1
     type: <(App\Entity\Module::TYPE_SPECIAL)>
@@ -45,6 +51,7 @@ App\Entity\Module:
   module_a10c:
     code: 'a-10c'
     name: 'A-10C'
+    longName: 'Combined Arms'
     landingPage: false
     landingPageNumber: 2
     type: <(App\Entity\Module::TYPE_AIRCRAFT)>
@@ -52,6 +59,7 @@ App\Entity\Module:
   module_a10c2:
     code: 'a-10c-2'
     name: 'A-10C II'
+    longName: 'A-10C II Tank Killer'
     landingPage: true
     landingPageNumber: 3
     type: <(App\Entity\Module::TYPE_AIRCRAFT)>
@@ -59,6 +67,7 @@ App\Entity\Module:
   module_m2000c:
     code: 'm2000c'
     name: 'M-2000C'
+    longName: 'M-2000C'
     landingPage: true
     landingPageNumber: 1
     type: <(App\Entity\Module::TYPE_AIRCRAFT)>
@@ -66,6 +75,7 @@ App\Entity\Module:
   module_mig15:
     code: 'mig-15'
     name: 'MiG-15'
+    longName: 'MiG-15'
     landingPage: true
     landingPageNumber: 4
     type: <(App\Entity\Module::TYPE_AIRCRAFT)>
@@ -73,6 +83,7 @@ App\Entity\Module:
   module_mig21:
     code: 'mig-21'
     name: 'MiG-21'
+    longName: 'MiG-21 Bis'
     landingPage: true
     landingPageNumber: 5
     type: <(App\Entity\Module::TYPE_AIRCRAFT)>
@@ -80,6 +91,7 @@ App\Entity\Module:
   module_mig29:
     code: 'mig-29'
     name: 'MiG-29'
+    longName: 'MiG-29'
     landingPage: true
     landingPageNumber: 6
     type: <(App\Entity\Module::TYPE_AIRCRAFT)>
@@ -87,6 +99,7 @@ App\Entity\Module:
   module_su27:
     code: 'su-27'
     name: 'Su-27'
+    longName: 'Su-27'
     landingPage: true
     landingPageNumber: 7
     type: <(App\Entity\Module::TYPE_AIRCRAFT)>
@@ -94,6 +107,7 @@ App\Entity\Module:
   module_sa342:
     code: 'sa342'
     name: 'SA-342'
+    longName: 'SA-342'
     landingPage: true
     landingPageNumber: 1
     type: <(App\Entity\Module::TYPE_HELICOPTER)>
@@ -101,6 +115,7 @@ App\Entity\Module:
   module_ka50:
     code: 'ka-50'
     name: 'KA-50'
+    longName: 'KA-50 Black Shark 2'
     landingPage: true
     landingPageNumber: 2
     type: <(App\Entity\Module::TYPE_HELICOPTER)>

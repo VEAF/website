@@ -22,6 +22,7 @@ class ModuleType extends AbstractType
                 'choices' => array_flip(Module::TYPES),
             ])
             ->add('name', TextType::class, ['required' => true])
+            ->add('longName', TextType::class, ['required' => true])
             ->add('code', TextType::class, ['required' => true]);
 
         $builder->add('landingPage', CheckboxType::class, ['required' => false]);
