@@ -240,7 +240,7 @@ class LogStatService
         $heatmap->legend->align('right');
         $heatmap->legend->verticalAlign('middle');
         $heatmap->title->text('Fréquentation du serveur - moyenne des 2 dernières semaines');
-        $heatmap->yAxis->title(['text' => 'Joueurs connectés']);
+        $heatmap->yAxis->title(['text' => '']);
         $heatmap->xAxis->categories(['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']);
         $heatmap->colorAxis->min(0);
         $heatmap->colorAxis->minColor('#FFFFFF');
