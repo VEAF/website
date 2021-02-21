@@ -92,7 +92,7 @@
                     {% for userModule in userModules %}
                         <tr>
                             <td>
-                                {{ userModule.module.name }}
+                                {{ userModule.module.longName }}
                                 <div class="float-right">
                                     {% include 'roster/_user_module.html.twig' with {'userModule': userModule} %}
                                 </div>
