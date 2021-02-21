@@ -6,62 +6,64 @@
     <div class="container container-main pt-3 pb-3 mb-3">
         <div class="row mb-3 ml-1 mr-1">
             <h1>Liste des serveurs</h1>
-            <table class="table table-striped table-bordered table-hover">
-                <thead>
-                <tr>
-                    <th>
-                        Serveur
-                    </th>
-                    <th>
-                        Théâtre
-                    </th>
-                    <th>
-                        Mission
-                    </th>
-                    <th>
-                        Joueurs
-                    </th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for instance in instances %}
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
                     <tr>
-                        {% if instance.server is not null %}
-                            <td>
-                                <a href="{{ path("perun_instance", {"server": instance.server.code}) }}">
-                                    {{ instance.server.name }}
-                                </a>
-                            </td>
-                            <td>
-                                <a href="{{ path("perun_instance", {"server": instance.server.code}) }}">{{ instance.theater }}</a>
-                            </td>
-                            <td>
-                                <a href="{{ path("perun_instance", {"server": instance.server.code}) }}">{{ instance.mission }}</a>
-                            </td>
-                        {% else %}
-                            <td>
-                                {{ instance.id }}
-                            </td>
-                            <td>
-                                {{ instance.theater }}
-                            </td>
-                            <td>
-                                {{ instance.mission }}
-                            </td>
-                        {% endif %}
-                        <td>
-                            {{ instance.playersCountCorrected }}
-                        </td>
+                        <th>
+                            Serveur
+                        </th>
+                        <th>
+                            Théâtre
+                        </th>
+                        <th>
+                            Mission
+                        </th>
+                        <th>
+                            Joueurs
+                        </th>
                     </tr>
-                {% else %}
-                    <tr>
-                        <td colspan="4">
-                            <i>pas de serveurs</i>
-                        </td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    {% for instance in instances %}
+                        <tr>
+                            {% if instance.server is not null %}
+                                <td>
+                                    <a href="{{ path("perun_instance", {"server": instance.server.code}) }}">
+                                        {{ instance.server.name }}
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="{{ path("perun_instance", {"server": instance.server.code}) }}">{{ instance.theater }}</a>
+                                </td>
+                                <td>
+                                    <a href="{{ path("perun_instance", {"server": instance.server.code}) }}">{{ instance.mission }}</a>
+                                </td>
+                            {% else %}
+                                <td>
+                                    {{ instance.id }}
+                                </td>
+                                <td>
+                                    {{ instance.theater }}
+                                </td>
+                                <td>
+                                    {{ instance.mission }}
+                                </td>
+                            {% endif %}
+                            <td>
+                                {{ instance.playersCountCorrected }}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="4">
+                                <i>pas de serveurs</i>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 {% endblock pageContent %}

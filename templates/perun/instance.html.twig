@@ -11,64 +11,67 @@
                 <h1 id="tables">Joueurs connectés au serveur {{ server.name }}</h1>
             </div>
             <h3>Mission: {{ server.perunInstance.mission }}</h3>
-            <table class="table table-striped table-bordered table-hover">
-                <thead>
-                <tr>
-                    <th>
-                        Joueur
-                    </th>
-                    <th>
-                        Ping
-                    </th>
-                    <th>
-                        Coalition
-                    </th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for onlinePlayer in onlinePlayers %}
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
                     <tr>
-                        <td>
-                            {% if onlinePlayer.player is null %}
-                                n/a
-                            {% else %}
-                                {% if onlinePlayer.player.user is not null %}
-                                    {% if onlinePlayer.player.user.member %}
-                                        <i class="fa fa-user text-success" title="Membre"></i>
-                                    {% elseif onlinePlayer.player.user.status == constant('\\App\\Entity\\UserModule::LEVEL_ROOKIE') %}
-                                        <i class="fa fa-book-reader text-success" title="Débutant"></i>
-                                    {% else %}
-                                        <i class="fa fa-user text-primary" title="Invité"></i>
-                                    {% endif %}
-                                    <a href="{{ path('user_view', {'user': onlinePlayer.player.user.nickname}) }}">{{ onlinePlayer.player.user.nickname }}</a>
+                        <th>
+                            Joueur
+                        </th>
+                        <th>
+                            Ping
+                        </th>
+                        <th>
+                            Coalition
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for onlinePlayer in onlinePlayers %}
+                        <tr>
+                            <td>
+                                {% if onlinePlayer.player is null %}
+                                    n/a
                                 {% else %}
-                                    <i class="fa fa-user-secret text-secondary" title="Inconnu - non enregistré sur le site"></i>
-                                    {{ onlinePlayer.player.lastName }}
+                                    {% if onlinePlayer.player.user is not null %}
+                                        {% if onlinePlayer.player.user.member %}
+                                            <i class="fa fa-user text-success" title="Membre"></i>
+                                        {% elseif onlinePlayer.player.user.status == constant('\\App\\Entity\\UserModule::LEVEL_ROOKIE') %}
+                                            <i class="fa fa-book-reader text-success" title="Débutant"></i>
+                                        {% else %}
+                                            <i class="fa fa-user text-primary" title="Invité"></i>
+                                        {% endif %}
+                                        <a href="{{ path('user_view', {'user': onlinePlayer.player.user.nickname}) }}">{{ onlinePlayer.player.user.nickname }}</a>
+                                    {% else %}
+                                        <i class="fa fa-user-secret text-secondary"
+                                           title="Inconnu - non enregistré sur le site"></i>
+                                        {{ onlinePlayer.player.lastName }}
+                                    {% endif %}
                                 {% endif %}
-                            {% endif %}
-                        </td>
-                        <td>
-                            {{ onlinePlayer.ping }}
-                        </td>
-                        <td>
-                            {% if onlinePlayer.side == 2 %}
-                                <i class="fa fa-plane text-primary"></i>
-                            {% elseif onlinePlayer.side == 1 %}
-                                <i class="fa fa-plane text-danger"></i>
-                            {% else %}
-                                <i class="fa fa-eye"></i>
-                            {% endif %}
-                        </td>
-                    </tr>
-                {% else %}
-                    <tr>
-                        <td colspan="3">
-                            <i>pas de joueurs connectés</i>
-                        </td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+                            </td>
+                            <td>
+                                {{ onlinePlayer.ping }}
+                            </td>
+                            <td>
+                                {% if onlinePlayer.side == 2 %}
+                                    <i class="fa fa-plane text-primary"></i>
+                                {% elseif onlinePlayer.side == 1 %}
+                                    <i class="fa fa-plane text-danger"></i>
+                                {% else %}
+                                    <i class="fa fa-eye"></i>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="3">
+                                <i>pas de joueurs connectés</i>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
