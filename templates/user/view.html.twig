@@ -36,7 +36,7 @@
                             {% if morePlayedAircraft is not null and morePlayedAircraft.module is not null %}
                                 <i class="fa fa-plane fa-4x"></i>
                                 <div class="float-right card-stats-text text-right">
-                                    {{ morePlayedAircraft.module.name }}<br/>
+                                    {{ morePlayedAircraft.module.name[:8] }}<br/>
                                     <small>{{ morePlayedAircraft.totalHours | number_format(1, '.', ' ') }} h</small>
                                 </div>
                             {% else %}
@@ -53,8 +53,10 @@
                         <div class="card-body">
                             {% if morePlayedHelicopter is not null and morePlayedHelicopter.module is not null %}
                                 <i class="fa fa-helicopter fa-4x"></i>
-                                {{ morePlayedHelicopter.module.name }}<br/>
-                                <small>{{ morePlayedHelicopter.totalHours | number_format(1, '.', ' ') }} h</small>
+                                <div class="float-right card-stats-text text-right">
+                                    {{ morePlayedHelicopter.module.name[:8] }}<br/>
+                                    <small>{{ morePlayedHelicopter.totalHours | number_format(1, '.', ' ') }} h</small>
+                                </div>
                             {% else %}
                                 <div class="text-center">
                                     <i>sans informations</i>
