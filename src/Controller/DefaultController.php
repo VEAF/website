@@ -56,8 +56,9 @@ class DefaultController extends AbstractController
 
         $response = $this->render('default/_header.html.twig', $data);
 
-        $response->setPublic();
-        $response->setMaxAge(60); // result during 60 seconds
+        // cache disabled, dynamic login / logout interferences
+//        $response->setPublic();
+//        $response->setMaxAge(60); // result during 60 seconds
 
         return $response;
     }
