@@ -382,6 +382,15 @@ iframe {
     vertical-align: middle;
 }
 
+.card-stats {
+    height: 12em;
+}
+
+.card-stats-text {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
 @media (max-width: 767px) {
     .splash {
         padding-top: 8em

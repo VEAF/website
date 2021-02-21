@@ -2,12 +2,10 @@
 
 namespace App\Controller\Admin\Dcs;
 
-use App\Form\PerunPlayerLinkType;
 use App\Entity\Player;
 use App\Form\PlayerLinkType;
-use App\Repository\PlayerRepository;
 use App\Perun\Repository\PlayerRepository as PerunPlayerRepository;
-use Doctrine\ORM\EntityManager;
+use App\Repository\PlayerRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Kilik\TableBundle\Components\Column;
 use Kilik\TableBundle\Components\Filter;
@@ -167,7 +165,7 @@ class PlayerController extends AbstractController
                 if (null !== $perunPlayer && null !== $perunPlayer->getUser()) {
                     // user own the one to one link
                     $perunPlayer->getUser()->setPlayer($player);
-                    $associated++;
+                    ++$associated;
                 }
             }
         }

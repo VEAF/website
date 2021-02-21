@@ -44,6 +44,11 @@ class Variant
      */
     private ?Module $module = null;
 
+    /**
+     * @ORM\OneToMany(targetEntity=VariantStat::class, mappedBy="variant")
+     */
+    private $stats;
+
     public function getId(): ?int
     {
         return $this->id;

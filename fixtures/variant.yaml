@@ -1,0 +1,11 @@
+App\Entity\Variant:
+
+  variant_a-10c-2:
+    code: 'A-10C_2'
+    name: 'A-10C_2'
+    module: '@module_a10c2'
+
+  variant_m-2000c:
+    code: 'M-2000C'
+    name: 'M-2000C'
+    module: '@module_m2000c'

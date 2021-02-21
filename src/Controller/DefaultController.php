@@ -46,7 +46,7 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * Top menu
+     * Top menu.
      */
     public function _header(OnlinePlayerRepository $onlinePlayerRepository): Response
     {

@@ -49,7 +49,6 @@ class OnlinePlayerRepository extends ServiceEntityRepository
         if (null !== $instance) {
             $query->andWhere('p.instance = :instance')
                 ->setParameter('instance', $instance);
-
         }
 
         return $query->andWhere('p.ping > 0')

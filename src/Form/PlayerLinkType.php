@@ -2,8 +2,8 @@
 
 namespace App\Form;
 
-use App\Entity\User;
 use App\Entity\Player;
+use App\Entity\User;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

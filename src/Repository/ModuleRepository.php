@@ -2,7 +2,9 @@
 
 namespace App\Repository;
 
+use App\DTO\ModuleStat;
 use App\Entity\Module;
+use App\Entity\Player;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,32 +21,30 @@ class ModuleRepository extends ServiceEntityRepository
         parent::__construct($registry, Module::class);
     }
 
-    // /**
-    //  * @return Module[] Returns an array of Module objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findOneByPlayerAndBestTotalHours(Player $player, int $moduleType): ?ModuleStat
     {
-        return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('m.id', 'ASC')
-            ->setMaxResults(10)
+        $result = $this->createQueryBuilder('m')
+            ->select('m, SUM(s.total) AS totalHours')
+            ->join('m.variants', 'v')
+            ->join('v.stats', 's')
+            ->andWhere('m.type = :type')
+            ->setParameter('type', $moduleType)
+            ->andWhere('s.player = :player')
+            ->setParameter('player', $player)
+            ->groupBy('m')
+            ->orderBy('totalHours', 'desc')
+            ->setMaxResults(1)
             ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+            ->getOneOrNullResult();
 
-    /*
-    public function findOneBySomeField($value): ?Module
-    {
-        return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        if (null === $result) {
+            return null;
+        }
+
+        $stat = new ModuleStat();
+        $stat->setModule($result[0]);
+        $stat->setTotalHours($result['totalHours'] / 3600);
+
+        return $stat;
     }
-    */
 }
