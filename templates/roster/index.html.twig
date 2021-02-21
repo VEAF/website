@@ -20,20 +20,52 @@
                     {% set routeParams=routeParams|merge({'special': selectedSpecial.code}) %}
                 {% endif %}
                 <a href="{{ path(app.request.get('_route'), routeParams) }}"
-                   class="btn {% if group == groupSelected %}btn-info{% else %}btn-primary{% endif %}">{{ groupLabel }}</a>
+                   class="btn {% if group == groupSelected %}btn-info{% else %}btn-primary{% endif %}"
+                   title="{{ groupLabel }}">
+                    {% if group == "all" %}
+                        <i class="fa fa-users"></i>
+                    {% elseif group == "cadets" %}
+                        <i class="fa fa-user-graduate"></i>
+                    {% elseif group == "members" %}
+                        <i class="fa fa-user"></i>
+                    {% endif %}
+                    <div class="d-none d-xl-inline">{{ groupLabel }}</div>
+                    {% if group == "all" %}
+                        <span class="badge badge-pill badge-light">{{ stats.pilots }}</span>
+                    {% elseif group == "cadets" %}
+                        <span class="badge badge-pill badge-light">{{ stats.cadets }}</span>
+                    {% elseif group == "members" %}
+                        <span class="badge badge-pill badge-light">{{ stats.members }}</span>
+                    {% endif %}
+                </a>
             {% endfor %}
         </div>
         <div class="btn-group btn-group-toggle float-right">
             <a href="{{ path('roster_pilots', {'group': groupSelected}) }}"
-               class="btn {% if tab == "pilots" %}btn-info{% else %}btn-primary{% endif %}">{{ tabs['pilots'] }}</a>
+               class="btn {% if tab == "pilots" %}btn-info{% else %}btn-primary{% endif %}">
+                <i class="fa fa-users"></i>
+                <div class="d-none d-xl-inline"> {{ tabs['pilots'] }}</div>
+            </a>
             <a href="{{ path('roster_maps', {'group': groupSelected}) }}"
-               class="btn {% if tab == "maps" %}btn-info{% else %}btn-primary{% endif %}">{{ tabs['maps'] }}</a>
+               class="btn {% if tab == "maps" %}btn-info{% else %}btn-primary{% endif %}">
+                <i class="fa fa-map"></i>
+                <div class="d-none d-xl-inline"> {{ tabs['maps'] }}</div>
+            </a>
             <a href="{{ path('roster_aircrafts', {'group': groupSelected}) }}"
-               class="btn {% if tab == "aircrafts" %}btn-info{% else %}btn-primary{% endif %}">{{ tabs['aircrafts'] }}</a>
+               class="btn {% if tab == "aircrafts" %}btn-info{% else %}btn-primary{% endif %}">
+                <i class="fa fa-plane"></i>
+                <div class="d-none d-xl-inline"> {{ tabs['aircrafts'] }}</div>
+            </a>
             <a href="{{ path('roster_helicopters', {'group': groupSelected}) }}"
-               class="btn {% if tab == "helicopters" %}btn-info{% else %}btn-primary{% endif %}">{{ tabs['helicopters'] }}</a>
+               class="btn {% if tab == "helicopters" %}btn-info{% else %}btn-primary{% endif %}">
+                <i class="fa fa-helicopter"></i>
+                <div class="d-none d-xl-inline"> {{ tabs['helicopters'] }}</div>
+            </a>
             <a href="{{ path('roster_specials', {'group': groupSelected}) }}"
-               class="btn {% if tab == "specials" %}btn-info{% else %}btn-primary{% endif %}">{{ tabs['specials'] }}</a>
+               class="btn {% if tab == "specials" %}btn-info{% else %}btn-primary{% endif %}">
+                <i class="fa fa-ship"></i>
+                <div class="d-none d-xl-inline"> {{ tabs['specials'] }}</div>
+            </a>
         </div>
     </div>
 
@@ -138,13 +170,6 @@
                 <div class="col-md-12">
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped table-hover roster-table">
-{#                            <thead>#}
-{#                            <tr>#}
-{#                                <th>#}
-{#                                    Pilote#}
-{#                                </th>#}
-{#                            </tr>#}
-{#                            </thead>#}
                             {% for pilot_module in pilots_modules %}
                                 <tr class="{% if pilot_module.user == app.user %}table-primary{% endif %}">
                                     <td>
