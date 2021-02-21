@@ -37,6 +37,7 @@ class Module
     const TYPES_WITH_LEVEL = [
         self::TYPE_AIRCRAFT,
         self::TYPE_HELICOPTER,
+        self::TYPE_SPECIAL,
     ];
 
     /**
@@ -268,5 +269,10 @@ class Module
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->name;
     }
 }

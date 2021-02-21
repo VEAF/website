@@ -2,6 +2,7 @@
 
 namespace App\Perun\Entity;
 
+use App\Entity\Server;
 use App\Perun\Repository\InstanceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -75,6 +76,11 @@ class Instance
      * @ORM\Column(type="datetime", name="pe_OnlineStatus_updated", columnDefinition="DATETIME on update CURRENT_TIMESTAMP", options={"default": "CURRENT_TIMESTAMP"})
      */
     private ?\DateTime $updated;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Server::class, cascade={"persist"}, fetch="EAGER", mappedBy="perunInstance")
+     */
+    private ?Server $server;
 
     public function __construct()
     {
@@ -243,8 +249,27 @@ class Instance
         return $this->winAppVersion;
     }
 
-    public function setWinAppVersion(?string $winAppVersion): void
+    public function setWinAppVersion(?string $winAppVersion): self
     {
         $this->winAppVersion = $winAppVersion;
+
+        return $this;
+    }
+
+    public function getServer(): ?Server
+    {
+        return $this->server;
+    }
+
+    public function setServer(?Server $server): self
+    {
+        $this->server = $server;
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->id;
     }
 }

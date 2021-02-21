@@ -1,0 +1,108 @@
+<div class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
+    <div class="container">
+        <a href="/" class="navbar-brand" title="v{{ app_version }}"><img src="{{ cdn_veaf }}/img/site-logo.png"
+                                                                         class="logo-navbar"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="news">
+                        <span class="fa fa-newspaper"></span>
+                        <span class="d-lg-none d-xl-inline">Les nouvelles</span>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="news">
+                        <a href="https://discord.gg/KSgGtcFQ" class="dropdown-item" target="_blank"><span
+                                    class="fab fa-discord"></span> Discord</a>
+                        <a href="http://www.facebook.com/veairforce/" class="dropdown-item" target="_blank"><span
+                                    class="fab fa-facebook"></span> Facebook</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="https://community.veaf.org/" class="nav-link" target="_blank">
+                        <span class="fa fa-envelope"></span>
+                        <span class="d-lg-none d-xl-inline">Forum</span>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="association"><span
+                                class="fa fa-hotel"></span>
+                        <span class="d-lg-none d-xl-inline">Association</span>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="association">
+                        {# @todo, refacto with cms menu builder #}
+                        <a class="dropdown-item"
+                           href="{{ path('page', {'path': 'fr/association/presentation-association'}) }}">Présentation</a>
+                        <a class="dropdown-item" href="{{ path('office') }}">Le bureau</a>
+                        <a class="dropdown-item" href="{{ path('page', {'path': 'fr/association/statuts'}) }}">Les
+                            statuts</a>
+                        <a class="dropdown-item"
+                           href="{{ path('page', {'path': 'fr/association/reglement-interieur'}) }}">Règlement
+                            intérieur</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="https://community.veaf.org/topic/21/nous-rejoindre"
+                           target="_blank">
+                            Rejoindre l'association
+                        </a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="webstv">
+                        <span class="fa fa-tv"></span>
+                        <span class="d-lg-none d-xl-inline">Webs TV</span>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="webstv">
+                        <a class="dropdown-item"
+                           href="https://www.youtube.com/channel/UCEF1A_q8Cnw9JLW_Rlig3OQ/featured" target="_blank">
+                            <i class="fab fa-youtube"></i> Chaîne Youtube VEAF
+                        </a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ path("perun_index") }}" class="nav-link" title="{{ connectedUsers }} joueur(s) connecté(s)">
+                        <span class="fa fa-server"></span>
+                        <span class="d-lg-none d-xl-inline">Serveurs</span>
+                        {% if connectedUsers > 0 %}
+                            <span class="badge badge-pill badge-danger">{{ connectedUsers }}</span>
+                        {% endif %}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ path("roster") }}" class="nav-link">
+                        <span class="fa fa-plane"></span>
+                        <span class="d-lg-none d-xl-inline">Pilotes</span>
+                    </a>
+                </li>
+                {% if app.user %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
+                           id="webstv"><span class="fa fa-user"></span> {{ app.user.nickname }}<span
+                                    class="caret"></span></a>
+                        <div class="dropdown-menu" aria-labelledby="webstv">
+                            <a class="dropdown-item" href="{{ path("profile") }}">
+                                Mon profil
+                            </a>
+                            {% if is_granted("ROLE_ADMIN") %}
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{ path("admin_index") }}">
+                                    Administration
+                                </a>
+                            {% endif %}
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ path("app_logout") }}">
+                                Déconnexion
+                            </a>
+                        </div>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a href="{{ path("app_login") }}" class="nav-link"><span class="fa fa-sign-in-alt"></span>
+                            Connexion</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>

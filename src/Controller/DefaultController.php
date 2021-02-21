@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Module;
 use App\Entity\User;
+use App\Perun\Repository\OnlinePlayerRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -42,5 +43,23 @@ class DefaultController extends AbstractController
         ];
 
         return $this->render('default/office.html.twig', $data);
+    }
+
+    /**
+     * Top menu.
+     */
+    public function _header(OnlinePlayerRepository $onlinePlayerRepository): Response
+    {
+        $data = [];
+
+        $data['connectedUsers'] = $onlinePlayerRepository->countRealPlayersByInstance();
+
+        $response = $this->render('default/_header.html.twig', $data);
+
+        // cache disabled, dynamic login / logout interferences
+//        $response->setPublic();
+//        $response->setMaxAge(60); // result during 60 seconds
+
+        return $response;
     }
 }

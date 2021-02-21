@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Player;
 use App\Entity\VariantStat;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -19,32 +20,13 @@ class VariantStatRepository extends ServiceEntityRepository
         parent::__construct($registry, VariantStat::class);
     }
 
-    // /**
-    //  * @return VariantStat[] Returns an array of VariantStat objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function countTotalHoursByPlayer(Player $player): float
     {
-        return $this->createQueryBuilder('v')
-            ->andWhere('v.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('v.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        return $this->createQueryBuilder('s')
+                ->select('SUM(s.total) AS total')
+                ->andWhere('s.player = :player')
+                ->setParameter('player', $player)
+                ->getQuery()
+                ->getSingleScalarResult() / 3600.0;
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?VariantStat
-    {
-        return $this->createQueryBuilder('v')
-            ->andWhere('v.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

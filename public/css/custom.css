@@ -312,7 +312,6 @@ iframe {
     box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.5);
     padding-bottom: 0px;
     padding-top: 0px;
-    height: 54px;
 }
 
 .logo-navbar {
@@ -380,6 +379,15 @@ iframe {
 
 .roster-icon-wrap {
     vertical-align: middle;
+}
+
+.card-stats {
+    height: 12em;
+}
+
+.card-stats-text {
+    font-size: 2.5rem;
+    font-weight: bold;
 }
 
 @media (max-width: 767px) {

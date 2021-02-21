@@ -27,7 +27,7 @@ class VariantStat
     private ?Server $server;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Variant::class)
+     * @ORM\ManyToOne(targetEntity=Variant::class, inversedBy="stats")
      * @ORM\JoinColumn(nullable=false)
      */
     private ?Variant $variant;

@@ -37,6 +37,18 @@ class RosterController extends AbstractController
         return $this->redirectToRoute('roster_pilots', ['group' => 'all']);
     }
 
+    private function roster(array $data): Response
+    {
+        // pilots stats
+        $data['stats'] = [
+            'pilots' => $this->getDoctrine()->getRepository(User::class)->count([]),
+            'cadets' => $this->getDoctrine()->getRepository(User::class)->countByStatus(User::STATUS_CADET),
+            'members' => $this->getDoctrine()->getRepository(User::class)->countByStatus(User::STATUSES_MEMBER),
+        ];
+
+        return $this->render('roster/index.html.twig', $data);
+    }
+
     /**
      * @Route("/pilots/{group}", name="roster_pilots")
      */
@@ -53,7 +65,7 @@ class RosterController extends AbstractController
         $data['tab'] = 'pilots';
         $data['pilots'] = $this->getDoctrine()->getRepository(User::class)->findByUserStatus(User::getGroupStatuses($group));
 
-        return $this->render('roster/index.html.twig', $data);
+        return $this->roster($data);
     }
 
     /**
@@ -81,7 +93,7 @@ class RosterController extends AbstractController
             $data['mapsCount'] = $this->getDoctrine()->getRepository(UserModule::class)->countUsersByModule(Module::TYPE_MAP, User::getGroupStatuses($group));
         }
 
-        return $this->render('roster/index.html.twig', $data);
+        return $this->roster($data);
     }
 
     /**
@@ -110,7 +122,7 @@ class RosterController extends AbstractController
             $data['aircraftsCount'] = $this->getDoctrine()->getRepository(UserModule::class)->countUsersByModule(Module::TYPE_AIRCRAFT, User::getGroupStatuses($group));
         }
 
-        return $this->render('roster/index.html.twig', $data);
+        return $this->roster($data);
     }
 
     /**
@@ -139,7 +151,7 @@ class RosterController extends AbstractController
             $data['helicoptersCount'] = $this->getDoctrine()->getRepository(UserModule::class)->countUsersByModule(Module::TYPE_HELICOPTER, User::getGroupStatuses($group));
         }
 
-        return $this->render('roster/index.html.twig', $data);
+        return $this->roster($data);
     }
 
     /**
@@ -168,6 +180,6 @@ class RosterController extends AbstractController
             $data['specialsCount'] = $this->getDoctrine()->getRepository(UserModule::class)->countUsersByModule(Module::TYPE_SPECIAL, User::getGroupStatuses($group));
         }
 
-        return $this->render('roster/index.html.twig', $data);
+        return $this->roster($data);
     }
 }

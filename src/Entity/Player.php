@@ -105,7 +105,7 @@ class Player
         return $this->user;
     }
 
-    public function setUser($user): self
+    public function setUser(?User $user): self
     {
         $this->user = $user;
 

@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\VariantRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(uniqueConstraints={
@@ -25,12 +26,15 @@ class Variant
     private ?int $id = null;
 
     /**
+     * Code used by SLMOD.
+     *
      * @ORM\Column(type="string", length=32)
      */
     private ?string $code;
 
     /**
      * @ORM\Column(type="string", length=64, nullable=true)
+     * @Assert\NotBlank
      */
     private ?string $name;
 
@@ -39,6 +43,11 @@ class Variant
      * @ORM\JoinColumn(nullable=true)
      */
     private ?Module $module = null;
+
+    /**
+     * @ORM\OneToMany(targetEntity=VariantStat::class, mappedBy="variant")
+     */
+    private $stats;
 
     public function getId(): ?int
     {
