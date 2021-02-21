@@ -1,3 +1,7 @@
+### 1.2.1
+* ADD admin - gestion d'un nom court et d'un nom long dans les modules
+* FIX profil - limite les noms des modules trop longs dans les stats
+
 ### 1.2.0
 * ADD public - normalisation des icônes des joueurs connectés
 * ADD public - ajout du nombre de joueurs connectés sur le top menu
