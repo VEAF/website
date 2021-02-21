@@ -77,7 +77,7 @@
                         <img class="img-fluid"
                              src="{{ image(image_header_path(selectedMap.imageHeader)).zoomCrop(1110,222).jpeg }}"/>
                         <div class="module-roster-description-layer">
-                            <p class="">{{ selectedMap.name | upper }}</p>
+                            <p class="">{{ selectedMap.longName }}</p>
                         </div>
                     </div>
                 </div>
@@ -93,7 +93,7 @@
                         <img class="img-fluid"
                              src="{{ image(image_header_path(selectedAircraft.imageHeader)).zoomCrop(1110,222).jpeg }}"/>
                         <div class="module-roster-description-layer">
-                            <p class="">{{ selectedAircraft.name | upper }}</p>
+                            <p class="">{{ selectedAircraft.longName }}</p>
                         </div>
                     </div>
                 </div>
@@ -109,7 +109,7 @@
                         <img class="img-fluid"
                              src="{{ image(image_header_path(selectedHelicopter.imageHeader)).zoomCrop(1110,222).jpeg }}"/>
                         <div class="module-roster-description-layer">
-                            <p class="">{{ selectedHelicopter.name | upper }}</p>
+                            <p class="">{{ selectedHelicopter.longName }}</p>
                         </div>
                     </div>
                 </div>
@@ -125,7 +125,7 @@
                         <img class="img-fluid"
                              src="{{ image(image_header_path(selectedSpecial.imageHeader)).zoomCrop(1110,222).jpeg }}"/>
                         <div class="module-roster-description-layer">
-                            <p class="">{{ selectedSpecial.name | upper }}</p>
+                            <p class="">{{ selectedSpecial.longName }}</p>
                         </div>
                     </div>
                 </div>
@@ -208,7 +208,9 @@
                                 <tr>
                                     <td>
                                         <a href="{{ path('roster_map', {'group': groupSelected, 'map': map.code}) }}"
-                                           class="">{{ map.name }}</a>
+                                           class="">
+                                            {{ map.longName }}
+                                        </a>
                                         {% if attribute(mapsCount, map.id) is defined %}
                                             <div class="float-right">
                                                 <span class="badge badge-primary badge-pill"
@@ -236,7 +238,7 @@
                                     <td>
                                         <a href="{{ path('roster_aircraft', {'group': groupSelected, 'aircraft': aircraft.code}) }}"
                                            class="">
-                                            {{ aircraft.name }}
+                                            {{ aircraft.longName }}
                                         </a>
                                         {% if attribute(aircraftsCount, aircraft.id) is defined %}
                                             <div class="float-right">
@@ -265,7 +267,7 @@
                                     <td>
                                         <a href="{{ path('roster_helicopter', {'group': groupSelected, 'helicopter': helicopter.code}) }}"
                                            class="">
-                                            {{ helicopter.name }}
+                                            {{ helicopter.longName }}
                                         </a>
                                         {% if attribute(helicoptersCount, helicopter.id) is defined %}
                                             <div class="float-right">
@@ -294,7 +296,7 @@
                                     <td>
                                         <a href="{{ path('roster_special', {'group': groupSelected, 'special': special.code}) }}"
                                            class="">
-                                            {{ special.name }}
+                                            {{ special.longName }}
                                         </a>
                                         {% if attribute(specialsCount, special.id) is defined %}
                                             <div class="float-right">
