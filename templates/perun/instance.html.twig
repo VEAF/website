@@ -24,6 +24,9 @@
                         <th>
                             Coalition
                         </th>
+                        <th>
+                            Appareil / Rôle
+                        </th>
                     </tr>
                     </thead>
                     <tbody>
@@ -61,10 +64,18 @@
                                     <i class="fa fa-eye"></i>
                                 {% endif %}
                             </td>
+                            <td>
+                                {% if missionSlots is not null %}
+                                    {% set playerSlot = missionSlots.getSlotByCoalitionIdAndUnitId(onlinePlayer.side, onlinePlayer.slot) %}
+                                    {% if playerSlot is not null %}
+                                        {{ playerSlot.type }} - {{ playerSlot.role }}
+                                    {% endif %}
+                                {% endif %}
+                            </td>
                         </tr>
                     {% else %}
                         <tr>
-                            <td colspan="3">
+                            <td colspan="4">
                                 <i>pas de joueurs connectés</i>
                             </td>
                         </tr>

@@ -2,29 +2,36 @@
 
 namespace App\Perun\Entity;
 
+use App\Perun\Repository\DataRawRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Table(name="pe_DataRaw")
- * @ORM\Entity(repositoryClass=PlayerRepository::class)
+ * @ORM\Entity(repositoryClass=DataRawRepository::class)
  */
 class DataRaw
 {
+    const TYPE_VERSIONS = 1;
+    const TYPE_PLAYERS = 2;
+    const TYPE_SLOTS = 3;
+
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
-     * @ORM\Column(type="integer", name="pe_dataraw_type")
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
      */
     private ?int $id;
 
     /**
-     * @ORM\Id()
-     * @ORM\Column(type="integer", name="pe_dataraw_instance")
-     * --ORM\ManyToOne(targetEntity=Instance::class)
-     * --ORM\JoinColumn(nullable=false, name="pe_dataraw_instance", referencedColumnName="pe_OnlineStatus_instance")
+     * @ORM\Column(type="integer", name="pe_dataraw_type")
      */
-    private ?int $instance;
-    //private ?Instance $instance;
+    private ?int $type;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Instance::class)
+     * @ORM\JoinColumn(nullable=false, name="pe_dataraw_instance", referencedColumnName="pe_OnlineStatus_instance")
+     */
+    private ?Instance $instance;
 
     /**
      * @ORM\Column(type="text", length=65536, name="pe_dataraw_payload", nullable=true)
@@ -41,29 +48,29 @@ class DataRaw
         return $this->id;
     }
 
-    public function getInstance(): ?int
+    public function getType(): ?int
+    {
+        return $this->type;
+    }
+
+    public function setType(?int $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getInstance(): ?Instance
     {
         return $this->instance;
     }
 
-    public function setInstance(?int $instance): self
+    public function setInstance(?Instance $instance): self
     {
         $this->instance = $instance;
 
         return $this;
     }
-
-    //    public function getInstance(): ?Instance
-//    {
-//        return $this->instance;
-//    }
-//
-//    public function setInstance(?Instance $instance): self
-//    {
-//        $this->instance = $instance;
-//
-//        return $this;
-//    }
 
     public function getPayload(): ?string
     {
