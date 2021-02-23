@@ -1,0 +1,147 @@
+parameters:
+  payloadPlayers: '{
+                "players": [
+                  {
+                    "ping": 0,
+                    "side": 0,
+                    "slot": "",
+                    "id": 1,
+                    "name": "Server",
+                    "pilotid": 2121607,
+                    "ucid": "0a8f53a23a28d564",
+                    "started": true,
+                    "lang": "en",
+                    "ipaddr": "10.33.154.23:10808"
+                  },
+                  {
+                    "ping": 13,
+                    "side": 2,
+                    "slot": "1",
+                    "id": 2,
+                    "name": "Ergo 1-1 | VEAF Shark",
+                    "pilotid": 2384084,
+                    "ucid": "6edb8022ccf3c2bd",
+                    "started": true,
+                    "lang": "fr",
+                    "ipaddr": "10.239.246.138:57680"
+                  },
+                  {
+                    "ping": 48,
+                    "side": 2,
+                    "slot": "29",
+                    "id": 3,
+                    "name": "Polo",
+                    "pilotid": 2513748,
+                    "ucid": "165301e0a1728d02",
+                    "started": true,
+                    "lang": "fr",
+                    "ipaddr": "10.185.164.68:39287"
+                  }
+                ],
+                "mission": {
+                  "theatre": "Caucasus",
+                  "name": "Mission 1",
+                  "multiplayer": true,
+                  "realtime": 75017.5679438,
+                  "weather": {
+                    "atmosphere_type": 0,
+                    "groundTurbulence": 0,
+                    "enable_fog": false,
+                    "wind": {
+                      "at8000": {
+                        "speed": 0,
+                        "dir": 0
+                      },
+                      "atGround": {
+                        "speed": 0,
+                        "dir": 0
+                      },
+                      "at2000": {
+                        "speed": 0,
+                        "dir": 0
+                      }
+                    },
+                    "season": {
+                      "temperature": 20
+                    },
+                    "type_weather": 2,
+                    "qnh": 760,
+                    "cyclones": {},
+                    "name": "Winter, clean sky",
+                    "fog": {
+                      "thickness": 0,
+                      "visibility": 0
+                    },
+                    "visibility": {
+                      "distance": 80000
+                    },
+                    "dust_density": 0,
+                    "enable_dust": false,
+                    "clouds": {
+                      "density": 0,
+                      "thickness": 200,
+                      "base": 300,
+                      "iprecptns": 0
+                    }
+                  },
+                  "pause": false,
+                  "modeltime": 1834.814
+                }
+              }
+            '
+
+  payloadSlots: '
+  {
+    "slots": {
+      "blue": [
+        {
+          "type": "F-14B",
+          "multicrew_place": 1,
+          "role": "Pilot",
+          "unitId": "1548"
+        },
+        {
+          "type": "F-14B",
+          "multicrew_place": 2,
+          "role": "Radar Intercept Officer",
+          "unitId": "1548_2"
+        },
+        {
+          "type": "FA-18C_hornet",
+          "multicrew_place": 1,
+          "role": "Pilot in command",
+          "unitId": "1553"
+        }
+      ],
+      "red": [
+        {
+          "type": "FA-18C_hornet",
+          "multicrew_place": 1,
+          "role": "Pilot in command",
+          "unitId": "1166"
+        }
+      ]
+    },
+    "coalitions": {
+      "blue": {
+        "name": "blue"
+      },
+      "red": {
+        "name": "red"
+      }
+    }
+  }'
+
+
+App\Perun\Entity\DataRaw:
+  perun_dataraw_public_players:
+    instance: "@perun_instance_public"
+    type: '<(App\Perun\Entity\DataRaw::TYPE_PLAYERS)>'
+    __calls:
+      - setPayload: [<{payloadPlayers}>]
+
+  perun_dataraw_public_slots:
+    instance: "@perun_instance_public"
+    type: '<(App\Perun\Entity\DataRaw::TYPE_SLOTS)>'
+    __calls:
+      - setPayload: [<{payloadSlots}>]

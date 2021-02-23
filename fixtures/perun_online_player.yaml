@@ -50,3 +50,21 @@ App\Perun\Entity\OnlinePlayer:
     side: 0 # spectator
     slot: ""
     updated: "<dateTimeBetween('-1 minute', 'now')>"
+
+  prerun_online_player_shark:
+    player: "@perun_player_shark"
+    ucid: "6edb8022ccf3c2bd"
+    instance: "@perun_instance_public"
+    ping: '<numberBetween(60,120)>'
+    side: 2 # blue
+    slot: "1548"
+    updated: "<dateTimeBetween('-1 minute', 'now')>"
+
+  prerun_online_player_polo:
+    player: "@perun_player_polo"
+    ucid: "165301e0a1728d02"
+    instance: "@perun_instance_public"
+    ping: '<numberBetween(60,120)>'
+    side: 2 # blue
+    slot: "1548_2"
+    updated: "<dateTimeBetween('-1 minute', 'now')>"
