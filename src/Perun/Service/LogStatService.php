@@ -234,7 +234,7 @@ class LogStatService
         $heatmap->credits->enabled(false);
         $heatmap->tooltip->formatter(new Expr("function () {
         return '<b>' + getPointCategoryName(this.point, 'x') + '<b><br/>' + 
-            this.point.value + '</b> joueurs connecté à ' + getPointCategoryName(this.point, 'y') + '</b>';
+            this.point.value + '</b> joueur(s) connecté(s) à ' + getPointCategoryName(this.point, 'y') + '</b>';
         }"));
         $heatmap->legend->layout('vertical');
         $heatmap->legend->align('right');
