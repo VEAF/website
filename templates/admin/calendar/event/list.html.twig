@@ -1,0 +1,16 @@
+{% extends 'admin/layout.html.twig' %}
+{% set libKilikTable=true %}
+{% set section="admin" %}
+{% set subSection="calendar-event" %}
+
+{% block pageContent %}
+    <div class="row mb-4">
+        <div class="col-xl-12">
+            {% embed "admin/calendar/event/_list.html.twig" with {"table": table} %}
+                {% block tableTitle %}
+                    <b>Evénéments</b>
+                {% endblock tableTitle %}
+            {% endembed %}
+        </div>
+    </div>
+{% endblock pageContent %}

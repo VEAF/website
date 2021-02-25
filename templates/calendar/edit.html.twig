@@ -1,0 +1,46 @@
+{% extends 'layout.html.twig' %}
+{% set libSelect2=true %}
+
+{% block title %}{{ parent() }}: Calendrier{% endblock %}
+
+{% block pageContent %}
+    <div class="container container-main pt-3 pb-3 mb-3">
+        <div class="bs-component">
+            <div class="card mb-3">
+                <h3 class="card-header">{% if event.id is null %}Ajouter l'événement{% else %}Modifier l'événement{% endif %}</h3>
+                <div class="card-body">
+                    {{ form_start(form) }}
+                    {{ form_rest(form) }}
+                    {{ form_errors(form) }}
+
+                    {% if event.image is not null %}
+                        <img class="img-fluid mb-3"
+                             src="{{ image(image_header_path(event.image)).zoomCrop(1110,222).jpeg }}"/>
+                    {% endif %}
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            {% if event.id is not null %}
+                                <a href="{{ path('calendar_view', {'event': event.id}) }}"
+                                   class="btn btn-lg btn-primary form-control">
+                                    <i class="fa fa-arrow-circle-left"></i> Annuler
+                                </a>
+                            {% else %}
+                                <a href="{{ path('calendar') }}"
+                                   class="btn btn-lg btn-primary form-control">
+                                    <i class="fa fa-arrow-circle-left"></i> Annuler
+                                </a>
+                            {% endif %}
+                        </div>
+                        <div class="col-sm-6">
+                            <button class="btn btn-lg btn-danger form-control " type="submit">
+                                <i class="fa fa-save"></i> Enregistrer
+                            </button>
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock pageContent %}

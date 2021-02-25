@@ -1,0 +1,34 @@
+{# delete dialog #}
+{# @param title: dialog title #}
+{# @param cancelUrl: route to cancel delete #}
+<div class="bs-component">
+    <div class="card mb-3">
+        <h3 class="card-header">{% block title %}{% if title is defined %}{{ title }}{% else %}Supprimer l'objet{% endif %}{% endblock title %}</h3>
+        <div class="card-body">
+            {% block message %}
+                Confirmez-vous la suppression de l'objet ?
+            {% endblock message %}
+            {{ form_start(form) }}
+            {{ form_rest(form) }}
+            {% block errors %}
+                {{ form_errors(form) }}
+            {% endblock errors %}
+            <hr/>
+            <div class="row">
+                <div class="col-sm-6">
+                    {% block cancelButton %}
+                        <a href="{{ cancelUrl }}" class="btn btn-lg btn-primary form-control">
+                            <i class="fa fa-arrow-circle-left"></i> Annuler
+                        </a>
+                    {% endblock cancelButton %}
+                </div>
+                <div class="col-sm-6">
+                    <button class="btn btn-lg btn-danger form-control " type="submit">
+                        <i class="fa fa-times-circle"></i> Supprimer
+                    </button>
+                </div>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>

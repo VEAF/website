@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Calendar\Event;
 use App\Entity\File;
 use App\Entity\Module;
 use App\Entity\Page;
@@ -31,6 +32,7 @@ class DefaultController extends AbstractController
             'modules' => $this->getDoctrine()->getRepository(Module::class)->count([]),
             'pages' => $this->getDoctrine()->getRepository(Page::class)->count([]),
             'files' => $this->getDoctrine()->getRepository(File::class)->count([]),
+            'calendarEvents' => $this->getDoctrine()->getRepository(Event::class)->count([]),
         ];
 
         return $this->render('admin/default/index.html.twig', $data);
