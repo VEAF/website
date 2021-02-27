@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Calendar\Event;
 use App\Entity\Calendar\Vote;
-use App\Entity\Module;
 use App\Entity\UserModule;
 use App\Form\CalendarEventType;
 use App\Manager\Calendar\EventManager;
@@ -55,7 +54,7 @@ class CalendarController extends AbstractController
 
             $date = (new \DateTime($periodString))->setTime(21, 00);
             $event->setStartDate($date);
-            $event->setEndDate((clone($date))->setTime(23, 00));
+            $event->setEndDate((clone $date)->setTime(23, 00));
             $event->setOwner($this->getUser());
         }
 
@@ -64,7 +63,6 @@ class CalendarController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             /** @var UploadedFile $uploadedImage */
             $uploadedImage = $form->get('image')->getData();
             if ($uploadedImage) {
@@ -109,7 +107,6 @@ class CalendarController extends AbstractController
             default:
                 $eventvote->setVote(null);
                 break;
-
         }
 
         $voteManager->save($eventvote, true);

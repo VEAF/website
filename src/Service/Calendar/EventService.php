@@ -19,9 +19,8 @@ class EventService
         $this->router = $router;
     }
 
-
     /**
-     * Load events as array for Javascript fullcalendar plugin
+     * Load events as array for Javascript fullcalendar plugin.
      *
      * @return array
      */
@@ -30,13 +29,13 @@ class EventService
         $events = [];
 
         foreach ($this->entityManager->getRepository(Event::class)->findBy(['deleted' => false]) as $event) {
-            /** @var Event $event */
+            /* @var Event $event */
             $events[] = [
                 'title' => $event->getTitle(),
                 'start' => $event->getStartDate()->format('Y-m-d\TH:i:s'),
                 'end' => $event->getEndDate()->format('Y-m-d\TH:i:s'),
                 'url' => $this->router->generate('calendar_view', ['event' => $event->getId()]),
-                'backgroundColor'=> $event->getTypeColor(),
+                'backgroundColor' => $event->getTypeColor(),
             ];
         }
 

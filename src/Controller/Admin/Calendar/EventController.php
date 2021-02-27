@@ -5,9 +5,7 @@ namespace App\Controller\Admin\Calendar;
 use App\Entity\Calendar\Event;
 use App\Entity\User;
 use App\Form\CalendarEventAdminType;
-use App\Form\CalendarEventType;
 use App\Manager\Calendar\EventManager;
-use App\Manager\UserManager;
 use App\Service\FileUploaderService;
 use Kilik\TableBundle\Components\Column;
 use Kilik\TableBundle\Components\Filter;
@@ -148,11 +146,12 @@ class EventController extends AbstractController
 
                             $result = '';
                             foreach ($event->getRestrictions() as $restriction) {
-                                if ($result != '') {
+                                if ('' != $result) {
                                     $result .= ', ';
                                 }
                                 $result .= User::getStatusByIdAsString($restriction);
                             }
+
                             return $result;
                         } else {
                             return '';
@@ -215,7 +214,6 @@ class EventController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             /** @var UploadedFile $uploadedImage */
             $uploadedImage = $form->get('image')->getData();
             if ($uploadedImage) {
@@ -246,6 +244,7 @@ class EventController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $eventManager->delete($event, true);
             $this->addFlash('success', 'L\'événement a été supprimé');
+
             return $this->redirectToRoute('admin_calendar_event_list');
         }
 

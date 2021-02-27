@@ -2,9 +2,9 @@
 
 namespace App\Entity\Calendar;
 
+use App\Entity\User;
 use App\Repository\Calendar\VoteRepository;
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\User;
 
 /**
  * @ORM\Table(name="event_vote")

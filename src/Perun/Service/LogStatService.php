@@ -137,10 +137,9 @@ class LogStatService
         $history->legend->layout('vertical');
         $history->legend->align('right');
         $history->legend->verticalAlign('middle');
-        if(null === $instance) {
+        if (null === $instance) {
             $history->title->text('Fréquentation des serveurs');
-        }
-        else {
+        } else {
             $history->title->text('Fréquentation du serveur');
         }
         $history->xAxis->title(['text' => 'Historique des 24 dernières heures']);

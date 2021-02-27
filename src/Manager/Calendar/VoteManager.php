@@ -2,7 +2,6 @@
 
 namespace App\Manager\Calendar;
 
-use App\Entity\Calendar\Event;
 use App\Entity\Calendar\Vote;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -31,5 +30,4 @@ class VoteManager
             $this->em->flush();
         }
     }
-
 }

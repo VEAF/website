@@ -4,10 +4,8 @@ namespace App\Security\Voter\Calendar;
 
 use App\Entity\Calendar\Event;
 use App\Entity\User;
-use phpDocumentor\Reflection\Utils;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 class EventVoter extends Voter
 {
@@ -74,10 +72,11 @@ class EventVoter extends Voter
                 }
                 // specific map on this event ?
                 if (null !== $event->getMap()) {
-                    if(!$user->hasModule($event->getMap())) {
+                    if (!$user->hasModule($event->getMap())) {
                         return false;
                     }
                 }
+
                 return true;
         }
 
