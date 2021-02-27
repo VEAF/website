@@ -22,13 +22,28 @@ class PerunController extends AbstractController
     /**
      * @Route("", name="perun_index")
      */
-    public function index(): Response
+    public function index(LogStatService $logStatService): Response
     {
         /** @var Instance[] $instances */
         $instances = $this->getDoctrine()->getRepository(Instance::class)->findBy([], ['id' => 'ASC']);
 
         return $this->render('perun/index.html.twig', [
             'instances' => $instances,
+            'history24h' => $logStatService->getAttendanceChart('history24h'),
+        ]);
+    }
+
+    /**
+     * @Route("/attendance", name="perun_attendance")
+     * @Route("/{server}/attendance", name="perun_instance_attendance", options={})
+     * @ParamConverter("server", options={"mapping": {"server": "code"}})
+     */
+    public function attendance(Server $server = null, LogStatService $logStatService): Response
+    {
+        return $this->render('perun/attendance.html.twig', [
+            'server' => $server,
+            'history24h' => $logStatService->getAttendanceChart('history24h', null === $server ? null : $server->getPerunInstance()),
+            'heatmap' => $logStatService->getHeatmapChart('heatmap', $server === null ? null : $server->getPerunInstance()),
         ]);
     }
 
@@ -60,20 +75,4 @@ class PerunController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{server}/attendance", name="perun_instance_attendance")
-     * @ParamConverter("server", options={"mapping": {"server": "code"}})
-     */
-    public function attendance(Server $server, LogStatService $logStatService): Response
-    {
-        if (null === $server) {
-            throw new NotFoundHttpException('server is not linked to a perun instance');
-        }
-
-        return $this->render('perun/attendance.html.twig', [
-            'server' => $server,
-            'history24h' => $logStatService->getAttendanceChart('history24h', $server->getPerunInstance()),
-            'heatmap' => $logStatService->getHeatmapChart('heatmap', $server->getPerunInstance()),
-        ]);
-    }
 }

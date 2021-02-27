@@ -137,7 +137,12 @@ class LogStatService
         $history->legend->layout('vertical');
         $history->legend->align('right');
         $history->legend->verticalAlign('middle');
-        $history->title->text('Fréquentation du serveur');
+        if(null === $instance) {
+            $history->title->text('Fréquentation des serveurs');
+        }
+        else {
+            $history->title->text('Fréquentation du serveur');
+        }
         $history->xAxis->title(['text' => 'Historique des 24 dernières heures']);
         $history->yAxis->title(['text' => 'Joueurs connectés']);
         $history->plotOptions->column(['stacking' => 'normal']);
