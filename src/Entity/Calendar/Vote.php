@@ -36,7 +36,7 @@ class Vote
     private User $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Event::class)
+     * @ORM\ManyToOne(targetEntity=Event::class, inversedBy="votes")
      * @ORM\JoinColumn(nullable=false)
      */
     private ?Event $event;

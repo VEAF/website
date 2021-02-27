@@ -135,9 +135,16 @@ class Event
      */
     private ?\DateTime $deletedAt;
 
+    /**
+     * @var ArrayCollection|Vote[]
+     * @ORM\OneToMany (targetEntity=Vote::class, mappedBy="event")
+     */
+    private $votes;
+
     public function __construct()
     {
         $this->modules = new ArrayCollection();
+        $this->votes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -384,4 +391,28 @@ class Event
     {
         return $this->endDate->getTimestamp() < time();
     }
+
+    /**
+     * @return Collection|Vote[]
+     */
+    public function getVotes(): Collection
+    {
+        return $this->votes;
+    }
+
+    /**
+     * @return Collection|Vote[]
+     */
+    public function getVotesByVote(?bool $voteFilter): Collection
+    {
+        $votes = new ArrayCollection();
+        foreach ($this->votes as $vote) {
+            if ($voteFilter === $vote->getVote()) {
+                $votes[] = $vote;
+            }
+        }
+
+        return $votes;
+    }
+
 }

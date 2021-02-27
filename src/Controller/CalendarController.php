@@ -132,7 +132,7 @@ class CalendarController extends AbstractController
 
         return $this->render('calendar/view.html.twig', [
             'event' => $event,
-            'vote' => $vote,
+            'userVote' => $vote,
             'modules' => null !== $this->getUser() ? $this->getDoctrine()->getRepository(UserModule::class)->findBy(['user' => $this->getUser()]) : [],
         ]);
     }
