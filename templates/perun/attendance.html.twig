@@ -2,16 +2,22 @@
 
 {% set libHighcharts=1 %}
 
-{% block title %}{{ parent() }} - Serveur DCS {{ server.name }}{% endblock %}
+{% block title %}{{ parent() }} - {% if server is null %}Serveurs DCS{% else %}Serveur DCS {{ server.name }}{% endif %}{% endblock %}
 
 {% block pageContent %}
     <div class="container container-main pt-3 pb-3 mb-3">
         <div class="row ml-1 mr-1">
             <div class="page-header">
                 <h1>
-                    <a id="tables" href="{{ path('perun_instance', {'server': server.code}) }}">
-                        Statistiques du serveur {{ server.name }}
-                    </a>
+                    {% if server is null %}
+                        <a href="{{ path('perun_index') }}">
+                            Statistiques des serveurs
+                        </a>
+                    {% else %}
+                        <a id="tables" href="{{ path('perun_instance', {'server': server.code}) }}">
+                            Statistiques du serveur {{ server.name }}
+                        </a>
+                    {% endif %}
                 </h1>
             </div>
         </div>
