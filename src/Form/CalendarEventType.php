@@ -35,7 +35,7 @@ class CalendarEventType extends AbstractType
                     'label' => 'Fin',
                 ])
             ->add('type', ChoiceType::class, [
-                'choices' => array_flip(Event::EVENTS)
+                'choices' => array_flip(Event::EVENTS),
             ])
             ->add('simDcs', CheckboxType::class,
                 [

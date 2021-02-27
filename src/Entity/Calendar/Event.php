@@ -2,13 +2,13 @@
 
 namespace App\Entity\Calendar;
 
+use App\Entity\File;
+use App\Entity\Module;
+use App\Entity\User;
 use App\Repository\Calendar\EventRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\Module;
-use App\Entity\File;
-use App\Entity\User;
 
 /**
  * @ORM\Entity(repositoryClass=EventRepository::class)
@@ -107,7 +107,7 @@ class Event
     private ?File $image = null;
 
     /**
-     * User status restriction
+     * User status restriction.
      *
      * @ORM\Column(type="simple_array", nullable=true)
      */
@@ -301,6 +301,7 @@ class Event
         if (null === $this->restrictions) {
             return false;
         }
+
         return in_array($restriction, $this->restrictions);
     }
 
@@ -414,5 +415,4 @@ class Event
 
         return $votes;
     }
-
 }
