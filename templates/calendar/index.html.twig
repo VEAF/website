@@ -18,16 +18,27 @@
     </div>
 
     <div class="container container-main pt-3 pb-3 mb-3">
-        Légende:
-        <ul>
-        {% for eventType,color in constant('\\App\\Entity\\Calendar\\Event::EVENTS_COLORS') %}
-            <li><span style="color: {{ color }}">{{ attribute(constant('\\App\\Entity\\Calendar\\Event::EVENTS'), eventType) }}</span></li>
-        {% endfor %}
-        </ul>
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card border-secondary mb-3">
+                    <div class="card-header">Légende</div>
+                    <div class="card-body">
+                        {% for eventType,color in constant('\\App\\Entity\\Calendar\\Event::EVENTS_COLORS') %}
+                            <i class="fa fa-circle" style="color: {{ color }}"></i>
+                            <span style="color: {{ color }}">{{ attribute(constant('\\App\\Entity\\Calendar\\Event::EVENTS'), eventType) }}</span>
+                            <br/>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="addEventModal" tabindex="-1" role="dialog" aria-labelledby="addEventModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addEventModal" tabindex="-1" role="dialog" aria-labelledby="addEventModalLabel"
+         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
