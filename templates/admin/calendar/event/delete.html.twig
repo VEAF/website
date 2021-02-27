@@ -1,0 +1,16 @@
+{% extends 'admin/layout.html.twig' %}
+{% set libKilikTable=true %}
+{% set section="admin" %}
+{% set subSection="calendar-event" %}
+
+{% block pageContent %}
+    <div class="row mb-4">
+        <div class="col-md-6">
+            {% embed "admin/_common/_delete_dialog.html.twig" with {'title': "Supprimer l'événement", 'cancelUrl': path('admin_calendar_event_view', {'event': event.id})} %}
+                {% block message %}
+                    Confirmez-vous la suppression de l'événement {{ event.title }} du {{ event.startDate | date('d/m/Y H:i') }} au du {{ event.endDate | date('d/m/Y H:i') }}?
+                {% endblock message %}
+            {% endembed %}
+        </div>
+    </div>
+{% endblock pageContent %}

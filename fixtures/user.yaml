@@ -169,6 +169,32 @@ App\Entity\User:
     simDcs: true
     status: <(App\Entity\User::STATUS_MEMBER)>
 
+  user_shark:
+    email: "shark@localhost"
+    # test1234
+    password: '\$2y\$10\$rXysKOG/6HEW9acoV3gISuaxQ6yX5K6aN/.ogx3lQtdsD8R6.E3Ry'
+    roles: [ROLE_USER]
+    nickname: 'shark'
+    createdAt: "<dateTimeBetween('-1 month', 'now')>"
+    updatedAt: "<dateTimeBetween('-1 month', 'now')>"
+    simBms: false
+    simDcs: true
+    status: <(App\Entity\User::STATUS_MEMBER)>
+    perunPlayer: '@perun_player_shark'
+
+  user_polo:
+    email: "polo@localhost"
+    # test1234
+    password: '\$2y\$10\$rXysKOG/6HEW9acoV3gISuaxQ6yX5K6aN/.ogx3lQtdsD8R6.E3Ry'
+    roles: [ROLE_USER]
+    nickname: 'polo'
+    createdAt: "<dateTimeBetween('-1 month', 'now')>"
+    updatedAt: "<dateTimeBetween('-1 month', 'now')>"
+    simBms: false
+    simDcs: true
+    status: <(App\Entity\User::STATUS_CADET)>
+    perunPlayer: '@perun_player_polo'
+
   user_mge:
     email: "mge@localhost"
     # test1234

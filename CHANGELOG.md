@@ -1,3 +1,12 @@
+### 1.3.0
+* ADD ajout d'un module calendrier
+* ADD gestion des restrictions des cartes pour les participants
+* ADD gestion des participants à l'événement
+* ADD statistiques de fréquentation de l'ensemble des serveurs
+* ADD ajout du type de pilote sur la vue serveur
+* ADD lien direct vers le profil public depuis la page 'mon profil'
+* FIX bug sur la heatmap
+
 ### 1.2.1
 * ADD admin - gestion d'un nom court et d'un nom long dans les modules
 * FIX profil - limite les noms des modules trop longs dans les stats

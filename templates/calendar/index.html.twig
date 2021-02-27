@@ -1,0 +1,97 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ parent() }}: Calendrier{% endblock %}
+
+{% block head %}
+    {{ parent() }}
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.min.js"
+            integrity="sha256-rPPF6R+AH/Gilj2aC00ZAuB2EKmnEjXlEWx5MkAp7bw=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.min.css"
+          integrity="sha256-uq9PNlMzB+1h01Ij9cx7zeE2OR2pLAfRw3uUUOOPKdA=" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/locales-all.min.js"
+            integrity="sha256-/ZgxvDj3QtyBZNLbfJaHdwbHF8R6OW82+5MT5yBsH9g=" crossorigin="anonymous"></script>
+{% endblock head %}
+
+{% block pageContent %}
+    <div class="container container-main pt-3 pb-3 mb-3">
+        <div id='calendar'></div>
+    </div>
+
+    <div class="container container-main pt-3 pb-3 mb-3">
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card border-secondary mb-3">
+                    <div class="card-header">Légende</div>
+                    <div class="card-body">
+                        {% for eventType,color in constant('\\App\\Entity\\Calendar\\Event::EVENTS_COLORS') %}
+                            <i class="fa fa-circle" style="color: {{ color }}"></i>
+                            <span style="color: {{ color }}">{{ attribute(constant('\\App\\Entity\\Calendar\\Event::EVENTS'), eventType) }}</span>
+                            <br/>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="addEventModal" tabindex="-1" role="dialog" aria-labelledby="addEventModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addEventModalLabel">Ajouter un événement</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Vous êtes sur le point de créer un événement.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                    <a href="#" type="button" class="btn btn-primary" id="btn-add">Ajouter</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock pageContent %}
+
+{% block javascript %}
+{{ parent() }}
+<script>
+calendarEvents={{ events | json_encode | raw }};
+calendarEventUrlAdd="{{ path('calendar_add', {'periodString': 'periodString'}) }}";
+
+document.addEventListener('DOMContentLoaded', function() {
+var calendarEl = document.getElementById('calendar');
+var calendar = new FullCalendar.Calendar(calendarEl, {
+      locale: 'fr', // the initial locale
+      headerToolbar: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+      },
+      eventTimeFormat: { // like '14:30'
+        hour: '2-digit',
+        minute: '2-digit',
+        meridiem: false
+      },
+      nowIndicator: true,
+      initialView: 'dayGridMonth',
+      events: calendarEvents,
+      dateClick: function(info) {
+        $('#btn-add').each(function() {
+            var url = calendarEventUrlAdd.replace("periodString", info.dateStr); // replace date in url
+            $(this).attr("href", url);
+        });
+        $('#addEventModal').modal('show');
+      }
+});
+calendar.render();
+});
+
+</script>
+{% endblock javascript %}

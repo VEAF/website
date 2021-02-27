@@ -137,7 +137,11 @@ class LogStatService
         $history->legend->layout('vertical');
         $history->legend->align('right');
         $history->legend->verticalAlign('middle');
-        $history->title->text('Fréquentation du serveur');
+        if (null === $instance) {
+            $history->title->text('Fréquentation des serveurs');
+        } else {
+            $history->title->text('Fréquentation du serveur');
+        }
         $history->xAxis->title(['text' => 'Historique des 24 dernières heures']);
         $history->yAxis->title(['text' => 'Joueurs connectés']);
         $history->plotOptions->column(['stacking' => 'normal']);
@@ -151,7 +155,7 @@ class LogStatService
     {
         $now = new \DateTime();
         $periodEnd = (clone $now)->modify('-1 day')->setTime(23, 59, 59);
-        $periodStart = (clone $periodEnd)->modify(sprintf('-%d weeks', $weeks))->setTime(0, 0, 0);
+        $periodStart = (clone $now)->modify(sprintf('-%d weeks', $weeks))->setTime(0, 0, 0);
 
         $query = $this->entityManager->getRepository(LogStat::class)->createQueryBuilder('stat')
             ->select('(UNIX_TIMESTAMP(stat.datetime) - 60 * stat.time) AS session_start, UNIX_TIMESTAMP(stat.datetime) AS session_end, player.id AS player_id')
@@ -234,7 +238,7 @@ class LogStatService
         $heatmap->credits->enabled(false);
         $heatmap->tooltip->formatter(new Expr("function () {
         return '<b>' + getPointCategoryName(this.point, 'x') + '<b><br/>' + 
-            this.point.value + '</b> joueurs connecté à ' + getPointCategoryName(this.point, 'y') + '</b>';
+            this.point.value + '</b> joueur(s) connecté(s) à ' + getPointCategoryName(this.point, 'y') + '</b>';
         }"));
         $heatmap->legend->layout('vertical');
         $heatmap->legend->align('right');

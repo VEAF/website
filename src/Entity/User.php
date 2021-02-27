@@ -365,13 +365,18 @@ class User implements UserInterface
         return $this->status;
     }
 
-    public function getStatusAsString(): string
+    public static function getStatusByIdAsString(int $id)
     {
-        if (isset(self::STATUSES[$this->status])) {
-            return self::STATUSES[$this->status];
+        if (isset(self::STATUSES[$id])) {
+            return self::STATUSES[$id];
         }
 
         return 'inconnu';
+    }
+
+    public function getStatusAsString(): string
+    {
+        return self::getStatusByIdAsString($this->status);
     }
 
     public function setStatus(int $status): self
@@ -424,6 +429,17 @@ class User implements UserInterface
         }
 
         return $this;
+    }
+
+    public function hasModule(Module $module)
+    {
+        foreach ($this->modules as $userModule) {
+            if ($userModule->getModule()->getId() == $module->getId()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public static function getGroupStatuses(string $group)

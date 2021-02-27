@@ -3,9 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Server;
+use App\Perun\DTO\PayloadSlots;
+use App\Perun\Entity\DataRaw;
 use App\Perun\Entity\Instance;
 use App\Perun\Entity\OnlinePlayer;
-use App\Perun\Entity\Player;
 use App\Perun\Service\LogStatService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,13 +22,28 @@ class PerunController extends AbstractController
     /**
      * @Route("", name="perun_index")
      */
-    public function index(): Response
+    public function index(LogStatService $logStatService): Response
     {
         /** @var Instance[] $instances */
         $instances = $this->getDoctrine()->getRepository(Instance::class)->findBy([], ['id' => 'ASC']);
 
         return $this->render('perun/index.html.twig', [
             'instances' => $instances,
+            'history24h' => $logStatService->getAttendanceChart('history24h'),
+        ]);
+    }
+
+    /**
+     * @Route("/attendance", name="perun_attendance")
+     * @Route("/{server}/attendance", name="perun_instance_attendance", options={})
+     * @ParamConverter("server", options={"mapping": {"server": "code"}})
+     */
+    public function attendance(Server $server = null, LogStatService $logStatService): Response
+    {
+        return $this->render('perun/attendance.html.twig', [
+            'server' => $server,
+            'history24h' => $logStatService->getAttendanceChart('history24h', null === $server ? null : $server->getPerunInstance()),
+            'heatmap' => $logStatService->getHeatmapChart('heatmap', null === $server ? null : $server->getPerunInstance()),
         ]);
     }
 
@@ -44,32 +60,18 @@ class PerunController extends AbstractController
         /** @var OnlinePlayer[] $onlinePlayers */
         $onlinePlayers = $this->getDoctrine()->getRepository(OnlinePlayer::class)->findRealPlayersByInstance($server->getPerunInstance());
 
-        // append DTO because no proper link between online player and player tables
-        foreach ($onlinePlayers as $onlinePlayer) {
-            $onlinePlayer->setPlayer($this->getDoctrine()->getRepository(Player::class)->findOneByUcid($onlinePlayer->getUcid()));
+        // load map slots information
+        $missionSlots = null;
+        $dataSlots = $this->getDoctrine()->getRepository(DataRaw::class)->findOneBy(['instance' => $server->getPerunInstance(), 'type' => DataRaw::TYPE_SLOTS]);
+        if (null !== $dataSlots) {
+            $missionSlots = PayloadSlots::createFromJsonArray(\json_decode($dataSlots->getPayload(), true));
         }
 
         return $this->render('perun/instance.html.twig', [
             'server' => $server,
             'onlinePlayers' => $onlinePlayers,
+            'missionSlots' => $missionSlots,
             'history24h' => $logStatService->getAttendanceChart('history24h', $server->getPerunInstance()),
-        ]);
-    }
-
-    /**
-     * @Route("/{server}/attendance", name="perun_instance_attendance")
-     * @ParamConverter("server", options={"mapping": {"server": "code"}})
-     */
-    public function attendance(Server $server, LogStatService $logStatService): Response
-    {
-        if (null === $server) {
-            throw new NotFoundHttpException('server is not linked to a perun instance');
-        }
-
-        return $this->render('perun/attendance.html.twig', [
-            'server' => $server,
-            'history24h' => $logStatService->getAttendanceChart('history24h', $server->getPerunInstance()),
-            'heatmap' => $logStatService->getHeatmapChart('heatmap', $server->getPerunInstance()),
         ]);
     }
 }

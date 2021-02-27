@@ -31,6 +31,19 @@
         <script src="//code.highcharts.com/4.1.8/modules/heatmap.js"></script>
         <script src="//code.highcharts.com/4.1.8/modules/exporting.js"></script>
         {% endif %}
+        {% if libSelect2 is defined and libSelect2 == true %}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"
+                integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A=="
+                crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"
+          integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw=="
+          crossorigin="anonymous"/>
+        <script src="{{ asset('bundles/tetranzselect2entity/js/select2entity.js') }}"></script>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@x.x.x/dist/select2-bootstrap4.min.css"/>
+        {% endif %}
+        <script src="/js/app.js?version={{ app_version }}{% if app.environment == "dev" %}&t={{ "now"|date("YmdHis") }}{% endif %}"></script>
+
     {% endblock head %}
 </head>
 <body{% block bodyAttributes %}{% endblock bodyAttributes %}>
@@ -44,9 +57,7 @@
     </div>
 
     {% block footer %}
-    {% endblock footer %}
-
-{% block javascript %}
+    {% endblock footer %} {% block javascript %}
 <script>
 {% for message in app.flashes('success') %}
     $.notify("{{ message|escape('js') }}", "success");
@@ -78,7 +89,6 @@ $(document).ready(function () {
     {% endif %}
 });
 </script>
-{% endblock %}
-{% endblock body %}
+{% endblock %} {% endblock body %}
 </body>
 </html>

@@ -29,6 +29,16 @@ App\Perun\Entity\Player:
     lastName: "Guest"
     lastIp: "1.1.1.6:1234"
     updated: '<(new DateTime("2021-02-04 15:00:00"))>'
+  perun_player_shark:
+    ucid: "6edb8022ccf3c2bd"
+    lastName: 'Shark'
+    lastIp: "<ipv4()>"
+    updated: "<dateTimeBetween('-2 months', 'now')>"
+  perun_player_polo:
+    ucid: "165301e0a1728d02"
+    lastName: 'Polo'
+    lastIp: "<ipv4()>"
+    updated: "<dateTimeBetween('-2 months', 'now')>"
   perun_player_random{1..50}:
     ucid: "<md5(randomNumber())>"
     lastName: '<firstName()>'
