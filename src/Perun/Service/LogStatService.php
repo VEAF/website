@@ -151,7 +151,7 @@ class LogStatService
     {
         $now = new \DateTime();
         $periodEnd = (clone $now)->modify('-1 day')->setTime(23, 59, 59);
-        $periodStart = (clone $periodEnd)->modify(sprintf('-%d weeks', $weeks))->setTime(0, 0, 0);
+        $periodStart = (clone $now)->modify(sprintf('-%d weeks', $weeks))->setTime(0, 0, 0);
 
         $query = $this->entityManager->getRepository(LogStat::class)->createQueryBuilder('stat')
             ->select('(UNIX_TIMESTAMP(stat.datetime) - 60 * stat.time) AS session_start, UNIX_TIMESTAMP(stat.datetime) AS session_end, player.id AS player_id')
