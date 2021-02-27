@@ -1,0 +1,152 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ parent() }}: Calendrier{% endblock %}
+
+{% block pageContent %}
+    <div class="container container-main pt-3 pb-3 mb-3">
+        <h1>{{ event | event_type }} - {{ event.title }}
+            {% if is_granted('EDIT', event) or true %}
+                <span class="float-right">
+                    <a href="{{ path('calendar_edit', {'event': event.id}) }}">
+                        <i class="fa fa-edit"></i>
+                    </a>
+                </span>
+            {% endif %}
+        </h1>
+        Le {{ event.startDate | date('d/m/Y') }} de {{ event.startDate | date('H:i') }}
+        à {{ event.endDate | date('H:i') }}
+    </div>
+
+    {% if event.image is not null or event.map is not null %}
+        <div class="container container-main mb-3">
+            <div class="row">
+                <div class="col-sm-12 pt-3 pb-3">
+                    <div class="">
+                        {% if event.image is not null %}
+                            <img class="img-fluid"
+                                 src="{{ image(image_header_path(event.image)).zoomCrop(1110,222).jpeg }}"/>
+                        {% elseif event.map is not null %}
+                            <img class="img-fluid"
+                                 src="{{ image(image_header_path(event.map.imageHeader)).zoomCrop(1110,222).jpeg }}"/>
+                            <div class="module-roster-description-layer">
+                                <p class="">{{ event.map.longName }}</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="container container-main mb-3 pt-3 pb-3">
+        {# <hr/> #}
+        <div class="row">
+            {# description #}
+            {% if event.description is not null %}
+                <div class="col-md-12">
+                    <b>Description:</b><br/>
+                    <p>
+                        {{ event.description | markdown }}
+                    </p>
+                </div>
+            {% endif %}
+        </div>
+        {# restriction simulateur #}
+        {% if event.simDcs or event.simBms %}
+            Réservé au(x) simulateur(s):
+            {% if event.simDcs %}
+                {% if app.user is not null and app.user.simDcs %}
+                    <i class="fa fa-check-square text-success"></i>
+                {% else %}
+                    <i class="fa fa-times-circle"></i>
+                {% endif %}
+                DCS
+            {% endif %}
+            {% if event.simBms %}
+                {% if app.user is not null and app.user.simBms %}
+                    <i class="fa fa-check-square text-success"></i>
+                {% else %}
+                    <i class="fa fa-times-circle"></i>
+                {% endif %}
+                BMS
+            {% endif %}
+            <br/>
+        {% endif %}
+
+        {# restriction membre #}
+        Réstriction de profil:
+        {% if event.restrictions | length > 0 %}
+            {% if event.hasRestriction(constant('App\\Entity\\Calendar\\Event::RESTRICTION_CADET')) %}
+                {% if app.user.cadet %}
+                    <i class="fa fa-check-square text-success"></i>
+                {% else %}
+                    <i class="fa fa-times-circle"></i>
+                {% endif %}
+                Cadet
+            {% endif %}
+            {% if event.hasRestriction(constant('App\\Entity\\Calendar\\Event::RESTRICTION_MEMBER')) %}
+                {% if app.user.member %}
+                    <i class="fa fa-check-square text-success"></i>
+                {% else %}
+                    <i class="fa fa-times-circle"></i>
+                {% endif %}
+                Membre
+            {% endif %}
+        {% else %}
+            ouvert à tout le monde
+        {% endif %}
+        <br/>
+
+        {# section pour les restrictions / modules #}
+        Réstriction de module:
+        {% if event.modules | length > 0 %}
+            {% for module in event.modules %}
+                {% if app.user is not null and app.user.hasModule(module) %}
+                    <i class="fa fa-check-square text-success"></i>
+                {% else %}
+                    <i class="fa fa-times-circle"></i>
+                {% endif %}
+                {{ module.name }}
+            {% endfor %}
+        {% else %}
+            ouvert à tous les modules
+        {% endif %}
+        <br/>
+
+    </div>
+    <div class="container container-main mb-3 pt-3 pb-3">
+        <h2>Je participe</h2>
+        {# section pour le vote de participation #}
+        <div class="row">
+            {% if event.isFinished %}
+                <div class="col-md-12 mt-3">
+                    <div class="alert alert-info">Cet événement est maintenant terminé, vous ne pouvez plus participer.</div>
+                </div>
+            {% else %}
+                {% if is_granted('VOTE', event) %}
+                    {# <div class="col-md-12">Je participe :</div> #}
+                    <div class="col-md-4">
+                        <a href="{{ path('calendar_vote', {'event': event.id, 'vote': 'yes'}) }}"
+                           class="btn {% if vote is null or vote.vote %}btn-success{% else %}btn-secondary{% endif %} form-control">
+                            Oui
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="{{ path('calendar_vote', {'event': event.id, 'vote': 'perhaps'}) }}"
+                           class="btn {% if vote is null or vote.vote is null %}btn-primary{% else %}btn-secondary{% endif %} form-control">Peut-être</a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="{{ path('calendar_vote', {'event': event.id, 'vote': 'no'}) }}"
+                           class="btn {% if vote is null or vote.vote is same as false %}btn-danger{% else %}btn-secondary{% endif %} form-control">Non</a>
+                    </div>
+                {% else %}
+                    <div class="col-md-12 mt-3">
+                        <div class="alert alert-info">Vous devez être connecté et respecter les restrictions
+                            (simulateur, profil, etc...) pour pouvoir vous inscrire à cet événement
+                        </div>
+                    </div>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock pageContent %}

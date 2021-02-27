@@ -1,0 +1,146 @@
+{% extends 'admin/layout.html.twig' %}
+{% set libKilikTable=true %}
+{% set section="admin" %}
+{% set subSection="calendar-event" %}
+
+{% block pageContent %}
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="bs-component">
+                <div class="card mb-3">
+                    <h3 class="card-header">Consulter l'événement</h3>
+                    <div class="card-body">
+                        <table class="table">
+                            <tr>
+                                <td>
+                                    Titre:
+                                </td>
+                                <td>
+                                    {{ event.title }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Date:
+                                </td>
+                                <td>
+                                    du {{ event.startDate | date('d/m/Y H:i') }}
+                                    au {{ event.endDate | date('d/m/Y H:i') }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    DCS:
+                                </td>
+                                <td>
+                                    {% if event.simDcs %}
+                                        <i class="fa fa-check-circle text-success"></i>
+                                    {% else %}
+                                        <i class="fa fa-times-circle text-light"></i>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    BMS:
+                                </td>
+                                <td>
+                                    {% if event.simBms %}
+                                        <i class="fa fa-check-circle text-success"></i>
+                                    {% else %}
+                                        <i class="fa fa-times-circle text-light"></i>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Restrictions Membres:
+                                </td>
+                                <td>
+                                    {% if event.restrictions | length > 0 %}
+                                        {% for restriction in event.restrictions %}
+                                            {{ user.statusByIdAsString(restriction) }}
+                                        {% endfor %}
+                                    {% else %}
+                                        <i>-</i>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Restrictions Modules:
+                                </td>
+                                <td>
+                                    {% if event.modules | length > 0 %}
+                                        {% for module in event.modules %}
+                                            {{ module.name }}
+                                        {% endfor %}
+                                    {% else %}
+                                        <i>-</i>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Créé:
+                                </td>
+                                <td>
+                                    <div data-toggle="tooltip" data-placement="top"
+                                         title="{{ event.createdAt | date('d/m/Y H:i:s') }}">
+                                        {{ event.createdAt | ago }}
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Modifié:
+                                </td>
+                                <td>
+                                    <div data-toggle="tooltip" data-placement="top"
+                                         title="{{ event.updatedAt | date('d/m/Y H:i:s') }}">
+                                        {{ event.updatedAt | ago }}
+                                    </div>
+                                </td>
+                            </tr>
+                            {% if event.deleted %}
+                                <tr>
+                                    <td>
+                                        Supprimé:
+                                    </td>
+                                    <td>
+                                        <div data-toggle="tooltip" data-placement="top"
+                                             title="{{ event.deletedAt | date('d/m/Y H:i:s') }}">
+                                            {{ event.deletedAt | ago }}
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        </table>
+                        {% if event.image is not null %}
+                            <img class="img-fluid mb-3"
+                                 src="{{ image(image_header_path(event.image)).zoomCrop(1110,222).jpeg }}"/>
+                        {% endif %}
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <a href="{{ path('admin_calendar_event_list') }}"
+                                   class="btn btn-primary form-control"><i
+                                            class="fa fa-arrow-left"></i> Retour liste</a>
+                            </div>
+                            {% if not event.deleted %}
+                                <div class="col-sm-4">
+                                    <a href="{{ path('admin_calendar_event_delete', {'event': event.id}) }}"
+                                       class="btn btn-outline-danger form-control"><i class="fa fa-times-circle"></i>
+                                        Supprimer</a>
+                                </div>
+                                <div class="col-sm-4">
+                                    <a href="{{ path('admin_calendar_event_edit', {'event': event.id}) }}"
+                                       class="btn btn-outline-warning form-control"><i class="fa fa-edit"></i> Modifier</a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock pageContent %}

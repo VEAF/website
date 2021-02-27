@@ -1,0 +1,62 @@
+App\Entity\Calendar\Event:
+  calendarevent_training_today:
+    createdAt: "<dateTimeBetween('-1 month', 'now')>"
+    updatedAt: "<dateTimeBetween('-1 month', 'now')>"
+    startDate: "<((new DateTime('today'))->setTime(21,0))>"
+    endDate: "<((new DateTime('today'))->setTime(23,0))>"
+    type: <(App\Entity\Calendar\Event::EVENT_TYPE_TRAINING)>
+    title: "Training test"
+    simDcs: true
+    owner: "@user_mitch"
+
+  calendarevent_training_deleted_today:
+    createdAt: "<dateTimeBetween('-1 month', 'now')>"
+    updatedAt: "<dateTimeBetween('-1 month', 'now')>"
+    startDate: "<((new DateTime('today'))->setTime(21,0))>"
+    endDate: "<((new DateTime('today'))->setTime(23,0))>"
+    type: <(App\Entity\Calendar\Event::EVENT_TYPE_TRAINING)>
+    title: "Training test suppression"
+    simDcs: true
+    owner: "@user_mitch"
+    deleted: true
+
+  calendarevent_mission_nevada_tomorrow:
+    createdAt: "<dateTimeBetween('-1 month', 'now')>"
+    updatedAt: "<dateTimeBetween('-1 month', 'now')>"
+    startDate: "<((new DateTime('tomorrow'))->setTime(21,0))>"
+    endDate: "<((new DateTime('tomorrow'))->setTime(23,30))>"
+    type: <(App\Entity\Calendar\Event::EVENT_TYPE_MISSION)>
+    title: "Las Vegas"
+    owner: "@user_mitch"
+    map: "@module_nevada"
+    simDcs: true
+    restrictions: '<([App\Entity\User::STATUS_CADET,App\Entity\User::STATUS_MEMBER])>'
+
+  calendarevent_training_a10c_2days:
+    createdAt: "<dateTimeBetween('-1 month', 'now')>"
+    updatedAt: "<dateTimeBetween('-1 month', 'now')>"
+    startDate: "<((new DateTime('+2 days'))->setTime(21,0))>"
+    endDate: "<((new DateTime('+2 days'))->setTime(23,30))>"
+    type: <(App\Entity\Calendar\Event::EVENT_TYPE_TRAINING)>
+    title: "Rampstart"
+    owner: "@user_mitch"
+    map: "@module_caucasus"
+    modules:
+     - "@module_a10c2"
+    simDcs: true
+    restrictions: '<([App\Entity\User::STATUS_CADET,App\Entity\User::STATUS_MEMBER])>'
+
+  calendarevent_mission_cas_3days:
+    createdAt: "<dateTimeBetween('-1 month', 'now')>"
+    updatedAt: "<dateTimeBetween('-1 month', 'now')>"
+    startDate: "<((new DateTime('+3 days'))->setTime(20,0))>"
+    endDate: "<((new DateTime('+3 days'))->setTime(22,00))>"
+    type: <(App\Entity\Calendar\Event::EVENT_TYPE_MISSION)>
+    title: "Las Vegas CAS"
+    owner: "@user_mitch"
+    map: "@module_nevada"
+    simDcs: true
+    restrictions: '<([App\Entity\User::STATUS_CADET,App\Entity\User::STATUS_MEMBER])>'
+    modules:
+      - "@module_a10c"
+      - "@module_a10c2"
