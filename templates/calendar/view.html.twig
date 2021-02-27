@@ -4,7 +4,8 @@
 
 {% block pageContent %}
     <div class="container container-main pt-3 pb-3 mb-3">
-        <h1><i class="fa fa-circle" style="color: {{ event.typeColor }}"></i> {{ event | event_type }} - {{ event.title }}
+        <h1><i class="fa fa-circle" style="color: {{ event.typeColor }}"></i> {{ event | event_type }}
+            - {{ event.title }}
             {% if is_granted('EDIT', event) or true %}
                 <span class="float-right">
                     <a href="{{ path('calendar_edit', {'event': event.id}) }}">
@@ -132,8 +133,8 @@
             ouvert à tous les modules
         {% endif %}
         <br/>
-
     </div>
+
     <div class="container container-main mb-3 pt-3 pb-3">
         <h2>Je participe</h2>
         {# section pour le vote de participation #}
@@ -149,17 +150,17 @@
                     {# <div class="col-md-12">Je participe :</div> #}
                     <div class="col-md-4">
                         <a href="{{ path('calendar_vote', {'event': event.id, 'vote': 'yes'}) }}"
-                           class="btn {% if vote is null or vote.vote %}btn-success{% else %}btn-secondary{% endif %} form-control">
+                           class="btn {% if userVote is null or userVote.vote %}btn-success{% else %}btn-secondary{% endif %} form-control">
                             Oui
                         </a>
                     </div>
                     <div class="col-md-4">
                         <a href="{{ path('calendar_vote', {'event': event.id, 'vote': 'perhaps'}) }}"
-                           class="btn {% if vote is null or vote.vote is null %}btn-primary{% else %}btn-secondary{% endif %} form-control">Peut-être</a>
+                           class="btn {% if userVote is null or userVote.vote is null %}btn-primary{% else %}btn-secondary{% endif %} form-control">Peut-être</a>
                     </div>
                     <div class="col-md-4">
                         <a href="{{ path('calendar_vote', {'event': event.id, 'vote': 'no'}) }}"
-                           class="btn {% if vote is null or vote.vote is same as false %}btn-danger{% else %}btn-secondary{% endif %} form-control">Non</a>
+                           class="btn {% if userVote is null or userVote.vote is same as false %}btn-danger{% else %}btn-secondary{% endif %} form-control">Non</a>
                     </div>
                 {% else %}
                     <div class="col-md-12 mt-3">
@@ -169,6 +170,34 @@
                     </div>
                 {% endif %}
             {% endif %}
+        </div>
+    </div>
+
+    <div class="container container-main mb-3 pt-3 pb-3">
+        <h2>
+            Participants
+            <span class="badge badge-pill badge-success">{{ event.votesByVote(true) | length }}</span>
+            <span class="badge badge-pill badge-primary">{{ event.votesByVote(null) | length }}</span>
+            <span class="badge badge-pill badge-danger">{{ event.votesByVote(false) | length }}</span>
+        </h2>
+        <div class="row">
+            <div class="col-md-12">
+                <span class="text-success">Oui</span> :
+                {% for vote in event.votesByVote(true) %}
+                    <a href="{{ path('user_view', {'user': vote.user.nickname}) }}">{{ vote.user.nickname }}</a>
+                {% endfor %}
+                <br/>
+                <span class="text-primary">Peut-être</span> :
+                {% for vote in event.votesByVote(null) %}
+                    <a href="{{ path('user_view', {'user': vote.user.nickname}) }}">{{ vote.user.nickname }}</a>
+                {% endfor %}
+                <br/>
+                <span class="text-danger">Non</span> :
+                {% for vote in event.votesByVote(false) %}
+                    <a href="{{ path('user_view', {'user': vote.user.nickname}) }}">{{ vote.user.nickname }}</a>
+                {% endfor %}
+                <br/>
+            </div>
         </div>
     </div>
 {% endblock pageContent %}
