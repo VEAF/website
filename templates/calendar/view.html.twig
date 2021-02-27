@@ -4,7 +4,7 @@
 
 {% block pageContent %}
     <div class="container container-main pt-3 pb-3 mb-3">
-        <h1>{{ event | event_type }} - {{ event.title }}
+        <h1><i class="fa fa-circle" style="color: {{ event.typeColor }}"></i> {{ event | event_type }} - {{ event.title }}
             {% if is_granted('EDIT', event) or true %}
                 <span class="float-right">
                     <a href="{{ path('calendar_edit', {'event': event.id}) }}">
@@ -13,8 +13,15 @@
                 </span>
             {% endif %}
         </h1>
-        Le {{ event.startDate | date('d/m/Y') }} de {{ event.startDate | date('H:i') }}
-        à {{ event.endDate | date('H:i') }}
+        <div>
+            Le {{ event.startDate | date('d/m/Y') }} de {{ event.startDate | date('H:i') }}
+            à {{ event.endDate | date('H:i') }}
+            <span class="float-right">
+                    organisé par <a href="{{ path('user_view', {'user': event.owner.nickname}) }}">
+                        {{ event.owner.nickname }}
+                    </a>
+                </span>
+        </div>
     </div>
 
     {% if event.image is not null or event.map is not null %}
@@ -39,18 +46,19 @@
     {% endif %}
 
     <div class="container container-main mb-3 pt-3 pb-3">
-        {# <hr/> #}
-        <div class="row">
-            {# description #}
-            {% if event.description is not null %}
+        {# description #}
+        {% if event.description is not null %}
+            <div class="row">
                 <div class="col-md-12">
                     <b>Description:</b><br/>
                     <p>
                         {{ event.description | markdown }}
                     </p>
+                    <hr/>
                 </div>
-            {% endif %}
-        </div>
+            </div>
+        {% endif %}
+
         {# restriction simulateur #}
         {% if event.simDcs or event.simBms %}
             Réservé au(x) simulateur(s):
@@ -70,6 +78,18 @@
                 {% endif %}
                 BMS
             {% endif %}
+            <br/>
+        {% endif %}
+
+        {# restriction carte #}
+        {% if event.map is not null %}
+            Restriction de carte:
+            {% if app.user is not null and app.user.hasModule(event.map) %}
+                <i class="fa fa-check-square text-success"></i>
+            {% else %}
+                <i class="fa fa-times-circle"></i>
+            {% endif %}
+            {{ event.map.longName }}
             <br/>
         {% endif %}
 
@@ -120,7 +140,9 @@
         <div class="row">
             {% if event.isFinished %}
                 <div class="col-md-12 mt-3">
-                    <div class="alert alert-info">Cet événement est maintenant terminé, vous ne pouvez plus participer.</div>
+                    <div class="alert alert-info">Cet événement est maintenant terminé, vous ne pouvez plus
+                        participer.
+                    </div>
                 </div>
             {% else %}
                 {% if is_granted('VOTE', event) %}
@@ -142,7 +164,7 @@
                 {% else %}
                     <div class="col-md-12 mt-3">
                         <div class="alert alert-info">Vous devez être connecté et respecter les restrictions
-                            (simulateur, profil, etc...) pour pouvoir vous inscrire à cet événement
+                            (simulateur, profil, carte, etc...) pour pouvoir vous inscrire à cet événement
                         </div>
                     </div>
                 {% endif %}

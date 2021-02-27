@@ -72,6 +72,12 @@ class EventVoter extends Voter
                         return false;
                     }
                 }
+                // specific map on this event ?
+                if (null !== $event->getMap()) {
+                    if(!$user->hasModule($event->getMap())) {
+                        return false;
+                    }
+                }
                 return true;
         }
 
