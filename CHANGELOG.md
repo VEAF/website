@@ -1,3 +1,8 @@
+### 1.3.1
+* FIX public - affichage des joueurs connectés incorrect
+* FIX public - erreur 500 sur calendrier si non connecté
+* FIX admin - bug sur les select2
+
 ### 1.3.0
 * ADD ajout d'un module calendrier
 * ADD gestion des restrictions des cartes pour les participants
