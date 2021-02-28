@@ -20,7 +20,7 @@ class CalendarEventAdminType extends CalendarEventType
                     'required' => true,
                     'placeholder' => '-',
                     'attr' => [
-                        'class' => 'select2 form-control',
+                        'class' => 'select2auto form-control',
                     ],
                 ]);
     }

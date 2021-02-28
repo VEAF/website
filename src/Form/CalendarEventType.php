@@ -82,7 +82,7 @@ class CalendarEventType extends AbstractType
                     'required' => false,
                     'placeholder' => '-',
                     'attr' => [
-                        'class' => 'select2 form-control',
+                        'class' => 'select2auto form-control',
                     ],
                 ])
             ->add('modules', EntityType::class,
@@ -97,7 +97,7 @@ class CalendarEventType extends AbstractType
                     'required' => false,
                     'multiple' => true,
                     'attr' => [
-                        'class' => 'select2',
+                        'class' => 'select2auto',
                     ],
                 ]);
         $builder
