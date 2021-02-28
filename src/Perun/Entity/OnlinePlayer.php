@@ -24,9 +24,7 @@ class OnlinePlayer
     private ?int $playerId;
 
     /**
-     * Simple DTO, unmapped
-     *
-     * @var Player|null
+     * Simple DTO, unmapped.
      */
     private ?Player $player = null;
 
