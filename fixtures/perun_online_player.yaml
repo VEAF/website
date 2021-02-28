@@ -1,6 +1,7 @@
 App\Perun\Entity\OnlinePlayer:
   prerun_online_player_public_admin:
     player: "@perun_player_public_admin"
+    playerId: 1
     ucid: "00001111222233334444555566660001"
     instance: "@perun_instance_public"
     ping: 0
@@ -8,6 +9,7 @@ App\Perun\Entity\OnlinePlayer:
     slot: ""
     updated: "<dateTimeBetween('-1 minute', 'now')>"
   prerun_online_player_private_admin:
+    playerId: 1
     player: "@perun_player_private_admin"
     ucid: "00001111222233334444555566660002"
     instance: "@perun_instance_private"
@@ -17,6 +19,7 @@ App\Perun\Entity\OnlinePlayer:
     updated: '<(new DateTime("2021-02-01 12:00:00"))>'
 
   prerun_online_player_zip:
+    playerId: 2
     player: "@perun_player_zip"
     ucid: "00001111222233334444555566660003"
     instance: "@perun_instance_public"
@@ -25,6 +28,7 @@ App\Perun\Entity\OnlinePlayer:
     slot: ""
     updated: "<dateTimeBetween('-1 minute', 'now')>"
   prerun_online_player_mitch:
+    playerId: 3
     player: "@perun_player_mitch"
     ucid: "00001111222233334444555566660004"
     instance: "@perun_instance_public"
@@ -34,6 +38,7 @@ App\Perun\Entity\OnlinePlayer:
     updated: "<dateTimeBetween('-1 minute', 'now')>"
 
   prerun_online_player_griffin:
+    playerId: 4
     player: "@perun_player_griffin"
     ucid: "00001111222233334444555566660005"
     instance: "@perun_instance_public"
@@ -43,6 +48,7 @@ App\Perun\Entity\OnlinePlayer:
     updated: "<dateTimeBetween('-1 minute', 'now')>"
 
   prerun_online_player_guest:
+    playerId: 5
     player: "@perun_player_guest"
     ucid: "00001111222233334444555566660006"
     instance: "@perun_instance_public"
@@ -52,6 +58,7 @@ App\Perun\Entity\OnlinePlayer:
     updated: "<dateTimeBetween('-1 minute', 'now')>"
 
   prerun_online_player_shark:
+    playerId: 6
     player: "@perun_player_shark"
     ucid: "6edb8022ccf3c2bd"
     instance: "@perun_instance_public"
@@ -61,6 +68,7 @@ App\Perun\Entity\OnlinePlayer:
     updated: "<dateTimeBetween('-1 minute', 'now')>"
 
   prerun_online_player_polo:
+    playerId: 7
     player: "@perun_player_polo"
     ucid: "165301e0a1728d02"
     instance: "@perun_instance_public"

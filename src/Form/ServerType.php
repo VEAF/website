@@ -29,8 +29,9 @@ class ServerType extends AbstractType
                 [
                     'class' => Instance::class,
                     'required' => false,
+                    'placeholder' => '-',
                     'attr' => [
-                        'class' => 'select2',
+                        'class' => 'select2 select2auto',
                     ],
                 ]);
     }

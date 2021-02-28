@@ -19,10 +19,14 @@ class OnlinePlayer
     private ?int $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Player::class)
-     * @ORM\JoinColumn(nullable=false, name="pe_OnlinePlayers_id", referencedColumnName="pe_DataPlayers_id")
+     * @ORM\Column(type="bigint", name="pe_OnlinePlayers_id")
      */
-    private ?Player $player;
+    private ?int $playerId;
+
+    /**
+     * Simple DTO, unmapped.
+     */
+    private ?Player $player = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=Instance::class, inversedBy="perunOnlinePlayers")
@@ -149,5 +153,15 @@ class OnlinePlayer
         $this->slot = $slot;
 
         return $this;
+    }
+
+    public function getPlayerId(): ?int
+    {
+        return $this->playerId;
+    }
+
+    public function setPlayerId(?int $playerId): void
+    {
+        $this->playerId = $playerId;
     }
 }

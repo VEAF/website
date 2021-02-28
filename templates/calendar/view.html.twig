@@ -64,19 +64,19 @@
         {% if event.simDcs or event.simBms %}
             Réservé au(x) simulateur(s):
             {% if event.simDcs %}
-                {% if app.user is not null and app.user.simDcs %}
-                    <i class="fa fa-check-square text-success"></i>
-                {% else %}
-                    <i class="fa fa-times-circle"></i>
-                {% endif %}
+{#                {% if app.user is not null and app.user.simDcs %}#}
+{#                    <i class="fa fa-check-square text-success"></i>#}
+{#                {% else %}#}
+{#                    <i class="fa fa-times-circle"></i>#}
+{#                {% endif %}#}
                 DCS
             {% endif %}
             {% if event.simBms %}
-                {% if app.user is not null and app.user.simBms %}
-                    <i class="fa fa-check-square text-success"></i>
-                {% else %}
-                    <i class="fa fa-times-circle"></i>
-                {% endif %}
+{#                {% if app.user is not null and app.user.simBms %}#}
+{#                    <i class="fa fa-check-square text-success"></i>#}
+{#                {% else %}#}
+{#                    <i class="fa fa-times-circle"></i>#}
+{#                {% endif %}#}
                 BMS
             {% endif %}
             <br/>
@@ -85,34 +85,22 @@
         {# restriction carte #}
         {% if event.map is not null %}
             Restriction de carte:
-            {% if app.user is not null and app.user.hasModule(event.map) %}
-                <i class="fa fa-check-square text-success"></i>
-            {% else %}
-                <i class="fa fa-times-circle"></i>
-            {% endif %}
-            {{ event.map.longName }}
+{#            {% if app.user is not null and app.user.hasModule(event.map) %}#}
+{#                <i class="fa fa-check-square text-success"></i>#}
+{#            {% else %}#}
+{#                <i class="fa fa-times-circle"></i>#}
+{#            {% endif %}#}
+            <a href="{{ path('roster_map', {'group': 'all', 'map': event.map.code}) }}">{{ event.map.longName }}</a>
             <br/>
         {% endif %}
 
         {# restriction membre #}
         Réstriction de profil:
         {% if event.restrictions | length > 0 %}
-            {% if event.hasRestriction(constant('App\\Entity\\Calendar\\Event::RESTRICTION_CADET')) %}
-                {% if app.user.cadet %}
-                    <i class="fa fa-check-square text-success"></i>
-                {% else %}
-                    <i class="fa fa-times-circle"></i>
-                {% endif %}
-                Cadet
-            {% endif %}
-            {% if event.hasRestriction(constant('App\\Entity\\Calendar\\Event::RESTRICTION_MEMBER')) %}
-                {% if app.user.member %}
-                    <i class="fa fa-check-square text-success"></i>
-                {% else %}
-                    <i class="fa fa-times-circle"></i>
-                {% endif %}
-                Membre
-            {% endif %}
+            {% for restriction in event.restrictions %}
+                {% if not loop.first %},{% endif %}
+                {{ event.restrictionByIdAsString(restriction) }}
+            {% endfor %}
         {% else %}
             ouvert à tout le monde
         {% endif %}
@@ -122,12 +110,12 @@
         Réstriction de module:
         {% if event.modules | length > 0 %}
             {% for module in event.modules %}
-                {% if app.user is not null and app.user.hasModule(module) %}
-                    <i class="fa fa-check-square text-success"></i>
-                {% else %}
-                    <i class="fa fa-times-circle"></i>
-                {% endif %}
-                {{ module.name }}
+                {{ module.name }}{% if not loop.last %},{% endif %}
+{#                {% if app.user is not null and app.user.hasModule(module) %}#}
+{#                    <i class="fa fa-check-square text-success"></i>#}
+{#                {% else %}#}
+{#                    <i class="fa fa-times-circle"></i>#}
+{#                {% endif %}#}
             {% endfor %}
         {% else %}
             ouvert à tous les modules

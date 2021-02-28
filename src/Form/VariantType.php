@@ -31,7 +31,7 @@ class VariantType extends AbstractType
                     },
                     'required' => false,
                     'attr' => [
-                        'class' => 'select2',
+                        'class' => 'select2 select2auto',
                     ],
                 ]);
     }

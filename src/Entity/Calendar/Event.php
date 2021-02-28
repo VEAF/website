@@ -388,6 +388,15 @@ class Event
         return '#000000';
     }
 
+    public function getRestrictionByIdAsString(int $restriction): string
+    {
+        if (isset(self::RESTRICTIONS[$restriction])) {
+            return self::RESTRICTIONS[$restriction];
+        }
+
+        return 'inconnu';
+    }
+
     public function isFinished(): bool
     {
         return $this->endDate->getTimestamp() < time();
