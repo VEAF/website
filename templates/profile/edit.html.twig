@@ -1,0 +1,36 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ parent() }} - Mon profil{% endblock %}
+
+{% block pageContent %}
+    <div class="container container-main pt-3 pb-3 mb-3">
+        <h1>
+            Mon profil
+            <div class="float-right">
+                <a href="{{ path('user_view', {'user': app.user.nickname}) }}" class="btn btn-link"
+                   title="Voir mon profil">
+                    <i class="fa fa-eye fa-2x"></i>
+                </a>
+            </div>
+        </h1>
+    </div>
+    <div class="container container-main pt-3 pb-3 mb-3">
+        {{ form_start(form) }}
+        {{ form_rest(form) }}
+        {{ form_errors(form) }}
+        <div class="row">
+            <div class="col-sm-6">
+                <a href="{{ path('profile') }}"
+                   class="btn btn-lg btn-primary form-control">
+                    <i class="fa fa-arrow-circle-left"></i> Annuler
+                </a>
+            </div>
+            <div class="col-sm-6">
+                <button class="btn btn-lg btn-danger form-control " type="submit">
+                    <i class="fa fa-save"></i> Enregistrer
+                </button>
+            </div>
+        </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

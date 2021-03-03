@@ -15,6 +15,23 @@
         </h1>
     </div>
     <div class="container container-main pt-3 pb-3 mb-3">
+        <h1>
+            Mes simulateurs
+            <div class="float-right">
+                <a href="{{ path('profile_edit') }}" class="btn btn-link"
+                   title="Modifier mon profil">
+                    <i class="fa fa-edit fa-2x"></i>
+                </a>
+            </div>
+        </h1>
+        <p>
+            {% set titleTrue="J'ai ce simulateur" %}
+            {% set titleFalse="Je n'ai pas ce simulateur" %}
+            {% include "_common/_boolean_icon.html.twig" with {'value': app.user.simDcs}  %} Digital Combat Simulator (DCS World)<br/>
+            {% include "_common/_boolean_icon.html.twig" with {'value': app.user.simBms}  %} Falcon 4 - BMS<br/>
+        </p>
+    </div>
+    <div class="container container-main pt-3 pb-3 mb-3">
         <h1>Mes modules</h1>
 
         <div class="alert alert-secondary">
