@@ -506,4 +506,9 @@ class User implements UserInterface
 
         return $this;
     }
+
+    public function isProfileFilled(): bool
+    {
+        return $this->simDcs || $this->simBms;
+    }
 }

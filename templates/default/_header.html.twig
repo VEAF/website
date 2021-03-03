@@ -61,7 +61,8 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ path("perun_index") }}" class="nav-link" title="{{ connectedUsers }} joueur(s) connecté(s)">
+                    <a href="{{ path("perun_index") }}" class="nav-link"
+                       title="{{ connectedUsers }} joueur(s) connecté(s)">
                         <span class="fa fa-server"></span>
                         <span class="d-lg-none d-xl-inline">Serveurs</span>
                         {% if connectedUsers > 0 %}
@@ -83,12 +84,24 @@
                 </li>
                 {% if app.user %}
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
-                           id="webstv"><span class="fa fa-user"></span> {{ app.user.nickname }}<span
-                                    class="caret"></span></a>
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="profile">
+                            <span class="fa fa-user"></span>
+                            {{ app.user.nickname }}
+                            {% if not app.user.profileFilled %}
+                                <span class="badge badge-pill badge-danger" title="Je dois compléter mon profil">
+                                        !
+                                </span>
+                            {% endif %}
+                            <span class="caret"></span>
+                        </a>
                         <div class="dropdown-menu" aria-labelledby="webstv">
                             <a class="dropdown-item" href="{{ path("profile") }}">
                                 Mon profil
+                                {% if not app.user.profileFilled %}
+                                    <span class="badge badge-pill badge-danger" title="Je dois compléter mon profil">
+                                        !
+                                    </span>
+                                {% endif %}
                             </a>
                             {% if is_granted("ROLE_ADMIN") %}
                                 <div class="dropdown-divider"></div>

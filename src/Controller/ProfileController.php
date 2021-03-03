@@ -4,6 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Module;
 use App\Entity\UserModule;
+use App\Form\ProfileType;
+use App\Manager\UserManager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,6 +18,7 @@ use Symfony\Component\Serializer\SerializerInterface;
  * Protected with security firewall.
  *
  * @Route("/profile")
+ * @Security("is_granted('ROLE_USER')")
  */
 class ProfileController extends AbstractController
 {
@@ -31,6 +35,29 @@ class ProfileController extends AbstractController
         $data['myModules'] = $this->getDoctrine()->getRepository(UserModule::class)->findByUserIndexedByModule($this->getUser());
 
         return $this->render('profile/index.html.twig', $data);
+    }
+
+    /**
+     * @Route("/edit", name="profile_edit")
+     */
+    public function edit(Request $request, UserManager $userManager): Response
+    {
+        $user = $this->getUser();
+        $form = $this->createForm(ProfileType::class, $user);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $userManager->save($user, true, true);
+            $this->addFlash('success', 'Mon profil a été enregistré');
+
+            return $this->redirectToRoute('profile');
+        }
+
+        return $this->render('profile/edit.html.twig', [
+            'form' => $form->createView(),
+            'user' => $user,
+        ]);
     }
 
     /**
