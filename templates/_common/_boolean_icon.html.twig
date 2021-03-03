@@ -1,0 +1,10 @@
+{# @param bool value #}
+{# @param string titleTrue title if value is true #}
+{# @param string titleFalse title if value is false #}
+{# @description display a boolean value as icon green check, or icon gray cross #}
+
+{% if value %}
+    <i class="fa fa-check-circle text-success"{% if titleTrue is defined %} title="{{ titleTrue }}"{% endif %}></i>
+{% else %}
+    <i class="fa fa-times-circle text-secondary"{% if titleFalse is defined %} title="{{ titleFalse }}"{% endif %}></i>
+{% endif %}
