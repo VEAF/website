@@ -123,6 +123,18 @@ class UserController extends AbstractController
                     )
             );
 
+        $table
+            ->addColumn(
+                (new Column())->setLabel('Inscription')
+                    ->setSort(['u.createdAt' => 'asc'])
+                    ->setDisplayFormat(Column::FORMAT_DATE)
+                    ->setDisplayFormatParams('d/m/Y H:i')
+                    ->setFilter((new Filter())
+                        ->setField('u.createdAt')
+                        ->setName('u_createdAt')
+                        ->setDataFormat(Filter::FORMAT_DATE)
+                    )
+            );
         return $table;
     }
 
