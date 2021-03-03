@@ -1,3 +1,8 @@
+### 1.3.2
+* ADD admin - liste des utilisateurs - tri par date d'inscription
+* ADD profil - alerte si aucun simulateur n'est configuré sur mon profil
+* ADD profil - édition de mon profil: choix du simulateur et pseudo
+
 ### 1.3.1
 * FIX public - affichage des joueurs connectés incorrect
 * FIX public - erreur 500 sur calendrier si non connecté
