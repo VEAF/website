@@ -135,6 +135,7 @@ class UserController extends AbstractController
                         ->setDataFormat(Filter::FORMAT_DATE)
                     )
             );
+
         return $table;
     }
 
