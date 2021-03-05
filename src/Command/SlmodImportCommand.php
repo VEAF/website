@@ -48,7 +48,8 @@ class SlmodImportCommand extends Command
             return 1;
         }
 
-        $this->importService->import($server);
+        $output->writeln(sprintf('Import stats from server <info>%s</info>', $serverCode));
+        $this->importService->import($server, $output);
 
         $chrono->stop('import');
         $io->success(sprintf('Stats imported in %d seconds', $chrono->getEvent('import')->getDuration() / 1000));

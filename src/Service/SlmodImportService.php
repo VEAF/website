@@ -11,6 +11,7 @@ use App\Entity\VariantStat;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use GuzzleHttp\Client;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class SlmodImportService
 {
@@ -78,13 +79,18 @@ class SlmodImportService
     /**
      * @param SlmodPlayerStat[]|array $stats
      */
-    public function importStats(Server $server, array $stats)
+    public function importStats(Server $server, array $stats, OutputInterface $output)
     {
+        $totalVariantStats = 0;
+
         $variantByCode = [];
 
+        $output->writeln(sprintf('<info>%d</info> <comment>players</comment> to import', count($stats)));
         foreach ($stats as $stat) {
             $player = $this->entityManager->getRepository(Player::class)->findOneByUcid($stat->getUcid());
             if (null === $player) {
+
+                $output->writeln(sprintf('<comment>new player</comment> <info>%s</info>', $stat->getUcid()));
                 $player = new Player();
                 $player->setUcid($stat->getUcid());
                 $this->entityManager->persist($player);
@@ -101,6 +107,7 @@ class SlmodImportService
                 if (!isset($variantByCode[$variantStatDTO->getVariantCode()])) {
                     $variant = $this->entityManager->getRepository(Variant::class)->findOneByCode($variantStatDTO->getVariantCode());
                     if (null === $variant) {
+                        $output->writeln(sprintf('<comment>new variant</comment> <info>%s</info>', $variantStatDTO->getVariantCode()));
                         $variant = new Variant();
                         $variant->setName($variantStatDTO->getVariantCode());
                         $variant->setCode($variantStatDTO->getVariantCode());
@@ -114,6 +121,7 @@ class SlmodImportService
                 // find existing data
                 $variantStat = $this->entityManager->getRepository(VariantStat::class)->findOneBy(['server' => $server, 'variant' => $variant, 'player' => $player]);
                 if (null === $variantStat) {
+                    $output->writeln(sprintf('<comment>new stat</comment> variant: <info>%s</info> player: <info>%s</info>', $variantStatDTO->getVariantCode(), $stat->getUcid()));
                     $variantStat = new VariantStat();
                     $variantStat->setServer($server);
                     $variantStat->setVariant($variant);
@@ -122,15 +130,18 @@ class SlmodImportService
                 }
                 $variantStat->setTotal($variantStatDTO->getTotal());
                 $variantStat->setInAir($variantStatDTO->getInAir());
+
+                $totalVariantStats++;
             }
         }
 
+        $output->writeln(sprintf('<info>%d</info> <comment>variant stats imported</comment>', $totalVariantStats));
         $this->entityManager->flush();
     }
 
-    public function import(Server $server)
+    public function import(Server $server, OutputInterface $output)
     {
         $stats = $this->loadStats($server);
-        $this->importStats($server, $stats);
+        $this->importStats($server, $stats, $output);
     }
 }
