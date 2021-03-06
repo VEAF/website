@@ -89,7 +89,6 @@ class SlmodImportService
         foreach ($stats as $stat) {
             $player = $this->entityManager->getRepository(Player::class)->findOneByUcid($stat->getUcid());
             if (null === $player) {
-
                 $output->writeln(sprintf('<comment>new player</comment> <info>%s</info>', $stat->getUcid()));
                 $player = new Player();
                 $player->setUcid($stat->getUcid());
@@ -131,7 +130,7 @@ class SlmodImportService
                 $variantStat->setTotal($variantStatDTO->getTotal());
                 $variantStat->setInAir($variantStatDTO->getInAir());
 
-                $totalVariantStats++;
+                ++$totalVariantStats;
             }
         }
 

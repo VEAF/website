@@ -1,3 +1,8 @@
+### 1.3.3
+* FIX public - erreur javascript select2 sur la page d'accueil
+* FIX public - url permanente vers le discord VEAF
+* FIX admin - informations de debug/stats pour l'import des données SLMOD
+
 ### 1.3.2
 * ADD admin - liste des utilisateurs - tri par date d'inscription
 * ADD profil - alerte si aucun simulateur n'est configuré sur mon profil
