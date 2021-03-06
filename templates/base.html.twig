@@ -31,7 +31,7 @@
         <script src="//code.highcharts.com/4.1.8/modules/heatmap.js"></script>
         <script src="//code.highcharts.com/4.1.8/modules/exporting.js"></script>
         {% endif %}
-        {% if libSelect2 is defined and libSelect2 == true %}
+        {% if libSelect2 is defined and libSelect2 == true or true %}{# simple work around, provide select2 lib on all pages #}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"
                 integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A=="
                 crossorigin="anonymous"></script>
