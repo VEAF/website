@@ -2,6 +2,29 @@
 
 {% block title %}{{ parent() }}: Calendrier{% endblock %}
 
+{% if event.image is not null %}
+    {% set imageUrl = image(image_header_path(event.image)).zoomCrop(1110,222).jpeg %}
+{% elseif event.map is not null %}
+    {% set imageUrl = image(image_header_path(event.map.imageHeader)).zoomCrop(1110,222).jpeg %}
+{% else %}
+    {% set imageUrl = null %}
+{% endif %}
+
+{% block head %}
+    {{ parent() }}
+    <meta property="og:url" content="{{ absolute_url(path('calendar_view', {'event': event.id})) }}"/>
+    <meta property="og:locale" content="fr-fr"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title"
+          content="{{ event | event_type }} - Le {{ event.startDate | date('d/m/Y') }} à {{ event.startDate | date('H:i') }}"/>
+    <meta property="og:description" content="{{ event.title }}"/>
+    {% if imageUrl is not null %}
+        <meta property="og:image" content="{{ absolute_url(imageUrl) }}"/>
+        <meta property="og:image:width" content="1110"/>
+        <meta property="og:image:height" content="222"/>
+    {% endif %}
+{% endblock %}
+
 {% block pageContent %}
     <div class="container container-main pt-3 pb-3 mb-3">
         <h1><i class="fa fa-circle" style="color: {{ event.typeColor }}"></i> {{ event | event_type }}
@@ -64,19 +87,19 @@
         {% if event.simDcs or event.simBms %}
             Réservé au(x) simulateur(s):
             {% if event.simDcs %}
-{#                {% if app.user is not null and app.user.simDcs %}#}
-{#                    <i class="fa fa-check-square text-success"></i>#}
-{#                {% else %}#}
-{#                    <i class="fa fa-times-circle"></i>#}
-{#                {% endif %}#}
+                {# {% if app.user is not null and app.user.simDcs %} #}
+                {# <i class="fa fa-check-square text-success"></i> #}
+                {# {% else %} #}
+                {# <i class="fa fa-times-circle"></i> #}
+                {# {% endif %} #}
                 DCS
             {% endif %}
             {% if event.simBms %}
-{#                {% if app.user is not null and app.user.simBms %}#}
-{#                    <i class="fa fa-check-square text-success"></i>#}
-{#                {% else %}#}
-{#                    <i class="fa fa-times-circle"></i>#}
-{#                {% endif %}#}
+                {# {% if app.user is not null and app.user.simBms %} #}
+                {# <i class="fa fa-check-square text-success"></i> #}
+                {# {% else %} #}
+                {# <i class="fa fa-times-circle"></i> #}
+                {# {% endif %} #}
                 BMS
             {% endif %}
             <br/>
@@ -85,11 +108,11 @@
         {# restriction carte #}
         {% if event.map is not null %}
             Restriction de carte:
-{#            {% if app.user is not null and app.user.hasModule(event.map) %}#}
-{#                <i class="fa fa-check-square text-success"></i>#}
-{#            {% else %}#}
-{#                <i class="fa fa-times-circle"></i>#}
-{#            {% endif %}#}
+            {# {% if app.user is not null and app.user.hasModule(event.map) %} #}
+            {# <i class="fa fa-check-square text-success"></i> #}
+            {# {% else %} #}
+            {# <i class="fa fa-times-circle"></i> #}
+            {# {% endif %} #}
             <a href="{{ path('roster_map', {'group': 'all', 'map': event.map.code}) }}">{{ event.map.longName }}</a>
             <br/>
         {% endif %}
@@ -111,11 +134,11 @@
         {% if event.modules | length > 0 %}
             {% for module in event.modules %}
                 {{ module.name }}{% if not loop.last %},{% endif %}
-{#                {% if app.user is not null and app.user.hasModule(module) %}#}
-{#                    <i class="fa fa-check-square text-success"></i>#}
-{#                {% else %}#}
-{#                    <i class="fa fa-times-circle"></i>#}
-{#                {% endif %}#}
+                {# {% if app.user is not null and app.user.hasModule(module) %} #}
+                {# <i class="fa fa-check-square text-success"></i> #}
+                {# {% else %} #}
+                {# <i class="fa fa-times-circle"></i> #}
+                {# {% endif %} #}
             {% endfor %}
         {% else %}
             ouvert à tous les modules
