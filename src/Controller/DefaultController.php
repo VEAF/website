@@ -51,16 +51,15 @@ class DefaultController extends AbstractController
      */
     public function _header(OnlinePlayerRepository $onlinePlayerRepository, EventRepository $eventRepository): Response
     {
+        $nextDays = 7;
         $data = [];
 
         $data['connectedUsers'] = $onlinePlayerRepository->countRealPlayersByInstance();
-        $data['newEvents'] = $eventRepository->countNewEventsByUser($this->getUser());
+        $data['newEvents'] = (null === $this->getUser() ? 0 : $eventRepository->countNewEventsByUser($this->getUser()));
+        $data['nextEvents'] = $eventRepository->countNextEvents($nextDays);
+        $data['nextDays'] = $nextDays;
 
         $response = $this->render('default/_header.html.twig', $data);
-
-        // cache disabled, dynamic login / logout interferences
-//        $response->setPublic();
-//        $response->setMaxAge(60); // result during 60 seconds
 
         return $response;
     }
