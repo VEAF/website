@@ -38,7 +38,7 @@ class CalendarController extends AbstractController
         return $this->render('calendar/index.html.twig', [
             'now' => new \DateTime('now'),
             'month' => $month,
-            'events' => $eventService->findAsArray(),
+            'events' => $eventService->findAsArray($this->getUser()),
         ]);
     }
 
@@ -119,13 +119,16 @@ class CalendarController extends AbstractController
      * @Route("/{event}", name="calendar_view")
      * @ParamConverter("month", options={"format": "!Y-m"})
      */
-    public function view(Event $event): Response
+    public function view(Event $event, EventService $eventService): Response
     {
         if ($event->isDeleted()) {
             throw new NotFoundHttpException('event not found');
         }
 
         $vote = $this->getDoctrine()->getRepository(Vote::class)->findOneBy(['event' => $event, 'user' => $this->getUser()]);
+        if (null !== $this->getUser()) {
+            $eventService->markEventReadByUser($event, $this->getUser());
+        }
 
         return $this->render('calendar/view.html.twig', [
             'event' => $event,

@@ -82,7 +82,14 @@
                 <li class="nav-item">
                     <a href="{{ path("calendar") }}" class="nav-link">
                         <span class="fa fa-calendar"></span>
-                        <span class="d-lg-none d-xl-inline">Calendrier</span>
+                        <span class="d-lg-none d-xl-inline">
+                            Calendrier
+                            {% if newEvents > 0 %}
+                                <span class="badge badge-pill badge-danger" title="Nouveaux événements">
+                                    {{ newEvents }}
+                                </span>
+                            {% endif %}
+                        </span>
                     </a>
                 </li>
                 {% if app.user %}
