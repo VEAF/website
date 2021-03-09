@@ -12,7 +12,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="news">
                         <span class="fa fa-newspaper"></span>
-                        <span class="d-lg-none d-xl-inline">Les nouvelles</span>
+                        <span class="d-lg-none d-xl-inline">Nouvelles</span>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="news">
                         <a href="https://tinyurl.com/veafdisc" class="dropdown-item" target="_blank">
@@ -20,6 +20,10 @@
                         </a>
                         <a href="http://www.facebook.com/veairforce/" class="dropdown-item" target="_blank">
                             <span class="fab fa-facebook"></span> Facebook
+                        </a>
+                        <a class="dropdown-item"
+                           href="https://www.youtube.com/channel/UCEF1A_q8Cnw9JLW_Rlig3OQ/featured" target="_blank">
+                            <i class="fab fa-youtube"></i> Chaîne Youtube VEAF
                         </a>
                     </div>
                 </li>
@@ -51,25 +55,28 @@
                         </a>
                     </div>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="webstv">
-                        <span class="fa fa-tv"></span>
-                        <span class="d-lg-none d-xl-inline">Webs TV</span>
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="webstv">
-                        <a class="dropdown-item"
-                           href="https://www.youtube.com/channel/UCEF1A_q8Cnw9JLW_Rlig3OQ/featured" target="_blank">
-                            <i class="fab fa-youtube"></i> Chaîne Youtube VEAF
-                        </a>
-                    </div>
-                </li>
+{#                <li class="nav-item dropdown">#}
+{#                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="webstv">#}
+{#                        <span class="fa fa-tv"></span>#}
+{#                        <span class="d-lg-none d-xl-inline">Webs TV</span>#}
+{#                    </a>#}
+{#                    <div class="dropdown-menu" aria-labelledby="webstv">#}
+{#                        <a class="dropdown-item"#}
+{#                           href="https://www.youtube.com/channel/UCEF1A_q8Cnw9JLW_Rlig3OQ/featured" target="_blank">#}
+{#                            <i class="fab fa-youtube"></i> Chaîne Youtube VEAF#}
+{#                        </a>#}
+{#                    </div>#}
+{#                </li>#}
                 <li class="nav-item">
                     <a href="{{ path("perun_index") }}" class="nav-link"
                        title="{{ connectedUsers }} joueur(s) connecté(s)">
                         <span class="fa fa-server"></span>
-                        <span class="d-lg-none d-xl-inline">Serveurs</span>
                         {% if connectedUsers > 0 %}
-                            <span class="badge badge-pill badge-danger">{{ connectedUsers }}</span>
+                            <span class="badge badge-pill badge-secondary">{{ connectedUsers }}</span>
+                            <span class="d-lg-none d-xl-inline"> joueur(s)</span>
+                            {# <span class="badge badge-pill badge-danger"></span> #}
+                        {% else %}
+                            <span class="d-lg-none d-xl-inline">Serveurs</span>
                         {% endif %}
                     </a>
                 </li>
@@ -82,14 +89,24 @@
                 <li class="nav-item">
                     <a href="{{ path("calendar") }}" class="nav-link">
                         <span class="fa fa-calendar"></span>
-                        <span class="d-lg-none d-xl-inline">
+                        {% if nextEvents > 0 %}
+                            <span class="badge badge-pill badge-secondary"
+                                  title="{{ nextEvents }} événements dans les {{ nextDays }} prochains jours">
+                                {{ nextEvents }}
+                            </span>
+                            <span class="d-lg-none d-xl-inline">
+                                événement(s)
+                            </span>
+                        {% else %}
+                            <span class="d-lg-none d-xl-inline">
                             Calendrier
-                            {% if newEvents > 0 %}
-                                <span class="badge badge-pill badge-danger" title="Nouveaux événements">
-                                    {{ newEvents }}
-                                </span>
-                            {% endif %}
                         </span>
+                        {% endif %}
+                        {% if newEvents > 0 %}
+                            <span class="badge badge-pill badge-danger" title="{{ newEvents }} nouveaux événements">
+                                    {{ newEvents }}
+                            </span>
+                        {% endif %}
                     </a>
                 </li>
                 {% if app.user %}

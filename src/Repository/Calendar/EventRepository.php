@@ -25,7 +25,7 @@ class EventRepository extends ServiceEntityRepository
      *
      * @return int
      */
-    public function countNewEventsByUser(?User $user)
+    public function countNewEventsByUser(?User $user): int
     {
         $start = new \DateTime('now');
         $end = (new \DateTime($start->format('Y/m/01 23:59:59')))->modify('+2 month')->modify('-1 day');
@@ -41,6 +41,25 @@ class EventRepository extends ServiceEntityRepository
         }
 
         return $query->andWhere('e.endDate >= :start')
+            ->setParameter('start', $start)
+            ->andWhere('e.endDate < :end')
+            ->setParameter('end', $end)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    /**
+     * Count next events (in next $days)
+     */
+    public function countNextEvents(int $days = 7): int
+    {
+        $start = new \DateTime('now');
+        $end = (new \DateTime($start->format('Y/m/d 23:59:59')))->modify(sprintf('+%d days', $days));
+
+        return $this->createQueryBuilder('e')
+            ->select('COUNT(e.id) AS nb')
+            ->andWhere('e.deleted = 0')
+            ->andWhere('e.endDate >= :start')
             ->setParameter('start', $start)
             ->andWhere('e.endDate < :end')
             ->setParameter('end', $end)
