@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Module;
 use App\Entity\User;
 use App\Perun\Repository\OnlinePlayerRepository;
+use App\Repository\Calendar\EventRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -48,11 +49,12 @@ class DefaultController extends AbstractController
     /**
      * Top menu.
      */
-    public function _header(OnlinePlayerRepository $onlinePlayerRepository): Response
+    public function _header(OnlinePlayerRepository $onlinePlayerRepository, EventRepository $eventRepository): Response
     {
         $data = [];
 
         $data['connectedUsers'] = $onlinePlayerRepository->countRealPlayersByInstance();
+        $data['newEvents'] = $eventRepository->countNewEventsByUser($this->getUser());
 
         $response = $this->render('default/_header.html.twig', $data);
 
