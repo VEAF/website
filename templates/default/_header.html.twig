@@ -9,6 +9,13 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav">
+                {% for menuItem in menuItems %}
+                    {% if menuItem.enabled %}
+                    {% if menuItem.type == constant('App\\Entity\\Menu\\Item::TYPE_LINK') %}
+                        {# @todo WIP WIP WIP #}
+                    {% endif %}
+                    {% endif %}
+                {% endfor %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="news">
                         <span class="fa fa-newspaper"></span>

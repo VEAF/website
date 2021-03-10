@@ -1,0 +1,104 @@
+App\Entity\Menu\Item:
+
+  menuitem_news:
+    label: 'Nouvelles'
+    icon: 'fa fa-newspaper'
+    type: <(App\Entity\Menu\Item::TYPE_MENU)>
+    enabled: true
+    position: 1
+
+  menuitem_news_discord:
+    label: 'Discord'
+    icon: 'fab fa-discord'
+    type: <(App\Entity\Menu\Item::TYPE_URL)>
+    enabled: true
+    position: 1
+    menu: '@menuitem_news'
+    url: '@url_discord'
+
+  menuitem_news_facebook:
+    label: 'Facebook'
+    icon: 'fab fa-facebook'
+    type: <(App\Entity\Menu\Item::TYPE_LINK)>
+    enabled: true
+    position: 2
+    menu: '@menuitem_news'
+
+  menuitem_forum:
+    label: 'Forum'
+    icon: 'fa fa-envelope'
+    type: <(App\Entity\Menu\Item::TYPE_LINK)>
+    link: 'https://community.veaf.org/'
+    enabled: true
+    position: 2
+
+  menuitem_asso:
+    label: 'Association'
+    icon: 'fa fa-hotel'
+    type: <(App\Entity\Menu\Item::TYPE_MENU)>
+    enabled: true
+    position: 3
+
+  menuitem_asso_presentation:
+    label: 'Présentation'
+    type: <(App\Entity\Menu\Item::TYPE_PAGE)>
+    enabled: true
+    position: 1
+    page: '@page_association_presentation'
+    menu: '@menuitem_asso'
+
+  menuitem_asso_office:
+    label: 'Le bureau'
+    type: <(App\Entity\Menu\Item::TYPE_OFFICE)>
+    enabled: true
+    position: 2
+    page: '@page_association_status'
+    menu: '@menuitem_asso'
+
+  menuitem_asso_statuts:
+    label: 'Les statuts'
+    type: <(App\Entity\Menu\Item::TYPE_PAGE)>
+    enabled: true
+    position: 3
+    page: '@page_association_status'
+    menu: '@menuitem_asso'
+
+  menuitem_asso_divider:
+    label:
+    type: <(App\Entity\Menu\Item::TYPE_DIVIDER)>
+    enabled: true
+    position: 4
+
+  menuitem_asso_rejoindre:
+    label: "Rejoindre l'association"
+    type: <(App\Entity\Menu\Item::TYPE_LINK)>
+    enabled: true
+    position: 5
+    link: 'https://community.veaf.org/topic/21/nous-rejoindre'
+
+  menuitem_asso_disabled:
+    label: "Rejoindre l'association"
+    type: <(App\Entity\Menu\Item::TYPE_LINK)>
+    enabled: false
+    position: 6
+    link: 'https://community.veaf.org/'
+
+  menuitem_servers:
+    label:
+    type: <(App\Entity\Menu\Item::TYPE_SERVERS)>
+    enabled: true
+    position: 4
+
+  menuitem_roster:
+    label:
+    type: <(App\Entity\Menu\Item::TYPE_ROSTER)>
+    enabled: true
+    position: 5
+
+  menuitem_disabled:
+    label: 'Désactive'
+    icon: 'fa fa-hotel'
+    type: <(App\Entity\Menu\Item::TYPE_LINK)>
+    enabled: false
+    position: 3
+

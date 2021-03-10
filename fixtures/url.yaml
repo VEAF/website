@@ -14,6 +14,13 @@ App\Entity\Url:
     updatedAt: <(new DateTime('2021-03-01 18:00:00'))>
     status: 1
 
+  url_discord:
+    slug: 'discord'
+    target: 'https://tinyurl.com/veafdisc'
+    createdAt: <(new DateTime('2021-03-01 15:00:00'))>
+    updatedAt: <(new DateTime('2021-03-01 18:00:00'))>
+    status: 1
+
   url_fail:
     slug: 'fail'
     target: 'https://thisurldoesnotexist.com'
