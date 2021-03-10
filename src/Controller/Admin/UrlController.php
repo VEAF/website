@@ -54,6 +54,7 @@ class UrlController extends AbstractController
                     ->setDisplayCallback(function ($value, $row, $lines) {
                         return sprintf('<a href="%s">%s</a>', $value, substr($value, 0, min(40, strlen($value))));
                     })
+                    ->setRaw(true)
             );
 
         return $table;
