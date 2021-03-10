@@ -7,6 +7,7 @@ use App\Entity\File;
 use App\Entity\Module;
 use App\Entity\Page;
 use App\Entity\Player;
+use App\Entity\Url;
 use App\Entity\User;
 use App\Perun\Entity\Player as PerunPlayer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -33,6 +34,7 @@ class DefaultController extends AbstractController
             'pages' => $this->getDoctrine()->getRepository(Page::class)->count([]),
             'files' => $this->getDoctrine()->getRepository(File::class)->count([]),
             'calendarEvents' => $this->getDoctrine()->getRepository(Event::class)->count([]),
+            'urls' => $this->getDoctrine()->getRepository(Url::class)->count([]),
         ];
 
         return $this->render('admin/default/index.html.twig', $data);

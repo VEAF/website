@@ -78,6 +78,12 @@
                     <span>Evénements</span>
                 </a>
             </li>
+            <li class="nav-item{% if section == "admin" and subSection == "url" %} active{% endif %}">
+                <a class="nav-link" href="{{ path("admin_url_list") }}">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Urls</span>
+                </a>
+            </li>
             <hr class="sidebar-divider">
             <div class="sidebar-heading">
                 DCS

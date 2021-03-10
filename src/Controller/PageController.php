@@ -3,8 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Page;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use App\Entity\Url;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,12 +16,19 @@ use Symfony\Component\Routing\Annotation\Route;
 class PageController extends AbstractController
 {
     /**
+     * Handle page (CMS) or link (url shortener).
+     *
      * @Route("/{path}", name="page", requirements={"path"=".+"})
-     * @ParamConverter("page", options={"mapping": {"path": "path"}})
      */
-    public function page(Page $page): Response
+    public function page(string $path): Response
     {
-        if (!$page->isEnabled()) {
+        $link = $this->getDoctrine()->getRepository(Url::class)->findOneBySlug($path);
+        if (null !== $link) {
+            return new RedirectResponse($link->getTarget());
+        }
+
+        $page = $this->getDoctrine()->getRepository(Page::class)->findOneByPath($path);
+        if (null === $page || !$page->isEnabled()) {
             throw new NotFoundHttpException('page non trouvée');
         }
 

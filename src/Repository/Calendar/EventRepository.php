@@ -21,9 +21,7 @@ class EventRepository extends ServiceEntityRepository
     }
 
     /**
-     * Count new events for an user (if no user, count all events) from now to the next end of month
-     *
-     * @return int
+     * Count new events for an user (if no user, count all events) from now to the next end of month.
      */
     public function countNewEventsByUser(?User $user): int
     {
@@ -37,7 +35,7 @@ class EventRepository extends ServiceEntityRepository
             $query->leftJoin('e.notifications', 'n')
                 ->leftJoin('n.user', 'u', 'WITH', 'n.user = :user')
                 ->andWhere('n IS NULL')
-                ->setParameter('user', $user);//->having('IS_NULL(n)');
+                ->setParameter('user', $user); //->having('IS_NULL(n)');
         }
 
         return $query->andWhere('e.endDate >= :start')
@@ -49,7 +47,7 @@ class EventRepository extends ServiceEntityRepository
     }
 
     /**
-     * Count next events (in next $days)
+     * Count next events (in next $days).
      */
     public function countNextEvents(int $days = 7): int
     {
@@ -68,7 +66,7 @@ class EventRepository extends ServiceEntityRepository
     }
 
     /**
-     * Count new events for an user (if no user, count all events) from now to the next end of month
+     * Count new events for an user (if no user, count all events) from now to the next end of month.
      *
      * @return int
      */

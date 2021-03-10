@@ -1,0 +1,42 @@
+{% extends 'admin/layout.html.twig' %}
+{% set libKilikTable=true %}
+{% set section="admin" %}
+{% set subSection="url" %}
+
+{% block pageContent %}
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="bs-component">
+                <div class="card mb-3">
+                    <h3 class="card-header">{% if url.id is not null %}Modifier l'url{% else %}Ajouter une url{% endif %}</h3>
+                    <div class="card-body">
+                        {{ form_start(form) }}
+                        {{ form_rest(form) }}
+                        {{ form_errors(form) }}
+                        <div class="row">
+                            <div class="col-sm-6">
+                                {% if url.id is not null %}
+                                    <a href="{{ path('admin_url_view', {'url': url.id}) }}"
+                                       class="btn btn-lg btn-primary form-control">
+                                        <i class="fa fa-arrow-circle-left"></i> Annuler
+                                    </a>
+                                {% else %}
+                                    <a href="{{ path('admin_url_list') }}"
+                                       class="btn btn-lg btn-primary form-control">
+                                        <i class="fa fa-arrow-circle-left"></i> Annuler
+                                    </a>
+                                {% endif %}
+                            </div>
+                            <div class="col-sm-6">
+                                <button class="btn btn-lg btn-danger form-control " type="submit">
+                                    <i class="fa fa-save"></i> Enregistrer
+                                </button>
+                            </div>
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock pageContent %}
