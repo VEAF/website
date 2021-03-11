@@ -68,6 +68,7 @@ App\Entity\Menu\Item:
     type: <(App\Entity\Menu\Item::TYPE_DIVIDER)>
     enabled: true
     position: 4
+    menu: '@menuitem_asso'
 
   menuitem_asso_rejoindre:
     label: "Rejoindre l'association"
@@ -75,6 +76,7 @@ App\Entity\Menu\Item:
     enabled: true
     position: 5
     link: 'https://community.veaf.org/topic/21/nous-rejoindre'
+    menu: '@menuitem_asso'
 
   menuitem_asso_disabled:
     label: "Rejoindre l'association"
@@ -84,16 +86,25 @@ App\Entity\Menu\Item:
     link: 'https://community.veaf.org/'
 
   menuitem_servers:
-    label:
+    label: Serveurs
+    icon: 'fa fa-server'
     type: <(App\Entity\Menu\Item::TYPE_SERVERS)>
     enabled: true
     position: 4
 
   menuitem_roster:
-    label:
+    label: Pilotes
+    icon: 'fa fa-plane'
     type: <(App\Entity\Menu\Item::TYPE_ROSTER)>
     enabled: true
     position: 5
+
+  menuitem_calendar:
+    label: Calendrier
+    icon: 'fa fa-calendar'
+    type: <(App\Entity\Menu\Item::TYPE_CALENDAR)>
+    enabled: true
+    position: 6
 
   menuitem_disabled:
     label: 'Désactive'
