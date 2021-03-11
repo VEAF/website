@@ -134,7 +134,7 @@ class UrlController extends AbstractController
     /**
      * @Route("/{url}", name="admin_url_view")
      */
-    public function view(url $url): Response
+    public function view(Url $url): Response
     {
         return $this->render('admin/url/view.html.twig', [
             'url' => $url,

@@ -1,0 +1,77 @@
+{# menu item #}
+{# @param Menu\Item menuItem #}
+{# @param int nextEvents #}
+{# @param int newEvents #}
+{# @param int connectedUsers #}
+
+<li class="nav-item {% if menuItem.type == constant('App\\Entity\\Menu\\Item::TYPE_MENU') %}dropdown{% endif %}">
+    {% if menuItem.type == constant('App\\Entity\\Menu\\Item::TYPE_MENU') %}
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">
+            {% if menuItem.icon is not null %}
+                <span class="{{ menuItem.icon }}"></span>
+            {% endif %}
+            <span class="d-lg-none d-xl-inline">{{ menuItem.label }}</span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="news">
+            {% for item in menuItem.items %}
+                {% if item.enabled %}
+                    {% if item.type == constant('App\\Entity\\Menu\\Item::TYPE_DIVIDER') %}
+                        <div class="dropdown-divider"></div>
+                    {% else %}
+                        <a href="{{ item | menu_item_href }}" class="dropdown-item"
+                           target="{{ item | menu_item_target }}">
+                            {% if item.icon is not null %}
+                                <span class="{{ item.icon }}"></span>
+                            {% endif %}
+                            {{ item.label }}
+                        </a>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% elseif menuItem.type == constant('App\\Entity\\Menu\\Item::TYPE_CALENDAR') %}
+        <a href="{{ path("calendar") }}" class="nav-link">
+            {% if menuItem.icon is not null %}
+                <span class="{{ menuItem.icon }}"></span>
+            {% endif %}
+            {% if nextEvents > 0 %}
+                <span class="badge badge-pill badge-secondary"
+                      title="{{ nextEvents }} événements dans les {{ nextDays }} prochains jours">
+                    {{ nextEvents }}
+                </span>
+                <span class="d-lg-none d-xl-inline">
+                    événement(s)
+                </span>
+            {% else %}
+                <span class="d-lg-none d-xl-inline">
+                    {{ menuItem.label }}
+                </span>l
+            {% endif %}
+            {% if newEvents > 0 %}
+                <span class="badge badge-pill badge-danger" title="{{ newEvents }} nouveaux événements">
+                    {{ newEvents }}
+                </span>
+            {% endif %}
+        </a>
+    {% elseif menuItem.type == constant('App\\Entity\\Menu\\Item::TYPE_SERVERS') %}
+        <a href="{{ path("perun_index") }}" class="nav-link"
+           title="{{ connectedUsers }} joueur(s) connecté(s)">
+            {% if menuItem.icon is not null %}
+                <span class="{{ menuItem.icon }}"></span>
+            {% endif %}
+            {% if connectedUsers > 0 %}
+                <span class="badge badge-pill badge-secondary">{{ connectedUsers }}</span>
+                <span class="d-lg-none d-xl-inline"> joueur(s)</span>
+            {% else %}
+                <span class="d-lg-none d-xl-inline">{{ menuItem.label }}</span>
+            {% endif %}
+        </a>
+    {% else %}
+        <a href="{{ menuItem | menu_item_href }}" class="nav-link" target="{{ menuItem | menu_item_target }}">
+            {% if menuItem.icon is not null %}
+                <span class="{{ menuItem.icon }}"></span>
+            {% endif %}
+            {{ menuItem.label }}
+        </a>
+    {% endif %}
+</li>
