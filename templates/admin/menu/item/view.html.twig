@@ -1,0 +1,84 @@
+{% extends 'admin/layout.html.twig' %}
+{% set libKilikTable=true %}
+{% set section="admin" %}
+{% set subSection="menu-item" %}
+
+{% block pageContent %}
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="bs-component">
+                <div class="card mb-3">
+                    <h3 class="card-header">Consulter l'élément du menu</h3>
+                    <div class="card-body">
+                        <table class="table">
+                            <tr>
+                                <td>
+                                    Type:
+                                </td>
+                                <td>
+                                    {{ item.typeAsString }}
+                                </td>
+                            </tr>
+                            {% if item.menu is not null %}
+                                <tr>
+                                    <td>
+                                        Menu:
+                                    </td>
+                                    <td>
+                                        {{ item.menu.label }}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            <tr>
+                                <td>
+                                    Position:
+                                </td>
+                                <td>
+                                    {% if item.menu is not null %}
+                                        {{ item.menu.position }} -
+                                    {% endif %}
+                                    <b>{{ item.position }}</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Activé:
+                                </td>
+                                <td>
+                                    {% include "_common/_boolean_icon.html.twig" with {'value': item.enabled} %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Libellé:
+                                </td>
+                                <td>
+                                    {{ item.label }}
+                                </td>
+                            </tr>
+
+                        </table>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <a href="{{ path('admin_menu_item_list') }}" class="btn btn-primary form-control"><i
+                                            class="fa fa-arrow-left"></i> Retour liste</a>
+                            </div>
+                            <div class="col-sm-4">
+                                <a href="{{ path('admin_menu_item_delete', {'item': item.id}) }}"
+                                   class="btn btn-outline-danger form-control">
+                                    <i class="fa fa-times-circle"></i> Supprimer
+                                </a>
+                            </div>
+                            <div class="col-sm-4">
+                                <a href="{{ path('admin_menu_item_edit', {'item': item.id}) }}"
+                                   class="btn btn-outline-warning form-control">
+                                    <i class="fa fa-edit"></i> Modifier
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock pageContent %}

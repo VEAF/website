@@ -1,0 +1,16 @@
+{% extends 'admin/layout.html.twig' %}
+{% set libKilikTable=true %}
+{% set section="admin" %}
+{% set subSection="menu-item" %}
+
+{% block pageContent %}
+    <div class="row mb-4">
+        <div class="col-md-6">
+            {% embed "admin/_common/_delete_dialog.html.twig" with {'title': "Supprimer l'élément du menu ?", 'cancelUrl': path('admin_menu_item_view', {'item': item.id})} %}
+                {% block message %}
+                    Confirmez-vous la suppression de l'élément du menu {{ item.label }}?
+                {% endblock message %}
+            {% endembed %}
+        </div>
+    </div>
+{% endblock pageContent %}

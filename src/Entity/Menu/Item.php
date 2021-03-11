@@ -8,10 +8,12 @@ use App\Repository\Menu\ItemRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Validator\Menu\Item\Type as TypeAssert;
 
 /**
  * @ORM\Entity(repositoryClass=ItemRepository::class)
  * @ORM\Table(name="menu_item")
+ * @TypeAssert
  */
 class Item
 {
@@ -43,7 +45,7 @@ class Item
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private ?int $id;
+    private ?int $id = null;
 
     /**
      * @ORM\Column(type="string", length=64, nullable=true)
@@ -259,5 +261,19 @@ class Item
         $this->page = $page;
 
         return $this;
+    }
+
+    public function getTypeAsString(): string
+    {
+        if (isset(self::TYPES[$this->type])) {
+            return self::TYPES[$this->type];
+        }
+
+        return 'inconnu';
+    }
+
+    public function __toString()
+    {
+        return $this->label ?: '';
     }
 }
