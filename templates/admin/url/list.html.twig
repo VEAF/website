@@ -1,0 +1,19 @@
+{% extends 'admin/layout.html.twig' %}
+{% set libKilikTable=true %}
+{% set section="admin" %}
+{% set subSection="url" %}
+
+{% block pageContent %}
+    <div class="row mb-4">
+        <div class="col-xl-8">
+            {% embed "admin/url/_list.html.twig" with {"table": table} %}
+                {% block tableTitle %}
+                    <b>Modules</b>
+                    <div class="float-right">
+                        <a class="btn btn-primary" href="{{ path("admin_url_add") }}"><i class="fa fa-plus"></i> Ajouter</a>
+                    </div>
+                {% endblock tableTitle %}
+            {% endembed %}
+        </div>
+    </div>
+{% endblock pageContent %}

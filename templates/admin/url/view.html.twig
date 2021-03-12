@@ -1,0 +1,55 @@
+{% extends 'admin/layout.html.twig' %}
+{% set libKilikTable=true %}
+{% set section="admin" %}
+{% set subSection="url" %}
+
+{% block pageContent %}
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="bs-component">
+                <div class="card mb-3">
+                    <h3 class="card-header">Consulter l'url (redirection)</h3>
+                    <div class="card-body">
+                        <table class="table">
+                            <tr>
+                                <td>
+                                    Url:
+                                </td>
+                                <td>
+                                    <a href="{{ app.request.schemeAndHttpHost }}/{{ url.slug }}"
+                                       target="_blank">{{ app.request.schemeAndHttpHost }}/{{ url.slug }}</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Cible:
+                                </td>
+                                <td>
+                                    <a href="{{ url.target }}" target="_blank">{{ url.target }}</a>
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <a href="{{ path('admin_url_list') }}" class="btn btn-primary form-control"><i
+                                            class="fa fa-arrow-left"></i> Retour liste</a>
+                            </div>
+                            <div class="col-sm-4">
+                                <a href="{{ path('admin_url_delete', {'url': url.id}) }}"
+                                   class="btn btn-outline-danger form-control">
+                                    <i class="fa fa-times-circle"></i> Supprimer
+                                </a>
+                            </div>
+                            <div class="col-sm-4">
+                                <a href="{{ path('admin_url_edit', {'url': url.id}) }}"
+                                   class="btn btn-outline-warning form-control">
+                                    <i class="fa fa-edit"></i> Modifier
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock pageContent %}

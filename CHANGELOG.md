@@ -1,3 +1,10 @@
+### 1.4.0
+* ADD public - calendrier - notifications des nouveaux événéments
+* ADD public - calendrier - meta données pour le partage d'événement
+* ADD admin - gestion dynamique du menu
+* ADD admin - module de redirection par url courtes (url shortener)
+* FIX public - amélioration des notifications calendrier et joueurs connectés
+
 ### 1.3.3
 * FIX public - erreur javascript select2 sur la page d'accueil
 * FIX public - url permanente vers le discord VEAF
