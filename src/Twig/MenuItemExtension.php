@@ -2,7 +2,6 @@
 
 namespace App\Twig;
 
-use App\Entity\Calendar\Event;
 use App\Entity\Menu\Item;
 use Symfony\Component\Routing\Router;
 use Symfony\Component\Routing\RouterInterface;

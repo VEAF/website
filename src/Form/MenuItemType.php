@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Menu\Item;
-use App\Entity\Module;
 use App\Entity\Page;
 use App\Entity\Url;
 use Doctrine\ORM\EntityRepository;
@@ -23,7 +22,7 @@ class MenuItemType extends AbstractType
         $builder
             ->add('label', TextType::class,
                 [
-                    'label'=>'Libellé',
+                    'label' => 'Libellé',
                     'required' => true,
                 ]
             )
@@ -35,31 +34,31 @@ class MenuItemType extends AbstractType
                 ])
             ->add('icon', TextType::class,
                 [
-                    'label'=>'Icône',
+                    'label' => 'Icône',
                     'required' => false,
                 ])
             ->add('themeClasses', TextType::class,
                 [
-                    'label'=>'Classes CSS',
+                    'label' => 'Classes CSS',
                     'required' => false,
                 ])
             ->add('enabled', CheckboxType::class,
                 [
-                    'label'=>'Activé',
+                    'label' => 'Activé',
                     'required' => false,
                 ])
             ->add('position', IntegerType::class, [
-                'label'=>'Position',
+                'label' => 'Position',
                 'required' => false,
             ])
             ->add('link', \Symfony\Component\Form\Extension\Core\Type\UrlType::class,
                 [
-                    'label'=>'Url personnalisée',
+                    'label' => 'Url personnalisée',
                     'required' => false,
                 ])
             ->add('menu', EntityType::class,
                 [
-                    'label'=>'Menu',
+                    'label' => 'Menu',
                     'class' => Item::class,
                     'placeholder' => '-',
                     'required' => false,
@@ -75,7 +74,7 @@ class MenuItemType extends AbstractType
                 ])
             ->add('url', EntityType::class,
                 [
-                    'label'=>'Url de redirection',
+                    'label' => 'Url de redirection',
                     'class' => Url::class,
                     'placeholder' => '-',
                     'required' => false,
@@ -85,7 +84,7 @@ class MenuItemType extends AbstractType
                 ])
             ->add('page', EntityType::class,
                 [
-                    'label'=>'Page personnalisée',
+                    'label' => 'Page personnalisée',
                     'class' => Page::class,
                     'placeholder' => '-',
                     'required' => false,

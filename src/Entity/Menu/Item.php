@@ -5,10 +5,10 @@ namespace App\Entity\Menu;
 use App\Entity\Page;
 use App\Entity\Url;
 use App\Repository\Menu\ItemRepository;
+use App\Validator\Menu\Item\Type as TypeAssert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use App\Validator\Menu\Item\Type as TypeAssert;
 
 /**
  * @ORM\Entity(repositoryClass=ItemRepository::class)
