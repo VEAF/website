@@ -17,6 +17,7 @@ class TypeValidator extends ConstraintValidator
             $this->context->buildViolation($constraint->invalidType)
                 ->setParameter('{{ value }}', $value)
                 ->addViolation();
+
             return;
         }
 
@@ -37,6 +38,5 @@ class TypeValidator extends ConstraintValidator
                 ->setParameter('{{ value }}', $value)
                 ->addViolation();
         }
-
     }
 }

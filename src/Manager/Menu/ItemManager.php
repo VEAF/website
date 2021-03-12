@@ -2,7 +2,6 @@
 
 namespace App\Manager\Menu;
 
-use App\Entity\Calendar\Event;
 use App\Entity\Menu\Item;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;

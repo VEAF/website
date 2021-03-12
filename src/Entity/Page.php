@@ -180,5 +180,4 @@ class Page
     {
         return $this->title ?: '';
     }
-
 }

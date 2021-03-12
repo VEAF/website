@@ -3,11 +3,8 @@
 namespace App\Controller\Admin\Menu;
 
 use App\Entity\Menu\Item;
-use App\Entity\Url;
 use App\Form\MenuItemType;
-use App\Form\UrlType;
 use App\Manager\Menu\ItemManager;
-use App\Manager\ModuleManager;
 use Kilik\TableBundle\Components\Column;
 use Kilik\TableBundle\Components\Filter;
 use Kilik\TableBundle\Components\FilterSelect;
@@ -47,7 +44,6 @@ class ItemController extends AbstractController
                         ->setName('pos')
                         ->setHaving(true)
                     )
-
             );
 
         $table
@@ -81,7 +77,8 @@ class ItemController extends AbstractController
                     )
                     ->setDisplayCallback(function ($value, $row, $lines) {
                         /** @var Item $item */
-                        $item=$row['object'];
+                        $item = $row['object'];
+
                         return $item->getTypeAsString();
                     })
             );
@@ -105,6 +102,7 @@ class ItemController extends AbstractController
                         }
                     })
             );
+
         return $table;
     }
 
