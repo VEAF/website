@@ -4,10 +4,13 @@ namespace App\Service;
 
 use App\DTO\SlmodPlayerStat;
 use App\DTO\SlmodVariantStat;
+use App\DTO\SlmodWeaponStat;
 use App\Entity\Player;
 use App\Entity\Server;
 use App\Entity\Variant;
 use App\Entity\VariantStat;
+use App\Entity\Weapon;
+use App\Entity\WeaponStat;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use GuzzleHttp\Client;
@@ -61,12 +64,21 @@ class SlmodImportService
                 $rowTime += [
                     'total' => 0,
                     'inAir' => 0,
+                    'weapons' => [],
+                    'kills' => [],
+                    'actions' => [],
                 ];
 
                 $variant = new SlmodVariantStat();
                 $variant->setVariantCode($variantCode);
                 $variant->setInAir($rowTime['inAir']);
                 $variant->setTotal($rowTime['total']);
+                $this->parseKillStats($variant, $rowTime['kills']);
+                $this->parseActionsStats($variant, $rowTime['actions']);
+                foreach ($rowTime['weapons'] as $weaponCode => $rowWeapon) {
+                    $variant->addWeapon($this->parseWeaponStats($weaponCode, $rowWeapon));
+                }
+
                 $player->addVariant($variant);
             }
 
@@ -76,14 +88,96 @@ class SlmodImportService
         return $stats;
     }
 
+    private function parseKillStats(SlmodVariantStat $variantStat, array $rowKills)
+    {
+        $rowKills += [
+            'Planes' => ['total' => 0],
+            'Helicopters' => ['total' => 0],
+            'Ground Units' => ['total' => 0],
+            'Buildings' => ['total' => 0],
+            'Ships' => ['total' => 0],
+        ];
+
+        $variantStat->setKillsBuildingsTotal($rowKills['Buildings']['total']);
+        $variantStat->setKillsGroundUnitsTotal($rowKills['Ground Units']['total']);
+        $variantStat->setKillsPlanesTotal($rowKills['Planes']['total']);
+        $variantStat->setKillsHelicoptersTotal($rowKills['Helicopters']['total']);
+        $variantStat->setKillsShipsTotal($rowKills['Ships']['total']);
+    }
+
+    private function parseActionsStats(SlmodVariantStat $variantStat, array $rowActions)
+    {
+        $rowActions += [
+            'takeoff' => [],
+            'landing' => [],
+            'losses' => [],
+        ];
+
+        $rowActions['losses'] += [
+            'pilotDeath' => 0,
+            'crash' => 0,
+            'eject' => 0,
+        ];
+
+        $variantStat->setLandingTotal($this->sumLandings($rowActions['landing']));
+        $variantStat->setTakeoffTotal($this->sumTakeoffs($rowActions['takeoff']));
+        $variantStat->setLossesCrash($rowActions['losses']['crash']);
+        $variantStat->setLossesEject($rowActions['losses']['eject']);
+        $variantStat->setLossesPilotDeath($rowActions['losses']['pilotDeath']);
+    }
+
+    private function sumTakeoffs(array $rowTakeoffs): int
+    {
+        $total = 0;
+
+        foreach ($rowTakeoffs as $count) {
+            $total += $count;
+        }
+
+        return $total;
+    }
+
+    private function sumLandings(array $rowLandings): int
+    {
+        $total = 0;
+
+        foreach ($rowLandings as $count) {
+            $total += $count;
+        }
+
+        return $total;
+    }
+
+    private function parseWeaponStats(string $weaponCode, array $rowWeapon): SlmodWeaponStat
+    {
+        $rowWeapon += [
+            'kills' => 0,
+            'shot' => 0,
+            'hit' => 0,
+            'gun' => false,
+            'numHits' => 0
+        ];
+
+        $weapon = new SlmodWeaponStat();
+        $weapon->setCode($weaponCode);
+        $weapon->setGun('true' === $rowWeapon['gun'] || $rowWeapon['gun']);
+        $weapon->setKills($rowWeapon['kills']);
+        $weapon->setShot($rowWeapon['shot']);
+        $weapon->setNumHits($rowWeapon['numHits']);
+
+        return $weapon;
+    }
+
     /**
      * @param SlmodPlayerStat[]|array $stats
      */
     public function importStats(Server $server, array $stats, OutputInterface $output)
     {
         $totalVariantStats = 0;
+        $totalVariantWeapon = 0;
 
         $variantByCode = [];
+        $weaponByCode = [];
 
         $output->writeln(sprintf('<info>%d</info> <comment>players</comment> to import', count($stats)));
         foreach ($stats as $stat) {
@@ -129,12 +223,57 @@ class SlmodImportService
                 }
                 $variantStat->setTotal($variantStatDTO->getTotal());
                 $variantStat->setInAir($variantStatDTO->getInAir());
+                $variantStat->setKillsPlanesTotal($variantStatDTO->getKillsPlanesTotal());
+                $variantStat->setKillsHelicoptersTotal($variantStatDTO->getKillsHelicoptersTotal());
+                $variantStat->setKillsGroundUnitsTotal($variantStatDTO->getKillsGroundUnitsTotal());
+                $variantStat->setKillsBuildingsTotal($variantStatDTO->getKillsBuildingsTotal());
+                $variantStat->setTakeoffTotal($variantStatDTO->getTakeoffTotal());
+                $variantStat->setLandingTotal($variantStatDTO->getLandingTotal());
+                $variantStat->setLossesPilotDeath($variantStatDTO->getLossesPilotDeath());
+                $variantStat->setLossesEject($variantStatDTO->getLossesEject());
+                $variantStat->setLossesCrash($variantStatDTO->getLossesCrash());
+
+                // parse weapons
+                foreach ($variantStatDTO->getWeapons() as $weaponDTO) {
+                    if (!isset($weaponByCode[$weaponDTO->getCode()])) {
+                        $weapon = $this->entityManager->getRepository(Weapon::class)->findOneByCode($weaponDTO->getCode());
+                        if (null === $weapon) {
+                            $output->writeln(sprintf('<comment>new weapon</comment> <info>%s</info>', $weaponDTO->getCode()));
+                            $weapon = new Weapon();
+                            $weapon->setCode($weaponDTO->getCode());
+                            $this->entityManager->persist($weapon);
+                        }
+                        $weaponByCode[$weaponDTO->getCode()] = $weapon;
+                    } else {
+                        $weapon = $weaponByCode[$weaponDTO->getCode()];
+                    }
+
+                    // find existing data (only when variant is not already new ...)
+                    $weaponStat = null;
+                    if (null !== $variantStat->getId()) {
+                        $weaponStat = $this->entityManager->getRepository(WeaponStat::class)->findOneBy(['weapon' => $weapon, 'variantStat' => $variantStat]);
+                    }
+                    if (null === $weaponStat) {
+                        $weaponStat = new WeaponStat();
+                        $weaponStat->setWeapon($weapon);
+                        $weaponStat->setVariantStat($variantStat);
+                        $this->entityManager->persist($weaponStat);
+                    }
+
+                    // add / update data
+                    $weaponStat->setNumHits($weaponDTO->getNumHits());
+                    $weaponStat->setShot($weaponDTO->getShot());
+                    $weaponStat->setGun($weaponDTO->isGun());
+                    $weaponStat->setHit($weaponDTO->getHit());
+                    ++$totalVariantWeapon;
+                }
 
                 ++$totalVariantStats;
             }
         }
 
         $output->writeln(sprintf('<info>%d</info> <comment>variant stats imported</comment>', $totalVariantStats));
+        $output->writeln(sprintf('<info>%d</info> <comment>weapon stats imported</comment>', $totalVariantWeapon));
         $this->entityManager->flush();
     }
 

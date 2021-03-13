@@ -44,6 +44,10 @@
         {% endif %}
         <script src="/js/app.js?version={{ app_version }}{% if app.environment == "dev" %}&t={{ "now"|date("YmdHis") }}{% endif %}"></script>
 
+        {% if libDatatable is defined and libDatatable == true %}
+        <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css"/>
+        {% endif %}
     {% endblock head %}
 </head>
 <body{% block bodyAttributes %}{% endblock bodyAttributes %}>
