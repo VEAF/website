@@ -86,22 +86,22 @@ class Item
     /**
      * @ORM\Column(type="integer")
      */
-    private ?int $position;
+    private ?int $position = null;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private ?string $link;
+    private ?string $link = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=Url::class)
      */
-    private ?Url $url;
+    private ?Url $url = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=Page::class)
      */
-    private ?Page $page;
+    private ?Page $page = null;
 
     public function __construct()
     {
