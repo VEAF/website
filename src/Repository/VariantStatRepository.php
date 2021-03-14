@@ -62,7 +62,8 @@ class VariantStatRepository extends ServiceEntityRepository
     }
 
     /**
-     * Count totals by module
+     * Count totals by module.
+     *
      * @return ModuleStat[]|array
      */
     public function countTotalsByModule(?Player $player): array
@@ -105,7 +106,8 @@ class VariantStatRepository extends ServiceEntityRepository
     }
 
     /**
-     * Count totals by variant
+     * Count totals by variant.
+     *
      * @return VariantStat[]|array
      */
     public function countTotalsByVariant(?Player $player): array

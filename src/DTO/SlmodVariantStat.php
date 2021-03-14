@@ -2,8 +2,6 @@
 
 namespace App\DTO;
 
-use App\Entity\WeaponStat;
-
 class SlmodVariantStat
 {
     private ?string $variantCode;

@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\DTO\ModuleStat;
 use App\Entity\Module;
 use App\Entity\User;
 use App\Entity\UserModule;

@@ -48,7 +48,7 @@ class PerunController extends AbstractController
             if ($request->get('timeFrom')) {
                 $timeFrom = new \DateTime((new \DateTime($request->get('timeFrom')))->format('Y-m-d 00:00:00'));
             } else {
-                $timeFrom = new \DateTime((clone($timeTo))->format('Y-m-d 00:00:00'));
+                $timeFrom = new \DateTime((clone $timeTo)->format('Y-m-d 00:00:00'));
             }
         } catch (\Exception $e) {
             return $this->redirectToRoute('perun_attendance');

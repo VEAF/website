@@ -2,7 +2,6 @@
 
 namespace App\DTO;
 
-use App\Entity\Module;
 use App\Entity\Variant;
 
 class VariantStat extends AbstractStat
@@ -20,5 +19,4 @@ class VariantStat extends AbstractStat
 
         return $this;
     }
-
 }

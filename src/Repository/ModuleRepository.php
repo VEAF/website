@@ -49,7 +49,8 @@ class ModuleRepository extends ServiceEntityRepository
     }
 
     /**
-     * Count totals by module
+     * Count totals by module.
+     *
      * @return ModuleStat[]|array
      */
     public function countTotalsByModule(?Player $player): array
