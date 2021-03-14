@@ -9,6 +9,7 @@ use App\Validator\Menu\Item\Type as TypeAssert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ItemRepository::class)
@@ -80,11 +81,13 @@ class Item
     /**
      * @var Item[]|ArrayCollection|array
      * @ORM\OneToMany(targetEntity=Item::class, mappedBy="menu")
+     * @ORM\OrderBy({"position" = "ASC"})
      */
     private $items;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank
      */
     private ?int $position = null;
 
