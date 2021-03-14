@@ -1,3 +1,10 @@
+### 1.5.0
+* ADD public - statistiques détaillées d'un joueur
+* ADD public - satistiques fréquentation serveurs - filtre par type de profil sur la heatmap
+* ADD public - satistiques fréquentation serveurs - navigation de jour en jour
+* FIX public - erreur dans le décompte des événements non lus
+* FIX public - erreur dans l'ordre des éléments du menu
+
 ### 1.4.0
 * ADD public - calendrier - notifications des nouveaux événéments
 * ADD public - calendrier - meta données pour le partage d'événement

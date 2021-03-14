@@ -31,9 +31,9 @@ class MenuItemExtension extends AbstractExtension
             case Item::TYPE_LINK:
                 return null === $item->getLink() ? '' : $item->getLink();
             case Item::TYPE_URL:
-                return null === $item->getUrl() ? '' : '/' . $item->getUrl()->getSlug();
+                return null === $item->getUrl() ? '' : '/'.$item->getUrl()->getSlug();
             case Item::TYPE_PAGE:
-                return null === $item->getPage() ? '' : '/' . $item->getPage()->getPath();
+                return null === $item->getPage() ? '' : '/'.$item->getPage()->getPath();
             case Item::TYPE_OFFICE:
                 return $this->router->generate('office');
             case Item::TYPE_SERVERS:

@@ -66,7 +66,7 @@ class EventRepository extends ServiceEntityRepository
     }
 
     /**
-     * Find all events, and check notifications (if user is not null)
+     * Find all events, and check notifications (if user is not null).
      *
      * @return array
      */

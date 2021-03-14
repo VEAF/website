@@ -18,5 +18,4 @@ class WeaponStatRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, WeaponStat::class);
     }
-
 }

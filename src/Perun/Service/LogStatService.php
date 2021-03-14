@@ -76,7 +76,7 @@ class LogStatService
             $entryHours = ceil($entry->getTime() / 60);
             // session on 2 different hours ?
             if ($entry->getDatetime()->format('i') - $entry->getTime() % 60 < 0) {
-                $entryHours++;
+                ++$entryHours;
             }
             for ($hour = 0; $hour < $entryHours; ++$hour) {
                 $playerStartHour = (clone $entry->getDatetime())->modify(sprintf('-%d minutes +%d hours', $entry->getTime(), $hour))->format('Y-m-d H');
@@ -169,8 +169,7 @@ class LogStatService
         $title = 'Historique par heure';
         if ($to->format('Y-m-d') !== (new \DateTime('now'))->format('Y-m-d')) {
             $title .= sprintf(' - du %s au %s', $from->format('d/m/Y'), $to->format('d/m/Y'));
-        }
-        else {
+        } else {
             $title .= ' - aujourd\'hui';
         }
         $history->xAxis->title(['text' => $title]);

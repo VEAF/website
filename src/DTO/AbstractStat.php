@@ -2,8 +2,6 @@
 
 namespace App\DTO;
 
-use App\Entity\Module;
-
 abstract class AbstractStat
 {
     private float $totalHours = 0.0;
@@ -32,8 +30,7 @@ abstract class AbstractStat
         int $lossesPilotDeath = 0,
         int $lossesCrash = 0,
         int $lossesEject = 0
-    )
-    {
+    ) {
         $this->totalHours = $totalHours;
         $this->inAirHours = $inAirHours;
         $this->killsGroundUnitsTotal = $killsGroundUnitsTotal;
@@ -195,18 +192,18 @@ abstract class AbstractStat
     public function setFromRow(array $row): self
     {
         foreach ([
-                     "totalHours",
-                     "inAirHours",
-                     "killsGroundUnitsTotal",
-                     "killsBuildingsTotal",
-                     "killsPlanesTotal",
-                     "killsHelicoptersTotal",
-                     "killsShipsTotal",
-                     "landingTotal",
-                     "takeoffTotal",
-                     "lossesPilotDeath",
-                     "lossesEject",
-                     "lossesCrash",
+                     'totalHours',
+                     'inAirHours',
+                     'killsGroundUnitsTotal',
+                     'killsBuildingsTotal',
+                     'killsPlanesTotal',
+                     'killsHelicoptersTotal',
+                     'killsShipsTotal',
+                     'landingTotal',
+                     'takeoffTotal',
+                     'lossesPilotDeath',
+                     'lossesEject',
+                     'lossesCrash',
                  ] as $field) {
             if (isset($row[$field])) {
                 $this->$field = $row[$field];
@@ -215,5 +212,4 @@ abstract class AbstractStat
 
         return $this;
     }
-
 }

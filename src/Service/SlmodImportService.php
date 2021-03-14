@@ -155,7 +155,7 @@ class SlmodImportService
             'shot' => 0,
             'hit' => 0,
             'gun' => false,
-            'numHits' => 0
+            'numHits' => 0,
         ];
 
         $weapon = new SlmodWeaponStat();
