@@ -243,7 +243,7 @@ class LogStatService
         $heatmap->legend->layout('vertical');
         $heatmap->legend->align('right');
         $heatmap->legend->verticalAlign('middle');
-        $heatmap->title->text('Fréquentation du serveur - moyenne des 2 dernières semaines');
+        $heatmap->title->text(sprintf('Fréquentation du serveur - moyenne des %d dernières semaines', $weeks));
         $heatmap->yAxis->title(['text' => '']);
         $heatmap->xAxis->categories(['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']);
         $heatmap->colorAxis->min(0);
