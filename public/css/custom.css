@@ -385,6 +385,10 @@ iframe {
     height: 12em;
 }
 
+.card-stats-small {
+    height: 8em;
+}
+
 .card-stats-text {
     font-size: 2.5rem;
     font-weight: bold;
