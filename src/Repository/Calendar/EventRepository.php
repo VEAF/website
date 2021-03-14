@@ -32,9 +32,9 @@ class EventRepository extends ServiceEntityRepository
             ->select('COUNT(e.id) AS nb')
             ->andWhere('e.deleted = 0');
         if (null !== $user) {
-            $query->leftJoin('e.notifications', 'n')
-                ->leftJoin('n.user', 'u', 'WITH', 'n.user = :user')
-                ->andWhere('n IS NULL')
+            $query->leftJoin('e.notifications', 'n', 'WITH', 'n.user = :user')
+                ->leftJoin('n.user', 'u')
+                ->andWhere('u IS NULL')
                 ->setParameter('user', $user); //->having('IS_NULL(n)');
         }
 
@@ -66,9 +66,9 @@ class EventRepository extends ServiceEntityRepository
     }
 
     /**
-     * Count new events for an user (if no user, count all events) from now to the next end of month.
+     * Find all events, and check notifications (if user is not null)
      *
-     * @return int
+     * @return array
      */
     public function findNotDeletedWithNotificationStatus(?User $user)
     {
@@ -76,9 +76,7 @@ class EventRepository extends ServiceEntityRepository
             ->select('e')
             ->andWhere('e.deleted = 0');
         if (null !== $user) {
-            $query->addSelect('COUNT(n) AS notifications')
-                ->leftJoin('e.notifications', 'n')
-                ->leftJoin('n.user', 'u', 'WITH', 'n.user = :user')
+            $query->addSelect('(SELECT COUNT(n) FROM \\App\\Entity\\Calendar\\Notification AS n WHERE n.event = e AND n.user = :user) AS notifications')
                 ->setParameter('user', $user);
         } else {
             $query->addSelect('0 AS notifications');
