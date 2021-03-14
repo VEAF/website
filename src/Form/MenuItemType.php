@@ -49,7 +49,7 @@ class MenuItemType extends AbstractType
                 ])
             ->add('position', IntegerType::class, [
                 'label' => 'Position',
-                'required' => false,
+                'required' => true,
             ])
             ->add('link', \Symfony\Component\Form\Extension\Core\Type\UrlType::class,
                 [

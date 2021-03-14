@@ -27,6 +27,10 @@
         <div class="row mb-3 ml-1 mr-1">
             <div class="col-md-12">
                 <div id="history24h" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+                <div class="float-right">
+                    <a href="{{ path(route, routeParams | merge({'timeFrom': previous.from|date('Y-m-d\\TH:00'), 'timeTo': previous.to|date('Y-m-d\\TH:59')})) }}" class="btn btn-primary"><i class="fa fa-chevron-left"></i></a>
+                    <a href="{{ path(route, routeParams | merge({'timeFrom': next.from|date('Y-m-d\\TH:00'), 'timeTo': next.to|date('Y-m-d\\TH:59')})) }}" class="btn btn-primary"><i class="fa fa-chevron-right"></i></a>
+                </div>
             </div>
         </div>
     </div>
@@ -34,6 +38,25 @@
     <div class="container container-main pt-3 pb-3 mb-3">
         <div class="row mb-3 ml-1 mr-1">
             <div class="col-md-12">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link{% if filter == 'all' %} active{% endif %}"
+                           href="{{ path(route, routeParams) }}">Tout le monde</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link{% if filter == 'cadets' %} active{% endif %}"
+                           href="{{ path(route, routeParams|merge({'filter': 'cadets'})) }}">Cadets</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link{% if filter == 'members' %} active{% endif %}"
+                           href="{{ path(route, routeParams|merge({'filter': 'members'})) }}">Membres</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link{% if filter == 'cadets-members' %} active{% endif %}"
+                           href="{{ path(route, routeParams|merge({'filter': 'cadets-members'})) }}">Cadets +
+                            Membres</a>
+                    </li>
+                </ul>
                 <div id="heatmap" style="min-width: 400px; height: 600px; margin: 0 auto"></div>
             </div>
             <div class="col-md-12">

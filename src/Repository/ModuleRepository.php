@@ -47,4 +47,35 @@ class ModuleRepository extends ServiceEntityRepository
 
         return $stat;
     }
+
+    /**
+     * Count totals by module.
+     *
+     * @return ModuleStat[]|array
+     */
+    public function countTotalsByModule(?Player $player): array
+    {
+        $query = $this->createQueryBuilder('module')
+            ->select('module, NEW App\DTO\ModuleStat(
+            SUM(s.total)/3600.0,
+            SUM(s.inAir)/3600.0,
+            SUM(s.killsGroundUnitsTotal),
+            SUM(s.killsBuildingsTotal),
+            SUM(s.killsPlanesTotal), 
+            SUM(s.landingTotal), 
+            SUM(s.takeoffTotal), 
+            SUM(s.lossesPilotDeath), 
+            SUM(s.lossesEject), 
+            SUM(s.lossesCrash)
+            )')
+            ->join('module.variants', 'variant')
+            ->join('variant.stats', 's')
+            ->groupBy('module');
+
+        if (null !== $player) {
+            $query->andWhere('s.player = :player')->setParameter('player', $player);
+        }
+
+        return $query->getQuery()->getResult();
+    }
 }
