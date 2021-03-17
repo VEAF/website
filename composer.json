@@ -20,6 +20,7 @@
         "knplabs/knp-time-bundle": "^1.15",
         "ob/highcharts-bundle": "^1.7",
         "phpdocumentor/reflection-docblock": "^5.2",
+        "planetteamspeak/ts3-php-framework": "^1.1",
         "ramsey/uuid-doctrine": "^1.6",
         "sensio/framework-extra-bundle": "^6.0",
         "symfony/asset": "4.4.*",
