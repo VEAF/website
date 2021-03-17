@@ -13,8 +13,67 @@
                     </a>
                 </div>
             {% endif %}
+            {% if is_granted('ROLE_ADMIN') %}
+                <div class="float-right">
+                    <a href="{{ path('admin_user_view', {'user': user.id}) }}" class="btn btn-link"
+                       title="Consulter le profil">
+                        <i class="fa fa-eye fa-2x"></i>
+                    </a>
+                </div>
+            {% endif %}
         </h1>
     </div>
+    {% if user.status == constant('\\App\\Entity\\User::STATUS_CADET') and is_granted('ADD_FLIGHT', user) %}
+        <div class="container container-main pt-3 pb-3 mb-3">
+            <h1>Intégration du cadet</h1>
+
+            {% if not user.simDcs %}
+                <i class="far fa-square text-error"></i>
+            {% else %}
+                <i class="fa fa-check-square text-success"></i>
+            {% endif %}
+            Simulateur DCS <br/>
+
+            {% if user.perunPlayer is null %}
+                <i class="far fa-square text-error"></i>
+            {% else %}
+                <i class="fa fa-check-square text-success"></i>
+            {% endif %}
+            Lien Perun <br/>
+
+            {% if user.player is null %}
+                <i class="far fa-square text-error"></i>
+            {% else %}
+                <i class="fa fa-check-square text-success"></i>
+            {% endif %}
+            Lien Slmod <br/>
+
+            {% if user.needPresentation %}
+                {# @todo ajouter un lien / ouvrir une modal pour compléter cette information #}
+                {% if is_granted('PRESENTATION', user) %}
+                    <a href="{{ path('recruitment_mark_presentation', {'user': user.id}) }}" class="remote-modal">
+                        <i class="far fa-square text-error"></i>
+                    </a>
+                {% else %}
+                    <i class="far fa-square text-error"></i>
+                {% endif %}
+            {% else %}
+                <i class="fa fa-check-square text-success"></i>
+            {% endif %}
+            Présentation de l'association par un recruteur
+            <br/>
+
+            {% if user.cadetFlights < constant('\\App\\Entity\\User::CADET_MIN_FLIGHTS') %}
+                <i class="far fa-square text-error"></i>
+            {% else %}
+                <i class="fa fa-check-square text-success"></i>
+            {% endif %}
+            {{ user.cadetFlights }} / {{ constant('\\App\\Entity\\User::CADET_MIN_FLIGHTS') }}
+            <a href="{{ path('recruitment_flights', {'user': user.id }) }}" class="remote-modal">vols</a>
+            <a href="{{ path('recruitment_add_flight', {'user': user.id}) }}" class="remote-modal"> -  ajouter un vol ...</a>
+            <br/>
+        </div>
+    {% endif %}
     {% if stats is not null %}
         <div class="container container-main mb-3">
             <div class="row justify-content-center">

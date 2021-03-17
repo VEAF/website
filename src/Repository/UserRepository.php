@@ -46,4 +46,15 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getQuery()
             ->getResult();
     }
+
+    public function countCadetsWaitingForPresentation(array $statuses)
+    {
+        return $this->createQueryBuilder('user')
+            ->select('user')
+            ->andWhere('user.status = :status)')
+            ->setParameter('status', User::STATUS_CADET)
+            ->orderBy('user.nickname', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
 }

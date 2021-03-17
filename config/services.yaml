@@ -34,6 +34,10 @@ services:
         arguments:
             $mailFrom: "%mail_from%"
 
+    App\Controller\RecruitmentController:
+        arguments:
+            $recruitmentWorkflow: "@state_machine.recruitment"
+
     App\Service\FileService:
         arguments:
             $dataDirectory: '%kernel.project_dir%/var/data/files'

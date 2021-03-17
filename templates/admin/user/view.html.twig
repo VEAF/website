@@ -5,7 +5,7 @@
 
 {% block pageContent %}
     <div class="row mb-4">
-        <div class="col-md-6">
+        <div class="col-xl-8">
             <div class="bs-component">
                 <div class="card mb-3">
                     <h3 class="card-header">Consulter l'utilisateur</h3>
@@ -33,7 +33,7 @@
                                 </td>
                                 <td>
                                     {% for role in user.roles %}
-                                        {% if not loop.first %}, {% endif %}{{ role }}
+                                        {% if not loop.first %}, {% endif %}{{ role | user_role }}
                                     {% endfor %}
                                 </td>
                             </tr>
@@ -102,11 +102,15 @@
                             </tr>
                         </table>
                         <div class="row">
-                            <div class="col-sm-6">
-                                <a href="{{ path('admin_user_list') }}" class="btn btn-primary form-control"><i
+                            <div class="col-sm-4 mb-3">
+                                <a href="{{ path('admin_user_list') }}" class="btn btn-outline-primary form-control"><i
                                             class="fa fa-arrow-left"></i> Retour liste</a>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-4 mb-3">
+                                <a href="{{ path('user_view', {'user': user.nickname}) }}" class="btn btn-outline-primary form-control"><i
+                                            class="fa fa-eye"></i> Profil public</a>
+                            </div>
+                            <div class="col-sm-4 mb-3">
                                 <a href="{{ path('admin_user_edit', {'user': user.id}) }}"
                                    class="btn btn-outline-warning form-control"><i class="fa fa-edit"></i> Modifier</a>
                             </div>

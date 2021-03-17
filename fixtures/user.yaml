@@ -49,6 +49,7 @@ App\Entity\User:
     simDcs: false
     status: <(App\Entity\User::STATUS_GUEST)>
 
+  # unknown user, can choose guest or cadet
   user_user:
     email: "user@localhost"
     # test1234
@@ -59,8 +60,21 @@ App\Entity\User:
     updatedAt: "<dateTimeBetween('-1 month', 'now')>"
     simBms: false
     simDcs: true
+    status: <(App\Entity\User::STATUS_UNKNOWN)>
+
+  user_guest:
+    email: "guest@localhost"
+    # test1234
+    password: '\$2y\$10\$rXysKOG/6HEW9acoV3gISuaxQ6yX5K6aN/.ogx3lQtdsD8R6.E3Ry'
+    roles: [ROLE_USER]
+    nickname: 'guest'
+    createdAt: "<dateTimeBetween('-1 month', 'now')>"
+    updatedAt: "<dateTimeBetween('-1 month', 'now')>"
+    simBms: false
+    simDcs: true
     status: <(App\Entity\User::STATUS_GUEST)>
 
+  # cadet who don't need presentation
   user_cadet:
     email: "cadet@localhost"
     # test1234
@@ -72,6 +86,34 @@ App\Entity\User:
     simBms: false
     simDcs: true
     status: <(App\Entity\User::STATUS_CADET)>
+
+  # cadet who need presentation
+  user_cadet_need_presentation:
+    email: "cadet_need_presentation@localhost"
+    # test1234
+    password: '\$2y\$10\$rXysKOG/6HEW9acoV3gISuaxQ6yX5K6aN/.ogx3lQtdsD8R6.E3Ry'
+    roles: [ROLE_CADET]
+    nickname: 'cadet_need_presentation'
+    createdAt: "<dateTimeBetween('-1 month', 'now')>"
+    updatedAt: "<dateTimeBetween('-1 month', 'now')>"
+    simBms: false
+    simDcs: true
+    status: <(App\Entity\User::STATUS_CADET)>
+    needPresentation: true
+
+  # cadet with presentation
+  user_cadet_with_presentation:
+    email: "cadet_with_presentation@localhost"
+    # test1234
+    password: '\$2y\$10\$rXysKOG/6HEW9acoV3gISuaxQ6yX5K6aN/.ogx3lQtdsD8R6.E3Ry'
+    roles: [ROLE_CADET]
+    nickname: 'cadet_with_presentation'
+    createdAt: "<dateTimeBetween('-1 month', 'now')>"
+    updatedAt: "<dateTimeBetween('-1 month', 'now')>"
+    simBms: false
+    simDcs: true
+    status: <(App\Entity\User::STATUS_CADET)>
+    needPresentation: false
 
   user_membre:
     email: "membre@localhost"
