@@ -46,7 +46,7 @@
 
         {% if libDatatable is defined and libDatatable == true %}
         <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css"/>
         {% endif %}
     {% endblock head %}
 </head>
@@ -58,6 +58,12 @@
     <div id="main">
         {% block pageContent %}
         {% endblock pageContent %}
+        <div class="modal" id="remoteModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" id="remoteModalContent">
+                </div>
+            </div>
+        </div>
     </div>
 
     {% block footer %}
@@ -91,6 +97,21 @@ $(document).ready(function () {
     }
     loadKiliktables();
     {% endif %}
+    {# common remote modal #}
+    $('a.remote-modal').click(function(event) {
+        event.preventDefault();
+        var $this = $(this);
+        var href=$this.attr('href');
+        console.log(href);
+        $.ajax({
+          url: href,
+          success: function(response) {
+             $('#remoteModalContent').html(response);
+             $('#remoteModal').modal('show');
+          }
+        });
+    });
+
 });
 </script>
 {% endblock %} {% endblock body %}

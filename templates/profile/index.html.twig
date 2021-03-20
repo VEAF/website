@@ -27,9 +27,118 @@
         <p>
             {% set titleTrue="J'ai ce simulateur" %}
             {% set titleFalse="Je n'ai pas ce simulateur" %}
-            {% include "_common/_boolean_icon.html.twig" with {'value': app.user.simDcs}  %} Digital Combat Simulator (DCS World)<br/>
-            {% include "_common/_boolean_icon.html.twig" with {'value': app.user.simBms}  %} Falcon 4 - BMS<br/>
+            {% include "_common/_boolean_icon.html.twig" with {'value': app.user.simDcs} %} Digital Combat Simulator
+            (DCS World)<br/>
+            {% include "_common/_boolean_icon.html.twig" with {'value': app.user.simBms} %} Falcon 4 - BMS<br/>
+            {% if app.user | has_profile_notification(constant('\\App\\Component\\Profile\\Notification::TYPE_NO_SIM')) %}
+        <div class="alert alert-danger">
+            <i class="fa fa-exclamation-triangle"></i> Je n'ai pas encore complété cette section de mon profil.
+            Je m'en occupe en <a href="{{ path('profile_edit') }}">cliquant ici</a>
+        </div>
+        {% endif %}
         </p>
+    </div>
+    <div class="container container-main pt-3 pb-3 mb-3">
+        <h1>Mon parcours à la VEAF</h1>
+        Je suis
+        {% if app.user.member %}
+            <i class="fa fa-user text-success" title="Membre"></i>
+        {% elseif app.user.cadet %}
+            <i class="fa fa-user-graduate text-primary" title="Cadet"></i>
+        {% else %}
+            <i class="fa fa-user text-default" title="Invité"></i>
+        {% endif %} {{ app.user.statusAsString }}
+
+        {# unknown status, need to make a choice #}
+        {% if app.user.status == constant('\\App\\Entity\\User::STATUS_UNKNOWN') %}
+            <div class="alert alert-danger">
+                <i class="fa fa-exclamation-triangle"></i> Je n'ai pas encore complété cette section de mon profil.
+            </div>
+
+            <div class="row equal">
+                <div class="col-md-6 d-flex">
+                    <div class="card border-secondary mb-3">
+                        <div class="card-header"><i class="fa fa-user-graduate text-primary"></i> Cadet</div>
+                        <div class="card-body">
+                            <h4 class="card-title">Intégrer la VEAF</h4>
+                            <p class="card-text">
+                                Je souhaite suivre le programme d'intégration des
+                                <i class="fa fa-user-graduate text-primary"></i> cadets, en effectuant quelques vols
+                                pour rencontrer les membres et décider ensemble afin de rejoindre l'association VEAF à
+                                la
+                                fin de ma période d'essai.
+                            </p>
+                            <a href="{{ path('recruitment_change_for_cadet') }}"
+                               class="btn btn-primary btn-lg btn-block remote-modal">je postule</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 d-flex">
+                    <div class="card border-secondary mb-3">
+                        <div class="card-header"><i class="fa fa-user-cog"></i> Invité</div>
+                        <div class="card-body">
+                            <h4 class="card-title">On reste en contact</h4>
+                            <p class="card-text">Je n'ai pas envie de m'inscrire au programme Cadet de la VEAF et je
+                                n'envisage pas devenir membre pour l'instant, mais je reste invité sur les serveurs DCS
+                                et
+                                Teamspeak.</p>
+                            <a href="{{ path('recruitment_change_for_guest') }}"
+                               class="btn btn-primary btn-lg btn-block remote-modal">je me signale comme invité</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        {# cadet - follow progression #}
+        {% if app.user.status == constant('\\App\\Entity\\User::STATUS_CADET') %}
+            <h2>Mon programme d'intégration</h2>
+
+            {% if not app.user.simDcs %}
+                <i class="far fa-square text-error"></i>
+            {% else %}
+                <i class="fa fa-check-square text-success"></i>
+            {% endif %}
+            Simulateur DCS <br/>
+
+            {% if app.user.perunPlayer is null %}
+                <i class="far fa-square text-error"></i>
+                Lien Perun - je dois prévenir un administrateur (après m'être connecté au moins une fois sur le serveur DCS public)
+            {% else %}
+                <i class="fa fa-check-square text-success"></i>
+                Lien Perun
+            {% endif %}
+            <br/>
+
+            {% if app.user.player is null %}
+                <i class="far fa-square text-error"></i>
+                Lien Slmod - je dois prévenir un administrateur (après m'être connecté au moins une fois sur le serveur DCS public)
+            {% else %}
+                <i class="fa fa-check-square text-success"></i>
+                Lien Slmod
+            {% endif %}
+            <br/>
+
+            {% if app.user.needPresentation %}
+                <i class="far fa-square text-error"></i>
+                Présentation de l'association - je dois rencontrer sur Teamspeak un membre "recruteur" pour qu'il me présente l'association
+            {% else %}
+                <i class="fa fa-check-square text-success"></i>
+                Présentation de l'association
+            {% endif %}
+            <br/>
+
+            {% if app.user.cadetFlights < constant('\\App\\Entity\\User::CADET_MIN_FLIGHTS') %}
+                <i class="far fa-square text-error"></i>
+                {{ app.user.cadetFlights }} / {{ constant('\\App\\Entity\\User::CADET_MIN_FLIGHTS') }} vols -
+                je dois encore effectuer des vols avec des membres de l'association.
+            {% else %}
+                <i class="fa fa-check-square text-success"></i> vols -
+                {{ app.user.cadetFlights }} / {{ constant('\\App\\Entity\\User::CADET_MIN_FLIGHTS') }}
+            {% endif %}
+            <br/>
+        {% endif %}
+
     </div>
     <div class="container container-main pt-3 pb-3 mb-3">
         <h1>Mes modules</h1>
@@ -149,6 +258,7 @@
             </table>
         {% endfor %}
     </div>
+
 {% endblock pageContent %}
 
 {% block javascript %}

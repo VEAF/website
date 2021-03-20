@@ -64,6 +64,7 @@ class RosterController extends AbstractController
         $data['tabs'] = self::TABS;
         $data['tab'] = 'pilots';
         $data['pilots'] = $this->getDoctrine()->getRepository(User::class)->findByUserStatus(User::getGroupStatuses($group));
+        $data['cadetsNeedPresentation'] = $this->getDoctrine()->getRepository(User::class)->count(['status' => User::getGroupStatuses($group), 'needPresentation' => true]);
 
         return $this->roster($data);
     }

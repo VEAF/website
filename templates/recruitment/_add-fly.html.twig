@@ -1,0 +1,30 @@
+{{ form_start(form, {'action': app.request.requestUri}) }}
+<div class="modal-header">
+    <h5 class="modal-title">Ajouter un vol</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">×</span>
+    </button>
+</div>
+<div class="modal-body">
+    J'ai effectué un vol avec le <i class="fa fa-user-graduate text-primary"></i> cadet <span
+            class="text-primary">{{ user.nickname }}</span>.<br/>
+    <br/>
+    Je peux ajouter un commentaire qui sera utilisé dans la prise de décision à l'issue de la période d'essai:
+
+    {{ form_widget(form.comment) }}
+</div>
+<div class="modal-footer">
+    {% if app.request.xmlHttpRequest %}
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            <i class="fa fa-arrow-circle-left"></i> Annuler
+        </button>
+    {% else %}
+        <a class="btn btn-secondary" href="{{ path('user_view', {'user': user.nickname}) }}">
+            <i class="fa fa-arrow-circle-left"></i> Annuler
+        </a>
+    {% endif %}
+    <button type="submit" class="btn btn-primary">
+        <i class="fa fa-save"></i> Enregistrer
+    </button>
+</div>
+{{ form_end(form) }}

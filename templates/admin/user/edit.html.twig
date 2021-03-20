@@ -5,7 +5,7 @@
 
 {% block pageContent %}
     <div class="row mb-4">
-        <div class="col-md-6">
+        <div class="col-lg-8">
             <div class="bs-component">
                 <div class="card mb-3">
                     <h3 class="card-header">Modifier l'utilisateur</h3>
@@ -14,13 +14,13 @@
                         {{ form_rest(form) }}
                         {{ form_errors(form) }}
                         <div class="row">
-                            <div class="col-sm-6">
+                            <div class="col-sm-6 mb-3">
                                 <a href="{{ path('admin_user_view', {'user': user.id}) }}"
                                    class="btn btn-lg btn-primary form-control">
                                     <i class="fa fa-arrow-circle-left"></i> Annuler
                                 </a>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-6 mb-3">
                                 <button class="btn btn-lg btn-danger form-control " type="submit">
                                     <i class="fa fa-save"></i> Enregistrer
                                 </button>

@@ -19,7 +19,7 @@
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="profile">
                             <span class="fa fa-user"></span>
                             {{ app.user.nickname }}
-                            {% if not app.user.profileFilled %}
+                            {% if app.user | has_profile_notifications %}
                                 <span class="badge badge-pill badge-danger" title="Je dois compléter mon profil">
                                         !
                                 </span>
@@ -29,7 +29,7 @@
                         <div class="dropdown-menu" aria-labelledby="webstv">
                             <a class="dropdown-item" href="{{ path("profile") }}">
                                 Mon profil
-                                {% if not app.user.profileFilled %}
+                                {% if app.user | has_profile_notifications %}
                                     <span class="badge badge-pill badge-danger" title="Je dois compléter mon profil">
                                         !
                                     </span>
