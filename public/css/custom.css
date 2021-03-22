@@ -394,6 +394,10 @@ iframe {
     font-weight: bold;
 }
 
+.member-icon-guest {
+    color: #495057;
+}
+
 @media (max-width: 767px) {
     .splash {
         padding-top: 8em

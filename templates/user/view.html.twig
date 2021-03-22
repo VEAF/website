@@ -5,7 +5,15 @@
 {% block pageContent %}
     <div class="container container-main pt-3 pb-3 mb-3">
         <h1>
-            Profil de {{ user.nickname }}
+            {% if user.member %}
+                <i class="fa fa-user text-success" title="Membre"></i>
+            {% elseif user.cadet %}
+                <i class="fa fa-user-graduate text-primary" title="Cadet"></i>
+            {% else %}
+                <i class="fa fa-user member-icon-guest" title="Invité"></i>
+            {% endif %}
+            Profil de
+            {{ user.nickname }}
             {% if app.user is not null and user == app.user %}
                 <div class="float-right">
                     <a href="{{ path('profile') }}" class="btn btn-link" title="Modifier mon profil">
