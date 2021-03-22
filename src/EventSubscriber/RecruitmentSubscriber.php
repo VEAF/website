@@ -6,9 +6,9 @@ use App\Entity\Recruitment\Event;
 use App\Entity\User;
 use App\Manager\Recruitment\EventManager;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Workflow\Event\Event as WorkflowEvent;
 use Symfony\Component\Workflow\Event\GuardEvent;
 use Symfony\Component\Workflow\TransitionBlocker;
-use Symfony\Component\Workflow\Event\Event as WorkflowEvent;
 
 class RecruitmentSubscriber implements EventSubscriberInterface
 {
