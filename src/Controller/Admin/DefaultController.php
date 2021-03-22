@@ -37,6 +37,7 @@ class DefaultController extends AbstractController
             'calendarEvents' => $this->getDoctrine()->getRepository(Event::class)->count([]),
             'urls' => $this->getDoctrine()->getRepository(Url::class)->count([]),
             'menuItems' => $this->getDoctrine()->getRepository(Item::class)->count([]),
+            'cadetsWaitingForPresentation' => $this->getDoctrine()->getRepository(User::class)->count(['status' => User::STATUS_CADET, 'needPresentation' => true]),
         ];
 
         return $this->render('admin/default/index.html.twig', $data);

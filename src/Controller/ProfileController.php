@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Module;
+use App\Entity\User;
 use App\Entity\UserModule;
 use App\Form\ProfileType;
 use App\Manager\UserManager;
@@ -33,6 +34,7 @@ class ProfileController extends AbstractController
         $data['moduleTypes'] = Module::TYPES;
         $data['modules'] = $this->getDoctrine()->getRepository(Module::class)->findBy([], ['type' => 'asc', 'name' => 'asc']);
         $data['myModules'] = $this->getDoctrine()->getRepository(UserModule::class)->findByUserIndexedByModule($this->getUser());
+        $data['minCadetsFlights'] = User::CADET_MIN_FLIGHTS;
 
         return $this->render('profile/index.html.twig', $data);
     }

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Recruitment\Event;
 use App\Perun\Entity\Player as PerunPlayer;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -23,7 +24,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class User implements UserInterface
 {
-    const STATUS_GUEST = 0;
+    const STATUS_UNKNOWN = 0;
     const STATUS_CADET = 1;
     const STATUS_MEMBER = 2;
     const STATUS_SECRETARY_DEPUTY = 3;
@@ -32,9 +33,10 @@ class User implements UserInterface
     const STATUS_TREASURER = 6;
     const STATUS_PRESIDENT_DEPUTY = 7;
     const STATUS_PRESIDENT = 8;
+    const STATUS_GUEST = 9;
 
     const STATUSES = [
-        self::STATUS_GUEST => 'invité',
+        self::STATUS_UNKNOWN => 'inconnu',
         self::STATUS_CADET => 'cadet',
         self::STATUS_MEMBER => 'membre',
         self::STATUS_SECRETARY_DEPUTY => 'secrétaire adjoint',
@@ -43,10 +45,11 @@ class User implements UserInterface
         self::STATUS_TREASURER => 'trésorier',
         self::STATUS_PRESIDENT_DEPUTY => 'président adjoint',
         self::STATUS_PRESIDENT => 'président',
+        self::STATUS_GUEST => 'invité',
     ];
 
     const STATUSES_ALL = [
-        self::STATUS_GUEST,
+        self::STATUS_UNKNOWN,
         self::STATUS_CADET,
         self::STATUS_MEMBER,
         self::STATUS_SECRETARY_DEPUTY,
@@ -55,6 +58,7 @@ class User implements UserInterface
         self::STATUS_TREASURER,
         self::STATUS_PRESIDENT_DEPUTY,
         self::STATUS_PRESIDENT,
+        self::STATUS_GUEST,
     ];
 
     const STATUSES_MEMBER = [
@@ -89,12 +93,16 @@ class User implements UserInterface
     ];
 
     const ROLE_USER = 'user';
+    const ROLE_RECRUITER = 'recruteur';
     const ROLE_ADMIN = 'admin';
 
     const ROLES = [
         'ROLE_USER' => self::ROLE_USER,
+        'ROLE_RECRUITER' => self::ROLE_RECRUITER,
         'ROLE_ADMIN' => self::ROLE_ADMIN,
     ];
+
+    const CADET_MIN_FLIGHTS = 5;
 
     /**
      * @ORM\Id
@@ -162,7 +170,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private int $status = self::STATUS_GUEST;
+    private int $status = self::STATUS_UNKNOWN;
 
     /**
      * @var UserModule[]|ArrayCollection|array
@@ -181,10 +189,26 @@ class User implements UserInterface
      */
     private $player;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Event::class, mappedBy="user")
+     */
+    private $recruitmentEvents;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private bool $needPresentation = false;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private int $cadetFlights = 0;
+
     public function __construct()
     {
         $this->modules = new ArrayCollection();
         $this->files = new ArrayCollection();
+        $this->recruitmentEvents = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -507,8 +531,113 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @deprecated since 1.5.0+
+     */
     public function isProfileFilled(): bool
     {
         return $this->simDcs || $this->simBms;
+    }
+
+    /**
+     * @return Collection|Event[]
+     */
+    public function getRecruitmentEvents(): Collection
+    {
+        return $this->recruitmentEvents;
+    }
+
+    public function addRecruitmentEvent(Event $event): self
+    {
+        if (!$this->recruitmentEvents->contains($event)) {
+            $this->recruitmentEvents[] = $event;
+            $event->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecruitmentEvent(Event $event): self
+    {
+        if ($this->recruitmentEvents->removeElement($event)) {
+            // set the owning side to null (unless already changed)
+            if ($event->getUser() === $this) {
+                $event->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getRecruitmentStatus(): string
+    {
+        switch ($this->status) {
+            case self::STATUS_CADET:
+                return 'cadet';
+            case self::STATUS_GUEST:
+                return 'guest';
+            case self::STATUS_MEMBER:
+            case self::STATUS_TREASURER:
+            case self::STATUS_TREASURER_DEPUTY:
+            case self::STATUS_SECRETARY:
+            case self::STATUS_SECRETARY_DEPUTY:
+            case self::STATUS_PRESIDENT:
+            case self::STATUS_PRESIDENT_DEPUTY:
+                return 'member';
+            case self::STATUS_UNKNOWN:
+            default:
+                return 'unknown';
+        }
+
+        return $this->getStatusAsString();
+    }
+
+    public function setRecruitmentStatus(string $status): void
+    {
+        switch ($status) {
+            case 'cadet':
+                $this->setStatus(self::STATUS_CADET);
+                break;
+            case 'member':
+                $this->setStatus(self::STATUS_MEMBER);
+                break;
+            case 'guest':
+                $this->setStatus(self::STATUS_GUEST);
+                break;
+            default:
+        }
+    }
+
+    public static function getRoleAsString(string $role): string
+    {
+        if (isset(self::ROLES[$role])) {
+            return self::ROLES[$role];
+        } else {
+            return $role;
+        }
+    }
+
+    public function getNeedPresentation(): ?bool
+    {
+        return $this->needPresentation;
+    }
+
+    public function setNeedPresentation(bool $needPresentation): self
+    {
+        $this->needPresentation = $needPresentation;
+
+        return $this;
+    }
+
+    public function getCadetFlights(): ?int
+    {
+        return $this->cadetFlights;
+    }
+
+    public function setCadetFlights(int $cadetFlights): self
+    {
+        $this->cadetFlights = $cadetFlights;
+
+        return $this;
     }
 }

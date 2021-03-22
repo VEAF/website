@@ -1,0 +1,14 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ parent() }} - Ajouter une activité{% endblock %}
+
+{% block pageContent %}
+    <div class="container container-main pt-3 pb-3 mb-3">
+        <h1>
+            Ajouter un suivi d'activité au cadet {{ user.nickname }}
+        </h1>
+    </div>
+    <div class="container container-main pt-3 pb-3 mb-3">
+        {% include "recruitment/_add-activity.html.twig" %}
+    </div>
+{% endblock %}

@@ -1,0 +1,32 @@
+framework:
+  workflows:
+    recruitment:
+      type: 'state_machine'
+      supports:
+        - App\Entity\User
+      initial_marking: guest
+      marking_store:
+        type: 'method'
+        property: 'recruitmentStatus'
+      places:
+        - unknown
+        - guest
+        - cadet
+        - member
+      transitions:
+        to_apply:
+          from: unknown
+          to: cadet
+        promote:
+          guard: "is_granted('ROLE_RECRUITER') or is_granted('ROLE_ADMIN')"
+          from: cadet
+          to: member
+        leave:
+          from: member
+          to: guest
+        abort:
+          from: cadet
+          to: guest
+        guest:
+          from: unknown
+          to: guest

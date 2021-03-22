@@ -5,7 +5,15 @@
 {% block pageContent %}
     <div class="container container-main pt-3 pb-3 mb-3">
         <h1>
-            Profil de {{ user.nickname }}
+            {% if user.member %}
+                <i class="fa fa-user text-success" title="Membre"></i>
+            {% elseif user.cadet %}
+                <i class="fa fa-user-graduate text-primary" title="Cadet"></i>
+            {% else %}
+                <i class="fa fa-user member-icon-guest" title="Invité"></i>
+            {% endif %}
+            Profil de
+            {{ user.nickname }}
             {% if app.user is not null and user == app.user %}
                 <div class="float-right">
                     <a href="{{ path('profile') }}" class="btn btn-link" title="Modifier mon profil">
@@ -13,8 +21,66 @@
                     </a>
                 </div>
             {% endif %}
+            {% if is_granted('ROLE_ADMIN') %}
+                <div class="float-right">
+                    <a href="{{ path('admin_user_view', {'user': user.id}) }}" class="btn btn-link"
+                       title="Consulter le profil">
+                        <i class="fa fa-eye fa-2x"></i>
+                    </a>
+                </div>
+            {% endif %}
         </h1>
     </div>
+    {% if user.status == constant('\\App\\Entity\\User::STATUS_CADET') and is_granted('ADD_ACTIVITY', user) %}
+        <div class="container container-main pt-3 pb-3 mb-3">
+            <h1>Intégration du cadet</h1>
+
+            {% if not user.simDcs %}
+                <i class="far fa-square text-error"></i>
+            {% else %}
+                <i class="fa fa-check-square text-success"></i>
+            {% endif %}
+            Simulateur DCS <br/>
+
+            {% if user.perunPlayer is null %}
+                <i class="far fa-square text-error"></i>
+            {% else %}
+                <i class="fa fa-check-square text-success"></i>
+            {% endif %}
+            Lien Perun <br/>
+
+            {% if user.player is null %}
+                <i class="far fa-square text-error"></i>
+            {% else %}
+                <i class="fa fa-check-square text-success"></i>
+            {% endif %}
+            Lien Slmod <br/>
+
+            {% if user.needPresentation %}
+                {% if is_granted('PRESENTATION', user) %}
+                    <a href="{{ path('recruitment_mark_presentation', {'user': user.id}) }}" class="remote-modal">
+                        <i class="far fa-square text-error"></i>
+                    </a>
+                {% else %}
+                    <i class="far fa-square text-error"></i>
+                {% endif %}
+            {% else %}
+                <i class="fa fa-check-square text-success"></i>
+            {% endif %}
+            Présentation de l'association par un membre
+            <br/>
+
+            {% if user.cadetFlights < constant('\\App\\Entity\\User::CADET_MIN_FLIGHTS') %}
+                <i class="far fa-square text-error"></i>
+            {% else %}
+                <i class="fa fa-check-square text-success"></i>
+            {% endif %}
+            {{ user.cadetFlights }} / {{ constant('\\App\\Entity\\User::CADET_MIN_FLIGHTS') }}
+            <a href="{{ path('recruitment_activities', {'user': user.id }) }}" class="remote-modal">activité(s)</a>
+            <a href="{{ path('recruitment_add_activity', {'user': user.id}) }}" class="remote-modal"> -  ajouter une activité ...</a>
+            <br/>
+        </div>
+    {% endif %}
     {% if stats is not null %}
         <div class="container container-main mb-3">
             <div class="row justify-content-center">

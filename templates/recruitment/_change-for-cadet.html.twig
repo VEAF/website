@@ -1,0 +1,24 @@
+{{ form_start(form, {'action': app.request.requestUri}) }}
+<div class="modal-header">
+    <h5 class="modal-title">Rejoindre la VEAF</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">×</span>
+    </button>
+</div>
+<div class="modal-body">
+    Je souhaite rejoindre le programme des <i class="fa fa-user-graduate text-primary"></i> Cadets de la VEAF.
+    <br/>
+    <br/>
+    <p>C'est un choix qui implique de participer régulièrement aux activités de la VEAF avec d'autres membres.</p>
+    <p>Après 5 activités, nous prendrons ensemble la décision de continuer ou pas.</p>
+    <p><i>Ce choix n'est pas définitif, je peux à tout moment interrompre mon intégration.</i></p>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+        <i class="fa fa-arrow-circle-left"></i> Annuler
+    </button>
+    <button type="submit" class="btn btn-primary">
+        <i class="fa fa-user-graduate"></i> Postuler
+    </button>
+</div>
+{{ form_end(form) }}

@@ -1,0 +1,19 @@
+{{ form_start(form, {'action': app.request.requestUri}) }}
+<div class="modal-header">
+    <h5 class="modal-title">Présenter l'association</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">×</span>
+    </button>
+</div>
+<div class="modal-body">
+    J'indique avoir présenté au <i class="fa fa-user-graduate text-primary"></i> cadet {{ user.nickname }} le fonctionnement de l'association, sans avoir oublié de préciser quelles sont nos valeurs et comment se déroule la période d'essai.
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+        <i class="fa fa-arrow-circle-left"></i> Annuler
+    </button>
+    <button type="submit" class="btn btn-primary">
+        <i class="fa fa-save"></i> Enregistrer
+    </button>
+</div>
+{{ form_end(form) }}

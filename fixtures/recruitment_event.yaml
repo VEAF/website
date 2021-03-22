@@ -1,0 +1,16 @@
+App\Entity\Recruitment\Event:
+  recruitment_event_cadet_need_presentation_to_apply:
+    user: "@user_cadet_need_presentation"
+    createdAt: "<dateTimeBetween('-1 day', 'now')>"
+    updatedAt: "$createdAt"
+    eventAt: "$createdAt"
+    type: <(App\Entity\Recruitment\Event::TYPE_TO_APPLY)>
+
+  recruitment_event_cadet_presentation_to_apply:
+    user: "@user_cadet_with_presentation"
+    createdAt: "<dateTimeBetween('-1 day', 'now')>"
+    updatedAt: "$createdAt"
+    eventAt: "$createdAt"
+    type: <(App\Entity\Recruitment\Event::TYPE_TO_APPLY)>
+    validator: "@user_mitch"
+    ackAt: "<dateTimeBetween('-1 hour', 'now')>"
