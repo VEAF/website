@@ -3,15 +3,11 @@
 namespace App\Service;
 
 use App\Component\Profile\Notification;
-use App\Entity\File;
 use App\Entity\Recruitment\Event;
 use App\Entity\User;
 use App\Manager\Recruitment\EventManager;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Ramsey\Uuid\Uuid;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class UserService
 {
@@ -28,7 +24,7 @@ class UserService
     }
 
     /**
-     * Get all notifications for an user (with cache)
+     * Get all notifications for an user (with cache).
      *
      * @return Notification[]|array
      */
@@ -48,6 +44,7 @@ class UserService
 
             $this->cacheNotifications[$user->getId()] = $notifications;
         }
+
         return $this->cacheNotifications[$user->getId()];
     }
 

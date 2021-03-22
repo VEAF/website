@@ -31,9 +31,6 @@ class Notification
         return new static(self::TYPE_NO_CHOICE, $message);
     }
 
-    /**
-     * @return string|null
-     */
     public function getMessage(): ?string
     {
         return $this->message;
@@ -43,5 +40,4 @@ class Notification
     {
         return $this->type;
     }
-
 }

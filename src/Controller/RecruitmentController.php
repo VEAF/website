@@ -50,6 +50,7 @@ class RecruitmentController extends AbstractController
             $this->recruitmentWorkflow->apply($this->getUser(), 'to_apply');
             $this->addFlash('success', 'J\'ai rejoint le programme Cadet');
             $this->getDoctrine()->getManager()->flush();
+
             return $this->redirectToRoute('profile');
         }
 
@@ -73,11 +74,11 @@ class RecruitmentController extends AbstractController
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $this->recruitmentWorkflow->apply($this->getUser(), 'guest');
             $this->addFlash('success', 'J\'ai rejoint le groupe des invités');
 
             $this->getDoctrine()->getManager()->flush();
+
             return $this->redirectToRoute('profile');
         }
 
@@ -101,6 +102,7 @@ class RecruitmentController extends AbstractController
             $userService->markPresentation($user, $this->getUser());
             $this->addFlash('success', 'La présentation est marquée comme effectuée');
             $this->getDoctrine()->getManager()->flush();
+
             return $this->redirectToRoute('user_view', ['user' => $user->getNickname()]);
         }
 
@@ -131,6 +133,7 @@ class RecruitmentController extends AbstractController
 
             $this->addFlash('success', 'Le vol a été enregistré');
             $this->getDoctrine()->getManager()->flush();
+
             return $this->redirectToRoute('user_view', ['user' => $user->getNickname()]);
         }
 
@@ -155,5 +158,4 @@ class RecruitmentController extends AbstractController
                 'user' => $user,
             ]);
     }
-
 }

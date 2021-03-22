@@ -3,7 +3,6 @@
 namespace App\Twig;
 
 use App\Component\Profile\Notification;
-use App\Entity\Calendar\Event;
 use App\Entity\User;
 use App\Service\UserService;
 use Twig\Extension\AbstractExtension;
