@@ -118,7 +118,7 @@
         {% endif %}
 
         {# restriction membre #}
-        Réstriction de profil:
+        Restriction de profil:
         {% if event.restrictions | length > 0 %}
             {% for restriction in event.restrictions %}
                 {% if not loop.first %},{% endif %}
@@ -130,7 +130,7 @@
         <br/>
 
         {# section pour les restrictions / modules #}
-        Réstriction de module:
+        Restriction de module:
         {% if event.modules | length > 0 %}
             {% for module in event.modules %}
                 {{ module.name }}{% if not loop.last %},{% endif %}
