@@ -112,13 +112,13 @@ class RecruitmentController extends AbstractController
     }
 
     /**
-     * @Route("/{user}/add-flight", name="recruitment_add_flight")
-     * @Security("is_granted('ADD_FLIGHT', user)")
+     * @Route("/{user}/add-activity", name="recruitment_add_activity")
+     * @Security("is_granted('ADD_ACTIVITY', user)")
      */
-    public function addFlight(Request $request, User $user, EventManager $eventManager): Response
+    public function addActivity(Request $request, User $user, EventManager $eventManager): Response
     {
         $event = new Event();
-        $event->setType(Event::TYPE_FLY);
+        $event->setType(Event::TYPE_ACTIVITY);
         $event->setUser($user);
         $event->setValidator($this->getUser());
         $form = $this->createForm(RecruitmentEventType::class, $event);
@@ -134,7 +134,7 @@ class RecruitmentController extends AbstractController
             return $this->redirectToRoute('user_view', ['user' => $user->getNickname()]);
         }
 
-        return $this->render($request->isXmlHttpRequest() ? 'recruitment/_add-fly.html.twig' : 'recruitment/add-fly.html.twig',
+        return $this->render($request->isXmlHttpRequest() ? 'recruitment/_add-activity.html.twig' : 'recruitment/add-activity.html.twig',
             [
                 'form' => $form->createView(),
                 'user' => $user,
@@ -142,14 +142,14 @@ class RecruitmentController extends AbstractController
     }
 
     /**
-     * @Route("/{user}/flights", name="recruitment_flights")
-     * @Security("is_granted('ADD_FLIGHT', user)")
+     * @Route("/{user}/activities", name="recruitment_activities")
+     * @Security("is_granted('ADD_ACTIVITY', user)")
      */
-    public function _flights(User $user): Response
+    public function _activities(User $user): Response
     {
         $events = $this->getDoctrine()->getRepository(Event::class)->findBy(['user' => $user], ['createdAt' => 'ASC']);
 
-        return $this->render('recruitment/_flights.html.twig',
+        return $this->render('recruitment/_activities.html.twig',
             [
                 'events' => $events,
                 'user' => $user,

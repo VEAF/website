@@ -10,7 +10,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class RecruitmentVoter extends Voter
 {
     const PRESENTATION = 'PRESENTATION';
-    const ADD_FLIGHT = 'ADD_FLIGHT';
+    const ADD_ACTIVITY = 'ADD_ACTIVITY';
 
     protected function supports($attribute, $subject)
     {
@@ -22,7 +22,7 @@ class RecruitmentVoter extends Voter
             return false;
         }
 
-        return in_array($attribute, [self::ADD_FLIGHT]);
+        return in_array($attribute, [self::ADD_ACTIVITY]);
     }
 
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
@@ -40,11 +40,11 @@ class RecruitmentVoter extends Voter
         switch ($attribute) {
             // admin and recruiters can mark presentation has done
             case self::PRESENTATION:
-                if (in_array('ROLE_ADMIN', $member->getRoles()) || in_array('ROLE_RECRUITER', $member->getRoles())) {
+                if ($member->isMember()) {
                     return true;
                 }
                 break;
-            case self::ADD_FLIGHT:
+            case self::ADD_ACTIVITY:
                 if ($member->isMember()) {
                     return true;
                 }

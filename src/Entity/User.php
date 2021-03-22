@@ -102,7 +102,7 @@ class User implements UserInterface
         'ROLE_ADMIN' => self::ROLE_ADMIN,
     ];
 
-    const CADET_MIN_FLIGHTS = 3;
+    const CADET_MIN_FLIGHTS = 5;
 
     /**
      * @ORM\Id

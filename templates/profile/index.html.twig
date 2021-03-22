@@ -49,45 +49,46 @@
             <i class="fa fa-user text-default" title="Invité"></i>
         {% endif %} {{ app.user.statusAsString }}
 
-        {# unknown status, need to make a choice #}
-        {% if app.user.status == constant('\\App\\Entity\\User::STATUS_UNKNOWN') %}
-            <div class="alert alert-danger">
-                <i class="fa fa-exclamation-triangle"></i> Je n'ai pas encore complété cette section de mon profil.
-            </div>
+        {% if app.user.simDcs or app.user.simBms %}
+            {# unknown status, need to make a choice #}
+            {% if app.user.status == constant('\\App\\Entity\\User::STATUS_UNKNOWN') %}
+                <div class="alert alert-danger">
+                    <i class="fa fa-exclamation-triangle"></i> Je n'ai pas encore complété cette section de mon profil.
+                </div>
 
-            <div class="row equal">
-                <div class="col-md-6 d-flex">
-                    <div class="card border-secondary mb-3">
-                        <div class="card-header"><i class="fa fa-user-graduate text-primary"></i> Cadet</div>
-                        <div class="card-body">
-                            <h4 class="card-title">Intégrer la VEAF</h4>
-                            <p class="card-text">
-                                Je souhaite suivre le programme d'intégration des
-                                <i class="fa fa-user-graduate text-primary"></i> cadets, en effectuant quelques vols
-                                pour rencontrer les membres et décider ensemble afin de rejoindre l'association VEAF à
-                                la
-                                fin de ma période d'essai.
-                            </p>
-                            <a href="{{ path('recruitment_change_for_cadet') }}"
-                               class="btn btn-primary btn-lg btn-block remote-modal">je postule</a>
+                <div class="row equal">
+                    <div class="col-md-6 d-flex">
+                        <div class="card border-secondary mb-3">
+                            <div class="card-header"><i class="fa fa-user-graduate text-primary"></i> Cadet</div>
+                            <div class="card-body">
+                                <h4 class="card-title">Intégrer la VEAF</h4>
+                                <p class="card-text">
+                                    Je souhaite suivre le programme d'intégration des
+                                    <i class="fa fa-user-graduate text-primary"></i> cadets, en
+                                    effectuant {{ minCadetsFlights }} activités
+                                    pour rencontrer les membres et décider ensemble afin de rejoindre l'association VEAF
+                                    à la fin de ma période d'essai.
+                                </p>
+                                <a href="{{ path('recruitment_change_for_cadet') }}"
+                                   class="btn btn-primary btn-lg btn-block remote-modal">Je postule</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 d-flex">
+                        <div class="card border-secondary mb-3">
+                            <div class="card-header"><i class="fa fa-user-cog"></i> Invité</div>
+                            <div class="card-body">
+                                <h4 class="card-title">On reste en contact</h4>
+                                <p class="card-text">Je n'ai pas envie de m'inscrire au programme Cadet de la VEAF et je
+                                    n'envisage pas devenir membre pour l'instant, mais je reste invité sur les serveurs
+                                    DCS et Teamspeak.</p>
+                                <a href="{{ path('recruitment_change_for_guest') }}"
+                                   class="btn btn-primary btn-lg btn-block remote-modal">Je me signale comme invité</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 d-flex">
-                    <div class="card border-secondary mb-3">
-                        <div class="card-header"><i class="fa fa-user-cog"></i> Invité</div>
-                        <div class="card-body">
-                            <h4 class="card-title">On reste en contact</h4>
-                            <p class="card-text">Je n'ai pas envie de m'inscrire au programme Cadet de la VEAF et je
-                                n'envisage pas devenir membre pour l'instant, mais je reste invité sur les serveurs DCS
-                                et
-                                Teamspeak.</p>
-                            <a href="{{ path('recruitment_change_for_guest') }}"
-                               class="btn btn-primary btn-lg btn-block remote-modal">je me signale comme invité</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% endif %}
         {% endif %}
 
         {# cadet - follow progression #}
@@ -101,27 +102,18 @@
             {% endif %}
             Simulateur DCS <br/>
 
-            {% if app.user.perunPlayer is null %}
+            {% if app.user.perunPlayer is null or app.user.player is null %}
                 <i class="far fa-square text-error"></i>
-                Lien Perun - je dois prévenir un administrateur (après m'être connecté au moins une fois sur le serveur DCS public)
+                Lien DCS - je dois prévenir un administrateur (après m'être connecté au moins une fois sur le serveur DCS public)
             {% else %}
                 <i class="fa fa-check-square text-success"></i>
-                Lien Perun
-            {% endif %}
-            <br/>
-
-            {% if app.user.player is null %}
-                <i class="far fa-square text-error"></i>
-                Lien Slmod - je dois prévenir un administrateur (après m'être connecté au moins une fois sur le serveur DCS public)
-            {% else %}
-                <i class="fa fa-check-square text-success"></i>
-                Lien Slmod
+                Lien DCS
             {% endif %}
             <br/>
 
             {% if app.user.needPresentation %}
                 <i class="far fa-square text-error"></i>
-                Présentation de l'association - je dois rencontrer sur Teamspeak un membre "recruteur" pour qu'il me présente l'association
+                Présentation de l'association - je dois rencontrer un membre qui me présentera l'association, voir <a href="https://community.veaf.org/topic/584/guide-du-cadet" target="_blank">ici</a> pour les contacts privilégiés.
             {% else %}
                 <i class="fa fa-check-square text-success"></i>
                 Présentation de l'association
@@ -130,10 +122,10 @@
 
             {% if app.user.cadetFlights < constant('\\App\\Entity\\User::CADET_MIN_FLIGHTS') %}
                 <i class="far fa-square text-error"></i>
-                {{ app.user.cadetFlights }} / {{ constant('\\App\\Entity\\User::CADET_MIN_FLIGHTS') }} vols -
-                je dois encore effectuer des vols avec des membres de l'association.
+                {{ app.user.cadetFlights }} / {{ constant('\\App\\Entity\\User::CADET_MIN_FLIGHTS') }} activités -
+                je dois encore effectuer des activités avec des membres de l'association.
             {% else %}
-                <i class="fa fa-check-square text-success"></i> vols -
+                <i class="fa fa-check-square text-success"></i> activités -
                 {{ app.user.cadetFlights }} / {{ constant('\\App\\Entity\\User::CADET_MIN_FLIGHTS') }}
             {% endif %}
             <br/>

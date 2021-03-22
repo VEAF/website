@@ -8,7 +8,7 @@
     {% for event in events %}
         {{ event.createdAt | date("d/m/Y H:i") }} - {{ event.typeAsString }}
         {% if event.validator is not null %}
-            avec {{ event.validator.nickname }}
+            avec <a href="{{ path('user_view', {'user': event.validator.nickname}) }}">{{ event.validator.nickname }}</a>
         {% endif %}
 
         {% if event.comment is not null %}

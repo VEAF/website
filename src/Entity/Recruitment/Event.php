@@ -15,14 +15,14 @@ class Event
     const TYPE_TO_APPLY = 1;
     const TYPE_PRESENTATION = 2;
     const TYPE_PROMOTE = 3;
-    const TYPE_FLY = 4;
+    const TYPE_ACTIVITY = 4;
     const TYPE_GUEST = 5;
 
     const TYPES = [
         self::TYPE_TO_APPLY => 'candidature',
         self::TYPE_PRESENTATION => 'presentation',
         self::TYPE_PROMOTE => 'promotion',
-        self::TYPE_FLY => 'vol',
+        self::TYPE_ACTIVITY => 'activité',
         self::TYPE_GUEST => 'invité',
     ];
 
