@@ -20,6 +20,10 @@
             <div class="float-right">
                 <a href="{{ path('profile_edit') }}" class="btn btn-link"
                    title="Modifier mon profil">
+                    {% if app.user | count_profile_notifications(constant('\\App\\Component\\Profile\\Notification::TYPE_NO_SIM')) %}
+                        <span class="badge badge-danger badge-pill"
+                              title="Actions à réaliser">{{ app.user | count_profile_notifications(constant('\\App\\Component\\Profile\\Notification::TYPE_NO_SIM')) }}</span>
+                    {% endif %}
                     <i class="fa fa-edit fa-2x"></i>
                 </a>
             </div>
@@ -32,7 +36,7 @@
             {% include "_common/_boolean_icon.html.twig" with {'value': app.user.simBms} %} Falcon 4 - BMS<br/>
             {% if app.user | has_profile_notification(constant('\\App\\Component\\Profile\\Notification::TYPE_NO_SIM')) %}
         <div class="alert alert-danger">
-            <i class="fa fa-exclamation-triangle"></i> Je n'ai pas encore complété cette section de mon profil.
+            <i class="fa fa-exclamation-triangle"></i> Je n'ai pas terminé de compléter cette section de mon profil.
             Je m'en occupe en <a href="{{ path('profile_edit') }}">cliquant ici</a>
         </div>
         {% endif %}
@@ -113,7 +117,9 @@
 
             {% if app.user.needPresentation %}
                 <i class="far fa-square text-error"></i>
-                Présentation de l'association - je dois rencontrer un membre qui me présentera l'association, voir <a href="https://community.veaf.org/topic/584/guide-du-cadet" target="_blank">ici</a> pour les contacts privilégiés.
+                Présentation de l'association - je dois rencontrer un membre qui me présentera l'association, voir <a
+                    href="https://community.veaf.org/topic/584/guide-du-cadet"
+                    target="_blank">ici</a> pour les contacts privilégiés.
             {% else %}
                 <i class="fa fa-check-square text-success"></i>
                 Présentation de l'association

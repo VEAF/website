@@ -29,6 +29,30 @@
                             </tr>
                             <tr>
                                 <td>
+                                    Forum (pseudo):
+                                </td>
+                                <td>
+                                    {% if user.forum is not null %}
+                                        {{ user.forum }}
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Discord (pseudo):
+                                </td>
+                                <td>
+                                    {% if user.discord is not null %}
+                                        {{ user.discord }}
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
                                     Rôles (site):
                                 </td>
                                 <td>
@@ -45,7 +69,8 @@
                                     {% if user.simDcs %}
                                         <i class="fa fa-check-circle text-success"></i>
                                         {% if user.player is not null %}
-                                            <a href="{{ path('admin_dcs_player_view', {'player': user.player.id}) }}" class="btn btn-link">détails</a>
+                                            <a href="{{ path('admin_dcs_player_view', {'player': user.player.id}) }}"
+                                               class="btn btn-link">détails</a>
                                         {% endif %}
                                     {% else %}
                                         <i class="fa fa-times-circle text-light"></i>
@@ -107,7 +132,8 @@
                                             class="fa fa-arrow-left"></i> Retour liste</a>
                             </div>
                             <div class="col-sm-4 mb-3">
-                                <a href="{{ path('user_view', {'user': user.nickname}) }}" class="btn btn-outline-primary form-control"><i
+                                <a href="{{ path('user_view', {'user': user.nickname}) }}"
+                                   class="btn btn-outline-primary form-control"><i
                                             class="fa fa-eye"></i> Profil public</a>
                             </div>
                             <div class="col-sm-4 mb-3">
