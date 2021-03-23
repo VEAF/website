@@ -56,6 +56,26 @@ class UserController extends AbstractController
 
         $table
             ->addColumn(
+                (new Column())->setLabel('Forum')
+                    ->setSort(['u.forum' => 'asc'])
+                    ->setFilter((new Filter())
+                        ->setField('u.forum')
+                        ->setName('u_forum')
+                    )
+            );
+
+        $table
+            ->addColumn(
+                (new Column())->setLabel('Discord')
+                    ->setSort(['u.discord' => 'asc'])
+                    ->setFilter((new Filter())
+                        ->setField('u.discord')
+                        ->setName('u_discord')
+                    )
+            );
+
+        $table
+            ->addColumn(
                 (new Column())->setLabel('Statut')
                     ->setSort(['u.status' => 'asc'])
                     ->setFilter((new FilterSelect())

@@ -19,6 +19,16 @@ class ProfileType extends AbstractType
                     'required' => true,
                     'label' => 'Mon pseudo',
                 ])
+            ->add('forum', TextType::class,
+                [
+                    'required' => false,
+                    'label' => 'Mon pseudo sur le forum',
+                ])
+            ->add('discord', TextType::class,
+                [
+                    'required' => false,
+                    'label' => 'Mon pseudo sur discord',
+                ])
             ->add('simBms', CheckboxType::class,
                 [
                     'required' => false,
