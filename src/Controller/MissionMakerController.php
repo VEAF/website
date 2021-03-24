@@ -43,7 +43,16 @@ class MissionMakerController extends AbstractController
             foreach ($mapUsers as $mapUser) {
                 foreach ($this->getDoctrine()->getRepository(UserModule::class)
                              ->findByUserIndexedByModule($mapUser->getUser(), true, [UserModule::LEVEL_MISSION, UserModule::LEVEL_INSTRUCTOR]) as $userModule) {
-                    $usersModules[$mapUser->getUser()->getId()][$userModule->getModule()->getId()] = $userModule;
+                    if (isset($modules[$userModule->getModule()->getId()])) {
+                        $usersModules[$mapUser->getUser()->getId()][$userModule->getModule()->getId()] = $userModule;
+                    }
+                }
+            }
+
+            // remove all users without modules
+            foreach ($mapUsers as $keyUser => $mapUser) {
+                if (!isset($usersModules[$mapUser->getUser()->getId()])) {
+                    unset($mapUsers[$keyUser]);
                 }
             }
 
