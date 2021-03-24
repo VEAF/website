@@ -48,8 +48,8 @@
                         </td>
                         {% for module in modules %}
                             <td class="text-center">
-                                {% if attribute(usersModules, mapUser.id) is defined %}
-                                    {% set userModules = attribute(usersModules, mapUser.id) %}
+                                {% if attribute(usersModules, mapUser.user.id) is defined %}
+                                    {% set userModules = attribute(usersModules, mapUser.user.id) %}
                                     {% if attribute(userModules, module.id) is defined %}
                                         {% set userModule = attribute(userModules, module.id) %}
                                         {% if userModule.level == constant('\\App\\Entity\\UserModule::LEVEL_INSTRUCTOR') %}
