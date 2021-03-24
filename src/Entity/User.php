@@ -83,12 +83,14 @@ class User implements UserInterface
     const GROUP_ALL = 'all';
     const GROUP_CADETS = 'cadets';
     const GROUP_MEMBERS = 'members';
+    const GROUP_CADETS_AND_MEMBERS = 'cadets-members';
     const GROUP_OFFICE = 'office';
 
     const GROUPS = [
         self::GROUP_ALL => 'Tout le monde',
         self::GROUP_CADETS => 'Cadets',
         self::GROUP_MEMBERS => 'Membres',
+        self::GROUP_CADETS_AND_MEMBERS => 'Cadets+Membres',
         self::GROUP_OFFICE => 'Bureau',
     ];
 
@@ -247,7 +249,7 @@ class User implements UserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
 
     /**
@@ -274,7 +276,7 @@ class User implements UserInterface
      */
     public function getPassword(): string
     {
-        return (string) $this->password;
+        return (string)$this->password;
     }
 
     public function setPassword(string $password): self
@@ -487,6 +489,8 @@ class User implements UserInterface
                 return [self::STATUS_CADET];
             case self::GROUP_MEMBERS:
                 return self::STATUSES_MEMBER;
+            case self::GROUP_CADETS_AND_MEMBERS:
+                return array_merge(self::STATUSES_MEMBER, [self::STATUS_CADET]);
             case self::GROUP_OFFICE:
                 return self::STATUSES_OFFICE;
             default:
