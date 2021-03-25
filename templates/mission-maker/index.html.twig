@@ -5,9 +5,17 @@
 {% block pageContent %}
     <div class="container container-main pt-3 pb-3 mb-3">
         <h1>Mission Maker Helper</h1>
-        {{ form_start(form) }}
+        {{ form_start(form, {'attr': {'id': 'formMission'} }) }}
         {{ form_rest(form) }}
-        <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Rechercher</button>
+        <div class="row">
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Rechercher</button>
+                <button type="submit" class="btn btn-primary" id="btnExport" data-form="formMission"
+                        data-href="{{ path('mission_maker_export_csv') }}"><i class="fa fa-save"></i> Exporter
+                </button>
+            </div>
+
+        </div>
         {{ form_end(form) }}
     </div>
 
@@ -44,7 +52,14 @@
                 {% for mapUser in mapUsers %}
                     <tr>
                         <td>
-                            {{ mapUser.user.nickname }}
+                            {% if mapUser.user.member %}
+                                <i class="fa fa-user fa text-success" title="Membre"></i>
+                            {% elseif mapUser.user.cadet %}
+                                <i class="fa fa-user-graduate fa text-primary" title="Cadet"></i>
+                            {% else %}
+                                <i class="fa fa-user fa text-default" title="Invité"></i>
+                            {% endif %}
+                            <a href="{{ path('user_view', {'user': mapUser.user.nickname}) }}">{{ mapUser.user.nickname }}</a>
                         </td>
                         {% for module in modules %}
                             <td class="text-center">
@@ -74,3 +89,21 @@
 
 {% endblock pageContent %}
 
+{% block javascript %}
+{{ parent() }}
+<script type="text/javascript">
+$(document).ready(function () {
+    {# common remote modal #}
+    $('#btnExport').click(function(event) {
+        event.preventDefault();
+        var $this = $(this);
+        var href=$this.attr('data-href');
+        var formId=$this.attr('data-form');
+        console.log(href);
+        $('#'+formId).attr('action', href).submit();
+    });
+
+});
+
+</script>
+{% endblock javascript %}
