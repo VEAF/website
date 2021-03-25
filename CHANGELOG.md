@@ -1,3 +1,9 @@
+### 1.6.1
+* ADD profil - gestion de mon pseudo forum et discord
+* ADD calendrier - affichage nom du jour et temps relatif de l'événement
+* ADD messages d'erreur custom - intégrés au site
+* ADD mission maker - nouveau module pour aider à la construction de missions
+
 ### 1.6.0
 * ADD nouveau module: recrutement
 * ADD profil - ajout d'une phase de sélection: cadet ou invité
