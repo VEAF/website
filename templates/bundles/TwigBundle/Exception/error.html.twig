@@ -1,0 +1,33 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ parent() }}: Erreur 500{% endblock %}
+
+{% block header %}
+{% endblock header %}
+
+{% block pageContent %}
+    <div class="container container-main pt-3 pb-3 mb-3">
+        <h1>
+            <i class="fa fa-exclamation-circle"></i>
+            Erreur 500
+        </h1>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-danger">
+                    Erreur interne ou non documentée.<br/><br/>
+                    Il est possible que vous ayez trouvé un <i class="fa fa-bug"></i> bug.<br/><br/>
+                    Si le problème persiste, signalez l'incident sur le channel <i class="fab fa-discord"></i> discord #support-siteweb
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a href="{{ path("home") }}" class="btn btn-primary">Retourner à l'accueil</a>
+            </div>
+        </div>
+
+
+    </div>
+{% endblock pageContent %}

@@ -1,0 +1,21 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ parent() }}: Erreur 404{% endblock %}
+
+{% block pageContent %}
+    <div class="container container-main pt-3 pb-3 mb-3">
+        <h1>
+            <i class="fa fa-question-circle"></i>
+            Erreur 404
+        </h1>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-danger">
+                    La page ou la ressource que vous essayez d'utiliser n'a pas été trouvée.
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock pageContent %}
