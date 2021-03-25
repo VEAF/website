@@ -15,6 +15,7 @@ class MissionMakerController extends AbstractController
 {
     /**
      * @Route("/mission-maker", name="mission_maker")
+     * @Route("/mission-maker/export/csv", name="mission_maker_export_csv")
      */
     public function index(Request $request): Response
     {
@@ -54,6 +55,54 @@ class MissionMakerController extends AbstractController
                 if (!isset($usersModules[$mapUser->getUser()->getId()])) {
                     unset($mapUsers[$keyUser]);
                 }
+            }
+
+            if ('mission_maker_export_csv' === $request->get('_route')) {
+                // export CSV
+                $lines = [];
+                $line = [];
+                $line[] = 'joueurs / modules';
+                foreach ($modules as $module) {
+                    $line[] = $module->getName();
+                }
+                $lines[] = $line;
+
+                foreach ($mapUsers as $mapUser) {
+                    $line = [];
+                    $line[] = $mapUser->getUser()->getNickname();
+                    foreach ($modules as $module) {
+                        if (isset($usersModules[$mapUser->getUser()->getId()][$module->getId()])) {
+                            $userModule = $usersModules[$mapUser->getUser()->getId()][$module->getId()];
+                            switch ($userModule->getLevel()) {
+                                case UserModule::LEVEL_INSTRUCTOR:
+                                    $line[] = 'i';
+                                    break;
+                                case UserModule::LEVEL_MISSION:
+                                    $line[] = 'm';
+                                    break;
+                                case UserModule::LEVEL_ROOKIE:
+                                    $line[] = 'r';
+                                    break;
+                                case UserModule::LEVEL_UNKNOWN:
+                                default:
+                                    $line[] = 'u';
+                                    break;
+                            }
+                        } else {
+                            $line[] = '';
+                        }
+                    }
+                    $lines[] = $line;
+                }
+
+                $response = new Response(implode(PHP_EOL, array_map(
+                    function ($line) {
+                        return implode(';', $line);
+                    }, $lines)));
+                $response->headers->set('Content-Type', 'text/csv');
+                $response->headers->set('Content-Disposition', 'attachment; filename="mission-maker.csv"');
+
+                return $response;
             }
 
             $data['map'] = $map;
