@@ -26,7 +26,6 @@ class MissionMakerController extends AbstractController
         $data = [];
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $map = $form->getData()['map'];
             $group = $form->getData()['group'];
             $mapUsers = $this->getDoctrine()->getRepository(UserModule::class)

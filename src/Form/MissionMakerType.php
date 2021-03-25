@@ -59,7 +59,6 @@ class MissionMakerType extends AbstractType
                         'class' => 'select2auto',
                     ],
                 ]);
-
     }
 
     public function configureOptions(OptionsResolver $resolver)
