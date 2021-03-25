@@ -1,0 +1,109 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ parent() }}: Mission Maker{% endblock %}
+
+{% block pageContent %}
+    <div class="container container-main pt-3 pb-3 mb-3">
+        <h1>Mission Maker Helper</h1>
+        {{ form_start(form, {'attr': {'id': 'formMission'} }) }}
+        {{ form_rest(form) }}
+        <div class="row">
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Rechercher</button>
+                <button type="submit" class="btn btn-primary" id="btnExport" data-form="formMission"
+                        data-href="{{ path('mission_maker_export_csv') }}"><i class="fa fa-save"></i> Exporter
+                </button>
+            </div>
+
+        </div>
+        {{ form_end(form) }}
+    </div>
+
+    {% if map is defined and map is not null %}
+        <div class="container container-main mb-3">
+            <div class="row">
+                <div class="col-sm-12 pt-3 pb-3">
+                    <img class="img-fluid"
+                         src="{{ image(image_header_path(map.imageHeader)).zoomCrop(1110,222).jpeg }}"/>
+                    <div class="module-roster-description-layer">
+                        <p class="">{{ map.longName }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if modules is defined %}
+        <div class="container container-main mb-3 pt-3 pb-1">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>
+                        Joueurs / Modules
+                    </th>
+                    {% for module in modules %}
+                        <th class="text-center">
+                            {{ module.name }}
+                        </th>
+                    {% endfor %}
+                </tr>
+                </thead>
+                <tbody>
+                {% for mapUser in mapUsers %}
+                    <tr>
+                        <td>
+                            {% if mapUser.user.member %}
+                                <i class="fa fa-user fa text-success" title="Membre"></i>
+                            {% elseif mapUser.user.cadet %}
+                                <i class="fa fa-user-graduate fa text-primary" title="Cadet"></i>
+                            {% else %}
+                                <i class="fa fa-user fa text-default" title="Invité"></i>
+                            {% endif %}
+                            <a href="{{ path('user_view', {'user': mapUser.user.nickname}) }}">{{ mapUser.user.nickname }}</a>
+                        </td>
+                        {% for module in modules %}
+                            <td class="text-center">
+                                {% if attribute(usersModules, mapUser.user.id) is defined %}
+                                    {% set userModules = attribute(usersModules, mapUser.user.id) %}
+                                    {% if attribute(userModules, module.id) is defined %}
+                                        {% set userModule = attribute(userModules, module.id) %}
+                                        {% if userModule.level == constant('\\App\\Entity\\UserModule::LEVEL_INSTRUCTOR') %}
+                                            <i class="fa fa-user-tie text-primary" title="Instructeur"></i>
+                                        {% elseif userModule.level == constant('\\App\\Entity\\UserModule::LEVEL_MISSION') %}
+                                            <i class="fa fa-shield-alt text-success" title="Mission"></i>
+                                        {% elseif userModule.level == constant('\\App\\Entity\\UserModule::LEVEL_ROOKIE') %}
+                                            <i class="fa fa-book-reader text-warning" title="Débutant"></i>
+                                        {% else %}
+                                            <i class="fa fa-user text-secondary"></i>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+
+{% endblock pageContent %}
+
+{% block javascript %}
+{{ parent() }}
+<script type="text/javascript">
+$(document).ready(function () {
+    {# common remote modal #}
+    $('#btnExport').click(function(event) {
+        event.preventDefault();
+        var $this = $(this);
+        var href=$this.attr('data-href');
+        var formId=$this.attr('data-form');
+        console.log(href);
+        $('#'+formId).attr('action', href).submit();
+    });
+
+});
+
+</script>
+{% endblock javascript %}

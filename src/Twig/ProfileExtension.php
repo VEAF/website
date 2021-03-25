@@ -21,6 +21,7 @@ class ProfileExtension extends AbstractExtension
     {
         return [
             new TwigFilter('profile_notifications', [$this, 'profileNotifications']),
+            new TwigFilter('count_profile_notifications', [$this, 'countProfileNotifications']),
             new TwigFilter('has_profile_notifications', [$this, 'hasProfileNotifications']),
             new TwigFilter('has_profile_notification', [$this, 'hasProfileNotification']),
         ];
@@ -36,6 +37,15 @@ class ProfileExtension extends AbstractExtension
         }
 
         return $this->userService->getProfileNotifications($user);
+    }
+
+    public function countProfileNotifications(?User $user, int $type = null): int
+    {
+        if (null === $user) {
+            return 0;
+        }
+
+        return $this->userService->countProfileNotifications($user, $type);
     }
 
     public function hasProfileNotifications(?User $user): bool

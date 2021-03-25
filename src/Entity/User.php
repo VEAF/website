@@ -83,12 +83,14 @@ class User implements UserInterface
     const GROUP_ALL = 'all';
     const GROUP_CADETS = 'cadets';
     const GROUP_MEMBERS = 'members';
+    const GROUP_CADETS_AND_MEMBERS = 'cadets-members';
     const GROUP_OFFICE = 'office';
 
     const GROUPS = [
         self::GROUP_ALL => 'Tout le monde',
         self::GROUP_CADETS => 'Cadets',
         self::GROUP_MEMBERS => 'Membres',
+        self::GROUP_CADETS_AND_MEMBERS => 'Cadets+Membres',
         self::GROUP_OFFICE => 'Bureau',
     ];
 
@@ -113,7 +115,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Assert\Length(min=3)
+     * @Assert\Length(min=3, max=180)
      */
     private ?string $email;
 
@@ -203,6 +205,18 @@ class User implements UserInterface
      * @ORM\Column(type="integer")
      */
     private int $cadetFlights = 0;
+
+    /**
+     * @ORM\Column(type="string", length=64, nullable=true)
+     * @Assert\Length(min=3, max=64)
+     */
+    private ?string $discord = null;
+
+    /**
+     * @ORM\Column(type="string", length=64, nullable=true)
+     * @Assert\Length(min=3, max=64)
+     */
+    private ?string $forum = null;
 
     public function __construct()
     {
@@ -475,6 +489,8 @@ class User implements UserInterface
                 return [self::STATUS_CADET];
             case self::GROUP_MEMBERS:
                 return self::STATUSES_MEMBER;
+            case self::GROUP_CADETS_AND_MEMBERS:
+                return array_merge(self::STATUSES_MEMBER, [self::STATUS_CADET]);
             case self::GROUP_OFFICE:
                 return self::STATUSES_OFFICE;
             default:
@@ -637,6 +653,30 @@ class User implements UserInterface
     public function setCadetFlights(int $cadetFlights): self
     {
         $this->cadetFlights = $cadetFlights;
+
+        return $this;
+    }
+
+    public function getDiscord(): ?string
+    {
+        return $this->discord;
+    }
+
+    public function setDiscord(?string $discord): self
+    {
+        $this->discord = $discord;
+
+        return $this;
+    }
+
+    public function getForum(): ?string
+    {
+        return $this->forum;
+    }
+
+    public function setForum(?string $forum): self
+    {
+        $this->forum = $forum;
 
         return $this;
     }

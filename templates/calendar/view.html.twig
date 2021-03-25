@@ -38,8 +38,15 @@
             {% endif %}
         </h1>
         <div>
-            Le {{ event.startDate | date('d/m/Y') }} de {{ event.startDate | date('H:i') }}
+            Le {{ ('days.by-number.' ~ (event.startDate | date('N'))) | trans({}, 'datetime')}} {{ event.startDate | date('d/m/Y') }} de {{ event.startDate | date('H:i') }}
             à {{ event.endDate | date('H:i') }}
+            {% if "now"|date("U") < event.startDate|date("U") %}
+                <span class="badge badge-pill badge-success">{{ event.startDate | time_diff }}</span>
+            {% elseif "now"|date("U") < event.endDate|date("U") %}
+                <span class="badge badge-pill badge-warning">en cours !</span>
+            {% else %}
+                <span class="badge badge-pill badge-danger">{{ event.startDate | time_diff }}</span>
+            {% endif %}
             <span class="float-right">
                     organisé par <a href="{{ path('user_view', {'user': event.owner.nickname}) }}">
                         {{ event.owner.nickname }}

@@ -21,6 +21,9 @@ class UserModuleRepository extends ServiceEntityRepository
         parent::__construct($registry, UserModule::class);
     }
 
+    /**
+     * @return UserModule[]
+     */
     public function findByModuleAndUserStatus(Module $module, array $statuses)
     {
         return $this->createQueryBuilder('user_module')
@@ -38,18 +41,30 @@ class UserModuleRepository extends ServiceEntityRepository
     /**
      * @return UserModule[] indexed by module reference
      */
-    public function findByUserIndexedByModule(User $user)
+    public function findByUserIndexedByModule(User $user, ?bool $active = null, array $levels = [])
     {
         $userModules = [];
-        foreach ($this->createQueryBuilder('user_module')
-                     ->select('user_module, module')
-                     ->leftJoin('user_module.module', 'module')
-                     ->andWhere('user_module.user = :user')
-                     ->setParameter('user', $user)
-                     ->addOrderBy('module.type', 'asc')
-                     ->addOrderBy('module.name', 'asc')
-                     ->getQuery()
-                     ->getResult() as $userModule) {
+
+        $query = $this->createQueryBuilder('user_module')
+            ->select('user_module, module')
+            ->leftJoin('user_module.module', 'module')
+            ->andWhere('user_module.user = :user')
+            ->setParameter('user', $user);
+
+        if (null !== $active) {
+            $query->andWhere('user_module.active = :active')
+                ->setParameter('active', $active);
+        }
+
+        if (count($levels) > 0) {
+            $query->andWhere('user_module.level IN (:levels)')
+                ->setParameter('levels', $levels);
+        }
+
+        $query->addOrderBy('module.type', 'asc')
+            ->addOrderBy('module.name', 'asc');
+
+        foreach ($query->getQuery()->getResult() as $userModule) {
             $userModules[$userModule->getModule()->getId()] = $userModule;
         }
 

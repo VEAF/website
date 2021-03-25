@@ -42,6 +42,8 @@ class MenuItemExtension extends AbstractExtension
                 return $this->router->generate('roster');
             case Item::TYPE_CALENDAR:
                 return $this->router->generate('calendar');
+            case Item::TYPE_MISSION_MAKER:
+                return $this->router->generate('mission_maker');
             default:
                 return '';
         }

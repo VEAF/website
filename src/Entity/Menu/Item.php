@@ -28,6 +28,7 @@ class Item
     const TYPE_SERVERS = 7;
     const TYPE_ROSTER = 8;
     const TYPE_CALENDAR = 9;
+    const TYPE_MISSION_MAKER = 10;
 
     const TYPES = [
         self::TYPE_MENU => 'Menu',
@@ -39,6 +40,7 @@ class Item
         self::TYPE_SERVERS => 'Serveurs',
         self::TYPE_ROSTER => 'Roster',
         self::TYPE_CALENDAR => 'Calendrier',
+        self::TYPE_MISSION_MAKER => 'Mission Maker',
     ];
 
     /**

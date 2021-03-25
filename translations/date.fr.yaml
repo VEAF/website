@@ -1,0 +1,15 @@
+diff:
+  ago:
+    second: il y a une seconde|il y a %count% secondes
+    minute: il y a une minute|il y a %count% minutes
+    hour: il y a une heure|il y a %count% heures
+    day: il y a un jour|il y a %count% jours
+    month: il y a un mois|il y a %count% mois
+    year: il y a un an|il y a %count% ans
+  in:
+    second: dans une seconde|dans %count% secondes
+    minute: dans une minute|dans %count% minutes
+    hour: dans une heure|dans %count% heures
+    day: dans un jour|dans %count% jours
+    month: dans un mois|dans %count% mois
+    year: dans un an|dans %count% ans

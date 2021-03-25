@@ -37,6 +37,14 @@ class UserService
                 $notifications[] = Notification::noSim('Je dois renseigner au moins un simulateur');
             }
 
+            if (!$user->getForum()) {
+                $notifications[] = new Notification(Notification::TYPE_NO_SIM, 'Je n\'ai pas encore renseigné mon pseudo du forum');
+            }
+
+            if (!$user->getDiscord()) {
+                $notifications[] = new Notification(Notification::TYPE_NO_SIM, 'Je n\'ai pas encore renseigné mon pseudo discord');
+            }
+
             // unkown user
             if (User::STATUS_UNKNOWN === $user->getStatus()) {
                 $notifications[] = Notification::noEvents('Je n\'ai pas encore postulé pour devenir cadet');
@@ -46,6 +54,19 @@ class UserService
         }
 
         return $this->cacheNotifications[$user->getId()];
+    }
+
+    public function countProfileNotifications(User $user, int $type = null): int
+    {
+        $count = 0;
+
+        foreach ($this->getProfileNotifications($user) as $notification) {
+            if (null === $type || $notification->getType() === $type) {
+                ++$count;
+            }
+        }
+
+        return $count;
     }
 
     public function hasProfileNotifications(User $user): bool

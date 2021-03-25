@@ -1,0 +1,18 @@
+# ISO-8601
+days:
+  by-number:
+    1: lundi
+    2: mardi
+    3: mercredi
+    4: jeudi
+    5: vendredi
+    6: samedi
+    7: dimanche
+  by-number-short:
+    1: lun
+    2: mar
+    3: mer
+    4: jeu
+    5: ven
+    6: sam
+    7: dim
