@@ -53,7 +53,7 @@ class ResetPasswordController extends AbstractController
 
                 $passwordResetUrl = $this->generateUrl('reset_password_confirm', ['token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
 
-                $message = (new \Swift_Message('VEAF Site Web - reset de mon mot de passe'))
+                $message = (new \Swift_Message(sprintf('%s Site Web - reset de mon mot de passe',strtoupper($this->getParameter('website')))))
                     ->setFrom($this->mailFrom)
                     ->setTo($user->getEmail())
                     // html version

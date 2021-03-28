@@ -19,6 +19,13 @@ use Symfony\Component\Validator\Constraints\File;
 
 class CalendarEventType extends AbstractType
 {
+    private string $website;
+
+    public function __construct(string $website)
+    {
+        $this->website = $website;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -42,12 +49,16 @@ class CalendarEventType extends AbstractType
                     'required' => false,
                     'label' => 'Simulateur DCS',
                 ]
-            )
-            ->add('simBms', CheckboxType::class,
+            );
+        if ('veaf' === $this->website) {
+            $builder->add('simBms', CheckboxType::class,
                 [
                     'required' => false,
                     'label' => 'Simulateur BMS',
-                ])
+                ]);
+        }
+
+        $builder
             ->add('title', TextType::class,
                 [
                     'required' => true,
@@ -61,7 +72,7 @@ class CalendarEventType extends AbstractType
             )
             ->add('restrictions', ChoiceType::class,
                 [
-                    'label' => 'Participation réservée aux ... ',
+                    'label' => 'Participation réservée aux ... (ne rien cocher si ouvert à tout le monde)',
                     'choices' => [
                         array_flip(Event::RESTRICTIONS),
                     ],
@@ -80,6 +91,7 @@ class CalendarEventType extends AbstractType
                             ->orderBy('m.name', 'ASC');
                     },
                     'required' => false,
+                    'label' => 'Carte',
                     'placeholder' => '-',
                     'attr' => [
                         'class' => 'select2auto form-control',

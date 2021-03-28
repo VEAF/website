@@ -1,0 +1,106 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ parent() }}: simulation DCS World - Accueil{% endblock %}
+
+{% block pageContent %}
+    <div class="container container-main pt-3 pb-3 mb-3">
+        <div class="row mb-3">
+            <div class="col-lg-12">
+                <img src="{{ cdn_url }}/img/header_44.jpg" class="embed-responsive">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <p class="text-center">Bienvenue sur le site Internet du</p>
+                <p class="text-center"><img src="{{ cdn_url }}/img/logo_400.png"></p>
+            </div>
+        </div>
+    </div>
+
+    {# aircrafts #}
+    <div class="container container-main mb-3">
+        <div class="row justify-content-center">
+            {% for aircraft in aircrafts %}
+                <div class="col-lg-3 col-md-6 pt-3 pb-3">
+                    <div class="module-wrap">
+                        <a href="{{ path('roster_aircraft', {'group': 'members', 'aircraft': aircraft.code}) }}">
+                            <img class="img-fluid"
+                                 src="{{ image(image_path(aircraft.image)).zoomCrop(1000,560).jpeg }}"/>
+                            <div class="module-description-layer">
+                                <p class="module-description">{{ aircraft.code | upper }}</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    {# helicopters #}
+    <div class="container container-main mb-3">
+        <div class="row justify-content-center">
+            {% for helicopter in helicopters %}
+                <div class="col-lg-3 col-md-6 pt-3 pb-3">
+                    <div class="module-wrap">
+                        <a href="{{ path('roster_helicopter', {'group': 'members', 'helicopter': helicopter.code}) }}">
+                            <img class="img-fluid"
+                                 src="{{ image(image_path(helicopter.image)).zoomCrop(1000,560).jpeg }}"/>
+                            <div class="module-description-layer">
+                                <p class="module-description">{{ helicopter.code | upper }}</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    {# maps #}
+    <div class="container container-main mb-3">
+        <div class="row">
+            {% for map in maps %}
+                <div class="col-sm-12 pt-3 pb-3">
+                    <div class="module-wrap">
+                        <a href="{{ path('roster_map', {'group': 'members', 'map': map.code}) }}">
+                            <img class="img-fluid"
+                                 src="{{ image(image_header_path(map.imageHeader)).zoomCrop(1400,280).jpeg }}"/>
+                            <div class="module-description-layer">
+                                <p class="module-description">{{ map.name | upper }}</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    {# specials #}
+    {% if specials|length > 0 %}
+        <div class="container container-main mb-3">
+            <div class="row">
+                {% for special in specials %}
+                    <div class="col-sm-12 pt-3 pb-3">
+                        <div class="module-wrap">
+                            <a href="{{ path('roster_special', {'group': 'members', 'special': special.code}) }}">
+                                <img class="img-fluid"
+                                     src="{{ image(image_header_path(special.imageHeader)).zoomCrop(1400,280).jpeg }}"/>
+                                <div class="module-description-layer">
+                                    <p class="module-description">{{ special.name | upper }}</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="container container-main pt-3 pb-3">
+        <div class="row mb-1">
+            <div class="col-lg-12">
+                <img src="{{ cdn_url }}/img/f16c_incirlik-resized.jpg" class="img-fluid">
+            </div>
+        </div>
+    </div>
+{% endblock pageContent %}
+
