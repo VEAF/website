@@ -17,10 +17,17 @@ class UserService
     /** @var Notification[]|array by user id */
     private $cacheNotifications = [];
 
-    public function __construct(EntityManagerInterface $entityManager, EventManager $eventManager)
+    /**
+     * Website (veaf / 51eg)
+     * @var string
+     */
+    private string $website;
+
+    public function __construct(EntityManagerInterface $entityManager, EventManager $eventManager, string $website)
     {
         $this->entityManager = $entityManager;
         $this->eventManager = $eventManager;
+        $this->website = $website;
     }
 
     /**
@@ -33,16 +40,18 @@ class UserService
         if (!isset($this->cacheNotifications[$user->getId()])) {
             $notifications = [];
 
-            if (!$user->getSimDcs() && !$user->getSimBms()) {
-                $notifications[] = Notification::noSim('Je dois renseigner au moins un simulateur');
-            }
+            if ('veaf' === $this->website) {
+                if (!$user->getSimDcs() && !$user->getSimBms()) {
+                    $notifications[] = Notification::noSim('Je dois renseigner au moins un simulateur');
+                }
 
-            if (!$user->getForum()) {
-                $notifications[] = new Notification(Notification::TYPE_NO_SIM, 'Je n\'ai pas encore renseigné mon pseudo du forum');
-            }
+                if (!$user->getForum()) {
+                    $notifications[] = new Notification(Notification::TYPE_NO_SIM, 'Je n\'ai pas encore renseigné mon pseudo du forum');
+                }
 
-            if (!$user->getDiscord()) {
-                $notifications[] = new Notification(Notification::TYPE_NO_SIM, 'Je n\'ai pas encore renseigné mon pseudo discord');
+                if (!$user->getDiscord()) {
+                    $notifications[] = new Notification(Notification::TYPE_NO_SIM, 'Je n\'ai pas encore renseigné mon pseudo discord');
+                }
             }
 
             // unkown user

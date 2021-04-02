@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+        <meta charset="utf-8">
+        <title>{% block title %}{{ website_name }} - {{ website_name_short }}{% endblock title %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css"
+              integrity="sha512-P5MgMn1jBN01asBgU0z60Qk4QxiXo86+wlFahKrsQf37c9cro517WzVSPPV1tDKzhku2iJ2FVgL67wG03SGnNA=="
+              crossorigin="anonymous"/>
+        {% block favicon %}<link rel="icon" type="image/ico" href="/img/favicon.ico"/>{% endblock favicon %}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+              integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+              crossorigin="anonymous"/>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+                integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+                crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.6.0/umd/popper.min.js"
+                integrity="sha512-BmM0/BQlqh02wuK5Gz9yrbe7VyIVwOzD1o40yi1IsTjriX/NGF37NyXHfmFzIlMmoSIBXgqDiG1VNU6kB5dBbA=="
+                crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"
+                integrity="sha512-efUTj3HdSPwWJ9gjfGR71X9cvsrthIA78/Fvd/IN+fttQVy7XWkOAXb295j8B3cmm/kFKVxjiNYzKw9IQJHIuQ=="
+                crossorigin="anonymous"></script>
+        {% if libKilikTable is defined and libKilikTable == true %}
+        <script src="/bundles/kiliktable/js/KilikTable.js"></script>
+        {% endif %}
+        {% if libHighcharts is defined and libHighcharts == true %}
+        <script src="//code.highcharts.com/4.1.8/highcharts.js"></script>
+        <script src="//code.highcharts.com/4.1.8/modules/heatmap.js"></script>
+        <script src="//code.highcharts.com/4.1.8/modules/exporting.js"></script>
+        {% endif %}
+        {% if libSelect2 is defined and libSelect2 == true or true %}{# simple work around, provide select2 lib on all pages #}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"
+                integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A=="
+                crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"
+          integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw=="
+          crossorigin="anonymous"/>
+        <script src="{{ asset('bundles/tetranzselect2entity/js/select2entity.js') }}"></script>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@x.x.x/dist/select2-bootstrap4.min.css"/>
+        {% endif %}
+        <script src="/js/app.js?version={{ app_version }}{% if app.environment == "dev" %}&t={{ "now"|date("YmdHis") }}{% endif %}"></script>
+
+        {% if libDatatable is defined and libDatatable == true %}
+        <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css"/>
+        {% endif %}
+    {% endblock head %}
+</head>
+<body{% block bodyAttributes %}{% endblock bodyAttributes %}>
+{% block body %}
+    {% block header %}
+    {% endblock header %}
+
+    <div id="main">
+        {% block pageContent %}
+        {% endblock pageContent %}
+        <div class="modal" id="remoteModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" id="remoteModalContent">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% block footer %}
+    {% endblock footer %} {% block javascript %}
+<script>
+{% for message in app.flashes('success') %}
+    $.notify("{{ message|escape('js') }}", "success");
+{% endfor %}
+{% for message in app.flashes('warning') %}
+    $.notify("{{ message|escape('js') }}", "warn");
+{% endfor %}
+{% for message in app.flashes('error') %}
+    $.notify("{{ message|escape('js') }}", "error");
+{% endfor %}
+$(document).ready(function () {
+    {% if libKilikTable is defined and libKilikTable == true %}
+    var loadKiliktables = function () {
+        var $kilikTables = $("[data-kiliktable-id]");
+        if ($kilikTables && $kilikTables.length > 0) {
+            $kilikTables.each(function (index, currentTable) {
+                var $currentTable = $(currentTable);
+                var id = $currentTable.data("kiliktable-id");
+                if (id.length > 0) {
+                        console.log(id);
+                    var path = $currentTable.data("kiliktable-path");
+                    var options = $currentTable.html();
+                    new KilikTableFA(id, path, JSON.parse(options)).init();
+                }
+            });
+        }
+    }
+    loadKiliktables();
+    {% endif %}
+    {# common remote modal #}
+    $('a.remote-modal').click(function(event) {
+        event.preventDefault();
+        var $this = $(this);
+        var href=$this.attr('href');
+        console.log(href);
+        $.ajax({
+          url: href,
+          success: function(response) {
+             $('#remoteModalContent').html(response);
+             $('#remoteModal').modal('show');
+          }
+        });
+    });
+
+});
+</script>
+{% endblock %} {% endblock body %}
+</body>
+</html>

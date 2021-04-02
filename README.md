@@ -35,6 +35,47 @@ cd website
 ./scripts/upgrade.sh
 ```
 
+## Configurer le projet
+
+### Recaptcha Google
+
+```shell
+RECAPTCHA3_KEY=abcdefghijk
+RECAPTCHA3_SECRET=6Ld9V1EaAAAAANvbtLUPODEB5aHT-8jb6BJ-vlvsabcdefghijk
+RECAPTCHA3_ENABLED=1
+```
+
+### Google Agent (analytics)
+
+```shell
+GOOGLE_AGENT=UA-abcdefghijk-1
+```
+
+### Slmod Api Endpoint
+
+```shell
+API_SLMOD_URL=http://hostname:8080
+```
+
+### Teamspeak Api (WIP)
+
+```shell
+API_TEAMSPEAK_URL=serverquery://ts.veaf.org:10011/
+```
+
+### Website mode
+
+```shell
+# veaf ou 51eg
+WEBSITE=veaf
+```
+
+### Cdn - static assets
+
+```shell
+#CDN_URL=https://cdn.localhost/website
+```
+
 ## Git flow
 
 ```shell

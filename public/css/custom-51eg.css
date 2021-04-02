@@ -1,13 +1,19 @@
 body {
     padding-top: 100px;
-    background-color: white;
-    background-image: url(https://cdn.veaf.org/website/dev/img/background-01-blur.jpg);
+    background-color: #3a3f44;
+    background-image: url(https://cdn.51eg.kilik.fr/website/img/metal-bg.jpg);
     background-attachment: fixed;
     background-repeat: no-repeat;
+    background-size: 100% 100%;
 }
 
 body, html {
     height: 100%;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
 }
 
 pre {
@@ -303,8 +309,12 @@ iframe {
     font-size: 10px
 }
 
+.container {
+    max-width: 1400px;
+}
+
 .container-main {
-    background-color: white;
+    background-color: #3a3f44;
     box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
 }
 
@@ -316,7 +326,7 @@ iframe {
 
 .logo-navbar {
     float: left;
-    max-height: 50px;
+    max-height: 32px;
     width: auto;
     margin-top: 0px;
     margin-bottom: 0px;

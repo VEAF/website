@@ -49,3 +49,19 @@ services:
     App\Service\SlmodImportService:
         arguments:
             $apiClient: '@eight_points_guzzle.client.slmod'
+
+    App\Service\UserService:
+        arguments:
+            $website: '%website%'
+
+    App\Controller\RegistrationController:
+        arguments:
+            $website: '%website%'
+
+    App\Form\CalendarEventType:
+        arguments:
+            $website: '%website%'
+
+    App\Form\CalendarEventAdminType:
+      arguments:
+        $website: '%website%'

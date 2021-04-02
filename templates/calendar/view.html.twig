@@ -62,10 +62,10 @@
                     <div class="">
                         {% if event.image is not null %}
                             <img class="img-fluid"
-                                 src="{{ image(image_header_path(event.image)).zoomCrop(1110,222).jpeg }}"/>
+                                 src="{{ image(image_header_path(event.image)).zoomCrop(1400,280).jpeg }}"/>
                         {% elseif event.map is not null %}
                             <img class="img-fluid"
-                                 src="{{ image(image_header_path(event.map.imageHeader)).zoomCrop(1110,222).jpeg }}"/>
+                                 src="{{ image(image_header_path(event.map.imageHeader)).zoomCrop(1400,280).jpeg }}"/>
                             <div class="module-roster-description-layer">
                                 <p class="">{{ event.map.longName }}</p>
                             </div>
@@ -195,7 +195,7 @@
         <h2>
             Participants
             <span class="badge badge-pill badge-success">{{ event.votesByVote(true) | length }}</span>
-            <span class="badge badge-pill badge-primary">{{ event.votesByVote(null) | length }}</span>
+            <span class="badge badge-pill badge-secondary">{{ event.votesByVote(null) | length }}</span>
             <span class="badge badge-pill badge-danger">{{ event.votesByVote(false) | length }}</span>
         </h2>
         <div class="row">
@@ -205,7 +205,7 @@
                     <a href="{{ path('user_view', {'user': vote.user.nickname}) }}">{{ vote.user.nickname }}</a>
                 {% endfor %}
                 <br/>
-                <span class="text-primary">Peut-être</span> :
+                <span class="text-secondary">Peut-être</span> :
                 {% for vote in event.votesByVote(null) %}
                     <a href="{{ path('user_view', {'user': vote.user.nickname}) }}">{{ vote.user.nickname }}</a>
                 {% endfor %}
