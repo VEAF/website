@@ -2,6 +2,7 @@
 
 namespace App\Service\Calendar;
 
+use App\Entity\Calendar\Choice;
 use App\Entity\Calendar\Event;
 use App\Entity\Calendar\Notification;
 use App\Entity\User;
@@ -35,7 +36,7 @@ class EventService
             $notified = (null === $user || $eventRow['notifications'] > 0);
             /* @var Event $event */
             $events[] = [
-                'title' => ($notified ? '' : '* ').$event->getTitle(),
+                'title' => ($notified ? '' : '* ') . $event->getTitle(),
                 'start' => $event->getStartDate()->format('Y-m-d\TH:i:s'),
                 'end' => $event->getEndDate()->format('Y-m-d\TH:i:s'),
                 'url' => $this->router->generate('calendar_view', ['event' => $event->getId()]),
@@ -62,5 +63,10 @@ class EventService
         }
 
         return $notification;
+    }
+
+    public function findUserChoices(Event $event, User $user): array
+    {
+        return $this->entityManager->getRepository(Choice::class)->findBy(['event' => $event, 'user' => $user], ['priority' => 'ASC']);
     }
 }

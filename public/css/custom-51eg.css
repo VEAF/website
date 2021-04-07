@@ -404,6 +404,10 @@ iframe {
     font-weight: bold;
 }
 
+.card-choice {
+    height: 13em;
+}
+
 .member-icon-guest {
     color: #495057;
 }

@@ -102,12 +102,12 @@ $(document).ready(function () {
         event.preventDefault();
         var $this = $(this);
         var href=$this.attr('href');
-        console.log(href);
         $.ajax({
           url: href,
           success: function(response) {
              $('#remoteModalContent').html(response);
              $('#remoteModal').modal('show');
+             $('.remote-select2auto').select2();
           }
         });
     });

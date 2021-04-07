@@ -1,0 +1,25 @@
+{{ form_start(form, {'action': app.request.requestUri}) }}
+<div class="modal-header">
+    <h5 class="modal-title">Définir mon choix n°{{ choice.priority }}</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">×</span>
+    </button>
+</div>
+<div class="modal-body">
+    {{ form_rest(form) }}
+</div>
+<div class="modal-footer">
+    {% if app.request.xmlHttpRequest %}
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            <i class="fa fa-arrow-circle-left"></i> Annuler
+        </button>
+    {% else %}
+        <a class="btn btn-secondary" href="{{ path('calendar_view', {'event': choice.event.id}) }}">
+            <i class="fa fa-arrow-circle-left"></i> Annuler
+        </a>
+    {% endif %}
+    <button type="submit" class="btn btn-primary">
+        <i class="fa fa-save"></i> Enregistrer
+    </button>
+</div>
+{{ form_end(form) }}
