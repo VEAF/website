@@ -1,3 +1,4 @@
+{% set libSelect2=true %}
 {% extends 'layout.html.twig' %}
 
 {% block title %}{{ parent() }}: Calendrier{% endblock %}
@@ -38,7 +39,8 @@
             {% endif %}
         </h1>
         <div>
-            Le {{ ('days.by-number.' ~ (event.startDate | date('N'))) | trans({}, 'datetime')}} {{ event.startDate | date('d/m/Y') }} de {{ event.startDate | date('H:i') }}
+            Le {{ ('days.by-number.' ~ (event.startDate | date('N'))) | trans({}, 'datetime') }} {{ event.startDate | date('d/m/Y') }}
+            de {{ event.startDate | date('H:i') }}
             à {{ event.endDate | date('H:i') }}
             {% if "now"|date("U") < event.startDate|date("U") %}
                 <span class="badge badge-pill badge-success">{{ event.startDate | time_diff }}</span>
@@ -189,6 +191,56 @@
                 {% endif %}
             {% endif %}
         </div>
+
+        {% if is_granted('VOTE', event) and userVote is not null and userVote.vote is not same as false %}
+            <div class="row justify-content-center">
+                {% for choiceNumber in 1..3 %}
+                    {% if attribute(choices, choiceNumber) is defined %}
+                        {% set userChoice=attribute(choices, choiceNumber) %}
+                    {% else %}
+                        {% set userChoice=null %}
+                    {% endif %}
+                    <div class="col-lg-4 pt-3">
+                        <div class="card text-white bg-dark card-choice">
+                            <div class="card-header">
+                                Choix {{ choiceNumber }}
+                                <div class="float-right">
+                                    {% if userChoice is null %}
+                                        <a href="{{ path('calendar_choice_add', {'event': event.id, 'priority': choiceNumber }) }}"
+                                           class="remote-modal">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                    {% else %}
+                                        <a href="{{ path('calendar_choice_edit', {'event': event.id, 'choice': userChoice.id}) }}"
+                                           class="remote-modal">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                {% if userChoice is null %}
+                                    <i class="fa fa-hourglass-start fa-4x"></i>
+                                {% else %}
+                                    {% if userChoice.module.type == constant('\\App\\Entity\\Module::TYPE_AIRCRAFT') %}
+                                        <i class="fa fa-plane fa-4x"></i>
+                                    {% elseif userChoice.module.type == constant('\\App\\Entity\\Module::TYPE_HELICOPTER') %}
+                                        <i class="fa fa-helicopter fa-4x"></i>
+                                    {% else %}
+                                        <i class="fa fa-user fa-4x"></i>
+                                    {% endif %}
+                                    <div class="float-right card-stats-text text-right">
+                                        {{ userChoice.module.name }}
+                                        <br/>
+                                        <small>{{ userChoice.taskAsString }}</small>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
     </div>
 
     <div class="container container-main mb-3 pt-3 pb-3">
@@ -199,7 +251,7 @@
             <span class="badge badge-pill badge-danger">{{ event.votesByVote(false) | length }}</span>
         </h2>
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 mb-3">
                 <span class="text-success">Oui</span> :
                 {% for vote in event.votesByVote(true) %}
                     <a href="{{ path('user_view', {'user': vote.user.nickname}) }}">{{ vote.user.nickname }}</a>
@@ -217,5 +269,87 @@
                 <br/>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                <a href="#" id="showChoices">voir plus ...</a><br/>
+                <table class="table table-hover mt-3" style="display: none" id="playersChoices">
+                    <thead>
+                    <tr>
+                        <td rowspan="2" class="align-text-top">Joueurs</td>
+                        <td colspan="2">Choix 1</td>
+                        <td colspan="2">Choix 2</td>
+                        <td colspan="2">Choix 3</td>
+                    </tr>
+                    <tr>
+                        {% for choiceNumber in 0..2 %}
+                            <td>Module</td>
+                            <td>Tâche</td>
+                        {% endfor %}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for vote in event.votes | sort((a,b) => a.user.nickname <=> b.user.nickname) %}
+                        {% if vote.vote is null or vote.vote %}
+                            <tr>
+                                <td>
+                                    {% if vote.user.member %}
+                                        <i class="fa fa-user text-success" title="Membre"></i>
+                                    {% elseif vote.user.cadet %}
+                                        <i class="fa fa-user-graduate cadet" title="Cadet"></i>
+                                    {% else %}
+                                        <i class="fa fa-user fa text-default" title="Invité"></i>
+                                    {% endif %}
+                                    {{ vote.user.nickname }}
+                                    {% if vote.vote is null or vote.vote %}
+                                        <i class="fa fa-exclamation-circle"
+                                           title="peut-être absent"></i>
+                                    {% endif %}
+                                </td>
+                                {% for choiceNumber in 0..2 %}
+                                    {% if attribute(usersChoices, vote.user.id) is defined %}
+                                        {% set userChoices=attribute(usersChoices, vote.user.id) %}
+                                        {% if attribute(userChoices, choiceNumber) is defined %}
+                                            {% set userChoice=attribute(userChoices, choiceNumber) %}
+                                            <td>
+                                                {{ userChoice.module.name }}
+                                            </td>
+                                            <td>
+                                                {{ userChoice.taskAsString }}
+                                                {% if userChoice.comment is not null %}
+                                                    <i class="fa fa-question-circle"
+                                                       title="{{ userChoice.comment | escape }}"></i>
+                                                {% endif %}
+                                            </td>
+                                        {% else %}
+                                            <td colspan="2">
+                                                &nbsp;
+                                            </td>
+                                        {% endif %}
+                                    {% else %}
+                                        <td colspan="2">
+                                            &nbsp;
+                                        </td>
+                                    {% endif %}
+                                {% endfor %}
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
     </div>
 {% endblock pageContent %}
+
+{% block javascript %}
+{{ parent() }}
+<script type="application/javascript">
+$(document).ready(function () {
+   $('#showChoices').click(function(e) {
+       e.preventDefault();
+       $('#playersChoices').toggle();
+   });
+});
+</script>
+{% endblock javascript %}

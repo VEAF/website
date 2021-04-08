@@ -12,11 +12,12 @@ class EventVoter extends Voter
     const ADD = 'EVENT_ADD';
     const EDIT = 'EDIT';
     const VOTE = 'VOTE';
+    const CHOICE = 'CHOICE';
 
     protected function supports($attribute, $subject)
     {
         return in_array($attribute, [self::ADD]) ||
-            in_array($attribute, [self::EDIT, self::VOTE]) && $subject instanceof Event;
+            in_array($attribute, [self::EDIT, self::VOTE, self::CHOICE]) && $subject instanceof Event;
     }
 
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
@@ -52,6 +53,7 @@ class EventVoter extends Voter
                 // else, edit is not granted
                 return false;
             case self::VOTE:
+            case self::CHOICE:
                 // if event is finished
                 if ($event->getEndDate()->getTimestamp() < time()) {
                     return false;

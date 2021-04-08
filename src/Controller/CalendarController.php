@@ -2,10 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Calendar\Choice;
 use App\Entity\Calendar\Event;
 use App\Entity\Calendar\Vote;
 use App\Entity\UserModule;
+use App\Form\CalendarChoiceType;
 use App\Form\CalendarEventType;
+use App\Manager\Calendar\ChoiceManager;
 use App\Manager\Calendar\EventManager;
 use App\Manager\Calendar\VoteManager;
 use App\Service\Calendar\EventService;
@@ -117,7 +120,6 @@ class CalendarController extends AbstractController
 
     /**
      * @Route("/{event}", name="calendar_view")
-     * @ParamConverter("month", options={"format": "!Y-m"})
      */
     public function view(Event $event, EventService $eventService): Response
     {
@@ -126,14 +128,70 @@ class CalendarController extends AbstractController
         }
 
         $vote = $this->getDoctrine()->getRepository(Vote::class)->findOneBy(['event' => $event, 'user' => $this->getUser()]);
+        $choices = [];
+
         if (null !== $this->getUser()) {
             $eventService->markEventReadByUser($event, $this->getUser());
+            foreach ($eventService->findUserChoices($event, $this->getUser()) as $choice) {
+                $choices[$choice->getPriority()] = $choice;
+            }
+        }
+
+        $usersChoices = [];
+        foreach ($this->getDoctrine()->getRepository(Choice::class)->findBy(['event' => $event], ['priority' => 'ASC']) as $choice) {
+            $usersChoices[$choice->getUser()->getId()][] = $choice;
         }
 
         return $this->render('calendar/view.html.twig', [
             'event' => $event,
             'userVote' => $vote,
             'modules' => null !== $this->getUser() ? $this->getDoctrine()->getRepository(UserModule::class)->findBy(['user' => $this->getUser()]) : [],
+            'choices' => $choices,
+            'usersChoices' => $usersChoices,
         ]);
     }
+
+    /**
+     * @Route("/{event}/choice/edit/{choice}", name="calendar_choice_edit")
+     * @Route("/{event}/choice/add/{priority}", name="calendar_choice_add")
+     * @Security("is_granted('CHOICE', event)")
+     */
+    public function choice(Request $request, ChoiceManager $choiceManager, Event $event, Choice $choice = null, int $priority = null): Response
+    {
+        if (null === $choice) {
+            $choice = new Choice();
+            $choice->setPriority($priority);
+            $choice->setEvent($event);
+            $choice->setUser($this->getUser());
+            $choice->setCreatedAt(new \DateTime('now'));
+        } else {
+            if ($choice->getEvent()->getId() != $event->getId()) {
+                throw new \InvalidArgumentException('event and choices mismatches');
+            }
+        }
+
+        $form = $this->createForm(CalendarChoiceType::class, $choice);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            if (null === $choice->getModule()) {
+                $this->getDoctrine()->getManager()->remove($choice);
+                $this->getDoctrine()->getManager()->flush();
+                $this->addFlash('warning', 'Le choix a été supprimé');
+            } else {
+                $choiceManager->save($choice, true);
+                $this->addFlash('success', 'Le choix a été enregistré');
+            }
+
+            return $this->redirectToRoute('calendar_view', ['event' => $event->getId()]);
+        }
+
+        return $this->render($request->isXmlHttpRequest() ? 'calendar/_choice.html.twig' : 'calendar/choice.html.twig',
+            [
+                'form' => $form->createView(),
+                'choice' => $choice,
+            ]);
+    }
+
 }

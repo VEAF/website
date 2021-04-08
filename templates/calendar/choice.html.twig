@@ -1,0 +1,15 @@
+{% set libSelect2=true %}
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ parent() }} - Ajouter un choix{% endblock %}
+
+{% block pageContent %}
+    <div class="container container-main pt-3 pb-3 mb-3">
+        <h1>
+            Ajouter un choix {{ choice.priority}} à l'événement {{ choice.event.description }}
+        </h1>
+    </div>
+    <div class="container container-main pt-3 pb-3 mb-3">
+        {% include "calendar/_choice.html.twig" %}
+    </div>
+{% endblock %}
