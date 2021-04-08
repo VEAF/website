@@ -54,7 +54,12 @@ class UserType extends AbstractType
             ->add('status', ChoiceType::class, [
                 'choices' => array_flip(User::STATUSES),
                 'label' => 'Statut',
-            ]);
+            ])
+            ->add('needPresentation', CheckboxType::class,
+                [
+                    'required' => false,
+                    'label' => 'Besoin d\'une présentation',
+                ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

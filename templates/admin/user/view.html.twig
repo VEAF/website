@@ -105,6 +105,18 @@
                             </tr>
                             <tr>
                                 <td>
+                                    Besoin d'une présentation:
+                                </td>
+                                <td>
+                                    {% if user.needPresentation %}
+                                        <i class="fa fa-exclamation-circle text-warning"></i>
+                                    {% else %}
+                                        <i class="fa fa-times-circle text-light"></i>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
                                     Créé:
                                 </td>
                                 <td>
