@@ -33,8 +33,7 @@ class RegistrationController extends AbstractController
         EntityManagerInterface $entityManager,
         SessionInterface $session,
         UserManager $userManager
-    )
-    {
+    ) {
         $user = new User();
         $form = $this->createForm(RegistrationType::class, $user);
         $form->handleRequest($request);

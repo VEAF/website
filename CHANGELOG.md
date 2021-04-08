@@ -1,3 +1,11 @@
+### 1.7.0
+* ADD choix du module lors de la participation à un événément
+* ADD multisite - theme 51EG + messages adaptés
+* ADD admin - afficher le lien de reset de mot de passe
+* ADD sécurité - le lien de reset du mot de passe expire au bout de 24h
+* FIX mission-maker bouton recherche lance l'export après un premier export
+* FIX admin - gestion du drapeau présentation dans la fiche utilisateur
+
 ### 1.6.1
 * ADD profil - gestion de mon pseudo forum et discord
 * ADD calendrier - affichage nom du jour et temps relatif de l'événement
