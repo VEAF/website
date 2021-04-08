@@ -18,8 +18,7 @@ class UserService
     private $cacheNotifications = [];
 
     /**
-     * Website (veaf / 51eg)
-     * @var string
+     * Website (veaf / 51eg).
      */
     private string $website;
 

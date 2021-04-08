@@ -3,7 +3,6 @@
 namespace App\Manager\Calendar;
 
 use App\Entity\Calendar\Choice;
-use App\Entity\Calendar\Vote;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 

@@ -36,8 +36,7 @@ class ResetPasswordController extends AbstractController
         EntityManagerInterface $entityManager,
         \Swift_Mailer $mailer,
         UserManager $userManager
-    )
-    {
+    ) {
         $form = $this->createForm(PasswordRequestType::class);
         $form->handleRequest($request);
 
@@ -101,8 +100,7 @@ class ResetPasswordController extends AbstractController
         TokenStorageInterface $tokenStorage,
         SessionInterface $session,
         UserManager $userManager
-    )
-    {
+    ) {
         $now = new \DateTime('now');
         $user = $entityManager->getRepository(User::class)->findOneBy(['passwordRequestToken' => $token]);
         $expired = false;

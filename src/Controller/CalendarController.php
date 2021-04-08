@@ -174,7 +174,6 @@ class CalendarController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             if (null === $choice->getModule()) {
                 $this->getDoctrine()->getManager()->remove($choice);
                 $this->getDoctrine()->getManager()->flush();
@@ -193,5 +192,4 @@ class CalendarController extends AbstractController
                 'choice' => $choice,
             ]);
     }
-
 }

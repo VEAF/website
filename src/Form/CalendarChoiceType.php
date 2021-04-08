@@ -25,7 +25,7 @@ class CalendarChoiceType extends AbstractType
                     'required' => false,
                     'placeholder' => '-- Aucun --',
                     'attr' => [
-                        'class' => 'select2auto remote-select2auto'
+                        'class' => 'select2auto remote-select2auto',
                     ],
                     'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('m')
