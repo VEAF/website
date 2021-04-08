@@ -2,6 +2,7 @@
 
 namespace App\Service\Calendar;
 
+use App\Entity\Calendar\Choice;
 use App\Entity\Calendar\Event;
 use App\Entity\Calendar\Notification;
 use App\Entity\User;
@@ -62,5 +63,10 @@ class EventService
         }
 
         return $notification;
+    }
+
+    public function findUserChoices(Event $event, User $user): array
+    {
+        return $this->entityManager->getRepository(Choice::class)->findBy(['event' => $event, 'user' => $user], ['priority' => 'ASC']);
     }
 }

@@ -14,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * @Route("/admin/user")
@@ -184,6 +185,7 @@ class UserController extends AbstractController
     {
         return $this->render('admin/user/view.html.twig', [
             'user' => $user,
+            'passwordResetUrl' => null === $user->getPasswordRequestToken() ? null : $this->generateUrl('reset_password_confirm', ['token' => $user->getPasswordRequestToken()], UrlGeneratorInterface::ABSOLUTE_URL),
         ]);
     }
 

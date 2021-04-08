@@ -394,6 +394,10 @@ iframe {
     font-weight: bold;
 }
 
+.card-choice {
+    height: 13em;
+}
+
 .member-icon-guest {
     color: #495057;
 }
@@ -415,4 +419,12 @@ iframe {
         margin-bottom: 2em;
         text-align: center
     }
+}
+
+i.cadet {
+    color: #2fa4e7;
+}
+
+#footer{
+    margin-bottom : 0;
 }

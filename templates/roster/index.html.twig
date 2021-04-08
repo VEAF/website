@@ -75,7 +75,7 @@
                 <div class="col-sm-12 pt-3">
                     <div class="alert alert-warning">
                         <span class="badge badge-pill badge-light">{{ cadetsNeedPresentation }}</span>
-                         <i class="fa fa-user-graduate text-primary" title="Cadet"></i>
+                         <i class="fa fa-user-graduate cadet" title="Cadet"></i>
                         cadet(s) n'ont pas encore eu la <i class="fa fa-volume-up text-warning"></i> présentation de l'association
                     </div>
                 </div>
@@ -89,7 +89,7 @@
                 <div class="col-sm-12 pt-3 pb-3">
                     <div class="">
                         <img class="img-fluid"
-                             src="{{ image(image_header_path(selectedMap.imageHeader)).zoomCrop(1110,222).jpeg }}"/>
+                             src="{{ image(image_header_path(selectedMap.imageHeader)).zoomCrop(1400,280).jpeg }}"/>
                         <div class="module-roster-description-layer">
                             <p class="">{{ selectedMap.longName }}</p>
                         </div>
@@ -105,7 +105,7 @@
                 <div class="col-sm-12 pt-3 pb-3">
                     <div class="">
                         <img class="img-fluid"
-                             src="{{ image(image_header_path(selectedAircraft.imageHeader)).zoomCrop(1110,222).jpeg }}"/>
+                             src="{{ image(image_header_path(selectedAircraft.imageHeader)).zoomCrop(1400,280).jpeg }}"/>
                         <div class="module-roster-description-layer">
                             <p class="">{{ selectedAircraft.longName }}</p>
                         </div>
@@ -121,7 +121,7 @@
                 <div class="col-sm-12 pt-3 pb-3">
                     <div class="">
                         <img class="img-fluid"
-                             src="{{ image(image_header_path(selectedHelicopter.imageHeader)).zoomCrop(1110,222).jpeg }}"/>
+                             src="{{ image(image_header_path(selectedHelicopter.imageHeader)).zoomCrop(1400,280).jpeg }}"/>
                         <div class="module-roster-description-layer">
                             <p class="">{{ selectedHelicopter.longName }}</p>
                         </div>
@@ -137,7 +137,7 @@
                 <div class="col-sm-12 pt-3 pb-3">
                     <div class="">
                         <img class="img-fluid"
-                             src="{{ image(image_header_path(selectedSpecial.imageHeader)).zoomCrop(1110,222).jpeg }}"/>
+                             src="{{ image(image_header_path(selectedSpecial.imageHeader)).zoomCrop(1400,280).jpeg }}"/>
                         <div class="module-roster-description-layer">
                             <p class="">{{ selectedSpecial.longName }}</p>
                         </div>
@@ -160,7 +160,7 @@
                                             {% if pilot.member %}
                                                 <i class="fa fa-user fa-2x text-success" title="Membre"></i>
                                             {% elseif pilot.cadet %}
-                                                <i class="fa fa-user-graduate fa-2x text-primary" title="Cadet"></i>
+                                                <i class="fa fa-user-graduate fa-2x cadet" title="Cadet"></i>
                                             {% else %}
                                                 <i class="fa fa-user fa-2x text-default" title="Invité"></i>
                                             {% endif %}
@@ -199,7 +199,7 @@
                                             {% if pilot_module.user.member %}
                                                 <i class="fa fa-user fa-2x text-success" title="Membre"></i>
                                             {% elseif pilot_module.user.cadet %}
-                                                <i class="fa fa-user-graduate fa-2x text-primary" title="Cadet"></i>
+                                                <i class="fa fa-user-graduate fa-2x cadet" title="Cadet"></i>
                                             {% else %}
                                                 <i class="fa fa-user fa-2x text-default" title="Invité"></i>
                                             {% endif %}
@@ -235,7 +235,7 @@
                                         </a>
                                         {% if attribute(mapsCount, map.id) is defined %}
                                             <div class="float-right">
-                                                <span class="badge badge-primary badge-pill"
+                                                <span class="badge badge-secondary badge-pill"
                                                       title="Nombre de pilotes">{{ attribute(mapsCount, map.id) }}</span>
                                             </div>
                                         {% endif %}
@@ -264,7 +264,7 @@
                                         </a>
                                         {% if attribute(aircraftsCount, aircraft.id) is defined %}
                                             <div class="float-right">
-                                                <span class="badge badge-primary badge-pill"
+                                                <span class="badge badge-secondary badge-pill"
                                                       title="Nombre de pilotes">{{ attribute(aircraftsCount, aircraft.id) }}</span>
                                             </div>
                                         {% endif %}
@@ -293,7 +293,7 @@
                                         </a>
                                         {% if attribute(helicoptersCount, helicopter.id) is defined %}
                                             <div class="float-right">
-                                                <span class="badge badge-primary badge-pill"
+                                                <span class="badge badge-secondary badge-pill"
                                                       title="Nombre de pilotes">{{ attribute(helicoptersCount, helicopter.id) }}</span>
                                             </div>
                                         {% endif %}
@@ -322,7 +322,7 @@
                                         </a>
                                         {% if attribute(specialsCount, special.id) is defined %}
                                             <div class="float-right">
-                                                <span class="badge badge-primary badge-pill"
+                                                <span class="badge badge-secondary badge-pill"
                                                       title="Nombre de pilotes">{{ attribute(specialsCount, special.id) }}</span>
                                             </div>
                                         {% endif %}

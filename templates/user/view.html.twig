@@ -8,7 +8,7 @@
             {% if user.member %}
                 <i class="fa fa-user text-success" title="Membre"></i>
             {% elseif user.cadet %}
-                <i class="fa fa-user-graduate text-primary" title="Cadet"></i>
+                <i class="fa fa-user-graduate cadet" title="Cadet"></i>
             {% else %}
                 <i class="fa fa-user member-icon-guest" title="Invité"></i>
             {% endif %}
@@ -42,19 +42,21 @@
             {% endif %}
             Simulateur DCS <br/>
 
-            {% if user.perunPlayer is null %}
-                <i class="far fa-square text-error"></i>
-            {% else %}
-                <i class="fa fa-check-square text-success"></i>
-            {% endif %}
-            Lien Perun <br/>
+            {% if website == "veaf" %}
+                {% if user.perunPlayer is null %}
+                    <i class="far fa-square text-error"></i>
+                {% else %}
+                    <i class="fa fa-check-square text-success"></i>
+                {% endif %}
+                Lien Perun <br/>
 
-            {% if user.player is null %}
-                <i class="far fa-square text-error"></i>
-            {% else %}
-                <i class="fa fa-check-square text-success"></i>
+                {% if user.player is null %}
+                    <i class="far fa-square text-error"></i>
+                {% else %}
+                    <i class="fa fa-check-square text-success"></i>
+                {% endif %}
+                Lien Slmod <br/>
             {% endif %}
-            Lien Slmod <br/>
 
             {% if user.needPresentation %}
                 {% if is_granted('PRESENTATION', user) %}
@@ -77,7 +79,8 @@
             {% endif %}
             {{ user.cadetFlights }} / {{ constant('\\App\\Entity\\User::CADET_MIN_FLIGHTS') }}
             <a href="{{ path('recruitment_activities', {'user': user.id }) }}" class="remote-modal">activité(s)</a>
-            <a href="{{ path('recruitment_add_activity', {'user': user.id}) }}" class="remote-modal"> -  ajouter une activité ...</a>
+            <a href="{{ path('recruitment_add_activity', {'user': user.id}) }}" class="remote-modal"> - ajouter une
+                activité ...</a>
             <br/>
         </div>
     {% endif %}

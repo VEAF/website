@@ -4,9 +4,10 @@ twig:
     strict_variables: '%kernel.debug%'
     exception_controller: null
     globals:
-        cdn_veaf: '%cdn_veaf%'
+        cdn_url: '%cdn_url%'
         google_agent: '%google_agent%'
         app_version: '%app_version%'
+        website: '%website%'
     form_themes:
       - 'bootstrap_4_layout.html.twig'
       - '@TetranzSelect2Entity/Form/fields.html.twig'

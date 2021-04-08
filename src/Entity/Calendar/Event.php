@@ -146,11 +146,17 @@ class Event
      */
     private $notifications;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Choice::class, mappedBy="event", orphanRemoval=true)
+     */
+    private $choices;
+
     public function __construct()
     {
         $this->modules = new ArrayCollection();
         $this->votes = new ArrayCollection();
         $this->notifications = new ArrayCollection();
+        $this->choices = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -455,6 +461,36 @@ class Event
             // set the owning side to null (unless already changed)
             if ($notification->getEvent() === $this) {
                 $notification->setEvent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Choice[]
+     */
+    public function getChoices(): Collection
+    {
+        return $this->choices;
+    }
+
+    public function addChoice(Choice $choice): self
+    {
+        if (!$this->choices->contains($choice)) {
+            $this->choices[] = $choice;
+            $choice->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChoice(Choice $choice): self
+    {
+        if ($this->choices->removeElement($choice)) {
+            // set the owning side to null (unless already changed)
+            if ($choice->getEvent() === $this) {
+                $choice->setEvent(null);
             }
         }
 

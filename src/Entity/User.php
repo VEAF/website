@@ -218,6 +218,11 @@ class User implements UserInterface
      */
     private ?string $forum = null;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private ?\DateTime $passwordRequestExpiredAt = null;
+
     public function __construct()
     {
         $this->modules = new ArrayCollection();
@@ -677,6 +682,18 @@ class User implements UserInterface
     public function setForum(?string $forum): self
     {
         $this->forum = $forum;
+
+        return $this;
+    }
+
+    public function getPasswordRequestExpiredAt(): ?\DateTime
+    {
+        return $this->passwordRequestExpiredAt;
+    }
+
+    public function setPasswordRequestExpiredAt(?\DateTime $passwordRequestExpiredAt): self
+    {
+        $this->passwordRequestExpiredAt = $passwordRequestExpiredAt;
 
         return $this;
     }

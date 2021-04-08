@@ -47,13 +47,14 @@ class ResetPasswordController extends AbstractController
             if ($user instanceof User) {
                 $token = bin2hex(random_bytes(32));
                 $user->setPasswordRequestToken($token);
+                $user->setPasswordRequestExpiredAt(new \DateTime('+1 day'));
                 $userManager->save($user, true, true);
                 // send your email with SwiftMailer or anything else here
                 $this->addFlash('success', 'Si l\'adresse email est correcte, vous allez recevoir un email');
 
                 $passwordResetUrl = $this->generateUrl('reset_password_confirm', ['token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
 
-                $message = (new \Swift_Message('VEAF Site Web - reset de mon mot de passe'))
+                $message = (new \Swift_Message(sprintf('%s Site Web - reset de mon mot de passe', strtoupper($this->getParameter('website')))))
                     ->setFrom($this->mailFrom)
                     ->setTo($user->getEmail())
                     // html version
@@ -100,10 +101,16 @@ class ResetPasswordController extends AbstractController
         SessionInterface $session,
         UserManager $userManager
     ) {
+        $now = new \DateTime('now');
         $user = $entityManager->getRepository(User::class)->findOneBy(['passwordRequestToken' => $token]);
+        $expired = false;
 
-        if (!$token || !$user instanceof User) {
-            $this->addFlash('danger', 'Lien invalide, jeton incorrect ou trop vieux.');
+        if (null !== $user && null !== $user->getPasswordRequestExpiredAt() && $now->getTimestamp() > $user->getPasswordRequestExpiredAt()->getTimestamp()) {
+            $expired = true;
+        }
+
+        if (!$token || !$user instanceof User || $expired) {
+            $this->addFlash('error', 'Lien invalide, jeton incorrect ou trop vieux.');
 
             return $this->redirectToRoute('reset_password');
         }

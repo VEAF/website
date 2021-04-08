@@ -14,41 +14,44 @@
             </div>
         </h1>
     </div>
-    <div class="container container-main pt-3 pb-3 mb-3">
-        <h1>
-            Mes simulateurs
-            <div class="float-right">
-                <a href="{{ path('profile_edit') }}" class="btn btn-link"
-                   title="Modifier mon profil">
-                    {% if app.user | count_profile_notifications(constant('\\App\\Component\\Profile\\Notification::TYPE_NO_SIM')) %}
-                        <span class="badge badge-danger badge-pill"
-                              title="Actions à réaliser">{{ app.user | count_profile_notifications(constant('\\App\\Component\\Profile\\Notification::TYPE_NO_SIM')) }}</span>
-                    {% endif %}
-                    <i class="fa fa-edit fa-2x"></i>
-                </a>
+    {% if website == "veaf" %}
+        <div class="container container-main pt-3 pb-3 mb-3">
+            <h1>
+                Mes simulateurs
+                <div class="float-right">
+                    <a href="{{ path('profile_edit') }}" class="btn btn-link"
+                       title="Modifier mon profil">
+                        {% if app.user | count_profile_notifications(constant('\\App\\Component\\Profile\\Notification::TYPE_NO_SIM')) %}
+                            <span class="badge badge-danger badge-pill"
+                                  title="Actions à réaliser">{{ app.user | count_profile_notifications(constant('\\App\\Component\\Profile\\Notification::TYPE_NO_SIM')) }}</span>
+                        {% endif %}
+                        <i class="fa fa-edit fa-2x"></i>
+                    </a>
+                </div>
+            </h1>
+            <p>
+                {% set titleTrue="J'ai ce simulateur" %}
+                {% set titleFalse="Je n'ai pas ce simulateur" %}
+                {% include "_common/_boolean_icon.html.twig" with {'value': app.user.simDcs} %} Digital Combat Simulator
+                (DCS World)<br/>
+                {% include "_common/_boolean_icon.html.twig" with {'value': app.user.simBms} %} Falcon 4 - BMS<br/>
+                {% if app.user | has_profile_notification(constant('\\App\\Component\\Profile\\Notification::TYPE_NO_SIM')) %}
+            <div class="alert alert-danger">
+                <i class="fa fa-exclamation-triangle"></i> Je n'ai pas terminé de compléter cette section de mon profil.
+                Je m'en occupe en <a href="{{ path('profile_edit') }}">cliquant ici</a>
             </div>
-        </h1>
-        <p>
-            {% set titleTrue="J'ai ce simulateur" %}
-            {% set titleFalse="Je n'ai pas ce simulateur" %}
-            {% include "_common/_boolean_icon.html.twig" with {'value': app.user.simDcs} %} Digital Combat Simulator
-            (DCS World)<br/>
-            {% include "_common/_boolean_icon.html.twig" with {'value': app.user.simBms} %} Falcon 4 - BMS<br/>
-            {% if app.user | has_profile_notification(constant('\\App\\Component\\Profile\\Notification::TYPE_NO_SIM')) %}
-        <div class="alert alert-danger">
-            <i class="fa fa-exclamation-triangle"></i> Je n'ai pas terminé de compléter cette section de mon profil.
-            Je m'en occupe en <a href="{{ path('profile_edit') }}">cliquant ici</a>
+            {% endif %}
+            </p>
         </div>
-        {% endif %}
-        </p>
-    </div>
+    {% endif %}
+
     <div class="container container-main pt-3 pb-3 mb-3">
-        <h1>Mon parcours à la VEAF</h1>
+        <h1>Mon parcours à la {{ website | upper }}</h1>
         Je suis
         {% if app.user.member %}
             <i class="fa fa-user text-success" title="Membre"></i>
         {% elseif app.user.cadet %}
-            <i class="fa fa-user-graduate text-primary" title="Cadet"></i>
+            <i class="fa fa-user-graduate cadet" title="Cadet"></i>
         {% else %}
             <i class="fa fa-user text-default" title="Invité"></i>
         {% endif %} {{ app.user.statusAsString }}
@@ -57,20 +60,22 @@
             {# unknown status, need to make a choice #}
             {% if app.user.status == constant('\\App\\Entity\\User::STATUS_UNKNOWN') %}
                 <div class="alert alert-danger">
-                    <i class="fa fa-exclamation-triangle"></i> Je n'ai pas encore complété cette section de mon profil.
+                    <i class="fa fa-exclamation-triangle"></i> Je n'ai pas encore complété cette section de mon
+                    profil.
                 </div>
 
                 <div class="row equal">
                     <div class="col-md-6 d-flex">
                         <div class="card border-secondary mb-3">
-                            <div class="card-header"><i class="fa fa-user-graduate text-primary"></i> Cadet</div>
+                            <div class="card-header"><i class="fa fa-user-graduate cadet"></i> Cadet</div>
                             <div class="card-body">
-                                <h4 class="card-title">Intégrer la VEAF</h4>
+                                <h4 class="card-title">Intégrer la {{ website | upper }}</h4>
                                 <p class="card-text">
                                     Je souhaite suivre le programme d'intégration des
-                                    <i class="fa fa-user-graduate text-primary"></i> cadets, en
+                                    <i class="fa fa-user-graduate cadet"></i> cadets, en
                                     effectuant {{ minCadetsFlights }} activités
-                                    pour rencontrer les membres et décider ensemble afin de rejoindre l'association VEAF
+                                    pour rencontrer les membres et décider ensemble afin de rejoindre l'association
+                                    {{ website | upper }}
                                     à la fin de ma période d'essai.
                                 </p>
                                 <a href="{{ path('recruitment_change_for_cadet') }}"
@@ -83,11 +88,15 @@
                             <div class="card-header"><i class="fa fa-user-cog"></i> Invité</div>
                             <div class="card-body">
                                 <h4 class="card-title">On reste en contact</h4>
-                                <p class="card-text">Je n'ai pas envie de m'inscrire au programme Cadet de la VEAF et je
-                                    n'envisage pas devenir membre pour l'instant, mais je reste invité sur les serveurs
+                                <p class="card-text">Je n'ai pas envie de m'inscrire au programme Cadet de
+                                    la {{ website | upper }}
+                                    et je
+                                    n'envisage pas devenir membre pour l'instant, mais je reste invité sur les
+                                    serveurs
                                     DCS et Teamspeak.</p>
                                 <a href="{{ path('recruitment_change_for_guest') }}"
-                                   class="btn btn-primary btn-lg btn-block remote-modal">Je me signale comme invité</a>
+                                   class="btn btn-primary btn-lg btn-block remote-modal">Je me signale comme
+                                    invité</a>
                             </div>
                         </div>
                     </div>
@@ -106,20 +115,25 @@
             {% endif %}
             Simulateur DCS <br/>
 
-            {% if app.user.perunPlayer is null or app.user.player is null %}
-                <i class="far fa-square text-error"></i>
-                Lien DCS - je dois prévenir un administrateur (après m'être connecté au moins une fois sur le serveur DCS public)
-            {% else %}
-                <i class="fa fa-check-square text-success"></i>
-                Lien DCS
+            {% if website == "veaf" %}
+                {% if app.user.perunPlayer is null or app.user.player is null %}
+                    <i class="far fa-square text-error"></i>
+                    Lien DCS - je dois prévenir un administrateur (après m'être connecté au moins une fois sur le serveur DCS public)
+                {% else %}
+                    <i class="fa fa-check-square text-success"></i>
+                    Lien DCS
+                {% endif %}
+                <br/>
             {% endif %}
-            <br/>
 
             {% if app.user.needPresentation %}
                 <i class="far fa-square text-error"></i>
-                Présentation de l'association - je dois rencontrer un membre qui me présentera l'association, voir <a
-                    href="https://community.veaf.org/topic/584/guide-du-cadet"
-                    target="_blank">ici</a> pour les contacts privilégiés.
+                Présentation de l'association
+                {% if website == "veaf" %} - je dois rencontrer un membre qui me présentera l'association, voir
+                    <a href="https://community.veaf.org/topic/584/guide-du-cadet" target="_blank">
+                        ici
+                    </a> pour les contacts privilégiés.
+                {% endif %}
             {% else %}
                 <i class="fa fa-check-square text-success"></i>
                 Présentation de l'association
@@ -136,8 +150,8 @@
             {% endif %}
             <br/>
         {% endif %}
-
     </div>
+
     <div class="container container-main pt-3 pb-3 mb-3">
         <h1>Mes modules</h1>
 

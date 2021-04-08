@@ -16,6 +16,13 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class RegistrationController extends AbstractController
 {
+    private string $website;
+
+    public function __construct(string $website)
+    {
+        $this->website = $website;
+    }
+
     /**
      * @Route("/register", name="register", methods={"GET", "POST"})
      */
@@ -35,6 +42,10 @@ class RegistrationController extends AbstractController
             $password = $encoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
             $user->setRoles(['ROLE_USER']); // default ROLE
+
+            if ('51eg' === $this->website) {
+                $user->setSimDcs(true);
+            }
 
             $userManager->save($user, true, true);
             $this->addFlash('success', 'Votre compte a été créé');
