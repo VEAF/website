@@ -20,6 +20,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -151,14 +152,15 @@ class CalendarController extends AbstractController
         ]);
     }
 
+
     /**
-     * @Route("/{event}/choice/edit/{choice}", name="calendar_choice_edit")
      * @Route("/{event}/choice/add/{priority}", name="calendar_choice_add")
+     * @Route("/{event}/choice/edit/{choice}", name="calendar_choice_edit")
      * @Security("is_granted('CHOICE', event)")
      */
     public function choice(Request $request, ChoiceManager $choiceManager, Event $event, Choice $choice = null, int $priority = null): Response
     {
-        if (null === $choice) {
+        if('calendar_choice_add' === $request->get('_route')) {
             $choice = new Choice();
             $choice->setPriority($priority);
             $choice->setEvent($event);
@@ -167,6 +169,9 @@ class CalendarController extends AbstractController
         } else {
             if ($choice->getEvent()->getId() != $event->getId()) {
                 throw new \InvalidArgumentException('event and choices mismatches');
+            }
+            if ($choice->getUser()->getId() != $this->getUser()->getId()) {
+                throw new UnauthorizedHttpException('private ressource');
             }
         }
 
