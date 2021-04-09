@@ -300,7 +300,7 @@
                                         <i class="fa fa-user fa text-default" title="Invité"></i>
                                     {% endif %}
                                     {{ vote.user.nickname }}
-                                    {% if vote.vote is null or vote.vote %}
+                                    {% if vote.vote is null or vote.vote == false %}
                                         <i class="fa fa-exclamation-circle"
                                            title="peut-être absent"></i>
                                     {% endif %}

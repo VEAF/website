@@ -1,3 +1,7 @@
+### 1.7.1
+* FIX calendrier - peut-être absent toujours affiché
+* FIX calendrier - choix du module pour l'événement - anomalie dans l'enregistrement
+
 ### 1.7.0
 * ADD choix du module lors de la participation à un événément
 * ADD multisite - theme 51EG + messages adaptés
