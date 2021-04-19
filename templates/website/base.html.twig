@@ -48,6 +48,10 @@
         <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css"/>
         {% endif %}
+        {% if libMarkdown is defined and libMarkdown == true %}
+        <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css">
+        <script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
+        {% endif %}
     {% endblock head %}
 </head>
 <body{% block bodyAttributes %}{% endblock bodyAttributes %}>

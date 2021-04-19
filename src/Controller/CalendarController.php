@@ -152,7 +152,6 @@ class CalendarController extends AbstractController
         ]);
     }
 
-
     /**
      * @Route("/{event}/choice/add/{priority}", name="calendar_choice_add")
      * @Route("/{event}/choice/edit/{choice}", name="calendar_choice_edit")
@@ -160,7 +159,7 @@ class CalendarController extends AbstractController
      */
     public function choice(Request $request, ChoiceManager $choiceManager, Event $event, Choice $choice = null, int $priority = null): Response
     {
-        if('calendar_choice_add' === $request->get('_route')) {
+        if ('calendar_choice_add' === $request->get('_route')) {
             $choice = new Choice();
             $choice->setPriority($priority);
             $choice->setEvent($event);
