@@ -11,6 +11,7 @@ use App\Form\CalendarEventType;
 use App\Manager\Calendar\ChoiceManager;
 use App\Manager\Calendar\EventManager;
 use App\Manager\Calendar\VoteManager;
+use App\Repository\Calendar\EventRepository;
 use App\Service\Calendar\EventService;
 use App\Service\FileUploaderService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -32,7 +33,7 @@ class CalendarController extends AbstractController
      * @Route("/browse/{month}", name="calendar")
      * @ParamConverter("month", options={"format": "!Y-m"})
      */
-    public function index(EventService $eventService, \DateTime $month = null): Response
+    public function index(EventService $eventService, \DateTime $month = null, EventRepository $eventRepository): Response
     {
         $now = new \DateTime('now');
         if (null === $month) {
@@ -43,6 +44,7 @@ class CalendarController extends AbstractController
             'now' => new \DateTime('now'),
             'month' => $month,
             'events' => $eventService->findAsArray($this->getUser()),
+            'myEvents' => $eventRepository->findNextEventsByUser($this->getUser()),
         ]);
     }
 
@@ -152,7 +154,6 @@ class CalendarController extends AbstractController
         ]);
     }
 
-
     /**
      * @Route("/{event}/choice/add/{priority}", name="calendar_choice_add")
      * @Route("/{event}/choice/edit/{choice}", name="calendar_choice_edit")
@@ -160,7 +161,7 @@ class CalendarController extends AbstractController
      */
     public function choice(Request $request, ChoiceManager $choiceManager, Event $event, Choice $choice = null, int $priority = null): Response
     {
-        if('calendar_choice_add' === $request->get('_route')) {
+        if ('calendar_choice_add' === $request->get('_route')) {
             $choice = new Choice();
             $choice->setPriority($priority);
             $choice->setEvent($event);

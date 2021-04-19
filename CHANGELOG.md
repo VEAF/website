@@ -1,3 +1,8 @@
+### 1.7.2
+* ADD calendrier - editeur markdown avec support images drag&drop
+* ADD système de miniature dynamique pour les images (en markdown par exemple)
+* ADD calendrier - affichage de "mes prochains événements"
+
 ### 1.7.1
 * FIX calendrier - peut-être absent toujours affiché
 * FIX calendrier - choix du module pour l'événement - anomalie dans l'enregistrement

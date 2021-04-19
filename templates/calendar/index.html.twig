@@ -32,6 +32,32 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-9">
+                <div class="card border-secondary mb-3">
+                    <div class="card-header">Mes prochains événements</div>
+                    <div class="card-body">
+                        {% for myEvent in myEvents %}
+                            <i class="fa fa-circle" style="color: {{ myEvent.typeColor }}"></i>
+                            <span style="color: {{ myEvent.typeColor }}">{{ myEvent.typeAsString }}</span>
+                            Le {{ ('days.by-number.' ~ (myEvent.startDate | date('N'))) | trans({}, 'datetime') }} {{ myEvent.startDate | date('d/m/Y') }}
+                            de {{ myEvent.startDate | date('H:i') }}
+                            à {{ myEvent.endDate | date('H:i') }}
+                            {% if "now"|date("U") < myEvent.startDate|date("U") %}
+                                <span class="badge badge-pill badge-success">{{ myEvent.startDate | time_diff }}</span>
+                            {% elseif "now"|date("U") < myEvent.endDate|date("U") %}
+                                <span class="badge badge-pill badge-warning">en cours !</span>
+                            {% else %}
+                                <span class="badge badge-pill badge-danger">{{ myEvent.startDate | time_diff }}</span>
+                            {% endif %}
+
+                            <span><a href="{{ path('calendar_view', {'event': myEvent.id}) }}">{{ myEvent.title }}</a></span>
+                            <br/>
+                        {% else %}
+                            <i>Je n'ai prévu de participer à aucun événement pour l'instant.</i>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>

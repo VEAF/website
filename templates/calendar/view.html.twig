@@ -85,7 +85,7 @@
                 <div class="col-md-12">
                     <b>Description:</b><br/>
                     <p>
-                        {{ event.description | markdown }}
+                        {{ event.description | markdown | replace({'<img src=':'<img class="img-fluid" src='}) | raw }}
                     </p>
                     <hr/>
                 </div>
