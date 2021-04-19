@@ -11,6 +11,7 @@ use App\Form\CalendarEventType;
 use App\Manager\Calendar\ChoiceManager;
 use App\Manager\Calendar\EventManager;
 use App\Manager\Calendar\VoteManager;
+use App\Repository\Calendar\EventRepository;
 use App\Service\Calendar\EventService;
 use App\Service\FileUploaderService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -32,7 +33,7 @@ class CalendarController extends AbstractController
      * @Route("/browse/{month}", name="calendar")
      * @ParamConverter("month", options={"format": "!Y-m"})
      */
-    public function index(EventService $eventService, \DateTime $month = null): Response
+    public function index(EventService $eventService, \DateTime $month = null, EventRepository $eventRepository): Response
     {
         $now = new \DateTime('now');
         if (null === $month) {
@@ -43,6 +44,7 @@ class CalendarController extends AbstractController
             'now' => new \DateTime('now'),
             'month' => $month,
             'events' => $eventService->findAsArray($this->getUser()),
+            'myEvents' => $eventRepository->findNextEventsByUser($this->getUser()),
         ]);
     }
 
