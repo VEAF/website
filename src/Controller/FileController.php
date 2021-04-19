@@ -47,7 +47,7 @@ class FileController extends AbstractController
             $uploadedImage = $request->files->get('image');
             if ($uploadedImage) {
                 $image = $uploaderService->upload($uploadedImage, $this->getUser(), $objectName, $objectId);
-                $data = ['data' => ['filePath' => ltrim($this->generateUrl('file_thumb', ['file' => $image->getUuid(), 'width' => 1400]),'/')]];
+                $data = ['data' => ['filePath' => ltrim($this->generateUrl('file_thumb', ['file' => $image->getUuid(), 'width' => 1400]), '/')]];
 
                 return new Response(json_encode($data));
             }

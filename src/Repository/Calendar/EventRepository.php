@@ -87,15 +87,24 @@ class EventRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    /*
-    public function findOneBySomeField($value): ?CalendarEvent
+    public function findNextEventsByUser(?User $user, int $limit = 5)
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
+        if (null === $user) {
+            return [];
+        }
+
+        $now = new \DateTime('now');
+
+        return $this->createQueryBuilder('e')
+            ->innerJoin('e.votes', 'v')
+            ->andWhere('(v.vote IS NULL or v.vote = 1)')
+            ->andWhere('v.user = :user')
+            ->setParameter('user', $user)
+            ->andWhere('e.startDate >= :startDate')
+            ->setParameter('startDate', $now)
+            ->setMaxResults($limit)
+            ->addOrderBy('e.startDate', 'ASC')
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getResult();
     }
-    */
 }
