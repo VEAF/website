@@ -1,0 +1,3 @@
+services:
+  Gregwar\ImageBundle\Services\ImageHandling:
+    alias: image.handling

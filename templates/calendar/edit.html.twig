@@ -1,5 +1,6 @@
 {% extends 'layout.html.twig' %}
 {% set libSelect2=true %}
+{% set libMarkdown=true %}
 
 {% block title %}{{ parent() }}: Calendrier{% endblock %}
 
@@ -44,3 +45,17 @@
         </div>
     </div>
 {% endblock pageContent %}
+
+{% block javascript %}
+{{ parent() }}
+<script type="application/javascript">
+var easyMDE = new EasyMDE({
+element: $('.easyMde')[0],
+sideBySideFullscreen: false,
+fullscreen: false,
+uploadImage: true,
+imageMaxSize: 10000000,
+imageUploadEndpoint: "{{ path('file_upload') }}",
+});
+</script>
+{% endblock %}

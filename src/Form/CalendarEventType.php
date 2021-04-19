@@ -68,6 +68,9 @@ class CalendarEventType extends AbstractType
                 [
                     'required' => false,
                     'label' => 'Description',
+                    'attr' => [
+                        'class' => 'easyMde',
+                    ],
                 ]
             )
             ->add('restrictions', ChoiceType::class,
