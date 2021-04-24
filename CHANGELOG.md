@@ -1,3 +1,6 @@
+### 1.7.3
+* UPD perun - mise à jour compatiblité perun 0.12.0
+
 ### 1.7.2
 * ADD calendrier - editeur markdown avec support images drag&drop
 * ADD système de miniature dynamique pour les images (en markdown par exemple)
