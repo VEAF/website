@@ -1,4 +1,5 @@
 parameters:
+  # deprecated since perun 0.12.0 ?
   payloadPlayers: '{
                 "players": [
                   {
@@ -134,12 +135,13 @@ parameters:
 
 
 App\Perun\Entity\DataRaw:
-  perun_dataraw_public_players:
-    instance: "@perun_instance_public"
-    type: '<(App\Perun\Entity\DataRaw::TYPE_PLAYERS)>'
-    updated: "<dateTimeBetween('-20 minutes', '-15 minutes')>"
-    __calls:
-      - setPayload: [<{payloadPlayers}>]
+  # deprecated since perun 0.12.0 ?
+#  perun_dataraw_public_players:
+#    instance: "@perun_instance_public"
+#    type: '<(App\Perun\Entity\DataRaw::TYPE_PLAYERS)>'
+#    updated: "<dateTimeBetween('-20 minutes', '-15 minutes')>"
+#    __calls:
+#      - setPayload: [<{payloadPlayers}>]
 
   perun_dataraw_public_slots:
     instance: "@perun_instance_public"
