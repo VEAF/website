@@ -24,6 +24,11 @@ class OnlinePlayer
     private ?int $playerId;
 
     /**
+     * @ORM\Column(type="string", length=255, name="pe_OnlinePlayers_name")
+     */
+    private ?string $name;
+
+    /**
      * Simple DTO, unmapped.
      */
     private ?Player $player = null;
@@ -67,6 +72,18 @@ class OnlinePlayer
     public function setId(int $id): self
     {
         $this->id = $id;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): self
+    {
+        $this->name = $name;
 
         return $this;
     }
