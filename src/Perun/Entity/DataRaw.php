@@ -34,7 +34,7 @@ class DataRaw
     private ?Instance $instance;
 
     /**
-     * @ORM\Column(type="text", length=65536, name="pe_dataraw_payload", nullable=true)
+     * @ORM\Column(type="text", name="pe_dataraw_payload", nullable=true)
      */
     private ?string $payload;
 
