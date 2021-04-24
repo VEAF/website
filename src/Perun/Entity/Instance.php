@@ -22,12 +22,12 @@ class Instance
     private ?int $id;
 
     /**
-     * @ORM\Column(type="string", length=255, name="pe_OnlineStatus_theatre", nullable=true)
+     * @ORM\Column(type="string", length=255, name="pe_OnlineStatus_mission_theatre", nullable=true)
      */
     private ?string $theater;
 
     /**
-     * @ORM\Column(type="string", length=255, name="pe_OnlineStatus_name", nullable=true)
+     * @ORM\Column(type="string", length=255, name="pe_OnlineStatus_mission_name", nullable=true)
      */
     private ?string $mission;
 
@@ -38,27 +38,27 @@ class Instance
     private $perunOnlinePlayers;
 
     /**
-     * @ORM\Column(type="integer", name="pe_OnlineStatus_players", nullable=true)
+     * @ORM\Column(type="integer", name="pe_OnlineStatus_server_players", nullable=true)
      */
     private ?int $playersCount;
 
     /**
-     * @ORM\Column(type="string", length=255, name="pe_OnlineStatus_pause", nullable=true)
+     * @ORM\Column(type="string", length=255, name="pe_OnlineStatus_server_pause", nullable=true)
      */
     private ?string $pause;
 
     /**
-     * @ORM\Column(type="string", length=255, name="pe_OnlineStatus_multiplayer", nullable=true)
+     * @ORM\Column(type="string", length=255, name="pe_OnlineStatus_mission_multiplayer", nullable=true)
      */
     private ?string $multiplayer;
 
     /**
-     * @ORM\Column(type="string", length=255, name="pe_OnlineStatus_realtime", nullable=true)
+     * @ORM\Column(type="string", length=255, name="pe_OnlineStatus_server_realtime", nullable=true)
      */
     private ?string $realTime;
 
     /**
-     * @ORM\Column(type="string", length=255, name="pe_OnlineStatus_modeltime", nullable=true)
+     * @ORM\Column(type="string", length=255, name="pe_OnlineStatus_mission_modeltime", nullable=true)
      */
     private ?string $modelTime;
 
