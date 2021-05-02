@@ -13,7 +13,7 @@ class DataRaw
 {
     const TYPE_VERSIONS = 1;
     const TYPE_PLAYERS = 2;
-    const TYPE_SLOTS = 3;
+    const TYPE_SLOTS = 2;
 
     /**
      * @ORM\Id
