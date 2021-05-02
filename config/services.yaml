@@ -42,6 +42,14 @@ services:
         arguments:
             $dataDirectory: '%kernel.project_dir%/var/data/files'
 
+    App\Service\TeamSpeak3Client:
+        arguments:
+            $teamSpeakApiUrl: "%api_teamspeak_url%"
+
+    App\Service\TeamSpeak3ClientCache:
+        arguments:
+            $cacheAdapter: "@cache.teamspeak"
+
     App\Twig\ImageExtension:
         arguments:
             $projectDir: '%kernel.project_dir%'

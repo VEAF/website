@@ -55,6 +55,12 @@ services:
     depends_on:
       - mysql
 
+  redis:
+    image: ${REDIS_REGISTRY:-redis}:${REDIS_TAG:-6-buster}
+    hostname: redis
+    networks:
+      - php
+
 networks:
   php:
   mysql:
