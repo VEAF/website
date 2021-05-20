@@ -8,6 +8,7 @@ App\Perun\Entity\OnlinePlayer:
     side: 0
     slot: ""
     updated: "<dateTimeBetween('-1 minute', 'now')>"
+    name: "public admin"
   prerun_online_player_private_admin:
     playerId: 1
     player: "@perun_player_private_admin"
@@ -17,6 +18,7 @@ App\Perun\Entity\OnlinePlayer:
     side: 0
     slot: ""
     updated: '<(new DateTime("2021-02-01 12:00:00"))>'
+    name: "private admin"
 
   prerun_online_player_zip:
     playerId: 2
@@ -27,6 +29,7 @@ App\Perun\Entity\OnlinePlayer:
     side: 2 # blue
     slot: ""
     updated: "<dateTimeBetween('-1 minute', 'now')>"
+    name: "Zip"
   prerun_online_player_mitch:
     playerId: 3
     player: "@perun_player_mitch"
@@ -36,6 +39,7 @@ App\Perun\Entity\OnlinePlayer:
     side: 2 # blue
     slot: ""
     updated: "<dateTimeBetween('-1 minute', 'now')>"
+    name: "Mitch"
 
   prerun_online_player_griffin:
     playerId: 4
@@ -46,6 +50,7 @@ App\Perun\Entity\OnlinePlayer:
     side: 1 # red
     slot: ""
     updated: "<dateTimeBetween('-1 minute', 'now')>"
+    name: "Griffin"
 
   prerun_online_player_guest:
     playerId: 5
@@ -56,6 +61,7 @@ App\Perun\Entity\OnlinePlayer:
     side: 0 # spectator
     slot: ""
     updated: "<dateTimeBetween('-1 minute', 'now')>"
+    name: "guest"
 
   prerun_online_player_shark:
     playerId: 6
@@ -66,6 +72,7 @@ App\Perun\Entity\OnlinePlayer:
     side: 2 # blue
     slot: "1548"
     updated: "<dateTimeBetween('-1 minute', 'now')>"
+    name: "shark"
 
   prerun_online_player_polo:
     playerId: 7
@@ -76,3 +83,4 @@ App\Perun\Entity\OnlinePlayer:
     side: 2 # blue
     slot: "1548_2"
     updated: "<dateTimeBetween('-1 minute', 'now')>"
+    name: "polo"

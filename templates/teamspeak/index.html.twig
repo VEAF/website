@@ -1,0 +1,61 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ parent() }}: Calendrier{% endblock %}
+
+{% block head %}
+    {{ parent() }}
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.min.js"
+            integrity="sha256-rPPF6R+AH/Gilj2aC00ZAuB2EKmnEjXlEWx5MkAp7bw=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.min.css"
+          integrity="sha256-uq9PNlMzB+1h01Ij9cx7zeE2OR2pLAfRw3uUUOOPKdA=" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/locales-all.min.js"
+            integrity="sha256-/ZgxvDj3QtyBZNLbfJaHdwbHF8R6OW82+5MT5yBsH9g=" crossorigin="anonymous"></script>
+{% endblock head %}
+
+{% block pageContent %}
+    <div class="container container-main pt-3 pb-3 mb-3">
+        <div class="row row-flex">
+            <div class="col-md-12">
+                <h1>Clients connectés sur <i class="fab fa-teamspeak"></i> Team Speak</h1>
+
+                {% if clients | length == 0 %}
+                    <p class="alert alert-warning">
+                        Aucun client connecté sur le serveur pour l'instant.
+                    </p>
+                {% endif %}
+            </div>
+        </div>
+
+
+        <div class="row row-flex">
+            {% for channel in channels %}
+                {% if channel.clients | length > 0 %}
+                    <div class="col-md-3">
+                        <div class="card border-secondary mb-3">
+                            <div class="card-header">{{ channel.name }}</div>
+                            <div class="card-body">
+                                {% for client in channel.clients %}
+                                    {{ client.nickName }}<br/>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="container container-main pt-3 pb-3 mb-3">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Pour nous rejoindre sur Team Speak</h1>
+
+                <ul>
+                    <li> Télécharger le client Team Speak sur la page officielle: <a href="https://www.teamspeak.com/fr/downloads/">télécharger team speak</a> </li>
+                    <li> Une fois installé <a href="ts3server://{{ teamSpeakUrl.host }}" alt="teamspeak url">cliquer ici pour une connexion rapide</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+{% endblock pageContent %}

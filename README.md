@@ -60,7 +60,7 @@ API_SLMOD_URL=http://hostname:8080
 ### Teamspeak Api (WIP)
 
 ```shell
-API_TEAMSPEAK_URL=serverquery://ts.veaf.org:10011/
+API_TEAMSPEAK_URL=serverquery://ts.veaf.org:10011/?server_port=9987
 ```
 
 ### Website mode
@@ -78,43 +78,66 @@ WEBSITE=veaf
 
 ## Git flow
 
+voir [release](doc/release.md)
+
+## Tâches planifiées
+
+### Planification
+
+Exemple de planification, fichier /etc/cron.d/website:
+
+```
+*/20 * * * * debian /usr/local/bin/website-import-slmod-stats 2>&1 | ts >> /var/log/website/cron.log
+*    * * * * debian /usr/local/bin/website-minly 2>&1 | ts >> /var/log/website/cron.log
+```
+
+### Import des stats SLMOD
+
+Exemple import des stats SLMOD, fichier /usr/local/bin/website-import-slmod-stats:
+
 ```shell
-# read version, ex: 1.0.0
-read VERSION
-# read branch, ex: develop for standard release, master for hotfix
-read BRANCH
+#!/bin/env bash
 
-# update all branches
-git checkout develop && git pull
-git checkout master && git pull
+echo "Import Slmod Stats"
 
-# switch on source release branch 
-git checkout ${BRANCH}
+pushd /home/debian/docker/website > /dev/null
 
-# start the release
-git flow release start ${VERSION} ${BRANCH}
+/usr/local/bin/docker-compose exec -T -u www-data php ./bin/console app:slmod:import public 2>&1 | ts >> var/log/slmod-public.log
+/usr/local/bin/docker-compose exec -T -u www-data php ./bin/console app:slmod:import private 2>&1 | ts >> var/log/slmod-private.log
 
-# fix version
-sed -i "/  app_version:/c\  app_version: ${VERSION}" config/packages/parameters.yaml
+popd > /dev/null
+```
 
-# merge waiting CHANGELOGS
-./scripts/dev/changelog.sh ${VERSION}
+### Scan du serveur Team Speak
 
-# fix coding standard
-make fix
+```shell
+#!/bin/env bash
 
-# fix some remaining things
+echo "Scan Team Speak"
 
-# then
-git add .
-git commit -m ${VERSION}
-git flow release publish
-git flow release finish
+pushd /home/debian/docker/website > /dev/null
 
-git push --tags
-git push
+/usr/local/bin/docker-compose exec -T -u www-data php ./bin/console app:team-speak:scan 2>&1 | ts >> var/log/team-speak.log
 
-# be sure to push all branches
-git checkout develop && git push
-git checkout master && git push
+popd > /dev/null
+```
+
+### Rotation des logs
+
+Exemple de rotation des logs, fichier /etc/logrotate.d/website:
+
+```
+/var/log/website/*.log {
+  rotate 12
+  monthly
+  compress
+  missingok
+}
+
+/home/debian/docker/website/var/log/*.log {
+  rotate 12
+  monthly
+  compress
+  missingok
+}
 ```

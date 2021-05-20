@@ -106,6 +106,13 @@ App\Entity\Menu\Item:
     enabled: true
     position: 6
 
+  menuitem_teamspeak:
+    label: Teamspeak
+    icon: 'fab fa-teamspeak'
+    type: <(App\Entity\Menu\Item::TYPE_TEAMSPEAK)>
+    enabled: true
+    position: 7
+
   menuitem_disabled:
     label: 'Désactive'
     icon: 'fa fa-hotel'

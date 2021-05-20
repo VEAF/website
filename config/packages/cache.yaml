@@ -1,5 +1,8 @@
 framework:
     cache:
+#        directory: '%kernel.cache_dir%/pools' # Only used with cache.adapter.filesystem
+#        app: cache.adapter.filesystem
+
         # Unique name of your app: used to compute stable namespaces for cache keys.
         #prefix_seed: your_vendor_name/app_name
 
@@ -15,5 +18,9 @@ framework:
         #app: cache.adapter.apcu
 
         # Namespaced pools use the above "app" backend by default
-        #pools:
-            #my.dedicated.cache: null
+        pools:
+            cache.teamspeak:
+                adapter: cache.adapter.redis
+                public: true
+                default_lifetime: 1200
+                provider: snc_redis.default

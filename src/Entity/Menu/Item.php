@@ -29,6 +29,7 @@ class Item
     const TYPE_ROSTER = 8;
     const TYPE_CALENDAR = 9;
     const TYPE_MISSION_MAKER = 10;
+    const TYPE_TEAMSPEAK = 11;
 
     const TYPES = [
         self::TYPE_MENU => 'Menu',
@@ -41,6 +42,7 @@ class Item
         self::TYPE_ROSTER => 'Roster',
         self::TYPE_CALENDAR => 'Calendrier',
         self::TYPE_MISSION_MAKER => 'Mission Maker',
+        self::TYPE_TEAMSPEAK => 'Team Speak',
     ];
 
     /**
