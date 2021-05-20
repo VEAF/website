@@ -38,6 +38,11 @@ class TeamSpeak3ClientCache
         $this->logger = $logger;
     }
 
+    public function getTeamSpeakClient(): TeamSpeak3Client
+    {
+        return $this->ts3Client;
+    }
+
     private function cacheKey(string $key): string
     {
         return sprintf("%s.%s", static::CACHE_PREFIX, $key);

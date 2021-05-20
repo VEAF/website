@@ -17,6 +17,14 @@ class TeamSpeak3Client
         $this->teamSpeakApiUrl = $teamSpeakApiUrl;
     }
 
+    /**
+     * @see https://www.php.net/manual/fr/function.parse-url.php for array format
+     */
+    public function getUrl(): array
+    {
+        return parse_url($this->teamSpeakApiUrl);
+    }
+
     public function getClient(): ?\TeamSpeak3_Node_Server
     {
         // only create connection when needed

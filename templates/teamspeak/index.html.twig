@@ -16,7 +16,7 @@
     <div class="container container-main pt-3 pb-3 mb-3">
         <div class="row row-flex">
             <div class="col-md-12">
-                <h1>Clients connectés sur Teamspeak</h1>
+                <h1>Clients connectés sur <i class="fab fa-teamspeak"></i> Team Speak</h1>
 
                 {% if clients | length == 0 %}
                     <p class="alert alert-warning">
@@ -36,13 +36,25 @@
                             <div class="card-body">
                                 {% for client in channel.clients %}
                                     {{ client.nickName }}<br/>
-                                    {# {{ dump(client.client_nick_name) }} #}
                                 {% endfor %}
                             </div>
                         </div>
                     </div>
                 {% endif %}
             {% endfor %}
+        </div>
+    </div>
+
+    <div class="container container-main pt-3 pb-3 mb-3">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Pour nous rejoindre sur Team Speak</h1>
+
+                <ul>
+                    <li> Télécharger le client Team Speak sur la page officielle: <a href="https://www.teamspeak.com/fr/downloads/">télécharger team speak</a> </li>
+                    <li> Une fois installé <a href="ts3server://{{ teamSpeakUrl.host }}" alt="teamspeak url">cliquer ici pour une connexion rapide</a></li>
+                </ul>
+            </div>
         </div>
 
     </div>
