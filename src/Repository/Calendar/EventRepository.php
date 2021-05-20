@@ -107,4 +107,20 @@ class EventRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findUnreadEventsByUser(?User $user, ?int $limit = null)
+    {
+        if (null === $user) {
+            return [];
+        }
+
+        return $this->createQueryBuilder('e')
+            ->leftJoin('e.votes', 'v', 'WITH', 'v.event = e AND v.user= :user')
+            ->setParameter('user', $user)
+            ->having('count(v)=0')
+            ->groupBy('e')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
 }
