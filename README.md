@@ -35,6 +35,17 @@ cd website
 ./scripts/upgrade.sh
 ```
 
+## Technologies utilisées
+
+* Php: https://www.php.net/
+* Symfony: https://symfony.com/
+* MySQL: https://www.mysql.com/fr/
+* Redis: https://redis.io/
+* JQuery: https://jquery.com/
+* Full Calendar: https://fullcalendar.io/docs
+* Bootstrap: https://getbootstrap.com/
+* Docker: https://www.docker.com/
+
 ## Configurer le projet
 
 ### Recaptcha Google
