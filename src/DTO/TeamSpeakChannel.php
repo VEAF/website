@@ -95,5 +95,4 @@ class TeamSpeakChannel
     {
         return $this->clients;
     }
-
 }
