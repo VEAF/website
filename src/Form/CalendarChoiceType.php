@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Calendar\Choice;
+use App\Entity\Calendar\Event;
 use App\Entity\Module;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -17,6 +18,8 @@ class CalendarChoiceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $user = $options['user'];
+        /** @var Event $event */
+        $event = $options['event'];
         $builder
             ->add('module', EntityType::class,
                 [
@@ -27,11 +30,18 @@ class CalendarChoiceType extends AbstractType
                     'attr' => [
                         'class' => 'select2auto remote-select2auto',
                     ],
-                    'query_builder' => function (EntityRepository $er) {
-                        return $er->createQueryBuilder('m')
+                    'query_builder' => function (EntityRepository $er) use ($event) {
+                        $qb = $er->createQueryBuilder('m')
                             ->andWhere('m.type IN (:types)')
                             ->setParameter('types', [Module::TYPE_AIRCRAFT, Module::TYPE_HELICOPTER, Module::TYPE_SPECIAL])
                             ->orderBy('m.name', 'ASC');
+
+                        if (null !== $event && count($event->getModules()) > 0) {
+                            $qb->andWhere('m.id in (:modules)')
+                                ->setParameter('modules', $event->getModules());
+                        }
+
+                        return $qb;
                     },
                     'group_by' => function (Module $module, $key, $value) {
                         switch ($module->getType()) {
@@ -61,5 +71,7 @@ class CalendarChoiceType extends AbstractType
             'data_class' => Choice::class,
             'user' => Choice::class,
         ]);
+
+        $resolver->setRequired('event');
     }
 }

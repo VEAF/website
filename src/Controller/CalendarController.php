@@ -176,7 +176,7 @@ class CalendarController extends AbstractController
             }
         }
 
-        $form = $this->createForm(CalendarChoiceType::class, $choice);
+        $form = $this->createForm(CalendarChoiceType::class, $choice, ['event' => $event]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
