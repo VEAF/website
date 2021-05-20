@@ -5,8 +5,12 @@ namespace App\Controller;
 use App\Entity\Module;
 use App\Entity\User;
 use App\Entity\UserModule;
+use App\Repository\UserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Console\Helper\Table;
+use Symfony\Component\Console\Output\BufferedOutput;
+use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -182,5 +186,36 @@ class RosterController extends AbstractController
         }
 
         return $this->roster($data);
+    }
+
+    /**
+     * @Route("/zombies/{format}", name="roster_zombies", defaults={"format": "html"})
+     */
+    public function zombies(string $format = 'html', UserRepository $userRepository)
+    {
+        $zombies = $userRepository->findZombies();
+
+        $output = new BufferedOutput();
+
+        if ('txt' === $format) {
+            $table = new Table($output);
+            $table->setHeaders(['nickname', 'createdAt', 'needPresentation', 'lastEventDays']);
+            foreach ($zombies as $zombie) {
+                $lastEventDelay = null;
+                foreach ($zombie->getRecruitmentEvents() as $event) {
+                    $delay = time() - $event->getCreatedAt()->getTimestamp();
+                    if (null === $lastEventDelay || $delay < $lastEventDelay) {
+                        $lastEventDelay = $delay;
+                    }
+                }
+                $table->addRow([$zombie->getNickname(), $zombie->getCreatedAt()->format('d/m/Y'), $zombie->getNeedPresentation(), $lastEventDelay != null ? round($lastEventDelay / (24 * 3600)) : '']);
+            }
+            $table->render();
+            return new Response($output->fetch(), Response::HTTP_OK, ['content-type' => 'text/plain']);
+        } else {
+            // @todo add a web rendering ?
+            // return $this->render('roster/zombies.html.twig', ['zombies' => $zombies]);
+            throw new \Exception('WIP');
+        }
     }
 }
