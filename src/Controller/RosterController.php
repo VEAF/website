@@ -10,7 +10,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Output\BufferedOutput;
-use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -208,9 +207,10 @@ class RosterController extends AbstractController
                         $lastEventDelay = $delay;
                     }
                 }
-                $table->addRow([$zombie->getNickname(), $zombie->getCreatedAt()->format('d/m/Y'), $zombie->getNeedPresentation(), $lastEventDelay != null ? round($lastEventDelay / (24 * 3600)) : '']);
+                $table->addRow([$zombie->getNickname(), $zombie->getCreatedAt()->format('d/m/Y'), $zombie->getNeedPresentation(), null != $lastEventDelay ? round($lastEventDelay / (24 * 3600)) : '']);
             }
             $table->render();
+
             return new Response($output->fetch(), Response::HTTP_OK, ['content-type' => 'text/plain']);
         } else {
             // @todo add a web rendering ?

@@ -5,11 +5,7 @@ namespace App\Service;
 use App\DTO\TeamSpeakChannel;
 use App\DTO\TeamSpeakClient;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\Cache\Adapter\AbstractAdapter;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
-use Symfony\Component\Cache\CacheItem;
-use Symfony\Contracts\Cache\ItemInterface;
-use TeamSpeak3;
 
 class TeamSpeak3ClientCache
 {
@@ -28,7 +24,7 @@ class TeamSpeak3ClientCache
      */
     private $channels = null;
 
-    const CACHE_PREFIX = "teamspeak3";
+    const CACHE_PREFIX = 'teamspeak3';
     const CACHE_EXPIRES = 120; // in seconds
 
     public function __construct(TeamSpeak3Client $ts3Client, AdapterInterface $cacheAdapter, LoggerInterface $logger)
@@ -45,7 +41,7 @@ class TeamSpeak3ClientCache
 
     private function cacheKey(string $key): string
     {
-        return sprintf("%s.%s", static::CACHE_PREFIX, $key);
+        return sprintf('%s.%s', static::CACHE_PREFIX, $key);
     }
 
     /**
@@ -55,15 +51,17 @@ class TeamSpeak3ClientCache
     {
         try {
             $cacheClients = $this->cacheAdapter->getItem($this->cacheKey('clients'));
+
             return $cacheClients->get();
         } catch (\Exception $e) {
-            $this->logger->error('error reading teamspeak clients: ' . $e->getMessage());
+            $this->logger->error('error reading teamspeak clients: '.$e->getMessage());
+
             return null;
         }
     }
 
     /**
-     * Save team speak clients list (and count) in cache
+     * Save team speak clients list (and count) in cache.
      */
     public function putClients(): void
     {
@@ -73,7 +71,7 @@ class TeamSpeak3ClientCache
             $this->clients = $this->ts3Client->getClients();
         } catch (\Exception $e) {
             $this->clients = [];
-            $this->logger->error('error reading teamspeak clients: ' . $e->getMessage());
+            $this->logger->error('error reading teamspeak clients: '.$e->getMessage());
         }
         $cacheClients->set($this->clients);
         $cacheClients->expiresAfter(self::CACHE_EXPIRES);
@@ -92,15 +90,17 @@ class TeamSpeak3ClientCache
     {
         try {
             $cacheChannels = $this->cacheAdapter->getItem($this->cacheKey('channels'));
+
             return $cacheChannels->get();
         } catch (\Exception $e) {
-            $this->logger->error('error reading teamspeak channels: ' . $e->getMessage());
+            $this->logger->error('error reading teamspeak channels: '.$e->getMessage());
+
             return null;
         }
     }
 
     /**
-     * Save team speak channels list (and clients in channels) in cache
+     * Save team speak channels list (and clients in channels) in cache.
      */
     public function putChannels(): void
     {
@@ -109,7 +109,7 @@ class TeamSpeak3ClientCache
             // store in object as cache
             $this->channels = $this->ts3Client->getChannels();
         } catch (\Exception $e) {
-            $this->logger->error('error reading teamspeak clients: ' . $e->getMessage());
+            $this->logger->error('error reading teamspeak clients: '.$e->getMessage());
             $this->channels = [];
         }
         $cacheChannels->set($this->channels);
@@ -132,7 +132,7 @@ class TeamSpeak3ClientCache
 
     /**
      * @param TeamSpeakChannel[] $channels
-     * @param TeamSpeakClient[] $clients
+     * @param TeamSpeakClient[]  $clients
      */
     private function fillChannelClients(array $channels, array $clients)
     {

@@ -36,7 +36,7 @@ class EventService
             $notified = (null === $user || $eventRow['notifications'] > 0);
             /* @var Event $event */
             $events[] = [
-                'title' => ($notified ? '' : '* ') . $event->getTitle(),
+                'title' => ($notified ? '' : '* ').$event->getTitle(),
                 'start' => $event->getStartDate()->format('Y-m-d\TH:i:s'),
                 'end' => $event->getEndDate()->format('Y-m-d\TH:i:s'),
                 'url' => $this->router->generate('calendar_view', ['event' => $event->getId()]),
@@ -82,5 +82,4 @@ class EventService
 
         $this->entityManager->flush();
     }
-
 }

@@ -4,7 +4,6 @@ namespace App\Service;
 
 use App\DTO\TeamSpeakChannel;
 use App\DTO\TeamSpeakClient;
-use Symfony\Component\Cache\CacheItem;
 use TeamSpeak3;
 
 class TeamSpeak3Client
@@ -31,6 +30,7 @@ class TeamSpeak3Client
         if (null === $this->client) {
             $this->client = TeamSpeak3::factory($this->teamSpeakApiUrl);
         }
+
         return $this->client;
     }
 
@@ -49,7 +49,7 @@ class TeamSpeak3Client
         foreach ($this->getClient()->clientList() as $nodeClient) {
             $client = TeamSpeakClient::createFromNodeClient($nodeClient);
 
-            $unknowm = "Unknown";
+            $unknowm = 'Unknown';
             if (substr($client->getNickName(), 0, strlen($unknowm)) == $unknowm) {
                 continue;
             }
@@ -75,5 +75,4 @@ class TeamSpeak3Client
 
         return $channels;
     }
-
 }
