@@ -3,6 +3,7 @@
 namespace App\Manager\Calendar;
 
 use App\Entity\Calendar\Event;
+use App\Entity\User;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 

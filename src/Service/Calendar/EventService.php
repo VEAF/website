@@ -36,7 +36,7 @@ class EventService
             $notified = (null === $user || $eventRow['notifications'] > 0);
             /* @var Event $event */
             $events[] = [
-                'title' => ($notified ? '' : '* ').$event->getTitle(),
+                'title' => ($notified ? '' : '* ') . $event->getTitle(),
                 'start' => $event->getStartDate()->format('Y-m-d\TH:i:s'),
                 'end' => $event->getEndDate()->format('Y-m-d\TH:i:s'),
                 'url' => $this->router->generate('calendar_view', ['event' => $event->getId()]),
@@ -50,7 +50,7 @@ class EventService
     /**
      * Mark an event read for an user.
      */
-    public function markEventReadByUser(Event $event, User $user): Notification
+    public function markEventReadByUser(Event $event, User $user, bool $flush = true): Notification
     {
         $notification = $this->entityManager->getRepository(Notification::class)->findOneBy(['event' => $event, 'user' => $user]);
         if (null === $notification) {
@@ -59,7 +59,9 @@ class EventService
             $notification->setEvent($event);
             $notification->setReadAt(new \DateTime('now'));
             $this->entityManager->persist($notification);
-            $this->entityManager->flush($notification);
+            if ($flush) {
+                $this->entityManager->flush($notification);
+            }
         }
 
         return $notification;
@@ -69,4 +71,16 @@ class EventService
     {
         return $this->entityManager->getRepository(Choice::class)->findBy(['event' => $event, 'user' => $user], ['priority' => 'ASC']);
     }
+
+    public function markAllUnreadEventsAsRead(User $user)
+    {
+        $events = $this->entityManager->getRepository(Event::class)->findUnreadEventsByUser($user);
+
+        foreach ($events as $event) {
+            $this->markEventReadByUser($event, $user, false);
+        }
+
+        $this->entityManager->flush();
+    }
+
 }
