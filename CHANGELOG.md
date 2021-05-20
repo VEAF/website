@@ -1,3 +1,11 @@
+### 1.8.0
+* ADD teamspeak - affiche le nombre de clients connectés au serveur Teamspeak
+* ADD recrutement - export des (cadets) zombies
+* ADD calendrier - bouton pour marquer tous les événements comme lu
+* ADD calendrier - choix de l'appareil limité aux restrictions de l'événement
+* UPD gestion des sessions via REDIS
+* FIX CVE symfony
+
 ### 1.7.3
 * UPD perun - mise à jour compatiblité perun 0.12.0
 

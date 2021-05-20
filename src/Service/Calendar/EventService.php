@@ -50,7 +50,7 @@ class EventService
     /**
      * Mark an event read for an user.
      */
-    public function markEventReadByUser(Event $event, User $user): Notification
+    public function markEventReadByUser(Event $event, User $user, bool $flush = true): Notification
     {
         $notification = $this->entityManager->getRepository(Notification::class)->findOneBy(['event' => $event, 'user' => $user]);
         if (null === $notification) {
@@ -59,7 +59,9 @@ class EventService
             $notification->setEvent($event);
             $notification->setReadAt(new \DateTime('now'));
             $this->entityManager->persist($notification);
-            $this->entityManager->flush($notification);
+            if ($flush) {
+                $this->entityManager->flush($notification);
+            }
         }
 
         return $notification;
@@ -68,5 +70,16 @@ class EventService
     public function findUserChoices(Event $event, User $user): array
     {
         return $this->entityManager->getRepository(Choice::class)->findBy(['event' => $event, 'user' => $user], ['priority' => 'ASC']);
+    }
+
+    public function markAllUnreadEventsAsRead(User $user)
+    {
+        $events = $this->entityManager->getRepository(Event::class)->findUnreadEventsByUser($user);
+
+        foreach ($events as $event) {
+            $this->markEventReadByUser($event, $user, false);
+        }
+
+        $this->entityManager->flush();
     }
 }

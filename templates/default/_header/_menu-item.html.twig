@@ -66,6 +66,21 @@
                 <span class="d-lg-none d-xl-inline">{{ menuItem.label }}</span>
             {% endif %}
         </a>
+    {% elseif menuItem.type == constant('App\\Entity\\Menu\\Item::TYPE_TEAMSPEAK') %}
+        <a href="{{ path("teamspeak_index") }}" class="nav-link"
+           title="{% if teamSpeakClientsCount is not null %}{{ teamSpeakClientsCount }} clients(s) connecté(s){% else %}information non disponible{% endif %}">
+            {% if menuItem.icon is not null %}
+                <span class="{{ menuItem.icon }}"></span>
+            {% endif %}
+            {% if teamSpeakClientsCount is null %}
+                <span class="d-lg-none d-xl-inline">{{ menuItem.label }} <i class="fa fa-exclamation-triangle text-warning"></i></span>
+            {% elseif teamSpeakClientsCount > 0 %}
+                <span class="badge badge-pill badge-secondary">{{ teamSpeakClientsCount }}</span>
+                <span class="d-lg-none d-xl-inline"> clients(s)</span>
+            {% else %}
+                <span class="d-lg-none d-xl-inline">{{ menuItem.label }}</span>
+            {% endif %}
+        </a>
     {% else %}
         <a href="{{ menuItem | menu_item_href }}" class="nav-link" target="{{ menuItem | menu_item_target }}">
             {% if menuItem.icon is not null %}

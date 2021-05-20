@@ -17,6 +17,7 @@ use App\Service\FileUploaderService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -122,6 +123,26 @@ class CalendarController extends AbstractController
     }
 
     /**
+     * @Route("/mark-all-as-viewed", name="calendar_ack_all")
+     */
+    public function markAllAsViewed(Request $request, EventService $eventService): Response
+    {
+        $form = $this->createForm(FormType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $eventService->markAllUnreadEventsAsRead($this->getUser());
+            $this->addFlash('success', 'Tous les événements ont été marqués comme lu');
+
+            return $this->redirectToRoute('calendar');
+        }
+
+        return $this->render('calendar/_mark-all-as-viewed.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
      * @Route("/{event}", name="calendar_view")
      */
     public function view(Event $event, EventService $eventService): Response
@@ -176,7 +197,7 @@ class CalendarController extends AbstractController
             }
         }
 
-        $form = $this->createForm(CalendarChoiceType::class, $choice);
+        $form = $this->createForm(CalendarChoiceType::class, $choice, ['event' => $event]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

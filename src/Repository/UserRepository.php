@@ -17,6 +17,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
+    const ZOMBIE_DAYS = 31;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, User::class);
@@ -56,5 +58,33 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->orderBy('user.nickname', 'ASC')
             ->getQuery()
             ->getResult();
+    }
+
+    /**
+     * @return User[]
+     */
+    public function findZombies(): array
+    {
+        /** @var User[] $cadets */
+        $cadets = $this->createQueryBuilder('user')
+            ->select('user')
+            ->andWhere('user.status = :status')
+            ->setParameter('status', User::STATUS_CADET)
+            ->orderBy('user.nickname', 'ASC')
+            ->getQuery()
+            ->getResult();
+
+        $zombies = [];
+        foreach ($cadets as $cadet) {
+            foreach ($cadet->getRecruitmentEvents() as $event) {
+                if ((time() - $event->getCreatedAt()->getTimestamp()) < self::ZOMBIE_DAYS * 24 * 3600) {
+                    continue 2;
+                }
+            }
+            // no events in last days ? it's a zombie
+            $zombies[] = $cadet;
+        }
+
+        return $zombies;
     }
 }

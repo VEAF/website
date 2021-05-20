@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Perun\Repository\OnlinePlayerRepository;
 use App\Repository\Calendar\EventRepository;
 use App\Repository\Menu\ItemRepository;
+use App\Service\TeamSpeak3ClientCache;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -50,7 +51,7 @@ class DefaultController extends AbstractController
     /**
      * Top menu.
      */
-    public function _header(OnlinePlayerRepository $onlinePlayerRepository, EventRepository $eventRepository, ItemRepository $itemRepository): Response
+    public function _header(OnlinePlayerRepository $onlinePlayerRepository, EventRepository $eventRepository, ItemRepository $itemRepository, TeamSpeak3ClientCache $tsService): Response
     {
         $nextDays = 7;
         $data = [];
@@ -61,6 +62,7 @@ class DefaultController extends AbstractController
         $data['newEvents'] = (null === $this->getUser() ? 0 : $eventRepository->countNewEventsByUser($this->getUser()));
         $data['nextEvents'] = $eventRepository->countNextEvents($nextDays);
         $data['nextDays'] = $nextDays;
+        $data['teamSpeakClientsCount'] = $tsService->countClients();
 
         $response = $this->render('default/_header.html.twig', $data);
 

@@ -34,7 +34,15 @@
             </div>
             <div class="col-md-9">
                 <div class="card border-secondary mb-3">
-                    <div class="card-header">Mes prochains événements</div>
+                    <div class="card-header">Mes prochains événements
+                        {% if app.user is not null %}
+                            <span class="float-right">
+                        <a href="{{ path('calendar_ack_all') }}"
+                           class="btn btn-sm btn-warning remote-modal"><i class="fa fa-check-square"></i> Tout acquiter</a>
+
+                        </span>
+                        {% endif %}
+                    </div>
                     <div class="card-body">
                         {% for myEvent in myEvents %}
                             <i class="fa fa-circle" style="color: {{ myEvent.typeColor }}"></i>
