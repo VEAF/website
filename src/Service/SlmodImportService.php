@@ -76,7 +76,12 @@ class SlmodImportService
                 $this->parseKillStats($variant, $rowTime['kills']);
                 $this->parseActionsStats($variant, $rowTime['actions']);
                 foreach ($rowTime['weapons'] as $weaponCode => $rowWeapon) {
-                    $variant->addWeapon($this->parseWeaponStats($weaponCode, $rowWeapon));
+                    if (!is_array($rowWeapon)) {
+                        // @todo use logger
+                        echo sprintf('weaponCode %s is not an array (ucid %s)', $weaponCode, $ucid).PHP_EOL;
+                    } else {
+                        $variant->addWeapon($this->parseWeaponStats($weaponCode, $rowWeapon));
+                    }
                 }
 
                 $player->addVariant($variant);
