@@ -1,3 +1,6 @@
+### 1.8.1
+* FIX stats slmod - fix import données incorrectes
+
 ### 1.8.0
 * ADD teamspeak - affiche le nombre de clients connectés au serveur Teamspeak
 * ADD recrutement - export des (cadets) zombies
