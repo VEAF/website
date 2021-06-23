@@ -78,7 +78,7 @@ class SlmodImportService
                 foreach ($rowTime['weapons'] as $weaponCode => $rowWeapon) {
                     if (!is_array($rowWeapon)) {
                         // @todo use logger
-                        echo sprintf('weaponCode %s is not an array (ucid %s)', $weaponCode, $ucid) . PHP_EOL;
+                        echo sprintf('weaponCode %s is not an array (ucid %s)', $weaponCode, $ucid).PHP_EOL;
                     } else {
                         $variant->addWeapon($this->parseWeaponStats($weaponCode, $rowWeapon));
                     }
