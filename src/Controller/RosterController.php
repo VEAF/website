@@ -198,7 +198,7 @@ class RosterController extends AbstractController
 
         if ('txt' === $format) {
             $table = new Table($output);
-            $table->setHeaders(['nickname', 'createdAt', 'needPresentation', 'lastEventDays']);
+            $table->setHeaders(['nickname', 'createdAt', 'needPresentation', 'lastEventDays', 'lastOnlineSession', 'lastOnlineSessionDays']);
             foreach ($zombies as $zombie) {
                 $lastEventDelay = null;
                 foreach ($zombie->getRecruitmentEvents() as $event) {
@@ -207,7 +207,14 @@ class RosterController extends AbstractController
                         $lastEventDelay = $delay;
                     }
                 }
-                $table->addRow([$zombie->getNickname(), $zombie->getCreatedAt()->format('d/m/Y'), $zombie->getNeedPresentation(), null != $lastEventDelay ? round($lastEventDelay / (24 * 3600)) : '']);
+
+                $lastOnlineSession = null;
+                $lastOnlineSessionDelay = null;
+                if (null !== $zombie->getPerunPlayer()) {
+                    $lastOnlineSession = $zombie->getPerunPlayer()->getUpdated();
+                    $lastOnlineSessionDelay = round((time() - $zombie->getPerunPlayer()->getUpdated()->getTimestamp()) / (24 * 3600));
+                }
+                $table->addRow([$zombie->getNickname(), $zombie->getCreatedAt()->format('d/m/Y'), $zombie->getNeedPresentation(), null != $lastEventDelay ? round($lastEventDelay / (24 * 3600)) : '', $lastOnlineSession ? $lastOnlineSession->format('d/m/Y') : '-', $lastOnlineSessionDelay ? $lastOnlineSessionDelay : '-']);
             }
             $table->render();
 
