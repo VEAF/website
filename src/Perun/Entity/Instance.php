@@ -14,6 +14,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Instance
 {
+    const ALIVE_TIMEOUT = 180;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
@@ -271,5 +273,20 @@ class Instance
     public function __toString(): string
     {
         return $this->id;
+    }
+
+    public function lastUpdateSeconds(): int
+    {
+        if (null === $this->updated) {
+            return 86400; // assume last update is 1 day old
+        }
+
+        return time() - $this->updated->getTimestamp();
+    }
+
+    // server is alive if last update is less than
+    public function isAlive(): bool
+    {
+        return $this->lastUpdateSeconds() < static::ALIVE_TIMEOUT;
     }
 }
