@@ -24,3 +24,8 @@ framework:
                 public: true
                 default_lifetime: 1200
                 provider: snc_redis.default
+            cache.perun:
+                adapter: cache.adapter.redis
+                public: true
+                default_lifetime: 120
+                provider: snc_redis.default

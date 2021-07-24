@@ -9,6 +9,7 @@ use App\Perun\Entity\Instance;
 use App\Perun\Entity\OnlinePlayer;
 use App\Perun\Entity\Player;
 use App\Perun\Service\LogStatService;
+use App\Service\Perun\InstanceService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -82,7 +83,7 @@ class PerunController extends AbstractController
      * @Route("/{server}", name="perun_instance")
      * @ParamConverter("server", options={"mapping": {"server": "code"}})
      */
-    public function instance(Server $server, LogStatService $logStatService): Response
+    public function instance(Server $server, LogStatService $logStatService, InstanceService $instanceService): Response
     {
         if (null === $server) {
             throw new NotFoundHttpException('server is not linked to a perun instance');
@@ -108,6 +109,7 @@ class PerunController extends AbstractController
             'onlinePlayers' => $onlinePlayers,
             'missionSlots' => $missionSlots,
             'history24h' => $logStatService->getAttendanceChart('history24h', $server->getPerunInstance()),
+            'missionData' => $instanceService->getMission($server->getPerunInstance()),
         ]);
     }
 }

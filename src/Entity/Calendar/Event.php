@@ -9,6 +9,7 @@ use App\Repository\Calendar\EventRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=EventRepository::class)
@@ -68,6 +69,10 @@ class Event
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\Expression(
+     *     "this.getEndDate() > this.getStartDate()",
+     *     message="La date de fin doit être supérieure à la date de début"
+     * )
      */
     private ?\DateTime $endDate;
 

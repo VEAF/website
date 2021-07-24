@@ -1,3 +1,10 @@
+### 1.9.0
+* ADD public - afficher l'état des serveurs (perun)
+* ADD public - afficher le temps écoulé en mission (perun)
+* ADD public - afficher la météo en cours sur le serveur (perun)
+* ADD calendrier - vérification de la date de fin
+* ADD admin - afficher le nombre de jours depuis la dernière connexion (cadets zombies)
+
 ### 1.8.1
 * FIX stats slmod - fix import données incorrectes
 

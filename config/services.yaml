@@ -50,6 +50,10 @@ services:
         arguments:
             $cacheAdapter: "@cache.teamspeak"
 
+    App\Service\Perun\InstanceService:
+        arguments:
+            $cacheAdapter: "@cache.perun"
+
     App\Twig\ImageExtension:
         arguments:
             $projectDir: '%kernel.project_dir%'
