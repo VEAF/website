@@ -1,0 +1,55 @@
+#markerAirport {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #088;
+    border-radius: 10px;
+    background-color: #0FF;
+    opacity: 0.5;
+}
+
+.markerWaypoint {
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    opacity: 0.8;
+    text-align: center;
+}
+
+.markerRed {
+    border: 1px solid darkred;
+    background-color: red;
+    color: black;
+}
+
+.markerGreen {
+    border: 1px solid darkgreen;
+    background-color: green;
+    color: black;
+}
+
+.markerBlue {
+    border: 1px solid darkblue;
+    background-color: blue;
+    color: white;
+}
+
+.markerYellow {
+    border: 1px solid saddlebrown;
+    background-color: yellow;
+    color: black;
+}
+
+.markerBullseye {
+    width: 20px;
+    height: 20px;
+    opacity: 0.8;
+    text-align: center;
+}
+
+.markerBullseyeBlue {
+    background-image: url('/img/map/bullseye_blue_20.png');
+}
+
+.markerBullseyeRed {
+    background-image: url('/img/map/bullseye_red_20.png');
+}

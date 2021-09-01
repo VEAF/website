@@ -1,0 +1,64 @@
+{% extends 'layout.html.twig' %}
+
+{% set libHighcharts=1 %}
+
+{% block title %}{{ parent() }} - Serveur DCS {{ server.name }}{% endblock %}
+
+{% block head %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/css/ol.css"
+          type="text/css">
+    <script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/build/ol.js"></script>
+    <link rel="stylesheet" href="{{ asset('css/map.css') }}" type="text/css">
+
+{% endblock head %}
+
+{% block pageContent %}
+    <div class="container container-main pt-3 pb-3 mb-3">
+        <h1>Serveur {{ server.name }} - {{ missionData.theatre }}
+            <div class="float-right">
+                <a href="{{ path('perun_instance', {'server': server.code}) }}" class="btn btn-link"
+                   title="Statistiques du serveur">
+                    <i class="fa fa-chart-bar fa-2x"></i>
+                </a>
+            </div>
+        </h1>
+
+        Bullseye:
+        <ul>
+            <li>Blue: {{ missionData.coalition('blue').bullseye | xyToLL(missionData.theatre) | latLongDec }}</li>
+            <li>Red: {{ missionData.coalition('red').bullseye | xyToLL(missionData.theatre) | latLongDec }}</li>
+        </ul>
+
+        {# @todo enable again when units will be live #}
+        {# {% if not server.perunInstance.alive %} #}
+        {# <div class="alert alert-secondary"> #}
+        {# <i class="fa fa-exclamation-triangle text-warning"></i> les données ne sont plus actualisées depuis {{ server.perunInstance.lastUpdateSeconds }} secondes #}
+        {# </div> #}
+        {# {% endif %} #}
+    </div>
+
+    <div class="container container-main pt-3 pb-3 mb-3">
+        <div id="map" style="width: 100%; height: 100%;"></div>
+    </div>
+
+    <div id="markerBullseyeBlue"
+         title="Bullseye BLUE {{ missionData.coalition('blue').bullseye | xyToLL(missionData.theatre) | latLongDec }}"
+         class="markerBullseye markerBullseyeBlue">
+
+    </div>
+    <div id="markerBullseyeRed"
+         title="Bullseye RED {{ missionData.coalition('red').bullseye | xyToLL(missionData.theatre) | latLongDec }}"
+         class="markerBullseye markerBullseyeRed">
+
+    </div>
+
+{% endblock pageContent %}
+
+{% block javascript %}
+<script type="text/javascript">
+    var mapData=JSON.parse('{{ mapData | json_encode | raw }}');
+    {# @todo use js asset, not inline js #}
+    {{ source('map/map.js') }}
+</script>
+{% endblock javascript %}

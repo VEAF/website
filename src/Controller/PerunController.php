@@ -85,10 +85,6 @@ class PerunController extends AbstractController
      */
     public function instance(Server $server, LogStatService $logStatService, InstanceService $instanceService): Response
     {
-        if (null === $server) {
-            throw new NotFoundHttpException('server is not linked to a perun instance');
-        }
-
         /** @var OnlinePlayer[] $onlinePlayers */
         $onlinePlayers = $this->getDoctrine()->getRepository(OnlinePlayer::class)->findRealPlayersByInstance($server->getPerunInstance());
 

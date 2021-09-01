@@ -22,6 +22,7 @@
         "phpdocumentor/reflection-docblock": "^5.2",
         "planetteamspeak/ts3-php-framework": "^1.1",
         "predis/predis": "^1.1",
+        "proj4php/proj4php": "^2.0",
         "ramsey/uuid-doctrine": "^1.6",
         "sensio/framework-extra-bundle": "^6.0",
         "snc/redis-bundle": "^3.3",
