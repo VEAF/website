@@ -99,7 +99,7 @@
                                 {{ windLevel }}
                             </td>
                             <td>
-                                {{ wind.direction }}
+                                {{ (wind.direction + 180) % 360 }}
                             </td>
                             <td>
                                 {{ wind.speed(constant('App\\Perun\\DTO\\Wind::SPEED_UNIT_KNOTS')) | round(1) }} kts

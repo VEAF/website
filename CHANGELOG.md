@@ -1,3 +1,6 @@
+### 1.9.1
+* FIX wind was inverted on server view
+
 ### 1.9.0
 * ADD public - afficher l'état des serveurs (perun)
 * ADD public - afficher le temps écoulé en mission (perun)
