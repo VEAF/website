@@ -37,12 +37,11 @@ class ProjectionService
                     // x=0 y=0, lat=35°1.315' (35.21917) - long=35°54.33' (35.9055) k=random (copied from caucasus, @todo fix k)
                     $projection = new Proj('+proj=tmerc +lat_0=35.21917 +lon_0=35.9055 +k_0=0.9996 +x_0=0 +y_0=0', $this->proj4);
                     break;
-                // mariana @todo
-                // case "mariana @todo"
-                // // picked from editor:
-                // // x=0 y=0, lat=13°29.1' (13.485) - long=144°47.852' (144.7533) k=random (copied from caucasus, @todo fix k)
-                // $projection = new Proj('+proj=tmerc +lat_0=13.485 +lon_0=144.7533 +k_0=0.9996 +x_0=0 +y_0=0', $this->proj4);
-                // break;
+                case "marianaislands":
+                    // picked from editor:
+                    // x=0 y=0, lat=13°29.1' (13.485) - long=144°47.852' (144.7533) k=random (copied from caucasus, @todo fix k)
+                    $projection = new Proj('+proj=tmerc +lat_0=13.485 +lon_0=144.7533 +k_0=0.9996 +x_0=0 +y_0=0', $this->proj4);
+                    break;
 
                 default:
                     throw new \InvalidArgumentException(sprintf('unsupported theatre %s, please report to https://github.com/VEAF/website/issues', $theatre));
