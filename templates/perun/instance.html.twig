@@ -6,17 +6,21 @@
 
 {% block pageContent %}
     <div class="container container-main pt-3 pb-3 mb-3">
-        <div class="row mb-3 ml-1 mr-1">
-            <div class="page-header">
-                <h1>Serveur {{ server.name }}</h1>
-
-                {% if not server.perunInstance.alive %}
-                    <div class="alert alert-secondary">
-                        <i class="fa fa-exclamation-triangle text-warning"></i> les données ne sont plus actualisées depuis {{ server.perunInstance.lastUpdateSeconds }} secondes
-                    </div>
-                {% endif %}
+        <h1>
+            Serveur {{ server.name }}
+            <div class="float-right">
+                <a href="{{ path('map_index', {'server': server.code}) }}" class="btn btn-link"
+                   title="Carte de la mission">
+                    <i class="fa fa-map-marked-alt fa-2x"></i>
+                </a>
             </div>
-        </div>
+        </h1>
+
+        {% if not server.perunInstance.alive %}
+            <div class="alert alert-secondary">
+                <i class="fa fa-exclamation-triangle text-warning"></i> les données ne sont plus actualisées depuis {{ server.perunInstance.lastUpdateSeconds }} secondes
+            </div>
+        {% endif %}
 
         <div class="row mb-3">
             <div class="col-md-6">
