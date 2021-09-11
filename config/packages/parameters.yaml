@@ -4,6 +4,6 @@ parameters:
   google_agent: "%env(GOOGLE_AGENT)%"
   api_slmod_url: "%env(API_SLMOD_URL)%"
   api_teamspeak_url: "%env(API_TEAMSPEAK_URL)%"
-  app_version: 1.9.1
+  app_version: 1.9.2
   # website version
   website: "%env(WEBSITE)%"
