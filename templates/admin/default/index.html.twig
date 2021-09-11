@@ -79,6 +79,31 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                <a href="{{ path('admin_dcs_variant_list') }}">Variants DCS</a></div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                {{ total.variants }}
+                                {% if total.variantsWithoutModule > 0 %}
+                                    <span class="badge badge-warning badge-pill"
+                                          title="Variants sans module">
+                                        <i class="fa fa-exclamation-triangle"></i>
+                                        {{ total.variantsWithoutModule }}
+                                    </span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <a href="{{ path('admin_module_list') }}"><i class="fas fa-cubes fa-2x text-gray-300"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                 <a href="{{ path('admin_page_list') }}">Pages</a></div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ total.pages }}</div>
                         </div>

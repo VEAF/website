@@ -10,6 +10,7 @@ use App\Entity\Page;
 use App\Entity\Player;
 use App\Entity\Url;
 use App\Entity\User;
+use App\Entity\Variant;
 use App\Perun\Entity\Player as PerunPlayer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,6 +33,8 @@ class DefaultController extends AbstractController
             'players' => $this->getDoctrine()->getRepository(Player::class)->count([]),
             'perunPlayers' => $this->getDoctrine()->getRepository(PerunPlayer::class)->count([]),
             'modules' => $this->getDoctrine()->getRepository(Module::class)->count([]),
+            'variants' => $this->getDoctrine()->getRepository(Variant::class)->count([]),
+            'variantsWithoutModule' => $this->getDoctrine()->getRepository(Variant::class)->count(['module' => null]),
             'pages' => $this->getDoctrine()->getRepository(Page::class)->count([]),
             'files' => $this->getDoctrine()->getRepository(File::class)->count([]),
             'calendarEvents' => $this->getDoctrine()->getRepository(Event::class)->count([]),
