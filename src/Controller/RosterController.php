@@ -71,8 +71,8 @@ class RosterController extends AbstractController
         $data['cadetsNeedPresentation'] = $this->getDoctrine()->getRepository(User::class)->count(['status' => User::getGroupStatuses($group), 'needPresentation' => true]);
 
         $criteria = new Criteria();
-        $criteria->andWhere(Criteria::expr()->in('status', User::getGroupStatuses($group)));
-        $criteria->andWhere(Criteria::expr()->gt('cadetFlights', User::CADET_MIN_FLIGHTS));
+        $criteria->andWhere(Criteria::expr()->in('status', User::getGroupStatuses(User::GROUP_CADETS)));
+        $criteria->andWhere(Criteria::expr()->gte('cadetFlights', User::CADET_MIN_FLIGHTS));
         $criteria->andWhere(Criteria::expr()->eq('needPresentation', false));
 
         $data['cadetsReady'] = $this->getDoctrine()->getRepository(User::class)->matching($criteria)->count();
