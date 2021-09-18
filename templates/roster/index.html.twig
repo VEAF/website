@@ -75,8 +75,22 @@
                 <div class="col-sm-12 pt-3">
                     <div class="alert alert-warning">
                         <span class="badge badge-pill badge-light">{{ cadetsNeedPresentation }}</span>
-                         <i class="fa fa-user-graduate cadet" title="Cadet"></i>
+                        <i class="fa fa-user-graduate cadet" title="Cadet"></i>
                         cadet(s) n'ont pas encore eu la <i class="fa fa-volume-up text-warning"></i> présentation de l'association
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if cadetsReady is defined and is_granted('PRESENTATION') and cadetsReady > 0 %}
+        <div class="container container-main mb-3">
+            <div class="row">
+                <div class="col-sm-12 pt-3">
+                    <div class="alert alert-warning">
+                        <span class="badge badge-pill badge-light">{{ cadetsReady }}</span>
+                        <i class="fa fa-user-graduate cadet" title="Cadet"></i>
+                        cadet(s) sont <i class="fa fa-file-signature text-success"></i> prêts à devenir <i class="fa fa-user text-success"></i> membre
                     </div>
                 </div>
             </div>
@@ -172,6 +186,12 @@
                                                     <span class="badge badge-warning badge-pill"
                                                           title="Ce pilote a besoin d'une présentation de l'association">
                                                         <i class="fa fa-volume-up"></i>
+                                                    </span>
+                                                {% endif %}
+                                                {% if pilot.cadet and not pilot.needPresentation and pilot.cadetFlights >= constant('App\\Entity\\User::CADET_MIN_FLIGHTS') %}
+                                                    <span class="badge badge-warning badge-pill"
+                                                          title="Il faut proposer à ce cadet de devenir membre (ou pas)">
+                                                            <i class="fa fa-file-signature"></i>
                                                     </span>
                                                 {% endif %}
                                             {% endif %}

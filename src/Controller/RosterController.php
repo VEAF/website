@@ -6,6 +6,7 @@ use App\Entity\Module;
 use App\Entity\User;
 use App\Entity\UserModule;
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Criteria;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Console\Helper\Table;
@@ -68,6 +69,13 @@ class RosterController extends AbstractController
         $data['tab'] = 'pilots';
         $data['pilots'] = $this->getDoctrine()->getRepository(User::class)->findByUserStatus(User::getGroupStatuses($group));
         $data['cadetsNeedPresentation'] = $this->getDoctrine()->getRepository(User::class)->count(['status' => User::getGroupStatuses($group), 'needPresentation' => true]);
+
+        $criteria = new Criteria();
+        $criteria->andWhere(Criteria::expr()->in('status', User::getGroupStatuses(User::GROUP_CADETS)));
+        $criteria->andWhere(Criteria::expr()->gte('cadetFlights', User::CADET_MIN_FLIGHTS));
+        $criteria->andWhere(Criteria::expr()->eq('needPresentation', false));
+
+        $data['cadetsReady'] = $this->getDoctrine()->getRepository(User::class)->matching($criteria)->count();
 
         return $this->roster($data);
     }

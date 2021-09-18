@@ -1,3 +1,9 @@
+### 1.9.2
+* ADD identification des cadets prêts à devenir membre
+* FIX calendrier - désactivation du correcteur d'orthographe dans l'éditeur
+* FIX calendrier - défaut d'affichage top menu quand pas d'événements
+* FIX admin - alerte sur les variants des modules DCS non associés à un module
+
 ### 1.9.1
 * FIX wind was inverted on server view
 
