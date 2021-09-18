@@ -41,6 +41,12 @@ class CalendarEventType extends AbstractType
                     'widget' => 'single_text',
                     'label' => 'Fin',
                 ])
+            ->add('registration', CheckboxType::class,
+                [
+                    'required' => false,
+                    'label' => 'Inscriptions ouvertes',
+                ]
+            )
             ->add('type', ChoiceType::class, [
                 'choices' => array_flip(Event::EVENTS),
             ])
@@ -50,6 +56,7 @@ class CalendarEventType extends AbstractType
                     'label' => 'Simulateur DCS',
                 ]
             );
+
         if ('veaf' === $this->website) {
             $builder->add('simBms', CheckboxType::class,
                 [

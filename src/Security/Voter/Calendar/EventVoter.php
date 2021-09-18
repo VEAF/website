@@ -54,6 +54,10 @@ class EventVoter extends Voter
                 return false;
             case self::VOTE:
             case self::CHOICE:
+                // if registration
+                if (!$event->isRegistration()) {
+                    return false;
+                }
                 // if event is finished
                 if ($event->getEndDate()->getTimestamp() < time()) {
                     return false;
