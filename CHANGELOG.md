@@ -1,3 +1,7 @@
+### 1.9.3
+* ADD calendrier - l'organisateur peut bloquer les inscriptions
+* FIX roster - décompte des cadets prêts
+
 ### 1.9.2
 * ADD identification des cadets prêts à devenir membre
 * FIX calendrier - désactivation du correcteur d'orthographe dans l'éditeur
