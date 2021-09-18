@@ -156,6 +156,11 @@ class Event
      */
     private $choices;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private bool $registration;
+
     public function __construct()
     {
         $this->modules = new ArrayCollection();
@@ -498,6 +503,18 @@ class Event
                 $choice->setEvent(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isRegistration(): bool
+    {
+        return $this->registration;
+    }
+
+    public function setRegistration(bool $registration): self
+    {
+        $this->registration = $registration;
 
         return $this;
     }
