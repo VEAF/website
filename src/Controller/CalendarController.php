@@ -63,6 +63,7 @@ class CalendarController extends AbstractController
             $event->setStartDate($date);
             $event->setEndDate((clone $date)->setTime(23, 00));
             $event->setOwner($this->getUser());
+            $event->setRegistration(true);
         }
 
         $form = $this->createForm(CalendarEventType::class, $event);
