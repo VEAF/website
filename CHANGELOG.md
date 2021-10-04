@@ -1,3 +1,6 @@
+### 1.9.4
+* ADD admin - inscription désactivable par le sysadmin
+
 ### 1.9.3
 * ADD calendrier - l'organisateur peut bloquer les inscriptions
 * FIX roster - décompte des cadets prêts
