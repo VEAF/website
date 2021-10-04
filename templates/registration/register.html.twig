@@ -8,7 +8,13 @@
             <div class="col-6">
                 <div class="card border-secondary mb-3">
                     <div class="card-header">Formulaire d'inscription</div>
-
+                    {% if registration_disabled %}
+                        <div class="alert alert-dismissible alert-warning ml-3 mr-3 mt-3">
+                            <strong>Les inscriptions sont temporairements désactivées</strong><br/>
+                            <br/>
+                            En attendant, retrouvez nous sur <a href="/discord"><i class="fab fa-discord"></i> discord</a><br/>
+                        </div>
+                    {% else %}
                     <div class="alert alert-dismissible alert-info ml-3 mr-3 mt-3">
                         <strong>Attention !</strong>, si vous avez déjà un compte, utilisez <a
                                 href="{{ path('app_login') }}">le formulaire de connexion ici</a>
@@ -22,6 +28,7 @@
                         </button>
                         {{ form_end(form) }}
                     </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

@@ -8,6 +8,7 @@ twig:
         google_agent: '%google_agent%'
         app_version: '%app_version%'
         website: '%website%'
+        registration_disabled: '%registration_disabled%'
     form_themes:
       - 'bootstrap_4_layout.html.twig'
       - '@TetranzSelect2Entity/Form/fields.html.twig'
