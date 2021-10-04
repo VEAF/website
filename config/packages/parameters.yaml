@@ -7,3 +7,4 @@ parameters:
   app_version: 1.9.3
   # website version
   website: "%env(WEBSITE)%"
+  registration_disabled: "%env(APP_REGISTRATION_DISABLED)%"

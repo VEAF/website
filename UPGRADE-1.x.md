@@ -1,5 +1,13 @@
 # upgrade notes
 
+## upgrade from 1.9.3 to 1.9.4
+
+add new env var to your .php.env
+
+```dotenv
+APP_REGISTRATION_DISABLED=0
+```
+
 ## upgrade to 1.8
 
 add redis service, ex docker-compose.yml:
