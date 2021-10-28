@@ -159,7 +159,7 @@ class Event
     /**
      * @ORM\Column(type="boolean")
      */
-    private bool $registration;
+    private bool $registration = false;
 
     public function __construct()
     {

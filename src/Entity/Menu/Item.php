@@ -5,6 +5,7 @@ namespace App\Entity\Menu;
 use App\Entity\Page;
 use App\Entity\Url;
 use App\Repository\Menu\ItemRepository;
+use App\Security\Restriction;
 use App\Validator\Menu\Item\Type as TypeAssert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -110,6 +111,11 @@ class Item
      */
     private ?Page $page = null;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private int $restriction = Restriction::LEVEL_ALL;
+
     public function __construct()
     {
         $this->items = new ArrayCollection();
@@ -168,6 +174,12 @@ class Item
         return $this;
     }
 
+    public function isEnabled(): ?bool
+    {
+        return $this->enabled;
+    }
+
+    /** @deprecated use isEnabled */
     public function getEnabled(): ?bool
     {
         return $this->enabled;
@@ -282,5 +294,17 @@ class Item
     public function __toString()
     {
         return $this->label ?: '';
+    }
+
+    public function getRestriction(): ?int
+    {
+        return $this->restriction;
+    }
+
+    public function setRestriction(int $restriction): self
+    {
+        $this->restriction = $restriction;
+
+        return $this;
     }
 }

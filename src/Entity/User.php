@@ -61,6 +61,11 @@ class User implements UserInterface
         self::STATUS_GUEST,
     ];
 
+    const STATUSES_GUEST = [
+        self::STATUS_UNKNOWN,
+        self::STATUS_GUEST,
+    ];
+
     const STATUSES_MEMBER = [
         self::STATUS_MEMBER,
         self::STATUS_SECRETARY_DEPUTY,
@@ -427,6 +432,11 @@ class User implements UserInterface
         $this->status = $status;
 
         return $this;
+    }
+
+    public function isGuest(): ?bool
+    {
+        return in_array($this->status, self::STATUSES_GUEST);
     }
 
     public function isMember(): ?bool

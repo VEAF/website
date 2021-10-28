@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Menu\Item;
 use App\Entity\Page;
 use App\Entity\Url;
+use App\Security\Restriction;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -91,6 +92,13 @@ class MenuItemType extends AbstractType
                     'attr' => [
                         'class' => 'select2auto form-control',
                     ],
+                ])
+            ->add('restriction', ChoiceType::class,
+                [
+                    'label' => 'Restriction / Visibilité',
+                    'required' => true,
+                    'expanded' => true,
+                    'choices' => array_flip(Restriction::LEVELS),
                 ]);
     }
 
