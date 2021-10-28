@@ -10,7 +10,7 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav">
                 {% for menuItem in menuItems %}
-                    {% if menuItem.enabled %}
+                    {% if menu_item_is_visible(app.user, menuItem) %}
                         {% include "default/_header/_menu-item.html.twig" %}
                     {% endif %}
                 {% endfor %}
