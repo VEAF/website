@@ -2,8 +2,6 @@
 
 namespace App\Perun\DTO;
 
-use App\Perun\Entity\Instance;
-
 class Position
 {
     private float $x;
@@ -38,5 +36,4 @@ class Position
     {
         return $this->y;
     }
-
 }

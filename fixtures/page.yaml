@@ -15,3 +15,30 @@ App\Entity\Page:
     enabled: true
     createdAt: <(new DateTime('2021-02-01 14:00:00'))>
     updatedAt: <(new DateTime('2021-02-01 18:30:00'))>
+
+  page_guest:
+    route: 'guest'
+    path: 'fr/restriction/guest'
+    title: 'Guest'
+    enabled: true
+    createdAt: <(new DateTime('2021-02-01 14:00:00'))>
+    updatedAt: <(new DateTime('2021-02-01 18:30:00'))>
+    restriction: <(App\Security\Restriction::LEVEL_GUEST)>
+
+  page_cadet:
+    route: 'cadet'
+    path: 'fr/restriction/cadet'
+    title: 'Cadet'
+    enabled: true
+    createdAt: <(new DateTime('2021-02-01 14:00:00'))>
+    updatedAt: <(new DateTime('2021-02-01 18:30:00'))>
+    restriction: <(App\Security\Restriction::LEVEL_CADET)>
+
+  page_member:
+    route: 'member'
+    path: 'fr/restriction/member'
+    title: 'Cadet'
+    enabled: true
+    createdAt: <(new DateTime('2021-02-01 14:00:00'))>
+    updatedAt: <(new DateTime('2021-02-01 18:30:00'))>
+    restriction: <(App\Security\Restriction::LEVEL_MEMBER)>

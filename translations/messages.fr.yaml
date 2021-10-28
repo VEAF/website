@@ -1,0 +1,6 @@
+values:
+  restriction:
+    0: 'tout le monde'
+    1: 'au moins invité enregistré'
+    2: 'au moins cadet'
+    3: 'au moins membre'

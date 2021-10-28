@@ -2,9 +2,7 @@
 
 namespace App\Security\Voter\Page;
 
-use App\Entity\Calendar\Event;
 use App\Entity\Menu\Item;
-use App\Entity\User;
 use App\Security\Restriction;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;

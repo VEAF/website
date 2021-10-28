@@ -2,13 +2,8 @@
 
 namespace App\Service;
 
-
 use App\Perun\DTO\Mission;
-use App\Perun\DTO\Position;
 use App\Twig\ProjectionExtension;
-use proj4php\Proj4php;
-use proj4php\Proj;
-use proj4php\Point;
 
 class MapService
 {
@@ -22,8 +17,7 @@ class MapService
     }
 
     /**
-     * get Data ready to encode for front view
-     * @return array
+     * get Data ready to encode for front view.
      */
     public function getMapData(Mission $mission): array
     {
@@ -34,5 +28,4 @@ class MapService
 
         return $data;
     }
-
 }

@@ -2,8 +2,6 @@
 
 namespace App\Perun\DTO;
 
-use App\Perun\Entity\Instance;
-
 class Coalition
 {
     const COALITION_RED = 'red';
@@ -37,5 +35,4 @@ class Coalition
     {
         return $this->bullseye;
     }
-
 }

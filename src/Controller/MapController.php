@@ -21,7 +21,7 @@ class MapController extends AbstractController
      */
     public function index(Server $server, InstanceService $instanceService, MapService $mapService): Response
     {
-        $missionData = $instanceService->getMission($server->getPerunInstance(), true, $this->getParameter('kernel.environment') == 'prod');
+        $missionData = $instanceService->getMission($server->getPerunInstance(), true, 'prod' == $this->getParameter('kernel.environment'));
 
         return $this->render('map/index.html.twig', [
             'server' => $server,
