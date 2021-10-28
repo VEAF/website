@@ -1,0 +1,19 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ parent() }}: {{ page.title }}{% endblock %}
+
+{% block pageContent %}
+    <div class="container container-main pt-3 pb-3 mb-3">
+        <h1>{{ page.title }}</h1>
+    </div>
+    <div class="container container-main pt-3 pb-3 mb-3">
+        <div class="alert alert-warning">
+            L'accès à cette page nécessite au moins d'être {{ ('values.restriction.'~page.restriction) | trans }}
+        </div>
+        {% if app.user is null %}
+            <div class="alert alert-info">
+                Je ne suis pas connecté, je peux me connecter via cette page: <a href="{{ path('app_login') }}"><i class="fa fa-sign-in-alt"></i> Connexion</a>
+            </div>
+        {% endif %}
+    </div>
+{% endblock pageContent %}

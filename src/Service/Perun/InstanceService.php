@@ -31,8 +31,7 @@ class InstanceService
             $missionRow = json_decode($dataMission->getPayload(), true);
             if (is_array($missionRow)) {
                 $mission = $this->parseMission($missionRow);
-            }
-            else {
+            } else {
                 // fallback to empty data
                 $mission = $this->parseMission([]);
             }

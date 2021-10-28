@@ -112,9 +112,6 @@ class Mission
         return $this->coalitions;
     }
 
-    /**
-     * @return Coalition
-     */
     public function getCoalition(string $coalitionCode): Coalition
     {
         return $this->coalitions[$coalitionCode];

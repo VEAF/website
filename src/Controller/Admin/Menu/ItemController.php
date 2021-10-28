@@ -107,7 +107,7 @@ class ItemController extends AbstractController
         $table
             ->addColumn(
                 (new Column())->setLabel('Restriction')
-                    ->setSort(['i.enabled' => 'asc', 'pos' => 'asc'])
+                    ->setSort(['i.restriction' => 'asc', 'pos' => 'asc'])
                     ->setFilter((new FilterSelect())
                         ->setField('i.restriction')
                         ->setName('i_restriction')
@@ -116,10 +116,9 @@ class ItemController extends AbstractController
                         ->disableTranslation() // disable translations of placeholder and values
                     )
                     ->setDisplayCallback(function ($value, $row, $lines) {
-                        if(isset(Restriction::LEVELS[$value])) {
+                        if (isset(Restriction::LEVELS[$value])) {
                             return Restriction::LEVELS[$value];
-                        }
-                        else {
+                        } else {
                             return $value;
                         }
                     })

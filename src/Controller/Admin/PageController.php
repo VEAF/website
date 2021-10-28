@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Page;
 use App\Form\PageType;
 use App\Manager\PageManager;
+use App\Security\Restriction;
 use Kilik\TableBundle\Components\Column;
 use Kilik\TableBundle\Components\Filter;
 use Kilik\TableBundle\Components\FilterSelect;
@@ -79,6 +80,26 @@ class PageController extends AbstractController
                             return 'oui';
                         } else {
                             return 'non';
+                        }
+                    })
+            );
+
+        $table
+            ->addColumn(
+                (new Column())->setLabel('Restriction')
+                    ->setSort(['p.restriction' => 'asc', 'pos' => 'asc'])
+                    ->setFilter((new FilterSelect())
+                        ->setField('p.restriction')
+                        ->setName('p_restriction')
+                        ->setChoices(array_flip(Restriction::LEVELS))
+                        ->setPlaceholder('-')
+                        ->disableTranslation() // disable translations of placeholder and values
+                    )
+                    ->setDisplayCallback(function ($value, $row, $lines) {
+                        if (isset(Restriction::LEVELS[$value])) {
+                            return Restriction::LEVELS[$value];
+                        } else {
+                            return $value;
                         }
                     })
             );

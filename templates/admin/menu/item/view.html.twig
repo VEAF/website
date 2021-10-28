@@ -56,6 +56,14 @@
                                     {{ item.label }}
                                 </td>
                             </tr>
+                            <tr>
+                                <td>
+                                    Restriction:
+                                </td>
+                                <td>
+                                    {{ ('values.restriction.'~item.restriction) | trans }}
+                                </td>
+                            </tr>
 
                         </table>
                         <div class="row">
