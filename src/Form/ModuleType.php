@@ -50,6 +50,12 @@ class ModuleType extends AbstractType
             ]);
 
         $builder
+            ->add('period', ChoiceType::class, [
+                'choices' => array_flip(Module::PERIODS),
+                'label' => 'Période',
+            ]);
+
+        $builder
             ->add('imageHeader', FileType::class, [
                 'label' => 'Image (format large / Header - 5:1 conseillé)',
                 'mapped' => false,

@@ -99,6 +99,25 @@ class ModuleController extends AbstractController
                     )
             );
 
+        $table
+            ->addColumn(
+                (new Column())->setLabel('Période')
+                    ->setSort(['period' => 'asc'])
+                    ->setFilter((new FilterSelect())
+                        ->setField('m.period')
+                        ->setName('m_period')
+                        ->setChoices(array_flip(Module::PERIODS))
+                        ->setPlaceholder('-')
+                        ->disableTranslation() // disable translations of placeholder and values
+                    )
+                    ->setDisplayCallback(function ($value, $row, $rows) {
+                        /** @var Module $module */
+                        $module = $row['object'];
+
+                        return strtolower($module->getPeriodAsString());
+                    })
+            );
+
         return $table;
     }
 

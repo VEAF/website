@@ -33,8 +33,17 @@ class MissionMakerController extends AbstractController
 
             $modules = [];
 
-            foreach ($form->getData()['modules'] as $module) {
-                $modules[$module->getId()] = $module;
+            if (count($form->getData()['modules'])) {
+                foreach ($form->getData()['modules'] as $module) {
+                    $modules[$module->getId()] = $module;
+                }
+            } else {
+                $filter = ['type' => Module::TYPE_AIRCRAFT];
+                if (Module::PERIOD_NONE != $form->getData()['period']) {
+                    $filter['period'] = $form->getData()['period'];
+                }
+                $modules = $this->getDoctrine()->getRepository(Module::class)->findBy($filter, ['name' => 'asc']);
+                $modules = array_merge($modules, $this->getDoctrine()->getRepository(Module::class)->findByType(Module::TYPE_HELICOPTER));
             }
 
             /** @var array $usersModules (first level key user id, second level key module id */

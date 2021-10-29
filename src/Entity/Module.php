@@ -40,6 +40,18 @@ class Module
         self::TYPE_SPECIAL,
     ];
 
+    const PERIOD_NONE = 0;
+    const PERIOD_WW2 = 1;
+    const PERIOD_COLD_WAR = 2;
+    const PERIOD_MODERN = 3;
+
+    const PERIODS = [
+        self::PERIOD_NONE => '',
+        self::PERIOD_WW2 => 'WW2',
+        self::PERIOD_COLD_WAR => 'COLD WAR',
+        self::PERIOD_MODERN => 'MODERN',
+    ];
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -114,6 +126,11 @@ class Module
      * @ORM\ManyToMany(targetEntity=ModuleSystem::class, inversedBy="modules")
      */
     private $systems;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private ?int $period = null;
 
     public function __construct()
     {
@@ -353,5 +370,26 @@ class Module
         $this->systems->removeElement($system);
 
         return $this;
+    }
+
+    public function getPeriod(): ?int
+    {
+        return $this->period;
+    }
+
+    public function setPeriod(?int $period): self
+    {
+        $this->period = $period;
+
+        return $this;
+    }
+
+    public function getPeriodAsString(): string
+    {
+        if (null === $this->period || !isset(self::PERIODS[$this->period])) {
+            return '';
+        }
+
+        return self::PERIODS[$this->period];
     }
 }

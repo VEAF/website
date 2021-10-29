@@ -32,5 +32,5 @@ App\Entity\ModuleSystem:
 
   module-system_carrier-ops:
     code: 'carrier-ops'
-    name: 'Carreier-Ops'
+    name: 'Carrier-Ops'
     position: 7
