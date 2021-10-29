@@ -54,6 +54,7 @@ App\Entity\Module:
     longName: 'Combined Arms'
     landingPage: false
     landingPageNumber: 2
+    roles: ['@module-role_cas', '@module-role_strike']
     type: <(App\Entity\Module::TYPE_AIRCRAFT)>
 
   module_a10c2:
@@ -62,6 +63,7 @@ App\Entity\Module:
     longName: 'A-10C II Tank Killer'
     landingPage: true
     landingPageNumber: 3
+    roles: ['@module-role_cas', '@module-role_strike']
     type: <(App\Entity\Module::TYPE_AIRCRAFT)>
 
   module_m2000c:
@@ -70,6 +72,7 @@ App\Entity\Module:
     longName: 'M-2000C'
     landingPage: true
     landingPageNumber: 1
+    roles: ['@module-role_strike', '@module-role_cap']
     type: <(App\Entity\Module::TYPE_AIRCRAFT)>
 
   module_mig15:
@@ -119,3 +122,12 @@ App\Entity\Module:
     landingPage: true
     landingPageNumber: 2
     type: <(App\Entity\Module::TYPE_HELICOPTER)>
+
+  module_su25t:
+    code: 'su-25t'
+    name: 'Su-25t'
+    longName: 'Su-25t'
+    landingPage: true
+    landingPageNumber: 5
+    roles: ['@module-role_cas', '@module-role_strike', '@module-role_sead']
+    type: <(App\Entity\Module::TYPE_AIRCRAFT)>

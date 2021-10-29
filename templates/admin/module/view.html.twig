@@ -57,6 +57,20 @@
                                     {% endif %}
                                 </td>
                             </tr>
+                            <tr>
+                                <td>
+                                    Rôles:
+                                </td>
+                                <td>
+                                    {% if module.roles | length > 0 %}
+                                        {% for role in module.roles %}
+                                            {{ role.name }}</a><br/>
+                                        {% endfor %}
+                                    {% else %}
+                                        <i>-</i>
+                                    {% endif %}
+                                </td>
+                            </tr>
                         </table>
                         <div class="row">
                             <div class="col-sm-6">

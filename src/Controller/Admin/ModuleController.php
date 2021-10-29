@@ -25,7 +25,9 @@ class ModuleController extends AbstractController
     public function getTable(): Table
     {
         $queryBuilder = $this->getDoctrine()->getRepository(Module::class)->createQueryBuilder('m')
-            ->select('m');
+            ->select('m, GROUP_CONCAT(r.name) AS roles')
+            ->join('m.roles', 'r')
+            ->groupBy('m');
 
         $booleanFilterChoices = ['Oui' => true, 'Non' => false];
 
@@ -71,6 +73,17 @@ class ModuleController extends AbstractController
                     ->setFilter((new Filter())
                         ->setField('m.name')
                         ->setName('m_name')
+                    )
+            );
+
+        $table
+            ->addColumn(
+                (new Column())->setLabel('Rôles')
+                    ->setSort(['roles' => 'asc'])
+                    ->setFilter((new Filter())
+                        ->setField('GROUP_CONCAT(r.name)')
+                        ->setHaving(true)
+                        ->setName('roles')
                     )
             );
 

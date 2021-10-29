@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Module;
+use App\Entity\ModuleRole;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -27,6 +29,15 @@ class ModuleType extends AbstractType
 
         $builder->add('landingPage', CheckboxType::class, ['required' => false]);
         $builder->add('landingPageNumber', IntegerType::class, ['required' => true]);
+
+        $builder
+            ->add('roles', EntityType::class, [
+                'class' => ModuleRole::class,
+                'choice_label' => 'name',
+                'label' => 'Rôles',
+                'multiple' => true,
+                'expanded' => true,
+            ]);
 
         $builder
             ->add('imageHeader', FileType::class, [
