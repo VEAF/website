@@ -1,0 +1,20 @@
+{% extends 'layout.html.twig' %}
+{% set libSelect2=true %}
+{% set libMarkdown=true %}
+
+{% block title %}{{ parent() }}: Calendrier{% endblock %}
+
+{% block pageContent %}
+    <div class="container container-main pt-3 pb-3 mb-3">
+        {% embed "admin/_common/_delete_dialog.html.twig" with {'title': "Copier l'événement ?", 'cancelUrl': path('calendar_view', {'event': event.id})} %}
+            {% block message %}
+                Confirmez-vous la copie de l'événement {{ event.title }}?
+            {% endblock message %}
+            {% block submitButton %}
+            <button class="btn btn-lg btn-warning form-control " type="submit">
+                <i class="fa fa-save"></i> Enregistrer
+            </button>
+            {% endblock submitButton %}
+        {% endembed %}
+    </div>
+{% endblock pageContent %}
