@@ -130,7 +130,7 @@ class RosterController extends AbstractController
             $data['pilots_modules'] = $this->getDoctrine()->getRepository(UserModule::class)->findByModuleAndUserStatus($aircraft, User::getGroupStatuses($group));
             $data['module'] = $aircraft;
         } else {
-            $data['aircrafts'] = $this->getDoctrine()->getRepository(Module::class)->findBy(['type' => Module::TYPE_AIRCRAFT], ['name' => 'asc']);
+            $data['aircrafts'] = $this->getDoctrine()->getRepository(Module::class)->findBy(['type' => Module::TYPE_AIRCRAFT], ['period' => 'desc', 'name' => 'asc']);
             $data['aircraftsCount'] = $this->getDoctrine()->getRepository(UserModule::class)->countUsersByModule(Module::TYPE_AIRCRAFT, User::getGroupStatuses($group));
         }
 

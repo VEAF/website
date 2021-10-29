@@ -391,6 +391,13 @@ iframe {
     vertical-align: middle;
 }
 
+.roster-period {
+    background-image: linear-gradient(#74cae3,#5bc0de 60%,#4ab9db);
+    background-repeat: no-repeat;
+    -webkit-filter: none;
+    color: #fff;
+}
+
 .card-stats {
     height: 12em;
 }

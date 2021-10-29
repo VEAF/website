@@ -5,12 +5,29 @@
 
 {% block pageContent %}
     <div class="row mb-4">
-        <div class="col-md-6">
+        <div class="col-lg-12 col-xl-8">
             <div class="bs-component">
                 <div class="card mb-3">
                     <h3 class="card-header">{% if module.id is not null %}Modifier le module{% else %}Ajouter un module{% endif %}</h3>
                     <div class="card-body">
                         {{ form_start(form) }}
+                        <div class="row">
+                            <div class="col-lg-12 col-xl-6">
+                                {{ form_row(form.type) }}
+                                {{ form_row(form.code) }}
+                                {{ form_row(form.name) }}
+                                {{ form_row(form.longName) }}
+                                {{ form_row(form.period) }}
+                                {{ form_row(form.landingPage) }}
+                                {{ form_row(form.landingPageNumber) }}
+                            </div>
+                            <div class="col-lg-6 col-xl-3">
+                                {{ form_row(form.roles) }}
+                            </div>
+                            <div class="col-lg-6 col-xl-3">
+                                {{ form_row(form.systems) }}
+                            </div>
+                        </div>
                         {{ form_rest(form) }}
                         {{ form_errors(form) }}
                         <div class="row">

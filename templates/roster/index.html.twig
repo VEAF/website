@@ -275,7 +275,16 @@
                 <div class="col-md-12">
                     <div class="table-responsive">
                         <table class="table table-bordered roster-table">
+                            {% set period=null %}
                             {% for aircraft in aircrafts %}
+                                {% if period != aircraft.period %}
+                                    {% set period = aircraft.period %}
+                                    <tr class="roster-period">
+                                        <td>
+                                            {{ aircraft.periodAsString }}
+                                        </td>
+                                    </tr>
+                                {% endif %}
                                 <tr>
                                     <td>
                                         <a href="{{ path('roster_aircraft', {'group': groupSelected, 'aircraft': aircraft.code}) }}"

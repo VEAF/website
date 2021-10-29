@@ -51,12 +51,13 @@ App\Entity\Module:
   module_a10c:
     code: 'a-10c'
     name: 'A-10C'
-    longName: 'Combined Arms'
+    longName: 'A-10C'
     landingPage: false
     landingPageNumber: 2
     roles: ['@module-role_cas', '@module-role_strike']
     systems: ['@module-system_ils', '@module-system_tacan']
     type: <(App\Entity\Module::TYPE_AIRCRAFT)>
+    period: <(App\Entity\Module::PERIOD_MODERN)>
 
   module_a10c2:
     code: 'a-10c-2'
@@ -67,6 +68,7 @@ App\Entity\Module:
     roles: ['@module-role_cas', '@module-role_strike']
     systems: ['@module-system_ils', '@module-system_tacan']
     type: <(App\Entity\Module::TYPE_AIRCRAFT)>
+    period: <(App\Entity\Module::PERIOD_MODERN)>
 
   module_m2000c:
     code: 'm2000c'
@@ -77,6 +79,7 @@ App\Entity\Module:
     roles: ['@module-role_strike', '@module-role_cap']
     systems: ['@module-system_tacan', '@module-system_aa-refuel']
     type: <(App\Entity\Module::TYPE_AIRCRAFT)>
+    period: <(App\Entity\Module::PERIOD_MODERN)>
 
   module_mig15:
     code: 'mig-15'
@@ -85,6 +88,7 @@ App\Entity\Module:
     landingPage: true
     landingPageNumber: 4
     type: <(App\Entity\Module::TYPE_AIRCRAFT)>
+    period: <(App\Entity\Module::PERIOD_COLD_WAR)>
 
   module_mig21:
     code: 'mig-21'
@@ -93,6 +97,7 @@ App\Entity\Module:
     landingPage: true
     landingPageNumber: 5
     type: <(App\Entity\Module::TYPE_AIRCRAFT)>
+    period: <(App\Entity\Module::PERIOD_COLD_WAR)>
 
   module_mig29:
     code: 'mig-29'
@@ -101,6 +106,7 @@ App\Entity\Module:
     landingPage: true
     landingPageNumber: 6
     type: <(App\Entity\Module::TYPE_AIRCRAFT)>
+    period: <(App\Entity\Module::PERIOD_MODERN)>
 
   module_su27:
     code: 'su-27'
@@ -109,6 +115,7 @@ App\Entity\Module:
     landingPage: true
     landingPageNumber: 7
     type: <(App\Entity\Module::TYPE_AIRCRAFT)>
+    period: <(App\Entity\Module::PERIOD_MODERN)>
 
   module_sa342:
     code: 'sa342'
@@ -117,6 +124,7 @@ App\Entity\Module:
     landingPage: true
     landingPageNumber: 1
     type: <(App\Entity\Module::TYPE_HELICOPTER)>
+    period: <(App\Entity\Module::PERIOD_MODERN)>
 
   module_ka50:
     code: 'ka-50'
@@ -125,6 +133,7 @@ App\Entity\Module:
     landingPage: true
     landingPageNumber: 2
     type: <(App\Entity\Module::TYPE_HELICOPTER)>
+    period: <(App\Entity\Module::PERIOD_MODERN)>
 
   module_su25t:
     code: 'su-25t'
@@ -134,3 +143,4 @@ App\Entity\Module:
     landingPageNumber: 5
     roles: ['@module-role_cas', '@module-role_strike', '@module-role_sead']
     type: <(App\Entity\Module::TYPE_AIRCRAFT)>
+    period: <(App\Entity\Module::PERIOD_MODERN)>
