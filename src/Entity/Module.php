@@ -105,10 +105,16 @@ class Module
      */
     private $variants;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=ModuleRole::class, inversedBy="modules")
+     */
+    private $roles;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
         $this->variants = new ArrayCollection();
+        $this->roles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -291,6 +297,30 @@ class Module
     public function setLongName(string $longName): self
     {
         $this->longName = $longName;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ModuleRole[]
+     */
+    public function getRoles(): Collection
+    {
+        return $this->roles;
+    }
+
+    public function addRole(ModuleRole $role): self
+    {
+        if (!$this->roles->contains($role)) {
+            $this->roles[] = $role;
+        }
+
+        return $this;
+    }
+
+    public function removeRole(ModuleRole $role): self
+    {
+        $this->roles->removeElement($role);
 
         return $this;
     }

@@ -1,0 +1,21 @@
+App\Entity\ModuleRole:
+
+  module-role_cas:
+    code: 'cas'
+    name: 'CAS'
+    position: 1
+
+  module-role_strike:
+    code: 'strike'
+    name: 'Strike'
+    position: 2
+
+  module-role_sead:
+    code: 'sead'
+    name: 'Sead'
+    position: 3
+
+  module-role_cap:
+    code: 'cap'
+    name: 'CAP'
+    position: 4
