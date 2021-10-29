@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Module;
 use App\Entity\ModuleRole;
+use App\Entity\ModuleSystem;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -35,6 +36,15 @@ class ModuleType extends AbstractType
                 'class' => ModuleRole::class,
                 'choice_label' => 'name',
                 'label' => 'Rôles',
+                'multiple' => true,
+                'expanded' => true,
+            ]);
+
+        $builder
+            ->add('systems', EntityType::class, [
+                'class' => ModuleSystem::class,
+                'choice_label' => 'name',
+                'label' => 'Systèmes',
                 'multiple' => true,
                 'expanded' => true,
             ]);
