@@ -518,4 +518,16 @@ class Event
 
         return $this;
     }
+
+    public function __clone()
+    {
+        $this->title = 'Copie de '.$this->title;
+
+        $modules = $this->modules;
+        $this->modules = new ArrayCollection();
+        $this->votes = new ArrayCollection();
+        foreach ($modules as $module) {
+            $this->addModule($module);
+        }
+    }
 }

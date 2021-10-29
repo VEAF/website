@@ -1,3 +1,4 @@
+{# @todo factorize this section in simple confirm dialog #}
 {# delete dialog #}
 {# @param title: dialog title #}
 {# @param cancelUrl: route to cancel delete #}
@@ -23,9 +24,11 @@
                     {% endblock cancelButton %}
                 </div>
                 <div class="col-sm-6">
+                    {% block submitButton %}
                     <button class="btn btn-lg btn-danger form-control " type="submit">
                         <i class="fa fa-times-circle"></i> Supprimer
                     </button>
+                    {% endblock submitButton %}
                 </div>
             </div>
             {{ form_end(form) }}

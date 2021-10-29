@@ -52,7 +52,6 @@ class CalendarController extends AbstractController
     /**
      * @Route("/add/{periodString}", name="calendar_add")
      * @Route("/edit/{event}", name="calendar_edit")
-     * @Security("is_granted('EVENT_ADD') or is_granted('EDIT', event)")
      */
     public function edit(FileUploaderService $uploaderService, Request $request, EventManager $eventManager, Event $event = null, string $periodString = null): Response
     {
@@ -64,6 +63,16 @@ class CalendarController extends AbstractController
             $event->setEndDate((clone $date)->setTime(23, 00));
             $event->setOwner($this->getUser());
             $event->setRegistration(true);
+        }
+
+        // security check
+        switch ($request->get('_route')) {
+            case 'calendar_add':
+                $this->denyAccessUnlessGranted('EVENT_ADD');
+                break;
+            case 'calendar_edit':
+                $this->denyAccessUnlessGranted('EDIT', $event);
+                break;
         }
 
         $form = $this->createForm(CalendarEventType::class, $event);
@@ -85,6 +94,35 @@ class CalendarController extends AbstractController
         }
 
         return $this->render('calendar/edit.html.twig', [
+            'form' => $form->createView(),
+            'event' => $event,
+        ]);
+    }
+
+    /**
+     * @Route("/copy/{event}", name="calendar_copy")
+     * @Security("is_granted('EVENT_ADD')")
+     */
+    public function copy(Request $request, EventManager $eventManager, Event $event = null, string $periodString = null): Response
+    {
+        $form = $this->createForm(FormType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $newEvent = clone $event;
+            $newEvent->setOwner($this->getUser());
+            $date = (new \DateTime($periodString))->setTime(21, 00);
+            $newEvent->setStartDate($date);
+            $newEvent->setEndDate((clone $date)->setTime(23, 00));
+
+            $eventManager->save($newEvent, true);
+
+            $this->addFlash('success', 'L\'événement a été enregistré');
+
+            return $this->redirectToRoute('calendar_edit', ['event' => $newEvent->getId()]);
+        }
+
+        return $this->render('calendar/copy.html.twig', [
             'form' => $form->createView(),
             'event' => $event,
         ]);

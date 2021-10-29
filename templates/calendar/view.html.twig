@@ -30,13 +30,18 @@
     <div class="container container-main pt-3 pb-3 mb-3">
         <h1><i class="fa fa-circle" style="color: {{ event.typeColor }}"></i> {{ event | event_type }}
             - {{ event.title }}
-            {% if is_granted('EDIT', event) or true %}
-                <span class="float-right">
+            <span class="float-right">
+                {% if is_granted('EVENT_ADD') or true %}
+                    <a href="{{ path('calendar_copy', {'event': event.id}) }}">
+                        <i class="fa fa-copy"></i>
+                    </a>
+                {% endif %}
+                {% if is_granted('EDIT', event) or true %}
                     <a href="{{ path('calendar_edit', {'event': event.id}) }}">
                         <i class="fa fa-edit"></i>
                     </a>
-                </span>
-            {% endif %}
+                {% endif %}
+            </span>
         </h1>
         <div>
             Le {{ ('days.by-number.' ~ (event.startDate | date('N'))) | trans({}, 'datetime') }} {{ event.startDate | date('d/m/Y') }}
@@ -167,7 +172,8 @@
                 </div>
             {% elseif not event.registration %}
                 <div class="col-md-12 mt-3">
-                    <div class="alert alert-info">Les inscriptions à cet événement sont terminées. Contactez directement l'organisateur ({{ event.owner.nickname }}) pour plus de précisions.
+                    <div class="alert alert-info">Les inscriptions à cet événement sont terminées. Contactez directement
+                        l'organisateur ({{ event.owner.nickname }}) pour plus de précisions.
                     </div>
                 </div>
             {% else %}
