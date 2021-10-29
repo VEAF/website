@@ -26,7 +26,7 @@ class ModuleController extends AbstractController
     {
         $queryBuilder = $this->getDoctrine()->getRepository(Module::class)->createQueryBuilder('m')
             ->select('m, GROUP_CONCAT(r.name) AS roles')
-            ->join('m.roles', 'r')
+            ->leftJoin('m.roles', 'r')
             ->groupBy('m');
 
         $booleanFilterChoices = ['Oui' => true, 'Non' => false];

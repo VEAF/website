@@ -1,0 +1,41 @@
+{% extends 'admin/layout.html.twig' %}
+{% set section="dcs" %}
+{% set subSection="module-system" %}
+
+{% block pageContent %}
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="bs-component">
+                <div class="card mb-3">
+                    <h3 class="card-header">{% if system.id is not null %}Modifier le système{% else %}Ajouter un système{% endif %}</h3>
+                    <div class="card-body">
+                        {{ form_start(form) }}
+                        {{ form_rest(form) }}
+                        {{ form_errors(form) }}
+                        <div class="row">
+                            <div class="col-sm-6">
+                                {% if system.id is not null %}
+                                    <a href="{{ path('admin_module_system_view', {'system': system.id}) }}"
+                                       class="btn btn-lg btn-primary form-control">
+                                        <i class="fa fa-arrow-circle-left"></i> Annuler
+                                    </a>
+                                {% else %}
+                                    <a href="{{ path('admin_module_system_list') }}"
+                                       class="btn btn-lg btn-primary form-control">
+                                        <i class="fa fa-arrow-circle-left"></i> Annuler
+                                    </a>
+                                {% endif %}
+                            </div>
+                            <div class="col-sm-6">
+                                <button class="btn btn-lg btn-danger form-control " type="submit">
+                                    <i class="fa fa-save"></i> Enregistrer
+                                </button>
+                            </div>
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock pageContent %}

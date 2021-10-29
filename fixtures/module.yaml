@@ -55,6 +55,7 @@ App\Entity\Module:
     landingPage: false
     landingPageNumber: 2
     roles: ['@module-role_cas', '@module-role_strike']
+    systems: ['@module-system_ils', '@module-system_tacan']
     type: <(App\Entity\Module::TYPE_AIRCRAFT)>
 
   module_a10c2:
@@ -64,6 +65,7 @@ App\Entity\Module:
     landingPage: true
     landingPageNumber: 3
     roles: ['@module-role_cas', '@module-role_strike']
+    systems: ['@module-system_ils', '@module-system_tacan']
     type: <(App\Entity\Module::TYPE_AIRCRAFT)>
 
   module_m2000c:
@@ -73,6 +75,7 @@ App\Entity\Module:
     landingPage: true
     landingPageNumber: 1
     roles: ['@module-role_strike', '@module-role_cap']
+    systems: ['@module-system_tacan', '@module-system_aa-refuel']
     type: <(App\Entity\Module::TYPE_AIRCRAFT)>
 
   module_mig15:
