@@ -1,0 +1,16 @@
+{% extends 'admin/layout.html.twig' %}
+{% set libKilikTable=true %}
+{% set section="dcs" %}
+{% set subSection="module-system" %}
+
+{% block pageContent %}
+    <div class="row mb-4">
+        <div class="col-md-6">
+            {% embed "admin/_common/_delete_dialog.html.twig" with {'title': "Supprimer le rôle ?", 'cancelUrl': path('admin_module_role_view', {'role': role.id})} %}
+                {% block message %}
+                    Confirmez-vous la suppression du rôle {{ role.name }}?
+                {% endblock message %}
+            {% endembed %}
+        </div>
+    </div>
+{% endblock pageContent %}

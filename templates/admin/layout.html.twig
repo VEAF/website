@@ -115,7 +115,13 @@
             <li class="nav-item{% if section == "dcs" and subSection == "module-system" %} active{% endif %}">
                 <a class="nav-link" href="{{ path("admin_module_system_list") }}">
                     <i class="fas fa-cubes"></i>
-                    <span>Systèmes</span>
+                    <span>Systèmes des modules</span>
+                </a>
+            </li>
+            <li class="nav-item{% if section == "dcs" and subSection == "module-role" %} active{% endif %}">
+                <a class="nav-link" href="{{ path("admin_module_role_list") }}">
+                    <i class="fas fa-cubes"></i>
+                    <span>Rôles des modules</span>
                 </a>
             </li>
             <li class="nav-item{% if section == "dcs" and subSection == "variant" %} active{% endif %}">
