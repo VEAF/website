@@ -110,11 +110,17 @@ class Module
      */
     private $roles;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=ModuleSystem::class, inversedBy="modules")
+     */
+    private $systems;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
         $this->variants = new ArrayCollection();
         $this->roles = new ArrayCollection();
+        $this->systems = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -321,6 +327,30 @@ class Module
     public function removeRole(ModuleRole $role): self
     {
         $this->roles->removeElement($role);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ModuleSystem[]
+     */
+    public function getSystems(): Collection
+    {
+        return $this->systems;
+    }
+
+    public function addSystem(ModuleSystem $system): self
+    {
+        if (!$this->systems->contains($system)) {
+            $this->systems[] = $system;
+        }
+
+        return $this;
+    }
+
+    public function removeSystem(ModuleSystem $system): self
+    {
+        $this->systems->removeElement($system);
 
         return $this;
     }
