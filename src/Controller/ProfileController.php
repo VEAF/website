@@ -32,7 +32,7 @@ class ProfileController extends AbstractController
 
         // all known modules
         $data['moduleTypes'] = Module::TYPES;
-        $data['modules'] = $this->getDoctrine()->getRepository(Module::class)->findBy([], ['type' => 'asc', 'name' => 'asc']);
+        $data['modules'] = $this->getDoctrine()->getRepository(Module::class)->findBy([], ['type' => 'asc', 'period' => 'desc', 'name' => 'asc']);
         $data['myModules'] = $this->getDoctrine()->getRepository(UserModule::class)->findByUserIndexedByModule($this->getUser());
         $data['minCadetsFlights'] = User::CADET_MIN_FLIGHTS;
 
