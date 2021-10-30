@@ -119,11 +119,13 @@ class Module
 
     /**
      * @ORM\ManyToMany(targetEntity=ModuleRole::class, inversedBy="modules")
+     * @ORM\OrderBy({"position" = "ASC"})
      */
     private $roles;
 
     /**
      * @ORM\ManyToMany(targetEntity=ModuleSystem::class, inversedBy="modules")
+     * @ORM\OrderBy({"position" = "ASC"})
      */
     private $systems;
 

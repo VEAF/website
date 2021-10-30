@@ -1,0 +1,31 @@
+<div class="bs-component">
+    <div class="card mb-3">
+        <h3 class="card-header">Caractéristiques de {{ module.name }}</h3>
+        <div class="card-body">
+            {% if module.roles | length > 0 %}
+                Rôles:
+                <ul>
+                    {% for role in module.roles %}
+                        <li>{{ role.name }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            {% if module.systems | length > 0 %}
+                Systèmes:
+                <ul>
+                    {% for system in module.systems %}
+                        <li>{{ system.name }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <hr/>
+            <div class="row justify-content-end">
+                <div class="col-sm-3">
+                    <button class="btn btn-lg btn-primary btn-sm" data-dismiss="modal">
+                        <i class="fa fa-times-circle"></i> Fermer
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
