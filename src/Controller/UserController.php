@@ -28,7 +28,7 @@ class UserController extends AbstractController
 
         $data['user'] = $user;
         $data['moduleTypes'] = Module::TYPES;
-        $data['modules'] = $this->getDoctrine()->getRepository(Module::class)->findBy([], ['type' => 'asc', 'period'=> 'desc', 'name' => 'asc']);
+        $data['modules'] = $this->getDoctrine()->getRepository(Module::class)->findBy([], ['type' => 'asc', 'period' => 'desc', 'name' => 'asc']);
         $data['userModulesTypes'] = $this->getDoctrine()->getRepository(UserModule::class)->findByUserIndexedByTypeAndModule($user);
         $data['stats'] = $user->getPlayer() ? $variantStatRepository->countTotals($user->getPlayer()) : null;
         $data['morePlayedAircraft'] = $user->getPlayer() ? $moduleRepository->findOneByPlayerAndBestTotalHours($user->getPlayer(), Module::TYPE_AIRCRAFT) : null;

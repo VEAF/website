@@ -233,4 +233,12 @@ class RosterController extends AbstractController
             throw new \Exception('WIP');
         }
     }
+
+    /**
+     * @Route("/_specs/{module}", name="roster_module_specs")
+     */
+    public function moduleSpecs(Module $module): Response
+    {
+        return $this->render('roster/_module_specs.html.twig', ['module' => $module]);
+    }
 }

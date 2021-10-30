@@ -123,6 +123,9 @@
                         <div class="module-roster-description-layer">
                             <p class="">{{ selectedAircraft.longName }}</p>
                         </div>
+                        <div class="module-roster-button-popup-container">
+                            <a class="btn btn-primary btn-sm module-roster-button-popup remote-modal" href="{{ path('roster_module_specs', {'module': selectedAircraft.id}) }}"></a>
+                        </div>
                     </div>
                 </div>
             </div>
