@@ -1,3 +1,16 @@
+### 1.10.0
+* ADD profil - spération des modules par époque
+* ADD roster - spération des avions par époque
+* ADD roster - affichage des caractéristiques rôles et systèmes du module
+* ADD calendrier - copie d'un évenement
+* ADD mission-maker - filtrer les avions par époque
+* ADD map - ajout de l'affichage de la carte + bullseye (WIP)
+* ADD cms - visibilité des éléments du menu selon le profil
+* ADD cms - restriction d'accès aux pages en fonction des profils
+* ADD admin - gestion des rôles des modules (CAS, SEAD, etc...)
+* ADD admin - gestion des systèmes des modules
+* FIX calendrier - les membres pouvaient modifier les événements des autres
+
 ### 1.9.3
 * ADD calendrier - l'organisateur peut bloquer les inscriptions
 * FIX roster - décompte des cadets prêts
