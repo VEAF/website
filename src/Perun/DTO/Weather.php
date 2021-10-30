@@ -67,6 +67,8 @@ class Weather
         $weather->dustDensity = $row['dust_density'];
         $weather->parseSeason($row['season']);
         $weather->parseVisibility($row['visibility']);
+        $weather->winds = [];
+
         foreach (['atGround' => 0, 'at2000' => 2000, 'at8000' => 8000] as $windType => $windLevel) {
             if (isset($row['wind'][$windType])) {
                 $weather->winds[$windLevel] = Wind::createFromJsonArray($row['wind'][$windType]);
@@ -77,7 +79,7 @@ class Weather
         return $weather;
     }
 
-    private function parseSeason(array $row)
+    private function parseSeason(array $row): void
     {
         $row += [
             'temperature' => 15.0,
@@ -86,7 +88,7 @@ class Weather
         $this->temperature = $row['temperature'];
     }
 
-    private function parseVisibility(array $row)
+    private function parseVisibility(array $row): void
     {
         $row += [
             'distance' => 0,
@@ -95,7 +97,7 @@ class Weather
         $this->visibilityDistance = $row['distance'];
     }
 
-    private function parseClouds(array $row)
+    private function parseClouds(array $row): void
     {
         $row += [
             'density' => 0,
@@ -123,7 +125,7 @@ class Weather
         }
     }
 
-    public function getQnh(string $unit)
+    public function getQnh(string $unit): float
     {
         switch ($unit) {
             case static::QNH_UNIT_INHG:
@@ -136,7 +138,7 @@ class Weather
         }
     }
 
-    public function getWinds()
+    public function getWinds(): array
     {
         return $this->winds;
     }

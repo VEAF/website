@@ -10,6 +10,7 @@ class Mission
     private \DateTime $startDate;
     private Weather $weather;
     private ?Instance $instance;
+    private array $coalitions = [];
 
     public static function createFromJsonArray(array $row): Mission
     {
@@ -18,6 +19,7 @@ class Mission
             'start_time' => 0,
             'date' => [],
             'weather' => [],
+            'coalition' => [],
         ];
 
         $mission = new self();
@@ -27,6 +29,7 @@ class Mission
         $mission->startDate = static::parseDateFromJsonArray($row['date']);
         $mission->startDate->modify(sprintf('+%d seconds', $startTime));
         $mission->weather = Weather::createFromJsonArray($row['weather']);
+        $mission->coalitions = static::parseCoaltionsFromJsonArray($row['coalition']);
 
         return $mission;
     }
@@ -42,6 +45,20 @@ class Mission
         $date = new \DateTime(sprintf('%04d-%02d-%02d', $row['Year'], $row['Month'], $row['Day']));
 
         return $date;
+    }
+
+    /**
+     * @return array|Coalition[]
+     */
+    private static function parseCoaltionsFromJsonArray(array $row): array
+    {
+        $coalitions = [];
+
+        foreach ($row as $coaltionCode => $coaltionRow) {
+            $coalitions[$coaltionCode] = Coalition::createFromJsonArray($coaltionRow);
+        }
+
+        return $coalitions;
     }
 
     public function setInstance(Instance $instance): self
@@ -85,5 +102,18 @@ class Mission
         }
 
         return $date;
+    }
+
+    /**
+     * @return array|Coalition[]
+     */
+    public function getCoalitions(): array
+    {
+        return $this->coalitions;
+    }
+
+    public function getCoalition(string $coalitionCode): Coalition
+    {
+        return $this->coalitions[$coalitionCode];
     }
 }

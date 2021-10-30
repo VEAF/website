@@ -157,16 +157,21 @@
                               title="Nombre de modules en sa possession">{{ userModules|length }}</span>
                     </div>
                 </h2>
-                <table class="table table-striped table-bordered table-hover">
-                    <thead>
-                    <tr>
-                        <th>
-                            Module
-                        </th>
-                    </tr>
-                    </thead>
+                <table class="table table-striped table-bordered">
                     <tbody>
+                    {% set period = null %}
                     {% for userModule in userModules %}
+                        {% if userModule.module.type == constant('App\\Entity\\Module::TYPE_AIRCRAFT') %}
+                            {% if userModule.module.period != period %}
+                                {% set period = userModule.module.period %}
+                                <tr class="roster-period">
+                                    <td>
+                                        {{ userModule.module.periodAsString }}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        {% endif %}
+
                         <tr>
                             <td>
                                 {{ userModule.module.longName }}

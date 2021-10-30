@@ -8,7 +8,17 @@
     <div class="container container-main pt-3 pb-3 mb-3">
         <div class="bs-component">
             <div class="card mb-3">
-                <h3 class="card-header">{% if event.id is null %}Ajouter l'événement{% else %}Modifier l'événement{% endif %}</h3>
+                <h3 class="card-header">
+                    {% if app.request.attributes.get('_route') is same as 'calendar_add' %}
+                        Ajouter l'événement
+                    {% elseif app.request.attributes.get('_route') is same as 'calendar_copy' %}
+                        <i class="fa fa-exclamation-triangle"></i> Copier l'événement
+                    {% elseif app.request.attributes.get('_route') is same as 'calendar_edit' %}
+                        Modifier l'événement
+                    {% else %}
+                        Opération sur l'événement {{ app.request.attributes.get('_route') }}
+                    {% endif %}
+                </h3>
                 <div class="card-body">
                     {{ form_start(form) }}
                     {{ form_rest(form) }}

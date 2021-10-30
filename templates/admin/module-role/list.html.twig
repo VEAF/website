@@ -1,0 +1,19 @@
+{% extends 'admin/layout.html.twig' %}
+{% set libKilikTable=true %}
+{% set section="dcs" %}
+{% set subSection="module-role" %}
+
+{% block pageContent %}
+    <div class="row mb-4">
+        <div class="col-xl-8">
+            {% embed "admin/module-role/_list.html.twig" with {"table": table} %}
+                {% block tableTitle %}
+                    <b>Rôles des modules</b>
+                    <div class="float-right">
+                        <a class="btn btn-primary" href="{{ path("admin_module_role_add") }}"><i class="fa fa-plus"></i> Ajouter</a>
+                    </div>
+                {% endblock tableTitle %}
+            {% endembed %}
+        </div>
+    </div>
+{% endblock pageContent %}

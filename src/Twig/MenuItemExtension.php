@@ -3,18 +3,23 @@
 namespace App\Twig;
 
 use App\Entity\Menu\Item;
+use App\Entity\User;
+use App\Security\Restriction;
 use Symfony\Component\Routing\Router;
 use Symfony\Component\Routing\RouterInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
+use Twig\TwigFunction;
 
 class MenuItemExtension extends AbstractExtension
 {
     private Router $router;
+    private Restriction $restriction;
 
-    public function __construct(RouterInterface $router)
+    public function __construct(RouterInterface $router, Restriction $restriction)
     {
         $this->router = $router;
+        $this->restriction = $restriction;
     }
 
     public function getFilters()
@@ -22,6 +27,13 @@ class MenuItemExtension extends AbstractExtension
         return [
             new TwigFilter('menu_item_href', [$this, 'itemHref']),
             new TwigFilter('menu_item_target', [$this, 'itemTarget']),
+        ];
+    }
+
+    public function getFunctions()
+    {
+        return [
+            new TwigFunction('menu_item_is_visible', [$this, 'itemIsVisible']),
         ];
     }
 
@@ -58,5 +70,10 @@ class MenuItemExtension extends AbstractExtension
             default:
                 return '';
         }
+    }
+
+    public function itemIsVisible(?User $user, Item $item)
+    {
+        return $item->isEnabled() && $this->restriction->isGrantedToLevel($user, $item->getRestriction());
     }
 }

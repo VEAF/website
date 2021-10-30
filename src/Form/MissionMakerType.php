@@ -43,6 +43,17 @@ class MissionMakerType extends AbstractType
                 ],
             ]);
 
+        $periods = Module::PERIODS;
+        $periods[Module::PERIOD_NONE] = 'Toutes';
+
+        $builder
+            ->add('period', ChoiceType::class, [
+                'label' => 'Période',
+                'choices' => array_flip($periods),
+                'multiple' => false,
+                'expanded' => true,
+            ]);
+
         $builder
             ->add('modules', EntityType::class,
                 [

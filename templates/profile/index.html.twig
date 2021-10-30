@@ -193,17 +193,21 @@
                 {# <span class="badge badge-primary badge-pill" title="Nombre de modules en ma possession">14</span> #}
                 {# </div> #}
             </h2>
-            <table class="table table-striped table-bordered table-hover">
-                <thead>
-                <tr>
-                    <th>
-                        Module
-                    </th>
-                </tr>
-                </thead>
+            <table class="table table-striped table-bordered">
                 <tbody>
+                {% set period=null %}
                 {% for module in modules %}
                     {% if module.type == moduleTypeKey %}
+                        {% if module.type == constant('App\\Entity\\Module::TYPE_AIRCRAFT') %}
+                            {% if module.period != period %}
+                                {% set period = module.period %}
+                                <tr class="roster-period">
+                                    <td>
+                                        {{ module.periodAsString }}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        {% endif %}
                         {% if (attribute(myModules, module.id)) is defined %}
                             {% set myModule = attribute(myModules, module.id) %}
                         {% else %}

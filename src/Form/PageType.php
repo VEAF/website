@@ -3,8 +3,10 @@
 namespace App\Form;
 
 use App\Entity\Page;
+use App\Security\Restriction;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -37,6 +39,13 @@ class PageType extends AbstractType
                 [
                     'required' => true,
                     'label' => 'Url',
+                ])
+            ->add('restriction', ChoiceType::class,
+                [
+                    'label' => 'Restriction / Visibilité',
+                    'required' => true,
+                    'expanded' => true,
+                    'choices' => array_flip(Restriction::LEVELS),
                 ]);
     }
 

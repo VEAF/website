@@ -20,15 +20,21 @@ class InstanceService
         $this->cacheAdapter = $cacheAdapter;
     }
 
-    public function getMission(Instance $instance, bool $useCache = true): Mission
+    public function getMission(Instance $instance, bool $extended = false, bool $useCache = true): Mission
     {
-        $cacheKey = sprintf('perun-instance-%d-%s', $instance->getId(), md5($instance->getMission()));
+        $cacheKey = sprintf('perun-instance-%d-%s-%d', $instance->getId(), md5($instance->getMission()), $extended ? 1 : 0);
 
         $cacheMission = $this->cacheAdapter->getItem($cacheKey);
 
         if (!$cacheMission->isHit() || !$useCache) {
             $dataMission = $this->entityManager->getRepository(DataRaw::class)->findOneBy(['instance' => $instance, 'type' => DataRaw::TYPE_MISSION]);
-            $mission = $this->parseMission(json_decode($dataMission->getPayload(), true));
+            $missionRow = json_decode($dataMission->getPayload(), true);
+            if (is_array($missionRow)) {
+                $mission = $this->parseMission($missionRow);
+            } else {
+                // fallback to empty data
+                $mission = $this->parseMission([]);
+            }
             $mission->setInstance($instance);
             $cacheMission->set($mission);
             $this->cacheAdapter->save($cacheMission);
@@ -37,7 +43,7 @@ class InstanceService
         return $cacheMission->get();
     }
 
-    private function parseMission($row): Mission
+    private function parseMission(array $row): Mission
     {
         $row += ['mission' => []];
 

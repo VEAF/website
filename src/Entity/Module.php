@@ -40,6 +40,18 @@ class Module
         self::TYPE_SPECIAL,
     ];
 
+    const PERIOD_NONE = 0;
+    const PERIOD_WW2 = 1;
+    const PERIOD_COLD_WAR = 2;
+    const PERIOD_MODERN = 3;
+
+    const PERIODS = [
+        self::PERIOD_NONE => '',
+        self::PERIOD_WW2 => 'WW2',
+        self::PERIOD_COLD_WAR => 'COLD WAR',
+        self::PERIOD_MODERN => 'MODERN',
+    ];
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -105,10 +117,29 @@ class Module
      */
     private $variants;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=ModuleRole::class, inversedBy="modules")
+     * @ORM\OrderBy({"position" = "ASC"})
+     */
+    private $roles;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=ModuleSystem::class, inversedBy="modules")
+     * @ORM\OrderBy({"position" = "ASC"})
+     */
+    private $systems;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private ?int $period = null;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
         $this->variants = new ArrayCollection();
+        $this->roles = new ArrayCollection();
+        $this->systems = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -293,5 +324,74 @@ class Module
         $this->longName = $longName;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|ModuleRole[]
+     */
+    public function getRoles(): Collection
+    {
+        return $this->roles;
+    }
+
+    public function addRole(ModuleRole $role): self
+    {
+        if (!$this->roles->contains($role)) {
+            $this->roles[] = $role;
+        }
+
+        return $this;
+    }
+
+    public function removeRole(ModuleRole $role): self
+    {
+        $this->roles->removeElement($role);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ModuleSystem[]
+     */
+    public function getSystems(): Collection
+    {
+        return $this->systems;
+    }
+
+    public function addSystem(ModuleSystem $system): self
+    {
+        if (!$this->systems->contains($system)) {
+            $this->systems[] = $system;
+        }
+
+        return $this;
+    }
+
+    public function removeSystem(ModuleSystem $system): self
+    {
+        $this->systems->removeElement($system);
+
+        return $this;
+    }
+
+    public function getPeriod(): ?int
+    {
+        return $this->period;
+    }
+
+    public function setPeriod(?int $period): self
+    {
+        $this->period = $period;
+
+        return $this;
+    }
+
+    public function getPeriodAsString(): string
+    {
+        if (null === $this->period || !isset(self::PERIODS[$this->period])) {
+            return '';
+        }
+
+        return self::PERIODS[$this->period];
     }
 }

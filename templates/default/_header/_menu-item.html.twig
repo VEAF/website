@@ -14,7 +14,7 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="news">
             {% for item in menuItem.items %}
-                {% if item.enabled %}
+                {% if menu_item_is_visible(app.user, item) %}
                     {% if item.type == constant('App\\Entity\\Menu\\Item::TYPE_DIVIDER') %}
                         <div class="dropdown-divider"></div>
                     {% else %}

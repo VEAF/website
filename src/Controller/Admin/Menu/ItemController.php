@@ -5,6 +5,7 @@ namespace App\Controller\Admin\Menu;
 use App\Entity\Menu\Item;
 use App\Form\MenuItemType;
 use App\Manager\Menu\ItemManager;
+use App\Security\Restriction;
 use Kilik\TableBundle\Components\Column;
 use Kilik\TableBundle\Components\Filter;
 use Kilik\TableBundle\Components\FilterSelect;
@@ -99,6 +100,26 @@ class ItemController extends AbstractController
                             return 'oui';
                         } else {
                             return 'non';
+                        }
+                    })
+            );
+
+        $table
+            ->addColumn(
+                (new Column())->setLabel('Restriction')
+                    ->setSort(['i.restriction' => 'asc', 'pos' => 'asc'])
+                    ->setFilter((new FilterSelect())
+                        ->setField('i.restriction')
+                        ->setName('i_restriction')
+                        ->setChoices(array_flip(Restriction::LEVELS))
+                        ->setPlaceholder('-')
+                        ->disableTranslation() // disable translations of placeholder and values
+                    )
+                    ->setDisplayCallback(function ($value, $row, $lines) {
+                        if (isset(Restriction::LEVELS[$value])) {
+                            return Restriction::LEVELS[$value];
+                        } else {
+                            return $value;
                         }
                     })
             );

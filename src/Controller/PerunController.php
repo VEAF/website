@@ -14,7 +14,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -85,10 +84,6 @@ class PerunController extends AbstractController
      */
     public function instance(Server $server, LogStatService $logStatService, InstanceService $instanceService): Response
     {
-        if (null === $server) {
-            throw new NotFoundHttpException('server is not linked to a perun instance');
-        }
-
         /** @var OnlinePlayer[] $onlinePlayers */
         $onlinePlayers = $this->getDoctrine()->getRepository(OnlinePlayer::class)->findRealPlayersByInstance($server->getPerunInstance());
 

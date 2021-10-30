@@ -369,6 +369,24 @@ iframe {
     font-size: 32px;
 }
 
+.module-roster-button-popup-container {
+    position: absolute;
+    top: 16px;
+    right: -25px;
+
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+}
+
+.module-roster-button-popup {
+    width: 25px;
+    height: 80px;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
+}
+
 .roster-table {
     font-size: larger;
 }
@@ -379,6 +397,12 @@ iframe {
 
 .roster-icon-wrap {
     vertical-align: middle;
+}
+
+.roster-period {
+    background-image: linear-gradient(#04519b,#033c73 60%,#02325f);
+    background-repeat: no-repeat;
+    color: white;
 }
 
 .card-stats {

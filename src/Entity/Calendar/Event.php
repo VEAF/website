@@ -159,7 +159,7 @@ class Event
     /**
      * @ORM\Column(type="boolean")
      */
-    private bool $registration;
+    private bool $registration = false;
 
     public function __construct()
     {
@@ -517,5 +517,17 @@ class Event
         $this->registration = $registration;
 
         return $this;
+    }
+
+    public function __clone()
+    {
+        $this->title = 'Copie de '.$this->title;
+
+        $modules = $this->modules;
+        $this->modules = new ArrayCollection();
+        $this->votes = new ArrayCollection();
+        foreach ($modules as $module) {
+            $this->addModule($module);
+        }
     }
 }

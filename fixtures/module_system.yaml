@@ -1,0 +1,36 @@
+App\Entity\ModuleSystem:
+
+  module-system_ils:
+    code: 'ils'
+    name: 'ILS'
+    position: 1
+
+  module-system_tacan:
+    code: 'tacan'
+    name: 'TACAN'
+    position: 2
+
+  module-system_vor:
+    code: 'vor'
+    name: 'VOR'
+    position: 3
+
+  module-system_adf:
+    code: 'adf'
+    name: 'ADF'
+    position: 4
+
+  module-system_vtol:
+    code: 'vtol'
+    name: 'VTOL'
+    position: 5
+
+  module-system_aa-refuel:
+    code: 'aa-refuel'
+    name: 'AA-Refuel'
+    position: 6
+
+  module-system_carrier-ops:
+    code: 'carrier-ops'
+    name: 'Carrier-Ops'
+    position: 7

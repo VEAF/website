@@ -1,0 +1,59 @@
+{% extends 'admin/layout.html.twig' %}
+{% set section="dcs" %}
+{% set subSection="module-role" %}
+
+{% block pageContent %}
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="bs-component">
+                <div class="card mb-3">
+                    <h3 class="card-header">Consulter le rôle du module DCS</h3>
+                    <div class="card-body">
+                        <table class="table">
+                            <tr>
+                                <td>
+                                    Code:
+                                </td>
+                                <td>
+                                    {{ role.code }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Nom:
+                                </td>
+                                <td>
+                                    {{ role.name }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Position:
+                                </td>
+                                <td>
+                                    {{ role.position }}
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <a href="{{ path('admin_module_role_list') }}" class="btn btn-primary form-control"><i
+                                            class="fa fa-arrow-left"></i> Retour liste</a>
+                            </div>
+                            <div class="col-sm-4">
+                                <a href="{{ path('admin_module_role_delete', {'role': role.id}) }}"
+                                   class="btn btn-outline-danger form-control">
+                                    <i class="fa fa-times-circle"></i> Supprimer
+                                </a>
+                            </div>
+                            <div class="col-sm-4">
+                                <a href="{{ path('admin_module_role_edit', {'role': role.id}) }}"
+                                   class="btn btn-outline-warning form-control"><i class="fa fa-edit"></i> Modifier</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock pageContent %}

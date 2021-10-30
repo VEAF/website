@@ -1,0 +1,19 @@
+{% extends 'admin/layout.html.twig' %}
+{% set libKilikTable=true %}
+{% set section="dcs" %}
+{% set subSection="module-system" %}
+
+{% block pageContent %}
+    <div class="row mb-4">
+        <div class="col-xl-8">
+            {% embed "admin/module-system/_list.html.twig" with {"table": table} %}
+                {% block tableTitle %}
+                    <b>Systèmes des modules</b>
+                    <div class="float-right">
+                        <a class="btn btn-primary" href="{{ path("admin_module_system_add") }}"><i class="fa fa-plus"></i> Ajouter</a>
+                    </div>
+                {% endblock tableTitle %}
+            {% endembed %}
+        </div>
+    </div>
+{% endblock pageContent %}
