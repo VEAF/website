@@ -114,6 +114,7 @@ class CalendarController extends AbstractController
             $date = (new \DateTime($periodString))->setTime(21, 00);
             $newEvent->setStartDate($date);
             $newEvent->setEndDate((clone $date)->setTime(23, 00));
+            $newEvent->setRegistration(true);
 
             $eventManager->save($newEvent, true);
 
