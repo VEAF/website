@@ -6,6 +6,7 @@ use App\Entity\Calendar\Event;
 use App\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
+use Symfony\Component\Security\Core\Security;
 
 class EventVoter extends Voter
 {
@@ -13,6 +14,13 @@ class EventVoter extends Voter
     const EDIT = 'EDIT';
     const VOTE = 'VOTE';
     const CHOICE = 'CHOICE';
+
+    private Security $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
 
     protected function supports($attribute, $subject)
     {
@@ -48,8 +56,9 @@ class EventVoter extends Voter
                 if ($event->getOwner() === $user) {
                     return true;
                 }
-                // @todo admin could also edit all events
-
+                if ($this->security->isGranted('ROLE_ADMIN')) {
+                    return true;
+                }
                 // else, edit is not granted
                 return false;
             case self::VOTE:
