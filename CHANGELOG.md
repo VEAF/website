@@ -1,3 +1,7 @@
+### 1.10.1
+* FIX calendrier - l'administrateur ne peut pas modifier un événement
+* FIX calendrier - inscription fermée lors de la copie d'un événement
+
 ### 1.10.0
 * ADD profil - spération des modules par époque
 * ADD roster - spération des avions par époque
