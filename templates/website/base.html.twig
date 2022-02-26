@@ -10,9 +10,7 @@
               integrity="sha512-P5MgMn1jBN01asBgU0z60Qk4QxiXo86+wlFahKrsQf37c9cro517WzVSPPV1tDKzhku2iJ2FVgL67wG03SGnNA=="
               crossorigin="anonymous"/>
         {% block favicon %}<link rel="icon" type="image/ico" href="/img/favicon.ico"/>{% endblock favicon %}
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
-              integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
-              crossorigin="anonymous"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
                 integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
                 crossorigin="anonymous"></script>
@@ -91,7 +89,7 @@ $(document).ready(function () {
                 var $currentTable = $(currentTable);
                 var id = $currentTable.data("kiliktable-id");
                 if (id.length > 0) {
-                        console.log(id);
+                    console.log(id);
                     var path = $currentTable.data("kiliktable-path");
                     var options = $currentTable.html();
                     new KilikTableFA(id, path, JSON.parse(options)).init();
