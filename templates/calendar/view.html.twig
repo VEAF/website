@@ -100,6 +100,10 @@
             </div>
         {% endif %}
 
+        {% if event.server is not null %}
+            Serveur: <a href="{{ path('perun_instance', {'server': event.server.code}) }}">{{ event.server.name }}</a><br/>
+        {% endif %}
+
         {# restriction simulateur #}
         {% if event.simDcs or event.simBms %}
             Réservé au(x) simulateur(s):
