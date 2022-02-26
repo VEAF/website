@@ -168,7 +168,19 @@ class Event
     /**
      * @ORM\ManyToOne(targetEntity=Server::class)
      */
-    private $server;
+    private ?Server $server = null;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private bool $ato = false;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Flight::class, mappedBy="event", orphanRemoval=true, cascade={"persist", "remove"})
+     * @ORM\OrderBy({"name" = "ASC"})
+     * @var Flight[]
+     */
+    private $flights;
 
     public function __construct()
     {
@@ -176,6 +188,7 @@ class Event
         $this->votes = new ArrayCollection();
         $this->notifications = new ArrayCollection();
         $this->choices = new ArrayCollection();
+        $this->flights = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -548,6 +561,48 @@ class Event
     public function setServer(?Server $server): self
     {
         $this->server = $server;
+
+        return $this;
+    }
+
+    public function getAto(): ?bool
+    {
+        return $this->ato;
+    }
+
+    public function setAto(bool $ato): self
+    {
+        $this->ato = $ato;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Flight[]
+     */
+    public function getFlights(): Collection
+    {
+        return $this->flights;
+    }
+
+    public function addFlight(Flight $flight): self
+    {
+        if (!$this->flights->contains($flight)) {
+            $this->flights[] = $flight;
+            $flight->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFlight(Flight $flight): self
+    {
+        if ($this->flights->removeElement($flight)) {
+            // set the owning side to null (unless already changed)
+            if ($flight->getEvent() === $this) {
+                $flight->setEvent(null);
+            }
+        }
 
         return $this;
     }
