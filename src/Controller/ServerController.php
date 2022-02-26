@@ -2,20 +2,13 @@
 
 namespace App\Controller;
 
-use App\Entity\Module;
 use App\Entity\Server;
-use App\Entity\User;
-use App\Entity\UserModule;
-use App\Entity\VariantStat;
 use App\Form\ServerControlType;
-use App\Repository\ModuleRepository;
-use App\Repository\VariantStatRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -47,5 +40,4 @@ class ServerController extends AbstractController
             ]
         );
     }
-
 }

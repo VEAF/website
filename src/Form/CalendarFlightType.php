@@ -59,7 +59,6 @@ class CalendarFlightType extends AbstractType
                     'allow_add' => true,
                     'label' => false,
                 ]);
-
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -150,7 +150,7 @@ class CalendarEventType extends AbstractType
                 return $er->createQueryBuilder('s')
                     ->orderBy('s.name', 'ASC');
             },
-            'choice_label'=>'name',
+            'choice_label' => 'name',
             'required' => false,
             'label' => 'Serveur',
             'placeholder' => '-',
