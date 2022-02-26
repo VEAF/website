@@ -60,3 +60,19 @@ App\Entity\Calendar\Event:
     modules:
       - "@module_a10c"
       - "@module_a10c2"
+
+  calendarevent_atc_now:
+    createdAt: "<dateTimeBetween('-1 month', 'now')>"
+    updatedAt: "<dateTimeBetween('-1 month', 'now')>"
+    startDate: "<((new DateTime('now'))->setTime(0,0))>"
+    endDate: "<((new DateTime('now'))->setTime(23,59))>"
+    type: <(App\Entity\Calendar\Event::EVENT_TYPE_ATC)>
+    title: "ATC Nevada"
+    owner: "@user_mitch"
+    map: "@module_nevada"
+    simDcs: true
+    restrictions: '<([App\Entity\User::STATUS_CADET,App\Entity\User::STATUS_MEMBER])>'
+    server: "@server_public"
+    modules:
+      - "@module_a10c"
+      - "@module_a10c2"

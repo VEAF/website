@@ -4,6 +4,7 @@ namespace App\Entity\Calendar;
 
 use App\Entity\File;
 use App\Entity\Module;
+use App\Entity\Server;
 use App\Entity\User;
 use App\Repository\Calendar\EventRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -21,6 +22,7 @@ class Event
     const EVENT_TYPE_OPEX = 3;
     const EVENT_TYPE_MEETING = 4;
     const EVENT_TYPE_MAINTENANCE = 5;
+    const EVENT_TYPE_ATC = 6;
 
     const EVENTS = [
         self::EVENT_TYPE_TRAINING => 'Training',
@@ -28,6 +30,7 @@ class Event
         self::EVENT_TYPE_OPEX => 'OPEX',
         self::EVENT_TYPE_MEETING => 'Meeting',
         self::EVENT_TYPE_MAINTENANCE => 'Maintenance',
+        self::EVENT_TYPE_ATC => 'ATC / GCI',
     ];
 
     const EVENTS_COLORS = [
@@ -36,6 +39,7 @@ class Event
         self::EVENT_TYPE_OPEX => '#7D3C98',
         self::EVENT_TYPE_MEETING => '#2980B9',
         self::EVENT_TYPE_MAINTENANCE => '#E74C3C',
+        self::EVENT_TYPE_ATC => '#EA9417',
     ];
 
     const RESTRICTION_CADET = 1;
@@ -160,6 +164,11 @@ class Event
      * @ORM\Column(type="boolean")
      */
     private bool $registration = false;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Server::class)
+     */
+    private $server;
 
     public function __construct()
     {
@@ -529,5 +538,17 @@ class Event
         foreach ($modules as $module) {
             $this->addModule($module);
         }
+    }
+
+    public function getServer(): ?Server
+    {
+        return $this->server;
+    }
+
+    public function setServer(?Server $server): self
+    {
+        $this->server = $server;
+
+        return $this;
     }
 }

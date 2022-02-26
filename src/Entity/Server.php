@@ -34,6 +34,16 @@ class Server
      */
     private ?Instance $perunInstance;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private bool $atc = false;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private bool $gci = false;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -71,6 +81,30 @@ class Server
     public function setPerunInstance(?Instance $perunInstance): self
     {
         $this->perunInstance = $perunInstance;
+
+        return $this;
+    }
+
+    public function getAtc(): ?bool
+    {
+        return $this->atc;
+    }
+
+    public function setAtc(bool $atc): self
+    {
+        $this->atc = $atc;
+
+        return $this;
+    }
+
+    public function getGci(): ?bool
+    {
+        return $this->gci;
+    }
+
+    public function setGci(bool $gci): self
+    {
+        $this->gci = $gci;
 
         return $this;
     }
