@@ -55,6 +55,9 @@ class CalendarController extends AbstractController
      */
     public function edit(FileUploaderService $uploaderService, Request $request, EventManager $eventManager, Event $event = null, string $periodString = null): Response
     {
+        if(null === $this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
         if (null === $event) {
             $event = new Event();
 
