@@ -4,8 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Calendar\Choice;
 use App\Entity\Calendar\Event;
+use App\Entity\Calendar\Flight;
+use App\Entity\Calendar\Slot;
 use App\Entity\Calendar\Vote;
 use App\Entity\UserModule;
+use App\Form\CalendarAtoType;
 use App\Form\CalendarChoiceType;
 use App\Form\CalendarEventType;
 use App\Manager\Calendar\ChoiceManager;
@@ -55,6 +58,9 @@ class CalendarController extends AbstractController
      */
     public function edit(FileUploaderService $uploaderService, Request $request, EventManager $eventManager, Event $event = null, string $periodString = null): Response
     {
+        if (null === $this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
         if (null === $event) {
             $event = new Event();
 
@@ -94,6 +100,58 @@ class CalendarController extends AbstractController
         }
 
         return $this->render('calendar/edit.html.twig', [
+            'form' => $form->createView(),
+            'event' => $event,
+        ]);
+    }
+
+    /**
+     * @Route("/edit/{event}/ato", name="calendar_edit_ato")
+     * @Security("is_granted('EDIT', event)")
+     */
+    public function editAto(Request $request, EventManager $eventManager, Event $event): Response
+    {
+        // add a new line (need to be saved each time to add a new flight)
+        $event->addFlight(new Flight());
+        foreach ($event->getFlights() as $flight) {
+            if ($flight->getId()) {
+                $flight->addSlot(new Slot());
+            }
+        }
+        $form = $this->createForm(CalendarAtoType::class, $event);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                foreach ($event->getFlights() as $flight) {
+                    foreach ($flight->getSlots() as $slot) {
+                        if (!$slot->getUsername() && !$slot->getUser()) {
+                            $flight->removeSlot($slot);
+                        }
+                    }
+                    if (!$flight->getAircraft()) {
+                        $event->removeFlight($flight);
+                    } else {
+                        if (!$flight->getName()) {
+                            $flight->setName('sans nom');
+                        }
+                        if (!$flight->getNbSlots()) {
+                            $flight->setNbSlots(4);
+                        }
+                        $this->getDoctrine()->getManager()->persist($flight);
+                    }
+                }
+                $event->setAto(count($event->getFlights()) > 0);
+                $this->getDoctrine()->getManager()->flush();
+                $this->addFlash('success', 'changements enregistrés');
+
+                return $this->redirectToRoute('calendar_edit_ato', ['event' => $event->getId()]);
+            } else {
+                $this->addFlash('error', 'formulaire non enregistré');
+            }
+        }
+
+        return $this->render('calendar/edit-ato.html.twig', [
             'form' => $form->createView(),
             'event' => $event,
         ]);

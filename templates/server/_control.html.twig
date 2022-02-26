@@ -1,0 +1,33 @@
+{{ form_start(form, {'action': app.request.requestUri}) }}
+<div class="modal-header">
+    <h5 class="modal-title">Gérer les contrôleurs</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">×</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="form-row">
+        <div class="col-md-12">
+            Modifier l'attribution des contrôleurs sur le serveur {{ server.code }}<br/>
+            <br/>
+            {{ form_widget(form.atc) }}
+            {{ form_widget(form.gci) }}
+        </div>
+    </div>
+    {{ form_rest(form) }}
+</div>
+<div class="modal-footer">
+    {% if app.request.xmlHttpRequest %}
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            <i class="fa fa-arrow-circle-left"></i> Annuler
+        </button>
+    {% else %}
+        <a class="btn btn-secondary" href="{{ path('perun_instance', {'server': server.name}) }}">
+            <i class="fa fa-arrow-circle-left"></i> Annuler
+        </a>
+    {% endif %}
+    <button type="submit" class="btn btn-primary">
+        <i class="fa fa-save"></i> Enregistrer
+    </button>
+</div>
+{{ form_end(form) }}

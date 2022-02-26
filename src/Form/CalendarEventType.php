@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Calendar\Event;
 use App\Entity\Module;
+use App\Entity\Server;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -142,6 +143,21 @@ class CalendarEventType extends AbstractType
                     ]),
                 ],
             ]);
+        $builder->add('server', EntityType::class,
+        [
+            'class' => Server::class,
+            'query_builder' => function (EntityRepository $er) {
+                return $er->createQueryBuilder('s')
+                    ->orderBy('s.name', 'ASC');
+            },
+            'choice_label' => 'name',
+            'required' => false,
+            'label' => 'Serveur',
+            'placeholder' => '-',
+            'attr' => [
+                'class' => 'select2auto form-control',
+            ],
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

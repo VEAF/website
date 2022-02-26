@@ -4,6 +4,7 @@ namespace App\Entity\Calendar;
 
 use App\Entity\File;
 use App\Entity\Module;
+use App\Entity\Server;
 use App\Entity\User;
 use App\Repository\Calendar\EventRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -21,6 +22,7 @@ class Event
     const EVENT_TYPE_OPEX = 3;
     const EVENT_TYPE_MEETING = 4;
     const EVENT_TYPE_MAINTENANCE = 5;
+    const EVENT_TYPE_ATC = 6;
 
     const EVENTS = [
         self::EVENT_TYPE_TRAINING => 'Training',
@@ -28,6 +30,7 @@ class Event
         self::EVENT_TYPE_OPEX => 'OPEX',
         self::EVENT_TYPE_MEETING => 'Meeting',
         self::EVENT_TYPE_MAINTENANCE => 'Maintenance',
+        self::EVENT_TYPE_ATC => 'ATC / GCI',
     ];
 
     const EVENTS_COLORS = [
@@ -36,6 +39,7 @@ class Event
         self::EVENT_TYPE_OPEX => '#7D3C98',
         self::EVENT_TYPE_MEETING => '#2980B9',
         self::EVENT_TYPE_MAINTENANCE => '#E74C3C',
+        self::EVENT_TYPE_ATC => '#EA9417',
     ];
 
     const RESTRICTION_CADET = 1;
@@ -161,12 +165,31 @@ class Event
      */
     private bool $registration = false;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Server::class)
+     */
+    private ?Server $server = null;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private bool $ato = false;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Flight::class, mappedBy="event", orphanRemoval=true, cascade={"persist", "remove"})
+     * @ORM\OrderBy({"name" = "ASC"})
+     *
+     * @var Flight[]
+     */
+    private $flights;
+
     public function __construct()
     {
         $this->modules = new ArrayCollection();
         $this->votes = new ArrayCollection();
         $this->notifications = new ArrayCollection();
         $this->choices = new ArrayCollection();
+        $this->flights = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -529,5 +552,59 @@ class Event
         foreach ($modules as $module) {
             $this->addModule($module);
         }
+    }
+
+    public function getServer(): ?Server
+    {
+        return $this->server;
+    }
+
+    public function setServer(?Server $server): self
+    {
+        $this->server = $server;
+
+        return $this;
+    }
+
+    public function getAto(): ?bool
+    {
+        return $this->ato;
+    }
+
+    public function setAto(bool $ato): self
+    {
+        $this->ato = $ato;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Flight[]
+     */
+    public function getFlights(): Collection
+    {
+        return $this->flights;
+    }
+
+    public function addFlight(Flight $flight): self
+    {
+        if (!$this->flights->contains($flight)) {
+            $this->flights[] = $flight;
+            $flight->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFlight(Flight $flight): self
+    {
+        if ($this->flights->removeElement($flight)) {
+            // set the owning side to null (unless already changed)
+            if ($flight->getEvent() === $this) {
+                $flight->setEvent(null);
+            }
+        }
+
+        return $this;
     }
 }

@@ -131,6 +131,43 @@
         </div>
 
         <div class="row mb-3">
+            <div class="col-md-3">
+                <table class="table table-bordered">
+                    <tr>
+                        {% if is_granted('EDIT_CONTROL', server) %}
+                            {% set link = path('server_control', {'server': server.code}) %}
+                        {% else %}
+                        {% set link = '#' %}
+                        {% endif %}
+                        <td>
+                            <a href="{{ link }}" class="remote-modal">
+                                <i class="fa-solid fa-tower-broadcast"></i> ATC
+                            </a>
+                        </td>
+                        <td>
+                            {% if server.atc %}
+                                <span class="text-primary">oui</span>
+                            {% else %}
+                                <span class="text-warning">non</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="{{ link }}" class="remote-modal">
+                                <i class="fa-solid fa-bullseye"></i> GCI
+                            </a>
+                        </td>
+                        <td>
+                            {% if server.gci %}
+                                <span class="text-primary">oui</span>
+                            {% else %}
+                                <span class="text-warning">non</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                </table>
+            </div>
             <div class="col-md-12">
                 <div class="table-responsive">
                     <table class="table table-striped table-bordered table-hover">
@@ -222,6 +259,7 @@
 {% endblock pageContent %}
 
 {% block javascript %}
+{{ parent() }}
 <script type="text/javascript">
 {{ chart(history24h) }}
 </script>

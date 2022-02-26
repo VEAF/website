@@ -1,0 +1,95 @@
+{% extends 'layout.html.twig' %}
+{% set libSelect2=true %}
+{% set libMarkdown=true %}
+
+{% block title %}{{ parent() }}: Calendrier{% endblock %}
+
+{% block pageContent %}
+    <div class="container container-main pt-3 pb-3 mb-3">
+        <div class="bs-component">
+            <div class="card mb-3">
+                <h3 class="card-header">
+                    Editer l'ATO
+                </h3>
+                <div class="card-body">
+                    {{ form_start(form) }}
+
+                    <table class="table">
+                        <tr>
+                            <th>
+                                Flight
+                            </th>
+                            <th>
+                                Appareil
+                            </th>
+                            <th>
+                                Mission
+                            </th>
+                            <th>
+                                Slots
+                            </th>
+                            <th colspan="2">
+                                Joueurs
+                            </th>
+                        </tr>
+                    {% for formFlight in form.flights %}
+                            <tr>
+                                <td>
+                                    {{ form_widget(formFlight.name) }}
+                                </td>
+                                <td>
+                                    {{ form_widget(formFlight.aircraft) }}
+                                </td>
+                                <td>
+                                    {{ form_widget(formFlight.mission) }}
+                                </td>
+                                <td>
+                                    {{ form_widget(formFlight.nbSlots) }}
+                                </td>
+                                <td>
+                                    <table class="table table-borderless">
+                                        {% for formSlot in formFlight.slots %}
+                                        <tr>
+                                            <td>
+                                                {{ form_widget(formSlot.user) }}
+                                            </td>
+                                            <td>
+                                                {{ form_widget(formSlot.username) }}
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </table>
+                                </td>
+                            </tr>
+                    {% endfor %}
+                    </table>
+
+                    {{ form_rest(form) }}
+                    {{ form_errors(form) }}
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <a href="{{ path('calendar_view', {'event': event.id}) }}"
+                               class="btn btn-lg btn-primary form-control">
+                                <i class="fa fa-arrow-circle-left"></i> Annuler
+                            </a>
+                        </div>
+                        <div class="col-sm-6">
+                            <button class="btn btn-lg btn-danger form-control " type="submit">
+                                <i class="fa fa-save"></i> Enregistrer
+                            </button>
+                        </div>
+                    </div>
+
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock pageContent %}
+
+{% block javascript %}
+{{ parent() }}
+<script type="application/javascript">
+</script>
+{% endblock %}

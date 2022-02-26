@@ -37,6 +37,9 @@
                     </a>
                 {% endif %}
                 {% if is_granted('EDIT', event) or true %}
+                    <a href="{{ path('calendar_edit_ato', {'event': event.id}) }}">
+                        <i class="fa fa-users"></i>
+                    </a>
                     <a href="{{ path('calendar_edit', {'event': event.id}) }}">
                         <i class="fa fa-edit"></i>
                     </a>
@@ -95,6 +98,10 @@
                     <hr/>
                 </div>
             </div>
+        {% endif %}
+
+        {% if event.server is not null %}
+            Serveur: <a href="{{ path('perun_instance', {'server': event.server.code}) }}">{{ event.server.name }}</a><br/>
         {% endif %}
 
         {# restriction simulateur #}
@@ -159,6 +166,52 @@
         {% endif %}
         <br/>
     </div>
+
+    {% if event.ato %}
+        <div class="container container-main mb-3 pt-3 pb-3">
+            <h2>ATO</h2>
+            <table class="table">
+                <tr>
+                    <th>
+                        Flight
+                    </th>
+                    <th>
+                        Appareil
+                    </th>
+                    <th>
+                        Mission
+                    </th>
+                    <th>
+                        Joueurs
+                    </th>
+                </tr>
+                {% for flight in event.flights %}
+                    <tr>
+                        <td>
+                            {{ flight.name }}
+                        </td>
+                        <td>
+                            {% if flight.aircraft is not null %}
+                                {{ flight.aircraft.name }} x{{ flight.nbSlots }}
+                            {% endif %}
+                        </td>
+                        <td>
+                            {{ flight.mission }}
+                        </td>
+                        <td>
+                            {% for slot in flight.slots %}
+                                {% if slot.user is not null %}
+                                    <a href="{{ path('user_view', {'user': slot.user.nickname}) }}">{{ slot.user }}</a>
+                                {% else %}
+                                    {{ slot.username }}
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    {% endif %}
 
     <div class="container container-main mb-3 pt-3 pb-3">
         <h2>Je participe</h2>

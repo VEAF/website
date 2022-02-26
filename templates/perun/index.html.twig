@@ -27,6 +27,12 @@
                         <th>
                             Temps mission
                         </th>
+                        <th>
+                            ATC
+                        </th>
+                        <th>
+                            GCI
+                        </th>
                     </tr>
                     </thead>
                     <tbody>
@@ -67,6 +73,20 @@
                                     timeout {{ instance.lastUpdateSeconds }} secondes
                                 </td>
                             {% endif %}
+                            <td class="text-center">
+                                {% if instance.server.atc %}
+                                    <span class="text-primary"><i class="fa fa-tower-broadcast"></i></span>
+                                {% else %}
+                                    <span class="text-secondary"><i class="fa fa-ban"></i></span>
+                                {% endif %}
+                            </td>
+                            <td class="text-center">
+                                {% if instance.server.gci %}
+                                    <span class="text-primary"><i class="fa fa-bullseye"></i></span>
+                                {% else %}
+                                    <span class="text-secondary"><i class="fa fa-ban"></i></span>
+                                {% endif %}
+                            </td>
                         </tr>
                     {% else %}
                         <tr>
