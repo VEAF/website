@@ -132,10 +132,10 @@ class CalendarController extends AbstractController
                     if (!$flight->getAircraft()) {
                         $event->removeFlight($flight);
                     } else {
-                        if(!$flight->getName()) {
+                        if (!$flight->getName()) {
                             $flight->setName('sans nom');
                         }
-                        if(!$flight->getNbSlots()) {
+                        if (!$flight->getNbSlots()) {
                             $flight->setNbSlots(4);
                         }
                         $this->getDoctrine()->getManager()->persist($flight);
@@ -144,6 +144,7 @@ class CalendarController extends AbstractController
                 $event->setAto(count($event->getFlights()) > 0);
                 $this->getDoctrine()->getManager()->flush();
                 $this->addFlash('success', 'changements enregistrés');
+
                 return $this->redirectToRoute('calendar_edit_ato', ['event' => $event->getId()]);
             } else {
                 $this->addFlash('error', 'formulaire non enregistré');

@@ -17,8 +17,7 @@ class CalendarSlotType extends AbstractType
     {
         $builder
             ->add('username', TextType::class, [
-                'attr'=>
-                [
+                'attr' => [
                     'placeholder' => 'pseudo si invité',
                 ],
                 'required' => false,
@@ -39,7 +38,7 @@ class CalendarSlotType extends AbstractType
                         'class' => 'select2 select2auto',
                     ],
                 ]
-            );;
+            );
     }
 
     public function configureOptions(OptionsResolver $resolver)

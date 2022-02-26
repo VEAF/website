@@ -53,6 +53,7 @@ class Flight
 
     /**
      * @ORM\OneToMany(targetEntity=Slot::class, mappedBy="flight", orphanRemoval=true, cascade={"persist", "remove"})
+     *
      * @var Slot[]
      */
     private $slots;

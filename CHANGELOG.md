@@ -1,3 +1,11 @@
+### 1.11.0
+* ADD serveurs - indicateur contrôleurs ATC/GCI par serveur
+* ADD calendrier - reservation du serveur pour la mission
+* ADD calendrier - ATO complet, gestion des participations et invités
+* FIX calendrier - erreur 500 si le client n'est pas connecté
+* FIX fontawesome - version 5 -> 6
+* FIX CVE - symfony 4.4.37
+
 ### 1.10.1
 * FIX calendrier - l'administrateur ne peut pas modifier un événement
 * FIX calendrier - inscription fermée lors de la copie d'un événement

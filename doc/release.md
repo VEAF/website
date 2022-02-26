@@ -17,7 +17,7 @@ git checkout ${BRANCH}
 git flow release start ${VERSION} ${BRANCH}
 
 # fix version
-sed -i "/  app_version:/c\  app_version: ${VERSION}" config/packages/parameters.yaml
+sed -i "/  app_version:/c\  app_version: ${VERSION}" config/packages/release.yaml
 
 # merge waiting CHANGELOGS
 ./scripts/dev/changelog.sh ${VERSION}

@@ -178,6 +178,7 @@ class Event
     /**
      * @ORM\OneToMany(targetEntity=Flight::class, mappedBy="event", orphanRemoval=true, cascade={"persist", "remove"})
      * @ORM\OrderBy({"name" = "ASC"})
+     *
      * @var Flight[]
      */
     private $flights;
