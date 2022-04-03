@@ -61,7 +61,9 @@ class UserModuleRepository extends ServiceEntityRepository
                 ->setParameter('levels', $levels);
         }
 
-        $query->addOrderBy('module.type', 'asc')
+        $query
+            ->addOrderBy('module.period', 'desc')
+            ->addOrderBy('module.type', 'asc')
             ->addOrderBy('module.name', 'asc');
 
         foreach ($query->getQuery()->getResult() as $userModule) {
