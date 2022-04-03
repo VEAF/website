@@ -1,3 +1,7 @@
+### 1.11.1
+* FIX profil - regroupement par période incorrect
+* FIX CVE guzzle + twig
+
 ### 1.11.0
 * ADD serveurs - indicateur contrôleurs ATC/GCI par serveur
 * ADD calendrier - reservation du serveur pour la mission
