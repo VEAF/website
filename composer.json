@@ -14,6 +14,7 @@
         "doctrine/orm": "^2.8",
         "eightpoints/guzzle-bundle": "^8.2",
         "gregwar/image-bundle": "^3.0",
+        "guzzlehttp/guzzle": "^7.4.5",
         "karser/karser-recaptcha3-bundle": "^0.1.15",
         "kilik/table": "^2.5",
         "knplabs/knp-markdown-bundle": "^1.8",
@@ -72,7 +73,10 @@
         "preferred-install": {
             "*": "dist"
         },
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "symfony/flex": true
+        }
     },
     "autoload": {
         "psr-4": {
