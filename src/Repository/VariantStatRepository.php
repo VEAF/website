@@ -39,17 +39,17 @@ class VariantStatRepository extends ServiceEntityRepository
     {
         $query = $this->createQueryBuilder('s')
             ->select('NEW App\DTO\ModuleStat(
-            SUM(s.total)/3600.0,
-            SUM(s.inAir)/3600.0,
-            SUM(s.killsGroundUnitsTotal),
-            SUM(s.killsBuildingsTotal),
-            SUM(s.killsPlanesTotal), 
-            SUM(s.killsHelicoptersTotal), 
-            SUM(s.landingTotal), 
-            SUM(s.takeoffTotal), 
-            SUM(s.lossesPilotDeath), 
-            SUM(s.lossesEject), 
-            SUM(s.lossesCrash)
+            IFNULL(SUM(s.total)/3600.0,0),
+            IFNULL(SUM(s.inAir)/3600.0,0),
+            IFNULL(SUM(s.killsGroundUnitsTotal),0),
+            IFNULL(SUM(s.killsBuildingsTotal),0),
+            IFNULL(SUM(s.killsPlanesTotal),0), 
+            IFNULL(SUM(s.killsHelicoptersTotal),0), 
+            IFNULL(SUM(s.landingTotal),0), 
+            IFNULL(SUM(s.takeoffTotal),0), 
+            IFNULL(SUM(s.lossesPilotDeath),0), 
+            IFNULL(SUM(s.lossesEject),0), 
+            IFNULL(SUM(s.lossesCrash),0)
             )');
 
         if (null !== $player) {
