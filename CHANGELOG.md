@@ -1,3 +1,6 @@
+### 1.11.2
+* FIX erreur 500 sur les profils dont les stats sont à zéro
+
 ### 1.11.1
 * FIX profil - regroupement par période incorrect
 * FIX CVE guzzle + twig
