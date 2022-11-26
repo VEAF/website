@@ -1,3 +1,6 @@
+### 1.12.0
+* ADD display clients on map
+
 ### 1.11.2
 * FIX erreur 500 sur les profils dont les stats sont à zéro
 
