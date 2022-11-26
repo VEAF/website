@@ -3,7 +3,7 @@
 namespace App\Perun\DTO;
 
 /**
- * pe_dataraw_type: 100
+ * pe_dataraw_type: 100.
  */
 class Client
 {
