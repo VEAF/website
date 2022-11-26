@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Server;
+use App\Perun\DTO\Client;
 use App\Perun\DTO\PayloadSlots;
 use App\Perun\Entity\DataRaw;
 use App\Perun\Entity\Instance;

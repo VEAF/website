@@ -38,6 +38,18 @@ var markerBullseyeRed = new ol.Overlay({
 });
 map.addOverlay(markerBullseyeRed);
 
+for(clientIndex in clients) {
+    var client = clients[clientIndex];
+    console.log(client);
+
+    var plane = new ol.Overlay({
+        position: ol.proj.fromLonLat([client.position.lng, client.position.lat]),
+        positioning: 'center-center',
+        element: document.getElementById('client'+clientIndex),
+        stopEvent: false
+    });
+    map.addOverlay(plane);
+}
 /*
 function add_map_point(lat, lng) {
     var vectorLayer = new ol.layer.Vector({
