@@ -53,3 +53,18 @@
 .markerBullseyeRed {
     background-image: url('/img/map/bullseye_red_20.png');
 }
+
+.markerPlane {
+    width: 20px;
+    height: 20px;
+    opacity: 0.8;
+    text-align: center;
+}
+
+.markerPlaneBlue {
+    color: blue;
+}
+
+.markerPlaneRed {
+    color: red;
+}

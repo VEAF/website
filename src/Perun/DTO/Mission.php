@@ -29,7 +29,7 @@ class Mission
         $mission->startDate = static::parseDateFromJsonArray($row['date']);
         $mission->startDate->modify(sprintf('+%d seconds', $startTime));
         $mission->weather = Weather::createFromJsonArray($row['weather']);
-        $mission->coalitions = static::parseCoaltionsFromJsonArray($row['coalition']);
+        $mission->coalitions = static::parseCoalitionsFromJsonArray($row['coalition']);
 
         return $mission;
     }
@@ -50,7 +50,7 @@ class Mission
     /**
      * @return array|Coalition[]
      */
-    private static function parseCoaltionsFromJsonArray(array $row): array
+    private static function parseCoalitionsFromJsonArray(array $row): array
     {
         $coalitions = [];
 
