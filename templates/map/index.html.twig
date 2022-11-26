@@ -30,12 +30,7 @@
             <li>Red: {{ missionData.coalition('red').bullseye | xyToLL(missionData.theatre) | latLongDec }}</li>
         </ul>
 
-        {# @todo enable again when units will be live #}
-        {# {% if not server.perunInstance.alive %} #}
-        {# <div class="alert alert-secondary"> #}
-        {# <i class="fa fa-exclamation-triangle text-warning"></i> les données ne sont plus actualisées depuis {{ server.perunInstance.lastUpdateSeconds }} secondes #}
-        {# </div> #}
-        {# {% endif %} #}
+        <a class="btn btn-primary" href="{{ path('map_index', {'server': server.code}) }}"><i class="fa fa-refresh"></i> Actualiser</a>
     </div>
 
     <div class="container container-main pt-3 pb-3 mb-3">
@@ -53,11 +48,20 @@
 
     </div>
 
+    {% for client in clients %}
+        <div id="client{{ loop.index0 }}"
+             title="{{ client.name }}"
+             class="markerPlane">
+            <i class="fa fa-plane {% if client.coalitionId == 2 %}markerPlaneBlue{% else %}markerPlaneRed{% endif %}"></i>
+        </div>
+    {% endfor %}
+
 {% endblock pageContent %}
 
 {% block javascript %}
 <script type="text/javascript">
     var mapData=JSON.parse('{{ mapData | json_encode | raw }}');
+    var clients=JSON.parse('{{ clients | json_encode | raw }}');
     {# @todo use js asset, not inline js #}
     {{ source('map/map.js') }}
 </script>

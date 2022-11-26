@@ -14,7 +14,7 @@ class DataRaw
     const TYPE_VERSIONS = 1;
     const TYPE_SLOTS = 2;
     const TYPE_MISSION = 3;
-    const TYPE_UNDEFINED_100 = 100;
+    const TYPE_CLIENTS = 100;
     const TYPE_UNDEFINED_101 = 101;
 
     /**
