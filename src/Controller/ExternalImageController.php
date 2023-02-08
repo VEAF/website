@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\ExternalImage;
+use App\Entity\User;
 use App\Form\ExternalImageType;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -12,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
@@ -23,6 +25,10 @@ class ExternalImageController extends AbstractController
 {
     /**
      * @Route("", name="external_image_add", methods={"POST"})
+     *
+     * To test this call (with fixtures):
+     *
+     * curl -X POST http://veaf.localhost/external/image -H 'Content-Type: application/json' -d '{"channel": "test", "author": "Mitch#4307", "url": "https://loremflickr.com/1920/1080?lock=123"}'
      */
     public function add(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -58,10 +64,17 @@ class ExternalImageController extends AbstractController
                 throw new \Exception(sprintf('invalid payload: %s', $form->getErrors(false, true)));
             }
 
+            $user = $entityManager->getRepository(User::class)->findOneByDiscord($data['author']);
+            if (null !== $user) {
+                $externalImage->setEnabled(true);
+                $externalImage->setUser($user);
+            }
+
             $entityManager->persist($externalImage);
             $entityManager->flush();
 
-            return new Response($serializer->serialize($externalImage, 'json'));
+            return new Response($serializer->serialize($externalImage, 'json', [AbstractNormalizer::IGNORED_ATTRIBUTES => ['user', 'event']]
+            ));
         } catch (\Throwable $e) {
             return new JsonResponse(['error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         }

@@ -2,6 +2,7 @@
 
 namespace App\Entity\Calendar;
 
+use App\Entity\ExternalImage;
 use App\Entity\File;
 use App\Entity\Module;
 use App\Entity\Server;
@@ -183,6 +184,11 @@ class Event
      */
     private $flights;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ExternalImage::class, mappedBy="event")
+     */
+    private $externalImages;
+
     public function __construct()
     {
         $this->modules = new ArrayCollection();
@@ -190,6 +196,7 @@ class Event
         $this->notifications = new ArrayCollection();
         $this->choices = new ArrayCollection();
         $this->flights = new ArrayCollection();
+        $this->externalImages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -602,6 +609,36 @@ class Event
             // set the owning side to null (unless already changed)
             if ($flight->getEvent() === $this) {
                 $flight->setEvent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ExternalImage[]
+     */
+    public function getExternalImages(): Collection
+    {
+        return $this->externalImages;
+    }
+
+    public function addExternalImage(ExternalImage $externalImage): self
+    {
+        if (!$this->externalImages->contains($externalImage)) {
+            $this->externalImages[] = $externalImage;
+            $externalImage->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeExternalImage(ExternalImage $externalImage): self
+    {
+        if ($this->externalImages->removeElement($externalImage)) {
+            // set the owning side to null (unless already changed)
+            if ($externalImage->getEvent() === $this) {
+                $externalImage->setEvent(null);
             }
         }
 

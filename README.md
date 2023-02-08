@@ -45,6 +45,7 @@ cd website
 * Full Calendar: https://fullcalendar.io/docs
 * Bootstrap: https://getbootstrap.com/
 * Docker: https://www.docker.com/
+* Fixtures: [hautelook/alice-bundle](https://github.com/theofidry/AliceBundle#documentation)
 
 ## Configurer le projet
 

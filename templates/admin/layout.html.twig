@@ -72,6 +72,12 @@
                     <span>Fichiers</span>
                 </a>
             </li>
+            <li class="nav-item{% if section == "admin" and subSection == "external-image" %} active{% endif %}">
+                <a class="nav-link" href="{{ path("admin_external_image_list") }}">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Images externes</span>
+                </a>
+            </li>
             <li class="nav-item{% if section == "admin" and subSection == "calendar-event" %} active{% endif %}">
                 <a class="nav-link" href="{{ path("admin_calendar_event_list") }}">
                     <i class="fas fa-file-alt"></i>

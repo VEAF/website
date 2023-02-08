@@ -1,0 +1,39 @@
+App\Entity\ExternalImage:
+
+  external-image-plane1:
+    source_type: 1 # discord
+    source_path: media-dcs # channel
+    author: mitch
+    createdAt: <(new DateTime('2023-02-08 14:00:00'))>
+    url: https://loremflickr.com/1920/1080/plane?lock=1
+
+  external-image-plane2:
+    source_type: 1 # discord
+    source_path: media-dcs # channel
+    author: mitch
+    createdAt: <(new DateTime('2023-02-08 14:00:00'))>
+    url: https://loremflickr.com/1920/1080/plane?lock=2
+
+  external-image-plane3:
+    source_type: 1 # discord
+    source_path: media-dcs # channel
+    author: mitch
+    createdAt: <(new DateTime('2023-02-08 14:00:00'))>
+    url: https://loremflickr.com/1920/1080/plane?lock=3
+
+  external-image-plane4:
+    source_type: 1 # discord
+    source_path: media-dcs # channel
+    author: mitch
+    createdAt: <(new DateTime('2023-02-08 14:00:00'))>
+    url: https://loremflickr.com/1920/1080/plane?lock=4
+
+  external-image-event-today-{1..20}:
+    source_type: 1 # discord
+    source_path: media-dcs # channel
+    author: Mitch#4307
+    createdAt: <(new DateTime('2023-02-08 14:00:00'))>
+    url: https://loremflickr.com/1920/1080/plane?lock=<numberBetween(1, 200)>
+    event: '@calendarevent_training_today'
+    enabled: true
+    user: '@user_mitch'

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Calendar\Event;
 use App\Repository\ExternalImageRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -23,7 +24,7 @@ class ExternalImage
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id = null;
 
     /**
      * @ORM\Column(type="integer")
@@ -49,6 +50,26 @@ class ExternalImage
      * @ORM\Column(type="string", length=255)
      */
     private ?string $url = null;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private bool $enabled = false;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private bool $deleted = false;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Event::class, inversedBy="externalImages")
+     */
+    private ?Event $event = null;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class)
+     */
+    private ?User $user = null;
 
     public function getId(): ?int
     {
@@ -111,6 +132,63 @@ class ExternalImage
     public function setUrl(string $url): self
     {
         $this->url = $url;
+
+        return $this;
+    }
+
+    public function getEnabled(): ?bool
+    {
+        return $this->enabled;
+    }
+
+    public function setEnabled(bool $enabled): self
+    {
+        $this->enabled = $enabled;
+
+        return $this;
+    }
+
+    public function getDeleted(): ?bool
+    {
+        return $this->deleted;
+    }
+
+    public function setDeleted(bool $deleted): self
+    {
+        $this->deleted = $deleted;
+
+        return $this;
+    }
+
+    public function getEvent(): ?Event
+    {
+        return $this->event;
+    }
+
+    public function setEvent(?Event $event): self
+    {
+        $this->event = $event;
+
+        return $this;
+    }
+
+    public function getSourceTypeAsString(): string
+    {
+        if (isset(self::SOURCE_TYPES[$this->getSourceType()])) {
+            return self::SOURCE_TYPES[$this->getSourceType()];
+        }
+
+        return 'inconnue';
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
