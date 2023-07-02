@@ -7,11 +7,14 @@ use App\Entity\User;
 use App\Form\ExternalImageType;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Tools\Pagination\Paginator;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
@@ -78,5 +81,46 @@ class ExternalImageController extends AbstractController
         } catch (\Throwable $e) {
             return new JsonResponse(['error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
+    }
+
+    /**
+     * @Route("/list", name="external_image_list")
+     * @Security("is_granted('ROLE_USER')")
+     */
+    public function list(Request $request, EntityManagerInterface $entityManager, RouterInterface $router): Response
+    {
+        return $this->render('external-image/list.html.twig',
+            [
+                'page_url' => $router->generate('external_image_list_page'),
+            ]);
+    }
+
+    /**
+     * @Route("/list/{page}", name="external_image_list_page", defaults={"page" = "0"})
+     * @Security("is_granted('ROLE_USER')")
+     */
+    public function listPage(Request $request, EntityManagerInterface $entityManager, int $page = 0): Response
+    {
+        $pageSize = 10;
+        $firstResult = $page * $pageSize;
+
+        $qb = $entityManager->getRepository(ExternalImage::class)->createQueryBuilder('e')
+            ->andWhere('e.user = :user')->setParameter('user', $this->getUser())
+            ->addOrderBy('e.createdAt', 'DESC')
+            ->addOrderBy('e.id', 'DESC')
+            ->setFirstResult($firstResult)
+            ->setMaxResults($pageSize);
+
+        /** @var ExternalImage[]|Paginator $paginator */
+        $paginator = new Paginator($qb);
+        //$paginator->ge
+        $results = [];
+        foreach ($paginator as $result) {
+            dump($result);
+        }
+
+        return $this->render('external-image/_list.html.twig', [
+            'images' => $paginator,
+        ]);
     }
 }

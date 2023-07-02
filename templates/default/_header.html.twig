@@ -35,6 +35,10 @@
                                     </span>
                                 {% endif %}
                             </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ path("external_image_list") }}">
+                                Images
+                            </a>
                             {% if is_granted("ROLE_ADMIN") %}
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ path("admin_index") }}">

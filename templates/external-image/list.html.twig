@@ -1,0 +1,20 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ parent() }}: Mes images{% endblock %}
+
+{% block pageContent %}
+    <div class="container container-main pt-3 pb-3 mb-3">
+        <h1>Mes images</h1>
+    </div>
+
+    <div class="container container-main pt-3 pb-3 mb-3" id="images">
+        <i>pas d'images</i>
+    </div>
+{% endblock pageContent %}
+
+{% block javascript %}
+<script type="text/javascript">
+    var page = 0;
+    $("#images").load("{{ page_url }}" + "/" + page);
+</script>
+{% endblock javascript %}
