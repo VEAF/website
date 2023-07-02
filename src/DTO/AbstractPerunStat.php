@@ -233,4 +233,24 @@ abstract class AbstractPerunStat
     {
         $this->time = $time;
     }
+
+    public function getTotalTakeoffs(): int
+    {
+        return $this->farpTakeoffs + $this->shipTakeoffs + $this->otherTakeoffs + $this->airfieldTakeoffs;
+    }
+
+    public function getTotalLandings(): int
+    {
+        return $this->farpLandings + $this->shipLandings + $this->otherLandings + $this->airfieldLandings;
+    }
+
+    public function getKillsGroundUnits(): int
+    {
+        return $this->killsArtillery + $this->killsArmor + $this->killsAirDefense + $this->killsInfantry + $this->killsUnarmed;
+    }
+
+    public function getKillsBuildings(): int
+    {
+        return $this->killsOther + $this->killsFortification;
+    }
 }

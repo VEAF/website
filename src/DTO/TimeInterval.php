@@ -7,7 +7,7 @@ class TimeInterval
     private ?\DateTime $start = null;
     private ?\DateTime $end = null;
 
-    public function __construct(?string $startString, ?string $endString)
+    public function __construct(string $startString = null, string $endString = null)
     {
         if (null !== $startString) {
             $this->start = new \DateTime($startString);
