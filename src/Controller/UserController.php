@@ -81,11 +81,11 @@ class UserController extends AbstractController
 
         switch ($request->get('_route')) {
             case 'user_stats':
-                return $this->redirectToRoute('user_stats_period', ['period' => 'this-month']);
+                return $this->redirectToRoute('user_stats_period', ['periodName' => 'this-month', 'user' => $user->getNickname()]);
                 break;
             case 'user_stats_period':
                 if (!isset($periods[$periodName])) {
-                    return $this->redirectToRoute('user_stats_period', ['period' => 'this-month']);
+                    return $this->redirectToRoute('user_stats_period', ['periodName' => 'this-month', 'user' => $user->getNickname()]);
                 } else {
                     $period = $periods[$periodName];
                 }

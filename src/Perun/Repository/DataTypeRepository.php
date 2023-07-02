@@ -104,7 +104,7 @@ class DataTypeRepository extends ServiceEntityRepository
 
         $query = $this->createQueryBuilder('t')
             ->select('t, SUM(l.time)/60 AS totalHours')
-            ->innerJoin('App\Entity\LogStats', 'l', 'WITH', 'l.dataType = t')
+            ->innerJoin('App\Perun\Entity\LogStat', 'l', 'WITH', 'l.type = t')
             ->andWhere('t.name IN (:types)')
             ->setParameter('types', $types)
             ->join('l.player', 'p')
