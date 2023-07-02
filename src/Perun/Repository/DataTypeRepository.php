@@ -85,8 +85,6 @@ class DataTypeRepository extends ServiceEntityRepository
             $results[] = $stat;
         }
 
-        dump($results);
-
         return $results;
     }
 
