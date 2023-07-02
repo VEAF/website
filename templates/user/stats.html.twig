@@ -12,13 +12,31 @@
     </div>
     <div class="container container-main mb-3">
         <div class="row justify-content-center">
-            <div class="col-lg-6 pt-3">
-                <div class="alert alert-warning text-center">
-                    <i class="fa fa-exclamation-triangle"></i>
-                    Fonctionnalité en cours de développement
-                    <i class="fa fa-exclamation-triangle"></i>
+            <div class="col-lg-12 pt-3 pb-3">
+                <div class="btn-group btn-group-toggle">
+                    {% for keyPeriod,valuePeriod in periods %}
+                        <a href="{{ path('user_stats_period', {'periodName': keyPeriod, 'user': user.nickname}) }}" class="btn {% if periodName == keyPeriod %}btn-info{% else %}btn-primary{% endif %}" title="{{ keyPeriod }}">
+                            <div class="d-none d-xl-inline">{{ keyPeriod }}</div>
+                        </a>
+                    {% endfor %}
                 </div>
             </div>
+            {#            <div class="col-lg-6 pt-3"> #}
+            {#                <ul class="nav"> #}
+            {#                    <li class="nav-item"> #}
+            {#                        <a class="nav-link active" href="#">Active</a> #}
+            {#                    </li> #}
+            {#                    <li class="nav-item"> #}
+            {#                        <a class="nav-link" href="#">Link</a> #}
+            {#                    </li> #}
+            {#                    <li class="nav-item"> #}
+            {#                        <a class="nav-link" href="#">Link</a> #}
+            {#                    </li> #}
+            {#                    <li class="nav-item"> #}
+            {#                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a> #}
+            {#                    </li> #}
+            {#                </ul> #}
+            {#            </div> #}
         </div>
     </div>
     {% if stats is defined %}
@@ -30,29 +48,29 @@
                         <div class="card-body">
                             <i class="fa fa-clock fa-3x"></i>
                             <div class="float-right card-stats-text text-right">
-                                {{ stats.totalHours | number_format(1, '.', ' ') }}<small>h</small>
+                                {{ stats.time | number_format(1, '.', ' ') }}<small>h</small>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 pt-3">
-                    <div class="card text-white bg-dark card-stats card-stats-small">
-                        <div class="card-header">En l'air</div>
-                        <div class="card-body">
-                            <i class="fa fa-plane fa-3x"></i>
-                            <div class="float-right card-stats-text text-right">
-                                {{ stats.inAirHours | number_format(1, '.', ' ') }}<small>h</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {#                <div class="col-lg-3 pt-3"> #}
+                {#                    <div class="card text-white bg-dark card-stats card-stats-small"> #}
+                {#                        <div class="card-header">En l'air</div> #}
+                {#                        <div class="card-body"> #}
+                {#                            <i class="fa fa-plane fa-3x"></i> #}
+                {#                            <div class="float-right card-stats-text text-right"> #}
+                {#                                {{ stats.inAirHours | number_format(1, '.', ' ') }}<small>h</small> #}
+                {#                            </div> #}
+                {#                        </div> #}
+                {#                    </div> #}
+                {#                </div> #}
                 <div class="col-lg-3 pt-3">
                     <div class="card text-white bg-dark card-stats card-stats-small">
                         <div class="card-header">Décollages</div>
                         <div class="card-body">
                             <i class="fa fa-plane-departure fa-3x"></i>
                             <div class="float-right card-stats-text text-right">
-                                {{ stats.takeoffTotal | number_format(0, '.', ' ') }}
+                                {{ stats.totalTakeoffs | number_format(0, '.', ' ') }}
                             </div>
                         </div>
                     </div>
@@ -63,7 +81,7 @@
                         <div class="card-body">
                             <i class="fa fa-plane-arrival fa-3x"></i>
                             <div class="float-right card-stats-text text-right">
-                                {{ stats.landingTotal | number_format(0, '.', ' ') }}
+                                {{ stats.totalLandings | number_format(0, '.', ' ') }}
                             </div>
                         </div>
                     </div>
@@ -74,7 +92,7 @@
                         <div class="card-body">
                             <i class="fa fa-parachute-box fa-3x"></i>
                             <div class="float-right card-stats-text text-right">
-                                {{ stats.lossesEject | number_format(0, '.', ' ') }}
+                                {{ stats.ejections | number_format(0, '.', ' ') }}
                             </div>
                         </div>
                     </div>
@@ -85,7 +103,7 @@
                         <div class="card-body">
                             <i class="fa fa-car-crash fa-3x"></i>
                             <div class="float-right card-stats-text text-right">
-                                {{ stats.lossesCrash | number_format(0, '.', ' ') }}
+                                {{ stats.crashes | number_format(0, '.', ' ') }}
                             </div>
                         </div>
                     </div>
@@ -96,7 +114,7 @@
                         <div class="card-body">
                             <i class="fa fa-heart-broken fa-3x"></i>
                             <div class="float-right card-stats-text text-right">
-                                {{ stats.lossesPilotDeath | number_format(0, '.', ' ') }}
+                                {{ stats.deaths | number_format(0, '.', ' ') }}
                             </div>
                         </div>
                     </div>
@@ -107,7 +125,7 @@
                         <div class="card-body">
                             <i class="fa fa-bus fa-3x"></i>
                             <div class="float-right card-stats-text text-right">
-                                {{ stats.killsGroundUnitsTotal | number_format(0, '.', ' ') }}
+                                {{ stats.killsGroundUnits | number_format(0, '.', ' ') }}
                             </div>
                         </div>
                     </div>
@@ -118,7 +136,7 @@
                         <div class="card-body">
                             <i class="fa fa-plane fa-3x"></i>
                             <div class="float-right card-stats-text text-right">
-                                {{ stats.killsPlanesTotal | number_format(0, '.', ' ') }}
+                                {{ stats.killsPlanes | number_format(0, '.', ' ') }}
                             </div>
                         </div>
                     </div>
@@ -129,7 +147,7 @@
                         <div class="card-body">
                             <i class="fa fa-helicopter fa-3x"></i>
                             <div class="float-right card-stats-text text-right">
-                                {{ stats.killsHelicoptersTotal | number_format(0, '.', ' ') }}
+                                {{ stats.killsHelicopters | number_format(0, '.', ' ') }}
                             </div>
                         </div>
                     </div>
@@ -140,105 +158,105 @@
                         <div class="card-body">
                             <i class="fa fa-industry fa-3x"></i>
                             <div class="float-right card-stats-text text-right">
-                                {{ stats.killsBuildingsTotal | number_format(0, '.', ' ') }}
+                                {{ stats.killsBuildings | number_format(0, '.', ' ') }}
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 pt-3">
-                    <div class="card text-white bg-dark card-stats card-stats-small">
-                        <div class="card-header"><i class="fas fa-crosshairs"></i> Bateaux</div>
-                        <div class="card-body">
-                            <i class="fa fa-ship fa-3x"></i>
-                            <div class="float-right card-stats-text text-right">
-                                {{ stats.killsShipsTotal | number_format(0, '.', ' ') }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {#                <div class="col-lg-3 pt-3"> #}
+                {#                    <div class="card text-white bg-dark card-stats card-stats-small"> #}
+                {#                        <div class="card-header"><i class="fas fa-crosshairs"></i> Bateaux</div> #}
+                {#                        <div class="card-body"> #}
+                {#                            <i class="fa fa-ship fa-3x"></i> #}
+                {#                            <div class="float-right card-stats-text text-right"> #}
+                {#                                {{ stats.killsShips | number_format(0, '.', ' ') }} #}
+                {#                            </div> #}
+                {#                        </div> #}
+                {#                    </div> #}
+                {#                </div> #}
             </div>
         </div>
 
-        <div class="container container-main mb-3 pt-3 pb-3">
-            <div class="row">
-                <div class="col-md-12">
-                    <table class="table table-striped table-hover datatable">
-                        <thead>
-                        <tr>
-                            <th>
-                                Appareil / Variant / Siège
-                            </th>
-                            <th class="text-right">
-                                <i class="fa fa-clock"></i> (h)
-                            </th>
-                            <th class="text-right">
-                                <i class="fa fa-plane-departure"></i>
-                            </th>
-                            <th class="text-right">
-                                <i class="fa fa-plane-arrival"></i>
-                            </th>
-                            <th class="text-right">
-                                <i class="fa fa-bus"></i>
-                            </th>
-                            <th class="text-right">
-                                <i class="fa fa-plane"></i>
-                            </th>
-                            <th class="text-right">
-                                <i class="fa fa-helicopter"></i>
-                            </th>
-                            <th class="text-right">
-                                <i class="fa fa-industry"></i>
-                            </th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for statVariant in statsVariants %}
-                            <tr>
-                                <td>
-                                    {{ statVariant.variant.name }}
-                                </td>
-                                <td class="text-right">
-                                    {% if statVariant.totalHours > 0 %}
-                                        {{ statVariant.totalHours | number_format(1, '.', ' ') }}
-                                    {% endif %}
-                                </td>
-                                <td class="text-right">
-                                    {% if statVariant.takeoffTotal > 0 %}
-                                        {{ statVariant.takeoffTotal | number_format(0, '.', ' ') }}
-                                    {% endif %}
-                                </td>
-                                <td class="text-right">
-                                    {% if statVariant.landingTotal > 0 %}
-                                        {{ statVariant.landingTotal | number_format(0, '.', ' ') }}
-                                    {% endif %}
-                                </td>
-                                <td class="text-right">
-                                    {% if statVariant.killsGroundUnitsTotal > 0 %}
-                                        {{ statVariant.killsGroundUnitsTotal | number_format(0, '.', ' ') }}
-                                    {% endif %}
-                                </td>
-                                <td class="text-right">
-                                    {% if statVariant.killsPlanesTotal > 0 %}
-                                        {{ statVariant.killsPlanesTotal | number_format(0, '.', ' ') }}
-                                    {% endif %}
-                                </td>
-                                <td class="text-right">
-                                    {% if statVariant.killsHelicoptersTotal > 0 %}
-                                        {{ statVariant.killsHelicoptersTotal | number_format(0, '.', ' ') }}
-                                    {% endif %}
-                                </td>
-                                <td class="text-right">
-                                    {% if statVariant.killsBuildingsTotal > 0 %}
-                                        {{ statVariant.killsBuildingsTotal | number_format(0, '.', ' ') }}
-                                    {% endif %}
-                                </td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
+                <div class="container container-main mb-3 pt-3 pb-3">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-striped table-hover datatable">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        Appareil / Variant / Siège
+                                    </th>
+                                    <th class="text-right">
+                                        <i class="fa fa-clock"></i> (h)
+                                    </th>
+                                    <th class="text-right">
+                                        <i class="fa fa-plane-departure"></i>
+                                    </th>
+                                    <th class="text-right">
+                                        <i class="fa fa-plane-arrival"></i>
+                                    </th>
+                                    <th class="text-right">
+                                        <i class="fa fa-bus"></i>
+                                    </th>
+                                    <th class="text-right">
+                                        <i class="fa fa-plane"></i>
+                                    </th>
+                                    <th class="text-right">
+                                        <i class="fa fa-helicopter"></i>
+                                    </th>
+                                    <th class="text-right">
+                                        <i class="fa fa-industry"></i>
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for statType in statsTypes %}
+                                    <tr>
+                                        <td>
+                                            {{ statType.dataType.name }}
+                                        </td>
+                                        <td class="text-right">
+                                            {% if statType.time > 0 %}
+                                                {{ statType.time | number_format(1, '.', ' ') }}
+                                            {% endif %}
+                                        </td>
+                                        <td class="text-right">
+                                            {% if statType.totalTakeoffs > 0 %}
+                                                {{ statType.totalTakeoffs | number_format(0, '.', ' ') }}
+                                            {% endif %}
+                                        </td>
+                                        <td class="text-right">
+                                            {% if statType.totalLandings > 0 %}
+                                                {{ statType.totalLandings | number_format(0, '.', ' ') }}
+                                            {% endif %}
+                                        </td>
+                                        <td class="text-right">
+                                            {% if statType.killsGroundUnits > 0 %}
+                                                {{ statType.killsGroundUnits | number_format(0, '.', ' ') }}
+                                            {% endif %}
+                                        </td>
+                                        <td class="text-right">
+                                            {% if statType.killsPlanes > 0 %}
+                                                {{ statType.killsPlanes | number_format(0, '.', ' ') }}
+                                            {% endif %}
+                                        </td>
+                                        <td class="text-right">
+                                            {% if statType.killsHelicopters > 0 %}
+                                                {{ statType.killsHelicopters | number_format(0, '.', ' ') }}
+                                            {% endif %}
+                                        </td>
+                                        <td class="text-right">
+                                            {% if statType.killsBuildings > 0 %}
+                                                {{ statType.killsBuildings | number_format(0, '.', ' ') }}
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
     {% else %}
         <div class="container container-main mb-3 pb-3">
             <div class="row justify-content-center">

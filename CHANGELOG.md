@@ -1,3 +1,7 @@
+### 1.13.0
+* ADD periods stats based on Perun
+* UPD use perun stats on player profile page
+
 ### 1.12.0
 * ADD display clients on map
 

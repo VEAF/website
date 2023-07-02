@@ -2,6 +2,9 @@
 
 namespace App\DTO;
 
+/**
+ * @deprecated https://github.com/VEAF/website/issues/365
+ */
 class SlmodWeaponStat
 {
     private string $code = '';

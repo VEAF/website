@@ -16,7 +16,7 @@ class LogStat
      * @ORM\GeneratedValue
      * @ORM\Column(type="bigint", name="pe_LogStats_id")
      */
-    private ?int $id;
+    private ?int $id = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=DataMissionHash::class)
@@ -232,5 +232,239 @@ class LogStat
         $this->mission = $mission;
 
         return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTeamKills(): int
+    {
+        return $this->teamKills;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPvp(): int
+    {
+        return $this->pvp;
+    }
+
+    /**
+     * @return int
+     */
+    public function getShipTakeoffs(): int
+    {
+        return $this->shipTakeoffs;
+    }
+
+    /**
+     * @return int
+     */
+    public function getShipLandings(): int
+    {
+        return $this->shipLandings;
+    }
+
+    /**
+     * @return int
+     */
+    public function getOtherTakeoffs(): int
+    {
+        return $this->otherTakeoffs;
+    }
+
+    /**
+     * @return int
+     */
+    public function getOtherLandings(): int
+    {
+        return $this->otherLandings;
+    }
+
+    /**
+     * @return int
+     */
+    public function getKillsUnarmed(): int
+    {
+        return $this->killsUnarmed;
+    }
+
+    /**
+     * @return int
+     */
+    public function getKillsPlanes(): int
+    {
+        return $this->killsPlanes;
+    }
+
+    /**
+     * @return int
+     */
+    public function getKillsOther(): int
+    {
+        return $this->killsOther;
+    }
+
+    /**
+     * @return int
+     */
+    public function getKillsInfantry(): int
+    {
+        return $this->killsInfantry;
+    }
+
+    /**
+     * @return int
+     */
+    public function getKillsHelicopters(): int
+    {
+        return $this->killsHelicopters;
+    }
+
+    /**
+     * @return int
+     */
+    public function getKillsFortification(): int
+    {
+        return $this->killsFortification;
+    }
+
+    /**
+     * @return int
+     */
+    public function getKillsArtillery(): int
+    {
+        return $this->killsArtillery;
+    }
+
+    /**
+     * @return int
+     */
+    public function getKillsArmor(): int
+    {
+        return $this->killsArmor;
+    }
+
+    /**
+     * @return int
+     */
+    public function getKillsAirDefense(): int
+    {
+        return $this->killsAirDefense;
+    }
+
+    /**
+     * @return int
+     */
+    public function getFarpTakeoffs(): int
+    {
+        return $this->farpTakeoffs;
+    }
+
+    /**
+     * @return int
+     */
+    public function getFarpLandings(): int
+    {
+        return $this->farpLandings;
+    }
+
+    /**
+     * @return int
+     */
+    public function getEjections(): int
+    {
+        return $this->ejections;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDeaths(): int
+    {
+        return $this->deaths;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCrashes(): int
+    {
+        return $this->crashes;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAirfieldTakeoffs(): int
+    {
+        return $this->airfieldTakeoffs;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAirfieldLandings(): int
+    {
+        return $this->airfieldLandings;
+    }
+
+    /**
+     * @return int
+     */
+    public function getKillsShips(): int
+    {
+        return $this->killsShips;
+    }
+
+    /**
+     * @return int
+     */
+    public function getKillsX(): int
+    {
+        return $this->killsX;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMasterSlot(): int
+    {
+        return $this->masterSlot;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSeat(): int
+    {
+        return $this->seat;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    /**
+     * @return DataType|null
+     */
+    public function getType(): ?DataType
+    {
+        return $this->type;
+    }
+
+    public function getTotalTakeoffs(): int
+    {
+        return $this->farpTakeoffs + $this->shipTakeoffs + $this->otherTakeoffs + $this->airfieldTakeoffs;
+    }
+
+    public function getTotalLandings(): int
+    {
+        return $this->farpLandings + $this->shipLandings + $this->otherLandings + $this->airfieldLandings;
     }
 }

@@ -89,11 +89,11 @@
             <div class="row justify-content-center">
                 <div class="col-lg-4 pt-3">
                     <div class="card text-white bg-dark card-stats">
-                        <div class="card-header">Total heures</div>
+                        <div class="card-header">Total heures / {{ periodWeeks }} semaines</div>
                         <div class="card-body">
                             <i class="fa fa-clock fa-4x"></i>
                             <div class="float-right card-stats-text text-right">
-                                {{ stats.totalHours | number_format(1, '.', ' ') }} h
+                                {{ stats.time | number_format(1, '.', ' ') }} h
                             </div>
                         </div>
                     </div>
@@ -102,11 +102,11 @@
                     <div class="card text-white bg-dark card-stats">
                         <div class="card-header">Avion favori</div>
                         <div class="card-body">
-                            {% if morePlayedAircraft is not null and morePlayedAircraft.module is not null %}
+                            {% if mostPlayedAircraft is not null %}
                                 <i class="fa fa-plane fa-4x"></i>
                                 <div class="float-right card-stats-text text-right">
-                                    {{ morePlayedAircraft.module.name }}<br/>
-                                    <small>{{ morePlayedAircraft.totalHours | number_format(1, '.', ' ') }} h</small>
+                                    {{ mostPlayedAircraft.dataType.name }}<br/>
+                                    <small>{{ mostPlayedAircraft.time | number_format(1, '.', ' ') }} h</small>
                                 </div>
                             {% else %}
                                 <div class="text-center">
@@ -120,11 +120,11 @@
                     <div class="card text-white bg-dark mb-3 card-stats">
                         <div class="card-header">Hélicoptère favori</div>
                         <div class="card-body">
-                            {% if morePlayedHelicopter is not null and morePlayedHelicopter.module is not null %}
+                            {% if mostPlayedHelicopter is not null %}
                                 <i class="fa fa-helicopter fa-4x"></i>
                                 <div class="float-right card-stats-text text-right">
-                                    {{ morePlayedHelicopter.module.name }}<br/>
-                                    <small>{{ morePlayedHelicopter.totalHours | number_format(1, '.', ' ') }} h</small>
+                                    {{ mostPlayedHelicopter.dataType.name }}<br/>
+                                    <small>{{ mostPlayedHelicopter.time | number_format(1, '.', ' ') }} h</small>
                                 </div>
                             {% else %}
                                 <div class="text-center">
