@@ -2,10 +2,13 @@
 
 namespace App\Controller;
 
+use App\DTO\TimeInterval;
 use App\Entity\Module;
 use App\Entity\User;
 use App\Entity\UserModule;
 use App\Entity\VariantStat;
+use App\Perun\Repository\DataTypeRepository;
+use App\Perun\Repository\LogStatRepository;
 use App\Repository\ModuleRepository;
 use App\Repository\VariantStatRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -22,7 +25,7 @@ class UserController extends AbstractController
      * @Route("/{user}", name="user_view")
      * @ParamConverter("user", options={"mapping": {"user": "nickname"}})
      */
-    public function view(ModuleRepository $moduleRepository, VariantStatRepository $variantStatRepository, User $user): Response
+    public function view(ModuleRepository $moduleRepository, VariantStatRepository $variantStatRepository, LogStatRepository $logStatRepository, DataTypeRepository $dataTypeRepository, User $user): Response
     {
         $data = [];
 
@@ -30,9 +33,15 @@ class UserController extends AbstractController
         $data['moduleTypes'] = Module::TYPES;
         $data['modules'] = $this->getDoctrine()->getRepository(Module::class)->findBy([], ['type' => 'asc', 'period' => 'desc', 'name' => 'asc']);
         $data['userModulesTypes'] = $this->getDoctrine()->getRepository(UserModule::class)->findByUserIndexedByTypeAndModule($user);
-        $data['stats'] = $user->getPlayer() ? $variantStatRepository->countTotals($user->getPlayer()) : null;
-        $data['morePlayedAircraft'] = $user->getPlayer() ? $moduleRepository->findOneByPlayerAndBestTotalHours($user->getPlayer(), Module::TYPE_AIRCRAFT) : null;
-        $data['morePlayedHelicopter'] = $user->getPlayer() ? $moduleRepository->findOneByPlayerAndBestTotalHours($user->getPlayer(), Module::TYPE_HELICOPTER) : null;
+
+        $periodWeeks = 4;
+        $period = new TimeInterval(sprintf('today -%d weeks', $periodWeeks), 'tomorrow');
+
+        // stats over all
+        $data['periodWeeks'] = $periodWeeks;
+        $data['stats'] = $user->getPlayer() ? $logStatRepository->countTotals($user->getPlayer(), $period) : null;
+        $data['mostPlayedAircraft'] = $user->getPlayer() ? $dataTypeRepository->findOneByPlayerAndBestTotalHours($user->getPlayer(), Module::TYPE_AIRCRAFT, $period) : null;
+        $data['mostPlayedHelicopter'] = $user->getPlayer() ? $dataTypeRepository->findOneByPlayerAndBestTotalHours($user->getPlayer(), Module::TYPE_HELICOPTER, $period) : null;
 
         return $this->render('user/view.html.twig', $data);
     }

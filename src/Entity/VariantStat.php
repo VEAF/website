@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * @deprecated https://github.com/VEAF/website/issues/365
  * @ORM\Table(uniqueConstraints={
  *     @ORM\UniqueConstraint(name="variant_idx", columns={"server_id", "variant_id", "player_id"}),
  * })
