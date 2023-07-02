@@ -16,7 +16,7 @@ class LogStat
      * @ORM\GeneratedValue
      * @ORM\Column(type="bigint", name="pe_LogStats_id")
      */
-    private ?int $id;
+    private ?int $id = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=DataMissionHash::class)
