@@ -64,9 +64,10 @@ class UserController extends AbstractController
             'last-month' => new TimeInterval('first day of this month midnight -1 month', 'last day of previous month midnight'),
             'this-year' => new TimeInterval('first day of January midnight', 'today'),
             // note: bug of end of last-year (un day too far)
-            'last-year' => new TimeInterval('first day of January midnight -1 year', 'first day of January midnight -1 day'),
+            'last-year' => new TimeInterval('first day of January midnight -1 year', 'first day of January midnight'),
             'all-time' => new TimeInterval(),
         ];
+        $periods['last-year']->getEnd()->modify('-1 day');
 
         // @todo use translations
         $periodsTranslations = [
@@ -97,7 +98,7 @@ class UserController extends AbstractController
                 break;
         }
 
-        if (!null === $period->getEnd()) {
+        if (null !== $period->getEnd()) {
             $period->getEnd()->modify('+1 day -1 second');
         }
 
