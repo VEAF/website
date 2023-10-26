@@ -234,6 +234,11 @@ class Instance
         return $this;
     }
 
+    public function isPaused(): bool
+    {
+        return $this->pause == 'True';
+    }
+
     public function getRealTime(): ?string
     {
         return $this->realTime;
