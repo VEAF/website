@@ -35,7 +35,7 @@ class MetricsController extends AbstractController
                         echo sprintf('%s{server="%s"} %d' . PHP_EOL, $metric, $instance->getServer()->getCode(), $metricValue);
                     }
                     // theatre, strings are not supported by prometheus
-                    echo sprintf('%s{server="%s",theatre="%s"} 1' . PHP_EOL, $metric, $instance->getServer()->getCode(), $instance->getTheater());
+                    echo sprintf('%s{server="%s",theatre="%s"} 1' . PHP_EOL, "dcs_mission", $instance->getServer()->getCode(), $instance->getTheater());
                 }
             },
             Response::HTTP_OK,
