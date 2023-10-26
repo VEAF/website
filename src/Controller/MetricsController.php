@@ -17,7 +17,7 @@ class MetricsController extends AbstractController
     {
         return new StreamedResponse(
             function (): void {
-                echo sprintf('dcs_exporter{version="%s"} 1' . PHP_EOL, $this->getParameter('app_version'));
+                echo sprintf('veaf_exporter{version="%s"} 1' . PHP_EOL, $this->getParameter('app_version'));
 
                 /** @var Instance[] $instances */
                 $instances = $this->getDoctrine()->getRepository(Instance::class)->findBy([], ['id' => 'ASC']);
