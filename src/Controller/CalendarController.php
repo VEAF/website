@@ -168,6 +168,7 @@ class CalendarController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $newEvent = clone $event;
+            $newEvent->setTitle('Copie de '.$event->getTitle());
             $newEvent->setOwner($this->getUser());
             $date = (new \DateTime($periodString))->setTime(21, 00);
             $newEvent->setStartDate($date);

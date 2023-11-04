@@ -128,7 +128,6 @@ class DataTypeRepository extends ServiceEntityRepository
         $result = $query->getQuery()
             ->getOneOrNullResult();
 
-
         if (null === $result) {
             return null;
         }
@@ -139,5 +138,4 @@ class DataTypeRepository extends ServiceEntityRepository
 
         return $stat;
     }
-
 }

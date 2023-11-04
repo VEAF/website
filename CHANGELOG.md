@@ -1,3 +1,9 @@
+### 1.14.0
+* ADD calendrier - onglet briefing
+* ADD calendrier - événements périodiques
+* ADD prometheus metrics exporter
+* FIX CVE Symfony
+
 ### 1.13.0
 * ADD periods stats based on Perun
 * UPD use perun stats on player profile page

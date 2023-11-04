@@ -78,7 +78,6 @@ abstract class AbstractPerunStat
         $this->otherLandings = $otherLandings;
     }
 
-
     public function setFromRow(array $row): self
     {
         foreach ([

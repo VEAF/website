@@ -57,6 +57,9 @@
             {% else %}
                 <span class="badge badge-pill badge-danger">{{ event.startDate | time_diff }}</span>
             {% endif %}
+            {% if event.repeatEvent != constant('\\App\\Entity\\Calendar\\Event::REPEAT_NONE') %}
+                <i class="fa fa-clock" title="Evénement automatique {{ event.repeatEventAsString }}"></i>
+            {% endif %}
             <span class="float-right">
                     organisé par <a href="{{ path('user_view', {'user': event.owner.nickname}) }}">
                         {{ event.owner.nickname }}
@@ -87,21 +90,39 @@
     {% endif %}
 
     <div class="container container-main mb-3 pt-3 pb-3">
-        {# description #}
-        {% if event.description is not null %}
-            <div class="row">
-                <div class="col-md-12">
-                    <b>Description:</b><br/>
-                    <p>
-                        {{ event.description | markdown | replace({'<img src=':'<img class="img-fluid" src='}) | raw }}
-                    </p>
-                    <hr/>
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link active" data-toggle="tab" href="#description" role="tab">Description</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" data-toggle="tab" href="#debrief" role="tab">Debrief</a>
+            </li>
+        </ul>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tab-content">
+                    <div id="description" role="tabpanel" class="tab-pane fade show active">
+                        <p>
+                            {% if event.description is not null %}
+                              {{ event.description | markdown | replace({'<img src=':'<img class="img-fluid" src='}) | raw }}
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div id="debrief" role="tabpanel" class="tab-pane fade">
+                        <p>
+                        {% if event.debrief is not null %}
+                            {{ event.debrief | markdown | replace({'<img src=':'<img class="img-fluid" src='}) | raw }}
+                        {% endif %}
+                        </p>
+                    </div>
                 </div>
+                <hr/>
             </div>
-        {% endif %}
+        </div>
 
         {% if event.server is not null %}
-            Serveur: <a href="{{ path('perun_instance', {'server': event.server.code}) }}">{{ event.server.name }}</a><br/>
+            Serveur: <a href="{{ path('perun_instance', {'server': event.server.code}) }}">{{ event.server.name }}</a>
+            <br/>
         {% endif %}
 
         {# restriction simulateur #}
