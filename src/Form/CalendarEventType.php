@@ -144,20 +144,42 @@ class CalendarEventType extends AbstractType
                 ],
             ]);
         $builder->add('server', EntityType::class,
-        [
-            'class' => Server::class,
-            'query_builder' => function (EntityRepository $er) {
-                return $er->createQueryBuilder('s')
-                    ->orderBy('s.name', 'ASC');
-            },
-            'choice_label' => 'name',
-            'required' => false,
-            'label' => 'Serveur',
-            'placeholder' => '-',
-            'attr' => [
-                'class' => 'select2auto form-control',
-            ],
-        ]);
+            [
+                'class' => Server::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('s')
+                        ->orderBy('s.name', 'ASC');
+                },
+                'choice_label' => 'name',
+                'required' => false,
+                'label' => 'Serveur',
+                'placeholder' => '-',
+                'attr' => [
+                    'class' => 'select2auto form-control',
+                ],
+            ]);
+
+        $builder->add('debrief', TextareaType::class,
+            [
+                'required' => false,
+                'label' => 'Debrief',
+                'attr' => [
+                    'class' => 'easyMde',
+                ],
+            ]
+        );
+
+        $builder->add('repeatEvent', ChoiceType::class,
+            [
+                'label' => 'Répétition de l\'événement',
+                'choices' => [
+                    array_flip(Event::REPEATS),
+                ],
+                'expanded' => true,
+                'required' => true,
+            ]
+        );
+
     }
 
     public function configureOptions(OptionsResolver $resolver)
