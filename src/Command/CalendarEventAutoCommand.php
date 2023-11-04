@@ -4,7 +4,6 @@ namespace App\Command;
 
 use App\Repository\Calendar\EventRepository;
 use App\Service\Calendar\EventService;
-use App\Service\TeamSpeak3ClientCache;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -38,7 +37,7 @@ class CalendarEventAutoCommand extends Command
                 $output->writeln(sprintf('creating new event from event id=%d,type=%s,repeat=%s: %s', $event->getId(), $event->getTypeAsString(), $event->getRepeatEventAsCode(), substr($event->getTitle(), 0, 30)));
                 $newEvent = $this->eventService->createNextEvent($event);
                 $output->writeln(sprintf('new event: id=%d,type=%s,repeat=%s: %s', $newEvent->getId(), $newEvent->getTypeAsString(), $newEvent->getRepeatEventAsCode(), substr($newEvent->getTitle(), 0, 30)));
-                $newEvents++;
+                ++$newEvents;
             }
         }
 

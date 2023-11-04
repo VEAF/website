@@ -6,7 +6,6 @@ use App\DTO\TimeInterval;
 use App\Entity\Module;
 use App\Entity\User;
 use App\Entity\UserModule;
-use App\Entity\VariantStat;
 use App\Perun\Repository\DataTypeRepository;
 use App\Perun\Repository\LogStatRepository;
 use App\Repository\ModuleRepository;
@@ -64,19 +63,20 @@ class UserController extends AbstractController
             'last-month' => new TimeInterval('first day of this month midnight -1 month', 'last day of previous month midnight'),
             'this-year' => new TimeInterval('first day of January midnight', 'today'),
             // note: bug of end of last-year (un day too far)
-            'last-year' => new TimeInterval('first day of January midnight -1 year', 'first day of January midnight -1 day'),
+            'last-year' => new TimeInterval('first day of January midnight -1 year', 'first day of January midnight'),
             'all-time' => new TimeInterval(),
         ];
+        $periods['last-year']->getEnd()->modify('-1 day');
 
         // @todo use translations
         $periodsTranslations = [
             'today' => "Aujourd'hui",
-            'yesterday' => "Hier",
-            'this-month' => "Ce mois",
-            'last-month' => "Le mois dernier",
-            'this-year' => "Cette année",
+            'yesterday' => 'Hier',
+            'this-month' => 'Ce mois',
+            'last-month' => 'Le mois dernier',
+            'this-year' => 'Cette année',
             'last-year' => "L'année dernière",
-            'all-time' => "Depuis toujours",
+            'all-time' => 'Depuis toujours',
         ];
 
         switch ($request->get('_route')) {
@@ -97,7 +97,7 @@ class UserController extends AbstractController
                 break;
         }
 
-        if (!null === $period->getEnd()) {
+        if (null !== $period->getEnd()) {
             $period->getEnd()->modify('+1 day -1 second');
         }
 
