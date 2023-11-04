@@ -44,6 +44,7 @@ cd website
 * JQuery: https://jquery.com/
 * Full Calendar: https://fullcalendar.io/docs
 * Bootstrap: https://getbootstrap.com/
+* Bootstrap Theme: https://bootswatch.com/cerulean/
 * Docker: https://www.docker.com/
 
 ## Configurer le projet
@@ -129,6 +130,20 @@ echo "Scan Team Speak"
 pushd /home/debian/docker/website > /dev/null
 
 /usr/local/bin/docker-compose exec -T -u www-data php ./bin/console app:team-speak:scan 2>&1 | ts >> var/log/team-speak.log
+
+popd > /dev/null
+```
+
+### Gestion des tâches automatisées du calendrier
+
+```shell
+#!/bin/env bash
+
+echo "Calendar"
+
+pushd /home/debian/docker/website > /dev/null
+
+/usr/local/bin/docker-compose exec -T -u www-data php ./bin/console app:calendar:event:auto 2>&1 | ts >> var/log/calendar.log
 
 popd > /dev/null
 ```

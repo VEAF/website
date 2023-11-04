@@ -59,8 +59,17 @@
 {% block javascript %}
 {{ parent() }}
 <script type="application/javascript">
-var easyMDE = new EasyMDE({
-element: $('.easyMde')[0],
+var descriptionMarkdown = new EasyMDE({
+element: $('#calendar_event_description')[0],
+sideBySideFullscreen: false,
+fullscreen: false,
+uploadImage: true,
+imageMaxSize: 10000000,
+spellChecker: false,
+imageUploadEndpoint: "{{ path('file_upload') }}",
+});
+var debriefMarkdown = new EasyMDE({
+element: $('#calendar_event_debrief')[0],
 sideBySideFullscreen: false,
 fullscreen: false,
 uploadImage: true,

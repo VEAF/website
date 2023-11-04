@@ -24,6 +24,25 @@ class Event
     const EVENT_TYPE_MAINTENANCE = 5;
     const EVENT_TYPE_ATC = 6;
 
+    const REPEAT_NONE = 0; // ex: no repeat
+    const REPEAT_DAY_OF_WEEK = 1; // ex: every mondays
+    const REPEAT_DAY_OF_MONTH = 2; // ex: every 10th day of month
+    const REPEAT_NTH_WEEK_DAY_OF_MONTH = 3; // ex: 3rd sunday of month
+
+    const REPEATS = [
+        self::REPEAT_NONE => 'Pas de répétition',
+        self::REPEAT_DAY_OF_WEEK => '1x par semaine, le même jour (ex: le lundi)',
+        self::REPEAT_DAY_OF_MONTH => '1x par mois, le même jour (ex: le 15 du mois)',
+        self::REPEAT_NTH_WEEK_DAY_OF_MONTH => '1x par mois, même jour de la semaine (ex: deuxième dimanche du mois)',
+    ];
+
+    const REPEATS_CODES = [
+        self::REPEAT_NONE => 'none',
+        self::REPEAT_DAY_OF_WEEK => 'day_of_week',
+        self::REPEAT_DAY_OF_MONTH => 'day_of_month',
+        self::REPEAT_NTH_WEEK_DAY_OF_MONTH => 'nth_day_of_month',
+    ];
+
     const EVENTS = [
         self::EVENT_TYPE_TRAINING => 'Training',
         self::EVENT_TYPE_MISSION => 'Mission',
@@ -182,6 +201,16 @@ class Event
      * @var Flight[]
      */
     private $flights;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private ?string $debrief;
+
+    /**
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    private int $repeatEvent = self::REPEAT_NONE;
 
     public function __construct()
     {
@@ -544,8 +573,6 @@ class Event
 
     public function __clone()
     {
-        $this->title = 'Copie de '.$this->title;
-
         $modules = $this->modules;
         $this->modules = new ArrayCollection();
         $this->votes = new ArrayCollection();
@@ -606,5 +633,47 @@ class Event
         }
 
         return $this;
+    }
+
+    public function getDebrief(): ?string
+    {
+        return $this->debrief;
+    }
+
+    public function setDebrief(?string $debrief): self
+    {
+        $this->debrief = $debrief;
+
+        return $this;
+    }
+
+    public function getRepeatEvent(): int
+    {
+        return $this->repeatEvent;
+    }
+
+    public function setRepeatEvent(int $repeatEvent): self
+    {
+        $this->repeatEvent = $repeatEvent;
+
+        return $this;
+    }
+
+    public function getRepeatEventAsCode(): string
+    {
+        if (isset(self::REPEATS_CODES[$this->repeatEvent])) {
+            return self::REPEATS_CODES[$this->repeatEvent];
+        }
+
+        return 'unknown';
+    }
+
+    public function getRepeatEventAsString(): string
+    {
+        if (isset(self::REPEATS[$this->repeatEvent])) {
+            return self::REPEATS[$this->repeatEvent];
+        }
+
+        return 'inconnu';
     }
 }

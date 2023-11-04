@@ -5,6 +5,7 @@ namespace App\Repository\Calendar;
 use App\Entity\Calendar\Event;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -123,4 +124,20 @@ class EventRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    /**
+     * Find all (undeleted) repeatable events
+     *
+     * @return ArrayCollection|Event[]
+     */
+    public function findAllRepeatableEvents(): array
+    {
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.deleted = 0')
+            ->andWhere('e.repeatEvent != :repeatNone')
+            ->setParameter('repeatNone', Event::REPEAT_NONE)
+            ->getQuery()
+            ->getResult();
+    }
+
 }
