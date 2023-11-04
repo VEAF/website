@@ -55,7 +55,7 @@ class Page
 
     /**
      * @var PageBlock[]|ArrayCollection|array
-     * @ORM\OneToMany(targetEntity=PageBlock::class, mappedBy="page", orphanRemoval=true, cascade="persist")
+     * @ORM\OneToMany(targetEntity=PageBlock::class, mappedBy="page", orphanRemoval=true, cascade={"persist"})
      */
     private $blocks;
 
