@@ -13,6 +13,7 @@ use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @deprecated https://github.com/VEAF/website/issues/365
+ *
  * @method VariantStat|null find($id, $lockMode = null, $lockVersion = null)
  * @method VariantStat|null findOneBy(array $criteria, array $orderBy = null)
  * @method VariantStat[]    findAll()

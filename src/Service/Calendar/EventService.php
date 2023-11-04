@@ -8,9 +8,7 @@ use App\Entity\Calendar\Notification;
 use App\Entity\User;
 use App\Manager\Calendar\EventManager;
 use App\Repository\Calendar\EventRepository;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Routing\Router;
 use Symfony\Component\Routing\RouterInterface;
 
 class EventService
@@ -44,7 +42,7 @@ class EventService
             $notified = (null === $user || $eventRow['notifications'] > 0);
             /* @var Event $event */
             $events[] = [
-                'title' => ($notified ? '' : '* ') . $event->getTitle(),
+                'title' => ($notified ? '' : '* ').$event->getTitle(),
                 'start' => $event->getStartDate()->format('Y-m-d\TH:i:s'),
                 'end' => $event->getEndDate()->format('Y-m-d\TH:i:s'),
                 'url' => $this->router->generate('calendar_view', ['event' => $event->getId()]),
@@ -97,7 +95,7 @@ class EventService
         $nextEventDate = $this->getNextEventDateTime($event);
 
         // no next event date ?
-        if(null == $nextEventDate) {
+        if (null == $nextEventDate) {
             return false;
         }
 
@@ -109,7 +107,7 @@ class EventService
 
     public function getNextEventDateTime(Event $event): ?\DateTime
     {
-        switch($event->getRepeatEvent()) {
+        switch ($event->getRepeatEvent()) {
             case Event::REPEAT_DAY_OF_WEEK:
                 return (clone $event->getStartDate())->modify('+1 week');
             case Event::REPEAT_DAY_OF_MONTH:
@@ -117,11 +115,12 @@ class EventService
             case Event::REPEAT_NTH_WEEK_DAY_OF_MONTH:
                 $dayOfWeek = $event->getStartDate()->format('l');
                 $dayOfMonth = $event->getStartDate()->format('d');
-                $nthDayOfMonth = floor(($dayOfMonth -1) / 7);
+                $nthDayOfMonth = floor(($dayOfMonth - 1) / 7);
                 $nthDay = ['first', 'second', 'third', 'fourth', 'last'];
 
                 $newDate = (clone $event->getStartDate())->modify(sprintf('%s %s of next month', $nthDay[$nthDayOfMonth], $dayOfWeek))
                     ->setTime($event->getStartDate()->format('H'), $event->getStartDate()->format('i'));
+
                 return $newDate;
             default:
                 return null;
@@ -132,7 +131,7 @@ class EventService
     {
         try {
             $nextEventDate = $this->getNextEventDateTime($originalEvent);
-            if(null === $nextEventDate) {
+            if (null === $nextEventDate) {
                 throw new \InvalidArgumentException('next event date can\'t be calculated from originalEvent');
             }
 
@@ -147,9 +146,8 @@ class EventService
             $this->eventManager->save($newEvent, true);
 
             return $newEvent;
-        }
-        catch(\Exception $e) {
-            throw new \Exception('createNextEvent failed',0, $e);
+        } catch (\Exception $e) {
+            throw new \Exception('createNextEvent failed', 0, $e);
         }
     }
 }

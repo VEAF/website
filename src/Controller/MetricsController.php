@@ -17,7 +17,7 @@ class MetricsController extends AbstractController
     {
         return new StreamedResponse(
             function (): void {
-                echo sprintf('veaf_exporter{version="%s"} 1' . PHP_EOL, $this->getParameter('app_version'));
+                echo sprintf('veaf_exporter{version="%s"} 1'.PHP_EOL, $this->getParameter('app_version'));
 
                 /** @var Instance[] $instances */
                 $instances = $this->getDoctrine()->getRepository(Instance::class)->findBy([], ['id' => 'ASC']);
@@ -32,10 +32,10 @@ class MetricsController extends AbstractController
                         'dcs_online_time' => round($instance->getRealTime()),
                     ];
                     foreach ($metrics as $metric => $metricValue) {
-                        echo sprintf('%s{server="%s"} %d' . PHP_EOL, $metric, $instance->getServer()->getCode(), $metricValue);
+                        echo sprintf('%s{server="%s"} %d'.PHP_EOL, $metric, $instance->getServer()->getCode(), $metricValue);
                     }
                     // theatre, strings are not supported by prometheus
-                    echo sprintf('%s{server="%s",theatre="%s"} 1' . PHP_EOL, "dcs_mission", $instance->getServer()->getCode(), $instance->getTheater());
+                    echo sprintf('%s{server="%s",theatre="%s"} 1'.PHP_EOL, 'dcs_mission', $instance->getServer()->getCode(), $instance->getTheater());
                 }
             },
             Response::HTTP_OK,

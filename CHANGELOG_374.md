@@ -1,1 +1,0 @@
-* FIX CVE Symfony

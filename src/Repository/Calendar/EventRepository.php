@@ -126,7 +126,7 @@ class EventRepository extends ServiceEntityRepository
     }
 
     /**
-     * Find all (undeleted) repeatable events
+     * Find all (undeleted) repeatable events.
      *
      * @return ArrayCollection|Event[]
      */
@@ -139,5 +139,4 @@ class EventRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-
 }

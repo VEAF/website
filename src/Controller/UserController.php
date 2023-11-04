@@ -6,7 +6,6 @@ use App\DTO\TimeInterval;
 use App\Entity\Module;
 use App\Entity\User;
 use App\Entity\UserModule;
-use App\Entity\VariantStat;
 use App\Perun\Repository\DataTypeRepository;
 use App\Perun\Repository\LogStatRepository;
 use App\Repository\ModuleRepository;
@@ -71,12 +70,12 @@ class UserController extends AbstractController
         // @todo use translations
         $periodsTranslations = [
             'today' => "Aujourd'hui",
-            'yesterday' => "Hier",
-            'this-month' => "Ce mois",
-            'last-month' => "Le mois dernier",
-            'this-year' => "Cette année",
+            'yesterday' => 'Hier',
+            'this-month' => 'Ce mois',
+            'last-month' => 'Le mois dernier',
+            'this-year' => 'Cette année',
             'last-year' => "L'année dernière",
-            'all-time' => "Depuis toujours",
+            'all-time' => 'Depuis toujours',
         ];
 
         switch ($request->get('_route')) {

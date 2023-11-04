@@ -236,7 +236,7 @@ class Instance
 
     public function isPaused(): bool
     {
-        return $this->pause == 'True';
+        return 'True' == $this->pause;
     }
 
     public function getRealTime(): ?string

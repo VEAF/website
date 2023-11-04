@@ -56,12 +56,12 @@ class LogStatRepository extends ServiceEntityRepository
             $query->andWhere('dataPlayer.ucid = :ucid')->setParameter('ucid', $player->getUcid());
         }
 
-        if(null !== $period) {
-            if(null !== $period->getStart()) {
+        if (null !== $period) {
+            if (null !== $period->getStart()) {
                 $query->andWhere('l.datetime >= :start')
                     ->setParameter('start', $period->getStart());
             }
-            if(null !== $period->getEnd()) {
+            if (null !== $period->getEnd()) {
                 $query->andWhere('l.datetime <= :end')
                     ->setParameter('end', $period->getEnd());
             }
@@ -71,5 +71,4 @@ class LogStatRepository extends ServiceEntityRepository
             ->getQuery()
             ->getSingleResult()->setPlayer($player);
     }
-
 }
