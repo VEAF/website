@@ -8,17 +8,19 @@ VEAF Website is a Symfony 4.4 PHP application for the Virtual European Air Force
 
 ## Development Commands
 
-All commands use Docker and are run via Make:
+All commands use Docker and are run via shell scripts in `./scripts/`:
 
 ```bash
-make upgrade       # Pull images, start containers, install composer deps, run migrations
-make fixtures      # Load test fixtures (requires `touch .fixtures` safety file)
-make up            # Start all containers
-make stop          # Stop all containers
-make php           # Shell into PHP container as www-data
-make cc            # Clear Symfony cache
-make fix           # Run PHP CS Fixer on src/
+./scripts/upgrade.sh       # Pull images, start containers, install composer deps, run migrations
+./scripts/dev/fixtures.sh  # Load test fixtures (requires `touch .fixtures` safety file)
+./scripts/up.sh            # Start all containers
+./scripts/stop.sh          # Stop all containers
+./scripts/php.sh           # Shell into PHP container as www-data
+./scripts/cc.sh            # Clear Symfony cache
+./scripts/fix.sh           # Run PHP CS Fixer on src/
 ```
+
+All scripts support `--help` for detailed usage information.
 
 Console commands inside the PHP container:
 ```bash
