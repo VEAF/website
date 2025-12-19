@@ -30,7 +30,9 @@ WITH_COMPOSER_DEV=1
 WITH_COMPOSER_SCRIPTS=1
 WITH_MIGRATIONS=1
 
-DOCKER_PHP_COMMAND="docker-compose exec -u www-data php"
+DOCKER_COMPOSE="docker compose"
+
+DOCKER_PHP_COMMAND="${DOCKER_COMPOSE} exec -u www-data php"
 
 # parse command line
 POSITIONAL=()
@@ -87,13 +89,13 @@ fi
 if [ ${WITH_DOCKER_PULL} -ne 0 ];
 then
     echo -e "${COLOR_GREEN}pulling docker images${COLOR_DEFAULT}"
-    docker-compose pull --no-parallel
+    ${DOCKER_COMPOSE} pull --no-parallel
 fi
 
 if [ ${WITH_DOCKER_UP} -ne 0 ];
 then
     echo -e "${COLOR_GREEN}starting docker containers${COLOR_DEFAULT}"
-    docker-compose up -d
+    ${DOCKER_COMPOSE} up -d
 fi
 
 if [ ${WITH_GIT_PULL} -ne 0 ];

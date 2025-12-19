@@ -29,13 +29,13 @@ else
 	TTY_COMPOSE=-T
 endif
 
-COMPOSE=docker-compose
+DOCKER_COMPOSE=docker compose
 
 ifneq ("$(wildcard /.dockerenv)","")
 	echo "Should not be used inside a container"
 	exit 1
 else
-	COMPOSE_PHP_CMD=$(COMPOSE) exec $(TTY_COMPOSE) -u www-data php
+	COMPOSE_PHP_CMD=$(DOCKER_COMPOSE) exec $(TTY_COMPOSE) -u www-data php
 endif
 
 ## Display this help text
@@ -76,33 +76,33 @@ autoconf: .env .php.env docker-compose.yml
 
 ## Pull images used in docker-compose config
 pull: autoconf
-	docker-compose pull --no-parallel
+	${DOCKER_COMPOSE} pull --no-parallel
 
 ## Start all the containers
 up: autoconf
-	docker-compose up -d
+	${DOCKER_COMPOSE} up -d
 
 ## Alias -> up
 start: up
 
 ## Stop all the containers
 stop:
-	docker-compose stop
+	${DOCKER_COMPOSE} stop
 
 ## Stop, then... start
 restart: stop start
 
 ## Down all the containers
 down:
-	docker-compose down --remove-orphans --volumes
+	${DOCKER_COMPOSE} down --remove-orphans --volumes
 
 ## Logs for all containers of the project
 logs:
-	docker-compose logs -tf --tail=1000
+	${DOCKER_COMPOSE} logs -tf --tail=1000
 
 ## Status of containers
 ps:
-	docker-compose ps
+	${DOCKER_COMPOSE} ps
 
 #==============================================================================
 # Interactive shells
@@ -110,11 +110,11 @@ ps:
 
 ## Enter interactive shell into php container
 php: hooks
-	docker-compose exec --user www-data php bash
+	${DOCKER_COMPOSE} exec --user www-data php bash
 
 ## Enter interactive shell into nginx container
 nginx:
-	docker-compose exec nginx sh
+	${DOCKER_COMPOSE} exec nginx sh
 
 #==============================================================================
 # Shortcuts
@@ -137,7 +137,7 @@ hooks:
 
 # Just wait php ready
 wait:
-	@$(COMPOSE) run php echo "Container : php is now ready"
+	@${DOCKER_COMPOSE} run php echo "Container : php is now ready"
 
 ## Upgrade sources + rebuild container + launch migrations
 upgrade: pull up wait internal_update
