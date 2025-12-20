@@ -39,6 +39,14 @@ class TeamSpeak3ClientCache
         return $this->ts3Client;
     }
 
+    /**
+     * Disconnect from the TeamSpeak server.
+     */
+    public function disconnect(): void
+    {
+        $this->ts3Client->disconnect();
+    }
+
     private function cacheKey(string $key): string
     {
         return sprintf('%s.%s', static::CACHE_PREFIX, $key);

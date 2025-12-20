@@ -4,10 +4,12 @@ namespace App\Service;
 
 use App\DTO\TeamSpeakChannel;
 use App\DTO\TeamSpeakClient;
+use PlanetTeamSpeak\TeamSpeak3Framework\Node\Server;
+use PlanetTeamSpeak\TeamSpeak3Framework\TeamSpeak3;
 
 class TeamSpeak3Client
 {
-    private ?\TeamSpeak3_Node_Server $client = null;
+    private ?Server $client = null;
     private ?string $teamSpeakApiUrl = null;
 
     public function __construct(string $teamSpeakApiUrl)
@@ -23,14 +25,26 @@ class TeamSpeak3Client
         return parse_url($this->teamSpeakApiUrl);
     }
 
-    public function getClient(): ?\TeamSpeak3_Node_Server
+    public function getClient(): ?Server
     {
         // only create connection when needed
         if (null === $this->client) {
-            $this->client = \TeamSpeak3::factory($this->teamSpeakApiUrl);
+            $this->client = TeamSpeak3::factory($this->teamSpeakApiUrl);
         }
 
         return $this->client;
+    }
+
+    /**
+     * Disconnect from the TeamSpeak server.
+     */
+    public function disconnect(): void
+    {
+        if (null !== $this->client) {
+            // Server -> Host -> ServerQuery(Adapter) -> Transport
+            $this->client->getParent()->getParent()->getTransport()->disconnect();
+            $this->client = null;
+        }
     }
 
     public function countClients(): int
