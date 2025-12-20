@@ -1,3 +1,6 @@
+### 1.15.1
+- FIX bundles dependencies updated
+
 ### 1.15.0
 * ADD some tests (dev)
 * UPD upgraded from php 7.4 to php 8.4
