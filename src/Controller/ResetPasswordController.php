@@ -7,14 +7,17 @@ use App\Form\NewPasswordType;
 use App\Form\PasswordRequestType;
 use App\Manager\UserManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @Route("/reset-password")
@@ -34,7 +37,7 @@ class ResetPasswordController extends AbstractController
     public function reset(
         Request $request,
         EntityManagerInterface $entityManager,
-        \Swift_Mailer $mailer,
+        MailerInterface $mailer,
         UserManager $userManager
     ) {
         $form = $this->createForm(PasswordRequestType::class);
@@ -49,38 +52,23 @@ class ResetPasswordController extends AbstractController
                 $user->setPasswordRequestToken($token);
                 $user->setPasswordRequestExpiredAt(new \DateTime('+1 day'));
                 $userManager->save($user, true, true);
-                // send your email with SwiftMailer or anything else here
+
                 $this->addFlash('success', 'Si l\'adresse email est correcte, vous allez recevoir un email');
 
                 $passwordResetUrl = $this->generateUrl('reset_password_confirm', ['token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
 
-                $message = (new \Swift_Message(sprintf('%s Site Web - reset de mon mot de passe', strtoupper($this->getParameter('website')))))
-                    ->setFrom($this->mailFrom)
-                    ->setTo($user->getEmail())
-                    // html version
-                    ->setBody(
-                        $this->renderView(
-                            'email/reset.html.twig',
-                            [
-                                'nickname' => $user->getNickname(),
-                                'passwordResetUrl' => $passwordResetUrl,
-                            ]
-                        ),
-                        'text/html'
-                    )
-                    // txt version, for client mail before 1971 ...
-                    ->addPart(
-                        $this->renderView(
-                            'email/reset.txt.twig',
-                            [
-                                'nickname' => $user->getNickname(),
-                                'passwordResetUrl' => $passwordResetUrl,
-                            ]
-                        ),
-                        'text/plain'
-                    );
+                $emailMessage = (new TemplatedEmail())
+                    ->from(new Address($this->mailFrom))
+                    ->to($user->getEmail())
+                    ->subject(sprintf('%s Site Web - reset de mon mot de passe', strtoupper($this->getParameter('website'))))
+                    ->htmlTemplate('email/reset.html.twig')
+                    ->textTemplate('email/reset.txt.twig')
+                    ->context([
+                        'nickname' => $user->getNickname(),
+                        'passwordResetUrl' => $passwordResetUrl,
+                    ]);
 
-                $mailer->send($message);
+                $mailer->send($emailMessage);
             }
 
             return $this->redirectToRoute('reset_password');
@@ -96,9 +84,9 @@ class ResetPasswordController extends AbstractController
         Request $request,
         string $token,
         EntityManagerInterface $entityManager,
-        UserPasswordEncoderInterface $encoder,
+        UserPasswordHasherInterface $hasher,
         TokenStorageInterface $tokenStorage,
-        SessionInterface $session,
+        RequestStack $requestStack,
         UserManager $userManager
     ) {
         $now = new \DateTime('now');
@@ -120,14 +108,14 @@ class ResetPasswordController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $plainPassword = $form->get('password')->getData();
-            $password = $encoder->encodePassword($user, $plainPassword);
+            $password = $hasher->hashPassword($user, $plainPassword);
             $user->setPassword($password);
             $user->setPasswordRequestToken(null);
             $userManager->save($user, true, true);
 
-            $token = new UsernamePasswordToken($user, $password, 'main');
-            $tokenStorage->setToken($token);
-            $session->set('_security_main', serialize($token));
+            $authToken = new UsernamePasswordToken($user, 'main', $user->getRoles());
+            $tokenStorage->setToken($authToken);
+            $requestStack->getSession()->set('_security_main', serialize($authToken));
 
             $this->addFlash('success', 'Votre mot de passe a été modifié');
 

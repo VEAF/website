@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-VEAF Website is a Symfony 4.4 PHP application for the Virtual European Air Force (VEAF) flight simulation community. It can also be configured for 51ème Escadron Griffon (51eg) via the `WEBSITE` environment variable.
+VEAF Website is a Symfony PHP application for the Virtual European Air Force (VEAF) flight simulation community. It was also configurable for 51ème Escadron Griffon (51eg) via the `WEBSITE` environment variable.
 
 ## Development Commands
 
@@ -13,20 +13,21 @@ All commands use Docker and are run via shell scripts in `./scripts/`:
 ```bash
 ./scripts/upgrade.sh       # Pull images, start containers, install composer deps, run migrations
 ./scripts/dev/fixtures.sh  # Load test fixtures (requires `touch .fixtures` safety file)
-./scripts/up.sh            # Start all containers
+./scripts/start.sh         # Start all containers
 ./scripts/stop.sh          # Stop all containers
-./scripts/php.sh           # Shell into PHP container as www-data
+./scripts/php.sh           # Shell into PHP container as www-data (or run a command)
+./scripts/console.sh       # Run Symfony console commands
 ./scripts/cc.sh            # Clear Symfony cache
 ./scripts/fix.sh           # Run PHP CS Fixer on src/
 ```
 
 All scripts support `--help` for detailed usage information.
 
-Console commands inside the PHP container:
+Console commands (via `./scripts/console.sh`):
 ```bash
-./bin/console doctrine:migrations:migrate -n    # Run migrations
-./bin/console cache:clear                       # Clear cache
-./bin/console hautelook:fixtures:load -n        # Load fixtures
+./scripts/console.sh doctrine:migrations:migrate -n    # Run migrations
+./scripts/console.sh cache:clear                       # Clear cache
+./scripts/console.sh hautelook:fixtures:load -n        # Load fixtures
 ```
 
 ## Architecture

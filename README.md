@@ -3,9 +3,11 @@
 ## Travailler sur le projet
 
 Prérequis:
+* linux
 * docker
-* docker-compose
+* docker compose
 * git
+* bash
 * un reverse proxy
 
 ```shell
@@ -38,8 +40,7 @@ Tous les scripts sont dans le répertoire `./scripts/` et acceptent l'option `--
 |----------|-------------|
 | `./scripts/upgrade.sh` | Mise à jour complète (pull, up, composer, migrations) |
 | `./scripts/pull.sh` | Pull des images Docker |
-| `./scripts/up.sh` | Démarrer les conteneurs |
-| `./scripts/start.sh` | Alias de up.sh |
+| `./scripts/start.sh` | Démarrer les conteneurs |
 | `./scripts/stop.sh` | Arrêter les conteneurs |
 | `./scripts/restart.sh` | Redémarrer les conteneurs |
 | `./scripts/down.sh` | Supprimer les conteneurs et volumes |
@@ -53,6 +54,9 @@ Tous les scripts sont dans le répertoire `./scripts/` et acceptent l'option `--
 |----------|-------------|
 | `./scripts/php.sh` | Shell dans le conteneur PHP (www-data) |
 | `./scripts/php.sh --root` | Shell dans le conteneur PHP (root) |
+| `./scripts/php.sh <commande>` | Exécuter une commande dans le conteneur PHP |
+| `./scripts/console.sh` | Console Symfony (affiche l'aide) |
+| `./scripts/console.sh <commande>` | Exécuter une commande Symfony |
 | `./scripts/nginx.sh` | Shell dans le conteneur Nginx |
 
 ### Développement
