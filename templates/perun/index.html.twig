@@ -66,7 +66,7 @@
                             </td>
                             {% if instance.alive %}
                                 <td>
-                                    {{ instance.modelTime | round | date('H:i', '+00:00 GMT') }}
+                                    {{ instance.modelTime | round | date('H:i', 'UTC') }}
                                 </td>
                             {% else %}
                                 <td class="alert-warning">
