@@ -65,6 +65,7 @@ Tous les scripts sont dans le répertoire `./scripts/` et acceptent l'option `--
 |----------|-------------|
 | `./scripts/cc.sh` | Vider le cache Symfony |
 | `./scripts/fix.sh` | Lancer PHP CS Fixer sur src/ |
+| `./scripts/dev/test.sh` | Lancer les tests |
 | `./scripts/dev/fixtures.sh` | Charger les fixtures (dev uniquement) |
 
 ## Pour mettre à jour le projet en production

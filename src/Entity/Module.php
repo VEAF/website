@@ -11,10 +11,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Table(uniqueConstraints={
- *     @ORM\UniqueConstraint(name="code_idx", columns={"code"}),
- *     @ORM\UniqueConstraint(name="name_idx", columns={"name"})
- * })
  * @ORM\Entity(repositoryClass=ModuleRepository::class)
  * @UniqueEntity("code")
  * @UniqueEntity("name")
@@ -67,7 +63,7 @@ class Module
     private int $type;
 
     /**
-     * @ORM\Column(type="string", length=8)
+     * @ORM\Column(type="string", length=8, unique=true)
      * @Assert\Length(min=3, max=8)
      * @Groups({"module"})
      */
@@ -81,7 +77,7 @@ class Module
     private ?string $longName;
 
     /**
-     * @ORM\Column(type="string", length=16)
+     * @ORM\Column(type="string", length=16, unique=true)
      * @Assert\Length(min=3, max=16)
      * @Groups({"module"})
      */

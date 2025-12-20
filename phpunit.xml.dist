@@ -15,10 +15,6 @@
         <server name="SHELL_VERBOSITY" value="-1" />
         <server name="SYMFONY_PHPUNIT_REMOVE" value="" />
         <server name="SYMFONY_PHPUNIT_VERSION" value="8.5" />
-
-        <!-- SQLite en mémoire pour l'isolation des tests -->
-        <server name="DATABASE_URL" value="sqlite:///:memory:" force="true" />
-        <server name="DATABASE_PERUN_URL" value="sqlite:///:memory:" force="true" />
     </php>
 
     <testsuites>

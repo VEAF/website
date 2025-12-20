@@ -11,13 +11,15 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
  *
  * Fournit:
  * - Boot automatique du kernel Symfony
- * - Création du schéma SQLite en mémoire
+ * - Création du schéma MySQL (une seule fois par suite de tests)
+ * - Isolation via transactions avec rollback
  * - Helpers pour accéder aux services
- * - Nettoyage après chaque test
  */
 abstract class AbstractIntegrationTestCase extends KernelTestCase
 {
     protected EntityManagerInterface $entityManager;
+
+    private static bool $schemaCreated = false;
 
     protected function setUp(): void
     {
@@ -25,22 +27,30 @@ abstract class AbstractIntegrationTestCase extends KernelTestCase
 
         $this->entityManager = self::getContainer()->get('doctrine')->getManager();
 
-        // Créer le schéma SQLite en mémoire
-        $this->createSchema();
+        // Créer le schéma une seule fois par suite de tests
+        if (!self::$schemaCreated) {
+            $this->createSchema();
+            self::$schemaCreated = true;
+        }
+
+        // Démarrer une transaction pour l'isolation
+        $this->entityManager->beginTransaction();
     }
 
     protected function tearDown(): void
     {
-        parent::tearDown();
-
-        // Fermer la connexion pour éviter les fuites
-        if (isset($this->entityManager)) {
-            $this->entityManager->close();
+        // Rollback pour annuler toutes les modifications
+        if ($this->entityManager->getConnection()->isTransactionActive()) {
+            $this->entityManager->rollback();
         }
+
+        $this->entityManager->close();
+
+        parent::tearDown();
     }
 
     /**
-     * Crée le schéma de base de données en mémoire.
+     * Crée le schéma de base de données.
      */
     private function createSchema(): void
     {

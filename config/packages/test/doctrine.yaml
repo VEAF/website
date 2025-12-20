@@ -1,12 +1,11 @@
 # Configuration Doctrine pour les tests
-# Utilise SQLite en mémoire pour l'isolation et la rapidité
+# Utilise MySQL avec la base website_test
 
 doctrine:
     dbal:
-        # Forcer SQLite en mémoire (override de DATABASE_URL)
-        driver: pdo_sqlite
         url: '%env(resolve:DATABASE_URL)%'
-        # Pas besoin de mapping_types pour SQLite
+        mapping_types:
+            enum: string
 
     orm:
         auto_generate_proxy_classes: true

@@ -3,7 +3,7 @@ version: '3.5'
 services:
 
   php:
-    image: ${PHP_REGISTRY:-kilik/php}:${PHP_TAG:-7.4-buster-dev}
+    image: ${PHP_REGISTRY:-kilik/php}:${PHP_TAG:-8.4-dev}
     env_file:
       - .env
       - .php.env

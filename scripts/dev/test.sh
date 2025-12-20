@@ -100,6 +100,19 @@ if [ ! -f "${PROJECT_ROOT}/.tests" ]; then
 fi
 
 # =============================================================================
+# PREPARE TEST DATABASE
+# =============================================================================
+
+echo -e "${COLOR_BLUE}Preparing test database...${COLOR_DEFAULT}"
+
+# Créer la base website_test si elle n'existe pas
+${COMPOSE_PHP_CMD} php -r "
+\$pdo = new PDO('mysql:host=mysql', 'root', 'test');
+\$pdo->exec('CREATE DATABASE IF NOT EXISTS website_test');
+\$pdo->exec('GRANT ALL PRIVILEGES ON website_test.* TO \"website\"@\"%\"');
+"
+
+# =============================================================================
 # RUN TESTS
 # =============================================================================
 

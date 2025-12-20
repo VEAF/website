@@ -19,6 +19,7 @@ All commands use Docker and are run via shell scripts in `./scripts/`:
 ./scripts/console.sh       # Run Symfony console commands
 ./scripts/cc.sh            # Clear Symfony cache
 ./scripts/fix.sh           # Run PHP CS Fixer on src/
+./scripts/dev/test.sh      # Run tests
 ```
 
 All scripts support `--help` for detailed usage information.
