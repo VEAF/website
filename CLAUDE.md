@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-VEAF Website is a Symfony 4.4 PHP application for the Virtual European Air Force (VEAF) flight simulation community. It can also be configured for 51ème Escadron Griffon (51eg) via the `WEBSITE` environment variable.
+VEAF Website is a Symfony PHP application for the Virtual European Air Force (VEAF) flight simulation community. It was also configurable for 51ème Escadron Griffon (51eg) via the `WEBSITE` environment variable.
 
 ## Development Commands
 

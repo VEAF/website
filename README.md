@@ -3,9 +3,11 @@
 ## Travailler sur le projet
 
 Prérequis:
+* linux
 * docker
-* docker-compose
+* docker compose
 * git
+* bash
 * un reverse proxy
 
 ```shell
