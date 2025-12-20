@@ -8,7 +8,7 @@ use App\Perun\Entity\Instance;
 use App\Perun\Entity\LogStat;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Laminas\Json\Expr;
+use Ob\HighchartsBundle\Highcharts\Expr;
 use Ob\HighchartsBundle\Highcharts\Highchart;
 
 class LogStatService
