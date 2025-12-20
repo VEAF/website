@@ -33,10 +33,7 @@ git commit -m ${VERSION}
 git flow release publish
 git flow release finish
 
-git push --tags
-git push
-
-# be sure to push all branches
-git checkout develop && git push
-git checkout master && git push
+git push origin tag ${VERSION}
+git push origin develop
+git push origin master
 ```
