@@ -1,3 +1,6 @@
+### 1.15.2
+- FIX teamspeak status scan command
+
 ### 1.15.1
 - FIX bundles dependencies updated
 

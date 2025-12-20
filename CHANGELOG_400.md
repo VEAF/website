@@ -1,1 +1,0 @@
-- FIX teamspeak status scan command
