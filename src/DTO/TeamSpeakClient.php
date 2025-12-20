@@ -2,6 +2,8 @@
 
 namespace App\DTO;
 
+use PlanetTeamSpeak\TeamSpeak3Framework\Node\Client;
+
 class TeamSpeakClient
 {
     private ?int $clid = null;
@@ -18,7 +20,7 @@ class TeamSpeakClient
     private ?int $created = null;
     private ?int $lastConnected = null;
 
-    public static function createFromNodeClient(\TeamSpeak3_Node_Client $nodeClient): self
+    public static function createFromNodeClient(Client $nodeClient): self
     {
         $client = new self();
 

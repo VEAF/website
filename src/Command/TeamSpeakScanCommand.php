@@ -28,8 +28,12 @@ class TeamSpeakScanCommand extends Command
     {
         $output->writeln('scanning team speak server');
 
-        $this->clientCache->putClients();
-        $this->clientCache->putChannels();
+        try {
+            $this->clientCache->putClients();
+            $this->clientCache->putChannels();
+        } finally {
+            $this->clientCache->disconnect();
+        }
 
         $output->writeln('team speak server scan done.');
 

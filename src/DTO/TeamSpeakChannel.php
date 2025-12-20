@@ -2,6 +2,8 @@
 
 namespace App\DTO;
 
+use PlanetTeamSpeak\TeamSpeak3Framework\Node\Channel;
+
 class TeamSpeakChannel
 {
     private ?int $cid = null;
@@ -12,7 +14,7 @@ class TeamSpeakChannel
 
     private array $clients = [];
 
-    public static function createFromNodeChannel(\TeamSpeak3_Node_Channel $nodeChannel): self
+    public static function createFromNodeChannel(Channel $nodeChannel): self
     {
         $channel = new self();
 
