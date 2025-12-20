@@ -34,7 +34,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CalendarController extends AbstractController
 {
     /**
-     * @Route("/browse/{month}", name="calendar")
+     * @Route("/browse/{month}", name="calendar", defaults={"month": null})
      * @ParamConverter("month", options={"format": "!Y-m"})
      */
     public function index(EventService $eventService, \DateTime $month = null, EventRepository $eventRepository): Response
