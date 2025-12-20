@@ -70,21 +70,21 @@ fi
 
 cd "${PROJECT_ROOT}"
 
-./bin/console doctrine:database:drop --force
-./bin/console doctrine:database:create
+${COMPOSE_PHP_CMD} ./bin/console doctrine:database:drop --force
+${COMPOSE_PHP_CMD} ./bin/console doctrine:database:create
 
 if [ ${WITH_MIGRATIONS} -ne 0 ]; then
     echo -e "${COLOR_GREEN}Running migrations...${COLOR_DEFAULT}"
-    ./bin/console doctrine:migrations:migrate -n
+    ${COMPOSE_PHP_CMD} ./bin/console doctrine:migrations:migrate -n
 else
     echo -e "${COLOR_YELLOW}Running without migrations${COLOR_DEFAULT} (using schema:update)"
     echo -e "${COLOR_YELLOW}Be aware: do not generate migrations in this mode (inconsistent)${COLOR_DEFAULT}"
-    ./bin/console doctrine:schema:update --force
+    ${COMPOSE_PHP_CMD} ./bin/console doctrine:schema:update --force
 fi
 
 if [ ${WITH_FIXTURES} -ne 0 ]; then
     echo -e "${COLOR_GREEN}Loading fixtures...${COLOR_DEFAULT}"
-    ./bin/console hautelook:fixtures:load -n
+    ${COMPOSE_PHP_CMD} ./bin/console hautelook:fixtures:load -n
 fi
 
 echo -e "${COLOR_GREEN}Done!${COLOR_DEFAULT}"
