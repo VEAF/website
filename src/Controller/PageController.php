@@ -19,7 +19,7 @@ class PageController extends AbstractController
     /**
      * Handle page (CMS) or link (url shortener).
      *
-     * @Route("/{path}", name="page", requirements={"path"=".+"})
+     * @Route("/{path}", name="page", requirements={"path"="(?!_).+"}, priority=-1)
      */
     public function page(string $path, Restriction $restriction): Response
     {
