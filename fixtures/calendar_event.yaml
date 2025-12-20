@@ -8,6 +8,7 @@ App\Entity\Calendar\Event:
     title: "Training test"
     simDcs: true
     owner: "@user_mitch"
+    registration: false
 
   calendarevent_training_deleted_today:
     createdAt: "<dateTimeBetween('-1 month', 'now')>"
@@ -19,6 +20,7 @@ App\Entity\Calendar\Event:
     simDcs: true
     owner: "@user_mitch"
     deleted: true
+    registration: true
 
   calendarevent_mission_nevada_tomorrow:
     createdAt: "<dateTimeBetween('-1 month', 'now')>"
@@ -31,6 +33,7 @@ App\Entity\Calendar\Event:
     map: "@module_nevada"
     simDcs: true
     restrictions: '<([App\Entity\User::STATUS_CADET,App\Entity\User::STATUS_MEMBER])>'
+    registration: true
 
   calendarevent_training_a10c_2days:
     createdAt: "<dateTimeBetween('-1 month', 'now')>"
@@ -45,6 +48,7 @@ App\Entity\Calendar\Event:
      - "@module_a10c2"
     simDcs: true
     restrictions: '<([App\Entity\User::STATUS_CADET,App\Entity\User::STATUS_MEMBER])>'
+    registration: true
 
   calendarevent_mission_cas_3days:
     createdAt: "<dateTimeBetween('-1 month', 'now')>"
@@ -60,6 +64,7 @@ App\Entity\Calendar\Event:
     modules:
       - "@module_a10c"
       - "@module_a10c2"
+    registration: true
 
   calendarevent_atc_now:
     createdAt: "<dateTimeBetween('-1 month', 'now')>"
@@ -76,3 +81,4 @@ App\Entity\Calendar\Event:
     modules:
       - "@module_a10c"
       - "@module_a10c2"
+    registration: true

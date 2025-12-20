@@ -18,6 +18,7 @@
 /.idea
 /docker-compose.yml
 /.fixtures
+/.tests
 
 ###> friendsofphp/php-cs-fixer ###
 /.php_cs
