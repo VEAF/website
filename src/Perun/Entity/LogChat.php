@@ -7,19 +7,23 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Table(name="pe_LogChat")
+ *
  * @ORM\Entity(repositoryClass=LogChatRepository::class)
  */
 class LogChat
 {
     /**
      * @ORM\Id
+     *
      * @ORM\GeneratedValue
+     *
      * @ORM\Column(type="bigint", name="pe_LogChat_id")
      */
     private ?int $id;
 
     /**
      * @ORM\ManyToOne(targetEntity=DataMissionHash::class)
+     *
      * @ORM\JoinColumn(nullable=false, name="pe_LogChat_missionhash_id", referencedColumnName="pe_DataMissionHashes_id", nullable=true)
      */
     private ?DataMissionHash $mission;

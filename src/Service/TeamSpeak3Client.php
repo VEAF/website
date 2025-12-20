@@ -4,7 +4,6 @@ namespace App\Service;
 
 use App\DTO\TeamSpeakChannel;
 use App\DTO\TeamSpeakClient;
-use TeamSpeak3;
 
 class TeamSpeak3Client
 {
@@ -28,7 +27,7 @@ class TeamSpeak3Client
     {
         // only create connection when needed
         if (null === $this->client) {
-            $this->client = TeamSpeak3::factory($this->teamSpeakApiUrl);
+            $this->client = \TeamSpeak3::factory($this->teamSpeakApiUrl);
         }
 
         return $this->client;

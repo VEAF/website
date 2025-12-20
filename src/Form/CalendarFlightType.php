@@ -33,7 +33,7 @@ class CalendarFlightType extends AbstractType
             ->add('nbSlots', IntegerType::class, [
                 'required' => false,
             ])
-            //->add('event')
+            // ->add('event')
             ->add('aircraft', EntityType::class,
                 [
                     'required' => false,

@@ -3,7 +3,7 @@ version: '3.5'
 services:
 
   php:
-    image: ${PHP_REGISTRY:-kilik/php}:${PHP_TAG:-7.4-buster-dev}
+    image: ${PHP_REGISTRY:-kilik/php}:${PHP_TAG:-8.4-dev}
     env_file:
       - .env
       - .php.env
@@ -52,6 +52,7 @@ services:
     environment:
       VIRTUAL_HOST: pma.${VHOST:-project.localhost}
       PMA_HOST: mysql
+      UPLOAD_LIMIT: 102400K
     depends_on:
       - mysql
 

@@ -16,19 +16,23 @@ class Flight
 {
     /**
      * @ORM\Id
+     *
      * @ORM\GeneratedValue
+     *
      * @ORM\Column(type="integer")
      */
     private ?int $id = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=Event::class, inversedBy="flights")
+     *
      * @ORM\JoinColumn(nullable=false)
      */
     private ?Event $event = null;
 
     /**
      * @ORM\Column(type="string", length=32)
+     *
      * @Assert\NotBlank
      */
     private ?string $name = null;
@@ -40,13 +44,16 @@ class Flight
 
     /**
      * @ORM\ManyToOne(targetEntity=Module::class)
+     *
      * @ORM\JoinColumn(nullable=false)
      */
     private ?Module $aircraft = null;
 
     /**
      * @ORM\Column(type="integer")
+     *
      * @Assert\NotBlank
+     *
      * @Assert\Positive()
      */
     private ?int $nbSlots = null;

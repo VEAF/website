@@ -11,17 +11,17 @@ use Ramsey\Uuid\UuidInterface;
  */
 class File
 {
-    const TYPE_UNKNOWN = 0;
-    const TYPE_IMAGE = 1;
-    const TYPE_PDF = 2;
+    public const TYPE_UNKNOWN = 0;
+    public const TYPE_IMAGE = 1;
+    public const TYPE_PDF = 2;
 
-    const TYPES = [
+    public const TYPES = [
         self::TYPE_UNKNOWN => 'inconu',
         self::TYPE_IMAGE => 'image',
         self::TYPE_PDF => 'pdf',
     ];
 
-    const MIME_TYPES = [
+    public const MIME_TYPES = [
         'application/pdf' => self::TYPE_PDF,
         'image/jpg' => self::TYPE_IMAGE,
         'image/jpeg' => self::TYPE_IMAGE,
@@ -30,16 +30,19 @@ class File
 
     /**
      * @ORM\Id
+     *
      * @ORM\GeneratedValue
+     *
      * @ORM\Column(type="integer")
      */
     private ?int $id = null;
 
     /**
      * @var UuidInterface
+     *
      * @ORM\Column(type="uuid")
      */
-    private $uuid = null;
+    private $uuid;
 
     /**
      * @ORM\Column(type="integer")
@@ -63,6 +66,7 @@ class File
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="files")
+     *
      * @ORM\JoinColumn(nullable=true)
      */
     private ?User $owner = null;

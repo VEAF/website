@@ -86,7 +86,7 @@ class ServerController extends AbstractController
      * @Route("/add", name="admin_dcs_server_add")
      * @Route("/{server}/edit", name="admin_dcs_server_edit")
      */
-    public function edit(EntityManagerInterface $entityManager, Request $request, Server $server = null): Response
+    public function edit(EntityManagerInterface $entityManager, Request $request, ?Server $server = null): Response
     {
         if (null === $server) {
             $server = new Server();

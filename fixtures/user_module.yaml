@@ -29,8 +29,127 @@ App\Entity\UserModule:
     active: true
     level: <(App\Entity\UserModule::LEVEL_INSTRUCTOR)>
 
-  usermodule_dcs_{1..20}:
-    user: '@user_dcs_*'
-    module: '@module_*'
+  # User 1-4: Caucasus map
+  usermodule_dcs_1_caucasus:
+    user: '@user_dcs_1'
+    module: '@module_caucasus'
+    active: true
+    level: <randomElement(<(App\Entity\UserModule::LEVEL_KEYS)>)>
+
+  usermodule_dcs_2_caucasus:
+    user: '@user_dcs_2'
+    module: '@module_caucasus'
+    active: true
+    level: <randomElement(<(App\Entity\UserModule::LEVEL_KEYS)>)>
+
+  usermodule_dcs_3_nevada:
+    user: '@user_dcs_3'
+    module: '@module_nevada'
+    active: true
+    level: <randomElement(<(App\Entity\UserModule::LEVEL_KEYS)>)>
+
+  usermodule_dcs_4_nevada:
+    user: '@user_dcs_4'
+    module: '@module_nevada'
+    active: true
+    level: <randomElement(<(App\Entity\UserModule::LEVEL_KEYS)>)>
+
+  # User 5-8: Aircraft modules
+  usermodule_dcs_5_a10c:
+    user: '@user_dcs_5'
+    module: '@module_a10c'
+    active: true
+    level: <randomElement(<(App\Entity\UserModule::LEVEL_KEYS)>)>
+
+  usermodule_dcs_6_a10c2:
+    user: '@user_dcs_6'
+    module: '@module_a10c2'
+    active: true
+    level: <randomElement(<(App\Entity\UserModule::LEVEL_KEYS)>)>
+
+  usermodule_dcs_7_m2000c:
+    user: '@user_dcs_7'
+    module: '@module_m2000c'
+    active: true
+    level: <randomElement(<(App\Entity\UserModule::LEVEL_KEYS)>)>
+
+  usermodule_dcs_8_mig15:
+    user: '@user_dcs_8'
+    module: '@module_mig15'
+    active: true
+    level: <randomElement(<(App\Entity\UserModule::LEVEL_KEYS)>)>
+
+  # User 9-12: More aircraft
+  usermodule_dcs_9_mig21:
+    user: '@user_dcs_9'
+    module: '@module_mig21'
+    active: true
+    level: <randomElement(<(App\Entity\UserModule::LEVEL_KEYS)>)>
+
+  usermodule_dcs_10_mig29:
+    user: '@user_dcs_10'
+    module: '@module_mig29'
+    active: true
+    level: <randomElement(<(App\Entity\UserModule::LEVEL_KEYS)>)>
+
+  usermodule_dcs_11_su27:
+    user: '@user_dcs_11'
+    module: '@module_su27'
+    active: true
+    level: <randomElement(<(App\Entity\UserModule::LEVEL_KEYS)>)>
+
+  usermodule_dcs_12_su25t:
+    user: '@user_dcs_12'
+    module: '@module_su25t'
+    active: true
+    level: <randomElement(<(App\Entity\UserModule::LEVEL_KEYS)>)>
+
+  # User 13-16: Helicopters and special
+  usermodule_dcs_13_sa342:
+    user: '@user_dcs_13'
+    module: '@module_sa342'
+    active: true
+    level: <randomElement(<(App\Entity\UserModule::LEVEL_KEYS)>)>
+
+  usermodule_dcs_14_ka50:
+    user: '@user_dcs_14'
+    module: '@module_ka50'
+    active: true
+    level: <randomElement(<(App\Entity\UserModule::LEVEL_KEYS)>)>
+
+  usermodule_dcs_15_supercarrier:
+    user: '@user_dcs_15'
+    module: '@module_supercarrier'
+    active: true
+    level: <randomElement(<(App\Entity\UserModule::LEVEL_KEYS)>)>
+
+  usermodule_dcs_16_ca:
+    user: '@user_dcs_16'
+    module: '@module_ca'
+    active: true
+    level: <randomElement(<(App\Entity\UserModule::LEVEL_KEYS)>)>
+
+  # User 17-20: Syria and Channel maps
+  usermodule_dcs_17_syria:
+    user: '@user_dcs_17'
+    module: '@module_syria'
+    active: true
+    level: <randomElement(<(App\Entity\UserModule::LEVEL_KEYS)>)>
+
+  usermodule_dcs_18_syria:
+    user: '@user_dcs_18'
+    module: '@module_syria'
+    active: true
+    level: <randomElement(<(App\Entity\UserModule::LEVEL_KEYS)>)>
+
+  usermodule_dcs_19_channel:
+    user: '@user_dcs_19'
+    module: '@module_channel'
+    active: true
+    level: <randomElement(<(App\Entity\UserModule::LEVEL_KEYS)>)>
+
+  usermodule_dcs_20_channel:
+    user: '@user_dcs_20'
+    module: '@module_channel'
     active: true
     level: <randomElement(<(App\Entity\UserModule::LEVEL_KEYS)>)>

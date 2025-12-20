@@ -9,33 +9,36 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(uniqueConstraints={
+ *
  *     @ORM\UniqueConstraint(name="email_idx", columns={"email"}),
  *     @ORM\UniqueConstraint(name="nickname_idx", columns={"nickname"})
  * })
  *
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ *
  * @UniqueEntity("email")
  * @UniqueEntity("nickname")
  */
-class User implements UserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    const STATUS_UNKNOWN = 0;
-    const STATUS_CADET = 1;
-    const STATUS_MEMBER = 2;
-    const STATUS_SECRETARY_DEPUTY = 3;
-    const STATUS_SECRETARY = 4;
-    const STATUS_TREASURER_DEPUTY = 5;
-    const STATUS_TREASURER = 6;
-    const STATUS_PRESIDENT_DEPUTY = 7;
-    const STATUS_PRESIDENT = 8;
-    const STATUS_GUEST = 9;
+    public const STATUS_UNKNOWN = 0;
+    public const STATUS_CADET = 1;
+    public const STATUS_MEMBER = 2;
+    public const STATUS_SECRETARY_DEPUTY = 3;
+    public const STATUS_SECRETARY = 4;
+    public const STATUS_TREASURER_DEPUTY = 5;
+    public const STATUS_TREASURER = 6;
+    public const STATUS_PRESIDENT_DEPUTY = 7;
+    public const STATUS_PRESIDENT = 8;
+    public const STATUS_GUEST = 9;
 
-    const STATUSES = [
+    public const STATUSES = [
         self::STATUS_UNKNOWN => 'inconnu',
         self::STATUS_CADET => 'cadet',
         self::STATUS_MEMBER => 'membre',
@@ -48,7 +51,7 @@ class User implements UserInterface
         self::STATUS_GUEST => 'invité',
     ];
 
-    const STATUSES_ALL = [
+    public const STATUSES_ALL = [
         self::STATUS_UNKNOWN,
         self::STATUS_CADET,
         self::STATUS_MEMBER,
@@ -61,12 +64,12 @@ class User implements UserInterface
         self::STATUS_GUEST,
     ];
 
-    const STATUSES_GUEST = [
+    public const STATUSES_GUEST = [
         self::STATUS_UNKNOWN,
         self::STATUS_GUEST,
     ];
 
-    const STATUSES_MEMBER = [
+    public const STATUSES_MEMBER = [
         self::STATUS_MEMBER,
         self::STATUS_SECRETARY_DEPUTY,
         self::STATUS_SECRETARY,
@@ -76,7 +79,7 @@ class User implements UserInterface
         self::STATUS_PRESIDENT,
     ];
 
-    const STATUSES_OFFICE = [
+    public const STATUSES_OFFICE = [
         self::STATUS_SECRETARY_DEPUTY,
         self::STATUS_SECRETARY,
         self::STATUS_TREASURER_DEPUTY,
@@ -85,13 +88,13 @@ class User implements UserInterface
         self::STATUS_PRESIDENT,
     ];
 
-    const GROUP_ALL = 'all';
-    const GROUP_CADETS = 'cadets';
-    const GROUP_MEMBERS = 'members';
-    const GROUP_CADETS_AND_MEMBERS = 'cadets-members';
-    const GROUP_OFFICE = 'office';
+    public const GROUP_ALL = 'all';
+    public const GROUP_CADETS = 'cadets';
+    public const GROUP_MEMBERS = 'members';
+    public const GROUP_CADETS_AND_MEMBERS = 'cadets-members';
+    public const GROUP_OFFICE = 'office';
 
-    const GROUPS = [
+    public const GROUPS = [
         self::GROUP_ALL => 'Tout le monde',
         self::GROUP_CADETS => 'Cadets',
         self::GROUP_MEMBERS => 'Membres',
@@ -99,27 +102,30 @@ class User implements UserInterface
         self::GROUP_OFFICE => 'Bureau',
     ];
 
-    const ROLE_USER = 'user';
-    const ROLE_RECRUITER = 'recruteur';
-    const ROLE_ADMIN = 'admin';
+    public const ROLE_USER = 'user';
+    public const ROLE_RECRUITER = 'recruteur';
+    public const ROLE_ADMIN = 'admin';
 
-    const ROLES = [
+    public const ROLES = [
         'ROLE_USER' => self::ROLE_USER,
         'ROLE_RECRUITER' => self::ROLE_RECRUITER,
         'ROLE_ADMIN' => self::ROLE_ADMIN,
     ];
 
-    const CADET_MIN_FLIGHTS = 5;
+    public const CADET_MIN_FLIGHTS = 5;
 
     /**
      * @ORM\Id
+     *
      * @ORM\GeneratedValue
+     *
      * @ORM\Column(type="integer")
      */
     private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     *
      * @Assert\Length(min=3, max=180)
      */
     private ?string $email;
@@ -131,6 +137,7 @@ class User implements UserInterface
 
     /**
      * @var string The hashed password
+     *
      * @ORM\Column(type="string")
      */
     private ?string $password;
@@ -144,12 +151,14 @@ class User implements UserInterface
 
     /**
      * @ORM\OneToOne(targetEntity=PerunPlayer::class, cascade={"persist"}, fetch="EAGER", inversedBy="user")
+     *
      * @ORM\JoinColumn(name="perun_player_id", referencedColumnName="pe_DataPlayers_id", nullable=true)
      */
     private ?PerunPlayer $perunPlayer;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
      * @Assert\Length(min=3)
      */
     private ?string $nickname;
@@ -213,12 +222,14 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=64, nullable=true)
+     *
      * @Assert\Length(min=3, max=64)
      */
     private ?string $discord = null;
 
     /**
      * @ORM\Column(type="string", length=64, nullable=true)
+     *
      * @Assert\Length(min=3, max=64)
      */
     private ?string $forum = null;
@@ -257,9 +268,17 @@ class User implements UserInterface
      *
      * @see UserInterface
      */
-    public function getUsername(): string
+    public function getUserIdentifier(): string
     {
         return (string) $this->email;
+    }
+
+    /**
+     * @deprecated since Symfony 5.3, use getUserIdentifier instead
+     */
+    public function getUsername(): string
+    {
+        return $this->getUserIdentifier();
     }
 
     /**

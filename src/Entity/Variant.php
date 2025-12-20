@@ -8,11 +8,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Table(uniqueConstraints={
- *     @ORM\UniqueConstraint(name="code_idx", columns={"code"}),
- *     @ORM\UniqueConstraint(name="name_idx", columns={"name"})
- * })
  * @ORM\Entity(repositoryClass=VariantRepository::class)
+ *
  * @UniqueEntity("code")
  * @UniqueEntity("name")
  */
@@ -20,7 +17,9 @@ class Variant
 {
     /**
      * @ORM\Id
+     *
      * @ORM\GeneratedValue
+     *
      * @ORM\Column(type="integer")
      */
     private ?int $id = null;
@@ -28,18 +27,20 @@ class Variant
     /**
      * Code used by SLMOD.
      *
-     * @ORM\Column(type="string", length=32)
+     * @ORM\Column(type="string", length=32, unique=true)
      */
     private ?string $code;
 
     /**
-     * @ORM\Column(type="string", length=64, nullable=true)
+     * @ORM\Column(type="string", length=64, nullable=true, unique=true)
+     *
      * @Assert\NotBlank
      */
     private ?string $name;
 
     /**
      * @ORM\ManyToOne(targetEntity=Module::class, inversedBy="variants")
+     *
      * @ORM\JoinColumn(nullable=true)
      */
     private ?Module $module = null;

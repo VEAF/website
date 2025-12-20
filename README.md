@@ -3,10 +3,11 @@
 ## Travailler sur le projet
 
 Prérequis:
+* linux
 * docker
-* docker-compose
+* docker compose
 * git
-* make
+* bash
 * un reverse proxy
 
 ```shell
@@ -15,18 +16,57 @@ git clone https://github.com/VEAF/website.git
 # git clone git@github.com:VEAF/website.git
 
 cd website
-make upgrade  
+./scripts/upgrade.sh
 ```
 
 et charger les fixtures:
 
 ```shell
-make fixtures  
+touch .fixtures
+./scripts/dev/fixtures.sh
 ```
 
 Accès par défaut:
 * [http://veaf.localhost](http://veaf.localhost): mitch@localhost / test1234
 * [http://pma.veaf.localhost](http://pma.veaf.localhost): root / test (base website)
+
+## Commandes disponibles
+
+Tous les scripts sont dans le répertoire `./scripts/` et acceptent l'option `--help`.
+
+### Gestion Docker
+
+| Commande | Description |
+|----------|-------------|
+| `./scripts/upgrade.sh` | Mise à jour complète (pull, up, composer, migrations) |
+| `./scripts/pull.sh` | Pull des images Docker |
+| `./scripts/start.sh` | Démarrer les conteneurs |
+| `./scripts/stop.sh` | Arrêter les conteneurs |
+| `./scripts/restart.sh` | Redémarrer les conteneurs |
+| `./scripts/down.sh` | Supprimer les conteneurs et volumes |
+| `./scripts/logs.sh` | Afficher les logs |
+| `./scripts/ps.sh` | Statut des conteneurs |
+| `./scripts/check.sh` | Vérifier les versions des services |
+
+### Accès aux conteneurs
+
+| Commande | Description |
+|----------|-------------|
+| `./scripts/php.sh` | Shell dans le conteneur PHP (www-data) |
+| `./scripts/php.sh --root` | Shell dans le conteneur PHP (root) |
+| `./scripts/php.sh <commande>` | Exécuter une commande dans le conteneur PHP |
+| `./scripts/console.sh` | Console Symfony (affiche l'aide) |
+| `./scripts/console.sh <commande>` | Exécuter une commande Symfony |
+| `./scripts/nginx.sh` | Shell dans le conteneur Nginx |
+
+### Développement
+
+| Commande | Description |
+|----------|-------------|
+| `./scripts/cc.sh` | Vider le cache Symfony |
+| `./scripts/fix.sh` | Lancer PHP CS Fixer sur src/ |
+| `./scripts/dev/test.sh` | Lancer les tests |
+| `./scripts/dev/fixtures.sh` | Charger les fixtures (dev uniquement) |
 
 ## Pour mettre à jour le projet en production
 
@@ -34,6 +74,13 @@ Accès par défaut:
 cd website
 ./scripts/upgrade.sh
 ```
+
+Options disponibles pour `upgrade.sh`:
+* `--no-docker-pull` : ne pas pull les images
+* `--no-docker-up` : ne pas démarrer les conteneurs
+* `--no-git-pull` : ne pas pull les sources
+* `--no-composer` : ne pas installer les dépendances
+* `--no-migrations` : ne pas lancer les migrations
 
 ## Technologies utilisées
 

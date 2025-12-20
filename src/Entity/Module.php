@@ -11,41 +11,38 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Table(uniqueConstraints={
- *     @ORM\UniqueConstraint(name="code_idx", columns={"code"}),
- *     @ORM\UniqueConstraint(name="name_idx", columns={"name"})
- * })
  * @ORM\Entity(repositoryClass=ModuleRepository::class)
+ *
  * @UniqueEntity("code")
  * @UniqueEntity("name")
  */
 class Module
 {
-    const TYPE_NONE = 0;
-    const TYPE_MAP = 1;
-    const TYPE_AIRCRAFT = 2;
-    const TYPE_HELICOPTER = 3;
-    const TYPE_SPECIAL = 4;
+    public const TYPE_NONE = 0;
+    public const TYPE_MAP = 1;
+    public const TYPE_AIRCRAFT = 2;
+    public const TYPE_HELICOPTER = 3;
+    public const TYPE_SPECIAL = 4;
 
-    const TYPES = [
+    public const TYPES = [
         self::TYPE_MAP => 'Carte',
         self::TYPE_AIRCRAFT => 'Avion',
         self::TYPE_HELICOPTER => 'Hélicoptère',
         self::TYPE_SPECIAL => 'Spécial',
     ];
 
-    const TYPES_WITH_LEVEL = [
+    public const TYPES_WITH_LEVEL = [
         self::TYPE_AIRCRAFT,
         self::TYPE_HELICOPTER,
         self::TYPE_SPECIAL,
     ];
 
-    const PERIOD_NONE = 0;
-    const PERIOD_WW2 = 1;
-    const PERIOD_COLD_WAR = 2;
-    const PERIOD_MODERN = 3;
+    public const PERIOD_NONE = 0;
+    public const PERIOD_WW2 = 1;
+    public const PERIOD_COLD_WAR = 2;
+    public const PERIOD_MODERN = 3;
 
-    const PERIODS = [
+    public const PERIODS = [
         self::PERIOD_NONE => '',
         self::PERIOD_WW2 => 'WW2',
         self::PERIOD_COLD_WAR => 'COLD WAR',
@@ -54,35 +51,45 @@ class Module
 
     /**
      * @ORM\Id
+     *
      * @ORM\GeneratedValue
+     *
      * @ORM\Column(type="integer")
+     *
      * @Groups({"id", "module"})
      */
     private ?int $id = null;
 
     /**
      * @ORM\Column(type="integer")
+     *
      * @Groups({"module"})
      */
     private int $type;
 
     /**
-     * @ORM\Column(type="string", length=8)
+     * @ORM\Column(type="string", length=8, unique=true)
+     *
      * @Assert\Length(min=3, max=8)
+     *
      * @Groups({"module"})
      */
     private ?string $name;
 
     /**
      * @ORM\Column(type="string", length=64)
+     *
      * @Assert\Length(min=3, max=64)
+     *
      * @Groups({"module"})
      */
     private ?string $longName;
 
     /**
-     * @ORM\Column(type="string", length=16)
+     * @ORM\Column(type="string", length=16, unique=true)
+     *
      * @Assert\Length(min=3, max=16)
+     *
      * @Groups({"module"})
      */
     private ?string $code;
@@ -119,12 +126,14 @@ class Module
 
     /**
      * @ORM\ManyToMany(targetEntity=ModuleRole::class, inversedBy="modules")
+     *
      * @ORM\OrderBy({"position" = "ASC"})
      */
     private $roles;
 
     /**
      * @ORM\ManyToMany(targetEntity=ModuleSystem::class, inversedBy="modules")
+     *
      * @ORM\OrderBy({"position" = "ASC"})
      */
     private $systems;

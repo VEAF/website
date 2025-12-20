@@ -12,8 +12,8 @@ class ImageExtension extends AbstractExtension
     private FileService $fileService;
     private string $projectDir;
 
-    const IMAGE_FALLBACK = 'public/img/crew_blur.jpg';
-    const IMAGE_HEADER_FALLBACK = 'public/img/f5e_header_blur.jpg';
+    public const IMAGE_FALLBACK = 'public/img/crew_blur.jpg';
+    public const IMAGE_HEADER_FALLBACK = 'public/img/f5e_header_blur.jpg';
 
     public function __construct(FileService $fileService, string $projectDir)
     {

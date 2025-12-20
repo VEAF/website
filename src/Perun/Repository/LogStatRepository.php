@@ -22,7 +22,7 @@ class LogStatRepository extends ServiceEntityRepository
         parent::__construct($registry, LogStat::class);
     }
 
-    public function countTotals(?Player $player, TimeInterval $period = null): DataPlayerStat
+    public function countTotals(?Player $player, ?TimeInterval $period = null): DataPlayerStat
     {
         $query = $this->createQueryBuilder('l')
             ->select('NEW App\DTO\DataPlayerStat(

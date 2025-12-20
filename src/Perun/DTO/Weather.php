@@ -4,11 +4,11 @@ namespace App\Perun\DTO;
 
 class Weather
 {
-    const QNH_UNIT_MMHG = 'mmHg';
-    const QNH_UNIT_HPA = 'hPa';
-    const QNH_UNIT_INHG = 'inHg';
-    const TEMPERATURE_UNIT_CELSIUS = 'celsius';
-    const TEMPERATURE_UNIT_FAHRENHEIT = 'fahrenheit';
+    public const QNH_UNIT_MMHG = 'mmHg';
+    public const QNH_UNIT_HPA = 'hPa';
+    public const QNH_UNIT_INHG = 'inHg';
+    public const TEMPERATURE_UNIT_CELSIUS = 'celsius';
+    public const TEMPERATURE_UNIT_FAHRENHEIT = 'fahrenheit';
 
     private bool $fogEnabled;
     private int $fogThickness;
@@ -37,27 +37,27 @@ class Weather
             'groundTurbulence' => 0,
             'enable_fog' => false,
             'season' => [],
-            //'temperature' => 15.0,
+            // 'temperature' => 15.0,
             'type_weather' => 2,
             'qnh' => 760.0,
             'cyclones' => [],
             'wind' => [],
-            //"at8000" => array:2 [ …2]
-            //"atGround" => array:2 [ …2]
-            //"at2000" => array:2 [ …2]
+            // "at8000" => array:2 [ …2]
+            // "atGround" => array:2 [ …2]
+            // "at2000" => array:2 [ …2]
             'dust_density' => 0,
             'visibility' => [],
             // "distance" => 80000
             'fog' => [],
-            //"thickness" => 0
-            //"visibility" => 0
+            // "thickness" => 0
+            // "visibility" => 0
             'enable_dust' => false,
             'clouds' => [],
-            //"density" => 0
-            //"thickness" => 200
-            //"preset" => "Preset3"
-            //"base" => 5000
-            //"iprecptns" => 0
+            // "density" => 0
+            // "thickness" => 200
+            // "preset" => "Preset3"
+            // "base" => 5000
+            // "iprecptns" => 0
         ];
 
         $weather = new self();

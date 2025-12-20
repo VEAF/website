@@ -1,0 +1,12 @@
+# Configuration Doctrine pour les tests
+# Utilise MySQL avec la base website_test
+
+doctrine:
+    dbal:
+        url: '%env(resolve:DATABASE_URL)%'
+        mapping_types:
+            enum: string
+
+    orm:
+        auto_generate_proxy_classes: true
+        # Le schéma sera créé dynamiquement dans AbstractIntegrationTestCase

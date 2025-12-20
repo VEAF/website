@@ -13,13 +13,16 @@ class Slot
 {
     /**
      * @ORM\Id
+     *
      * @ORM\GeneratedValue
+     *
      * @ORM\Column(type="integer")
      */
     private ?int $id = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=Flight::class, inversedBy="slots")
+     *
      * @ORM\JoinColumn(nullable=false)
      */
     private ?Flight $flight = null;

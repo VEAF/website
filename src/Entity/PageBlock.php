@@ -10,23 +10,26 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class PageBlock
 {
-    const TYPE_NONE = 0;
-    const TYPE_MARKDOWN = 1;
+    public const TYPE_NONE = 0;
+    public const TYPE_MARKDOWN = 1;
 
-    const TYPES = [
+    public const TYPES = [
         self::TYPE_NONE => 'aucun',
         self::TYPE_MARKDOWN => 'markdown',
     ];
 
     /**
      * @ORM\Id
+     *
      * @ORM\GeneratedValue
+     *
      * @ORM\Column(type="integer")
      */
     private ?int $id = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=Page::class, inversedBy="blocks")
+     *
      * @ORM\JoinColumn(nullable=false)
      */
     private ?Page $page;

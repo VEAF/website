@@ -23,7 +23,7 @@ class LogStatService
     /**
      * @return LogStatHourly[]|array
      */
-    public function loadAttendanceHourly(Instance $instance = null, \DateTime $from, \DateTime $to = null): array
+    public function loadAttendanceHourly(?Instance $instance = null, \DateTime $from, ?\DateTime $to = null): array
     {
         $safeDelay = 4;
         $startSafe = new \DateTime((clone $from)->modify(sprintf('-%d hours', $safeDelay))->format('Y-m-d H:0'));
@@ -143,7 +143,7 @@ class LogStatService
         return $categories;
     }
 
-    public function getAttendanceChart(string $chartName, Instance $instance = null, \DateTime $from = null, \DateTime $to = null): Highchart
+    public function getAttendanceChart(string $chartName, ?Instance $instance = null, ?\DateTime $from = null, ?\DateTime $to = null): Highchart
     {
         if (null === $to) {
             $to = new \DateTime('now');
@@ -181,7 +181,7 @@ class LogStatService
         return $history;
     }
 
-    public function loadAttendanceHeatmapHourly(Instance $instance = null, int $weeks, string $filter): array
+    public function loadAttendanceHeatmapHourly(?Instance $instance = null, int $weeks, string $filter): array
     {
         $now = new \DateTime();
         $periodEnd = (clone $now)->modify('-1 day')->setTime(23, 59, 59);
@@ -278,7 +278,7 @@ class LogStatService
         return $series;
     }
 
-    public function getHeatmapChart(string $chartName, Instance $instance = null, int $weeks = 2, string $filter = 'all'): Highchart
+    public function getHeatmapChart(string $chartName, ?Instance $instance = null, int $weeks = 2, string $filter = 'all'): Highchart
     {
         $stats = $this->loadAttendanceHeatmapHourly($instance, $weeks, $filter);
 

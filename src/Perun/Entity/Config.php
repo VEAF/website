@@ -7,13 +7,16 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Table(name="pe_Config")
+ *
  * @ORM\Entity(repositoryClass=ConfigRepository::class)
  */
 class Config
 {
     /**
      * @ORM\Id
+     *
      * @ORM\Column(type="integer", name="pe_Config_id")
+     *
      * @ORM\GeneratedValue(strategy="NONE")
      */
     private ?int $id;

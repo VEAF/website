@@ -34,10 +34,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class CalendarController extends AbstractController
 {
     /**
-     * @Route("/browse/{month}", name="calendar")
+     * @Route("/browse/{month}", name="calendar", defaults={"month": null})
+     *
      * @ParamConverter("month", options={"format": "!Y-m"})
      */
-    public function index(EventService $eventService, \DateTime $month = null, EventRepository $eventRepository): Response
+    public function index(EventService $eventService, ?\DateTime $month = null, EventRepository $eventRepository): Response
     {
         $now = new \DateTime('now');
         if (null === $month) {
@@ -56,7 +57,7 @@ class CalendarController extends AbstractController
      * @Route("/add/{periodString}", name="calendar_add")
      * @Route("/edit/{event}", name="calendar_edit")
      */
-    public function edit(FileUploaderService $uploaderService, Request $request, EventManager $eventManager, Event $event = null, string $periodString = null): Response
+    public function edit(FileUploaderService $uploaderService, Request $request, EventManager $eventManager, ?Event $event = null, ?string $periodString = null): Response
     {
         if (null === $this->getUser()) {
             return $this->redirectToRoute('app_login');
@@ -107,6 +108,7 @@ class CalendarController extends AbstractController
 
     /**
      * @Route("/edit/{event}/ato", name="calendar_edit_ato")
+     *
      * @Security("is_granted('EDIT', event)")
      */
     public function editAto(Request $request, EventManager $eventManager, Event $event): Response
@@ -159,9 +161,10 @@ class CalendarController extends AbstractController
 
     /**
      * @Route("/copy/{event}", name="calendar_copy")
+     *
      * @Security("is_granted('EVENT_ADD')")
      */
-    public function copy(Request $request, EventManager $eventManager, Event $event = null, string $periodString = null): Response
+    public function copy(Request $request, EventManager $eventManager, ?Event $event = null, ?string $periodString = null): Response
     {
         $form = $this->createForm(FormType::class);
         $form->handleRequest($request);
@@ -190,7 +193,9 @@ class CalendarController extends AbstractController
 
     /**
      * @Route("/{event}/vote/{vote}", name="calendar_vote")
+     *
      * @ParamConverter("month", options={"format": "!Y-m"})
+     *
      * @Security("is_granted('VOTE', event)")
      */
     public function vote(VoteManager $voteManager, Event $event, string $vote): Response
@@ -277,9 +282,10 @@ class CalendarController extends AbstractController
     /**
      * @Route("/{event}/choice/add/{priority}", name="calendar_choice_add")
      * @Route("/{event}/choice/edit/{choice}", name="calendar_choice_edit")
+     *
      * @Security("is_granted('CHOICE', event)")
      */
-    public function choice(Request $request, ChoiceManager $choiceManager, Event $event, Choice $choice = null, int $priority = null): Response
+    public function choice(Request $request, ChoiceManager $choiceManager, Event $event, ?Choice $choice = null, ?int $priority = null): Response
     {
         if ('calendar_choice_add' === $request->get('_route')) {
             $choice = new Choice();

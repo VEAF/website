@@ -40,12 +40,12 @@ class ProjectionExtension extends AbstractExtension
 
     public function xyToLat(Position $p, string $theatre): float
     {
-        return ($this->projection->xyToLL($p, $theatre))->getY();
+        return $this->projection->xyToLL($p, $theatre)->getY();
     }
 
     public function xyToLong(Position $p, string $theatre): float
     {
-        return ($this->projection->xyToLL($p, $theatre))->getX();
+        return $this->projection->xyToLL($p, $theatre)->getX();
     }
 
     public function latDec(Position $p): string

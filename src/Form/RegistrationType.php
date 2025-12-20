@@ -16,9 +16,6 @@ use Symfony\Component\Validator\Constraints\Length;
 
 class RegistrationType extends AbstractType
 {
-    /**
-     * {@inheritdoc}
-     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -51,6 +48,6 @@ class RegistrationType extends AbstractType
 
     public function getBlockPrefix()
     {
-        return null;
+        return '';
     }
 }

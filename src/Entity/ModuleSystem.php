@@ -9,30 +9,29 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * @ORM\Table(uniqueConstraints={
- *     @ORM\UniqueConstraint(name="code_idx", columns={"code"}),
- *     @ORM\UniqueConstraint(name="name_idx", columns={"name"})
- * })
  * @UniqueEntity("code")
  * @UniqueEntity("name")
+ *
  * @ORM\Entity(repositoryClass=ModuleSystemRepository::class)
  */
 class ModuleSystem
 {
     /**
      * @ORM\Id
+     *
      * @ORM\GeneratedValue
+     *
      * @ORM\Column(type="integer")
      */
     private ?int $id = null;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private ?string $code = null;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private ?string $name = null;
 

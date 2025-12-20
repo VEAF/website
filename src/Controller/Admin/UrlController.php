@@ -82,7 +82,7 @@ class UrlController extends AbstractController
      * @Route("/add", name="admin_url_add")
      * @Route("/{url}/edit", name="admin_url_edit")
      */
-    public function edit(ModuleManager $moduleManager, Request $request, Url $url = null): Response
+    public function edit(ModuleManager $moduleManager, Request $request, ?Url $url = null): Response
     {
         if (null === $url) {
             $url = new Url();

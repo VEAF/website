@@ -130,6 +130,7 @@ class FileController extends AbstractController
 
     /**
      * @Route("/{file}", name="admin_file_view")
+     *
      * @ParamConverter("file", options={"mapping": {"file": "uuid"}})
      */
     public function view(File $file): Response
@@ -141,6 +142,7 @@ class FileController extends AbstractController
 
     /**
      * @Route("/{file}/delete", name="admin_file_delete")
+     *
      * @ParamConverter("file", options={"mapping": {"file": "uuid"}})
      */
     public function delete(Request $request, File $file): Response

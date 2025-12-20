@@ -36,7 +36,7 @@ class EventRepository extends ServiceEntityRepository
             $query->leftJoin('e.notifications', 'n', 'WITH', 'n.user = :user')
                 ->leftJoin('n.user', 'u')
                 ->andWhere('u IS NULL')
-                ->setParameter('user', $user); //->having('IS_NULL(n)');
+                ->setParameter('user', $user); // ->having('IS_NULL(n)');
         }
 
         return $query->andWhere('e.endDate >= :start')

@@ -28,7 +28,7 @@ class DataTypeRepository extends ServiceEntityRepository
      *
      * @return DataTypeStat[]|array
      */
-    public function countTotalsByType(?Player $player, /*int $moduleType,*/ TimeInterval $period = null): array
+    public function countTotalsByType(?Player $player, /* int $moduleType, */ ?TimeInterval $period = null): array
     {
         $query = $this->createQueryBuilder('t')
             ->select('t,
@@ -88,7 +88,7 @@ class DataTypeRepository extends ServiceEntityRepository
         return $results;
     }
 
-    public function findOneByPlayerAndBestTotalHours(Player $player, int $moduleType, TimeInterval $period = null): ?DataTypeStat
+    public function findOneByPlayerAndBestTotalHours(Player $player, int $moduleType, ?TimeInterval $period = null): ?DataTypeStat
     {
         switch ($moduleType) {
             case Module::TYPE_AIRCRAFT:

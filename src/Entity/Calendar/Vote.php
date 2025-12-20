@@ -8,13 +8,16 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Table(name="event_vote")
+ *
  * @ORM\Entity(repositoryClass=VoteRepository::class)
  */
 class Vote
 {
     /**
      * @ORM\Id
+     *
      * @ORM\GeneratedValue
+     *
      * @ORM\Column(type="integer")
      */
     private ?int $id;
@@ -31,12 +34,14 @@ class Vote
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class)
+     *
      * @ORM\JoinColumn(nullable=false)
      */
     private User $user;
 
     /**
      * @ORM\ManyToOne(targetEntity=Event::class, inversedBy="votes")
+     *
      * @ORM\JoinColumn(nullable=false)
      */
     private ?Event $event;

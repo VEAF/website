@@ -19,13 +19,13 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class RosterController extends AbstractController
 {
-    const GROUPS = [
+    public const GROUPS = [
         'all' => 'Tout le monde',
         'cadets' => 'Cadets',
         'members' => 'Membres',
     ];
 
-    const TABS = [
+    public const TABS = [
         'pilots' => 'Pilotes',
         'aircrafts' => 'Avions',
         'helicopters' => 'Hélicoptères',
@@ -56,7 +56,7 @@ class RosterController extends AbstractController
     /**
      * @Route("/pilots/{group}", name="roster_pilots")
      */
-    public function pilots(string $group = null): Response
+    public function pilots(?string $group = null): Response
     {
         if (!isset(self::GROUPS[$group])) {
             return $this->redirectToRoute('roster_pilots', ['group' => 'all']);
@@ -83,9 +83,10 @@ class RosterController extends AbstractController
     /**
      * @Route("/maps/{group}", name="roster_maps")
      * @Route("/map/{map}/{group}", name="roster_map")
+     *
      * @ParamConverter("map", options={"mapping": {"map": "code"}})
      */
-    public function maps(Module $map = null, string $group = null): Response
+    public function maps(?Module $map = null, ?string $group = null): Response
     {
         if (!isset(self::GROUPS[$group])) {
             return $this->redirectToRoute('roster_maps', ['group' => 'all']);
@@ -111,9 +112,10 @@ class RosterController extends AbstractController
     /**
      * @Route("/aircrafts/{group}", name="roster_aircrafts")
      * @Route("/aircraft/{aircraft}/{group}", name="roster_aircraft")
+     *
      * @ParamConverter("aircraft", options={"mapping": {"aircraft": "code"}})
      */
-    public function aircrafts(Module $aircraft = null, string $group = null): Response
+    public function aircrafts(?Module $aircraft = null, ?string $group = null): Response
     {
         if (!isset(self::GROUPS[$group])) {
             return $this->redirectToRoute('roster_aircrafts', ['group' => 'all']);
@@ -140,9 +142,10 @@ class RosterController extends AbstractController
     /**
      * @Route("/helicopters/{group}", name="roster_helicopters")
      * @Route("/helicopter/{helicopter}/{group}", name="roster_helicopter")
+     *
      * @ParamConverter("helicopter", options={"mapping": {"helicopter": "code"}})
      */
-    public function helicopters(Module $helicopter = null, string $group = null): Response
+    public function helicopters(?Module $helicopter = null, ?string $group = null): Response
     {
         if (!isset(self::GROUPS[$group])) {
             return $this->redirectToRoute('roster_helicopters', ['group' => 'all']);
@@ -169,9 +172,10 @@ class RosterController extends AbstractController
     /**
      * @Route("/specials/{group}", name="roster_specials")
      * @Route("/special/{special}/{group}", name="roster_special")
+     *
      * @ParamConverter("special", options={"mapping": {"special": "code"}})
      */
-    public function specials(Module $special = null, string $group = null): Response
+    public function specials(?Module $special = null, ?string $group = null): Response
     {
         if (!isset(self::GROUPS[$group])) {
             return $this->redirectToRoute('roster_specials', ['group' => 'all']);

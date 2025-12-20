@@ -14,25 +14,27 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ItemRepository::class)
+ *
  * @ORM\Table(name="menu_item")
+ *
  * @TypeAssert
  */
 class Item
 {
-    const TYPE_NONE = 0;
-    const TYPE_MENU = 1;
-    const TYPE_LINK = 2;
-    const TYPE_URL = 3;
-    const TYPE_PAGE = 4;
-    const TYPE_DIVIDER = 5;
-    const TYPE_OFFICE = 6;
-    const TYPE_SERVERS = 7;
-    const TYPE_ROSTER = 8;
-    const TYPE_CALENDAR = 9;
-    const TYPE_MISSION_MAKER = 10;
-    const TYPE_TEAMSPEAK = 11;
+    public const TYPE_NONE = 0;
+    public const TYPE_MENU = 1;
+    public const TYPE_LINK = 2;
+    public const TYPE_URL = 3;
+    public const TYPE_PAGE = 4;
+    public const TYPE_DIVIDER = 5;
+    public const TYPE_OFFICE = 6;
+    public const TYPE_SERVERS = 7;
+    public const TYPE_ROSTER = 8;
+    public const TYPE_CALENDAR = 9;
+    public const TYPE_MISSION_MAKER = 10;
+    public const TYPE_TEAMSPEAK = 11;
 
-    const TYPES = [
+    public const TYPES = [
         self::TYPE_MENU => 'Menu',
         self::TYPE_LINK => 'Url personnalisée',
         self::TYPE_URL => 'Url (redirectrion)',
@@ -48,7 +50,9 @@ class Item
 
     /**
      * @ORM\Id
+     *
      * @ORM\GeneratedValue
+     *
      * @ORM\Column(type="integer")
      */
     private ?int $id = null;
@@ -85,13 +89,16 @@ class Item
 
     /**
      * @var Item[]|ArrayCollection|array
+     *
      * @ORM\OneToMany(targetEntity=Item::class, mappedBy="menu")
+     *
      * @ORM\OrderBy({"position" = "ASC"})
      */
     private $items;
 
     /**
      * @ORM\Column(type="integer")
+     *
      * @Assert\NotBlank
      */
     private ?int $position = null;

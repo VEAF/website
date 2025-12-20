@@ -22,6 +22,7 @@ class MapController extends AbstractController
 {
     /**
      * @Route("/{server}", name="map_index")
+     *
      * @ParamConverter("server", options={"mapping": {"server": "code"}})
      */
     public function index(Server $server, InstanceService $instanceService, MapService $mapService): Response

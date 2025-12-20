@@ -7,13 +7,16 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Table(name="pe_OnlinePlayers")
+ *
  * @ORM\Entity(repositoryClass=OnlinePlayerRepository::class)
  */
 class OnlinePlayer
 {
     /**
      * @ORM\Id
+     *
      * @ORM\GeneratedValue()
+     *
      * @ORM\Column(type="integer")
      */
     private ?int $id;
@@ -35,6 +38,7 @@ class OnlinePlayer
 
     /**
      * @ORM\ManyToOne(targetEntity=Instance::class, inversedBy="perunOnlinePlayers")
+     *
      * @ORM\JoinColumn(nullable=false, name="pe_OnlinePlayers_instance", referencedColumnName="pe_OnlineStatus_instance")
      */
     private ?Instance $instance;
