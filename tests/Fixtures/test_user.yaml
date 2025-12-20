@@ -1,0 +1,79 @@
+# Fixtures de test pour les utilisateurs
+# Ces fixtures sont utilisées par les tests d'intégration
+
+App\Entity\User:
+    # Utilisateur admin complet
+    test_user_admin:
+        email: "admin@test.local"
+        password: '$2y$10$rXysKOG/6HEW9acoV3gISuaxQ6yX5K6aN/.ogx3lQtdsD8R6.E3Ry'
+        roles: [ROLE_ADMIN]
+        nickname: 'test_admin'
+        createdAt: "<(new DateTime())>"
+        updatedAt: "<(new DateTime())>"
+        simBms: false
+        simDcs: true
+        status: <(App\Entity\User::STATUS_MEMBER)>
+        discord: 'admin#1234'
+        forum: 'admin_forum'
+
+    # Utilisateur membre avec profil complet
+    test_user_member_complete:
+        email: "member_complete@test.local"
+        password: '$2y$10$rXysKOG/6HEW9acoV3gISuaxQ6yX5K6aN/.ogx3lQtdsD8R6.E3Ry'
+        roles: [ROLE_USER]
+        nickname: 'test_member_complete'
+        createdAt: "<(new DateTime())>"
+        updatedAt: "<(new DateTime())>"
+        simBms: false
+        simDcs: true
+        status: <(App\Entity\User::STATUS_MEMBER)>
+        discord: 'member#1234'
+        forum: 'member_forum'
+
+    # Utilisateur membre sans simulateur
+    test_user_no_sim:
+        email: "no_sim@test.local"
+        password: '$2y$10$rXysKOG/6HEW9acoV3gISuaxQ6yX5K6aN/.ogx3lQtdsD8R6.E3Ry'
+        roles: [ROLE_USER]
+        nickname: 'test_no_sim'
+        createdAt: "<(new DateTime())>"
+        updatedAt: "<(new DateTime())>"
+        simBms: false
+        simDcs: false
+        status: <(App\Entity\User::STATUS_MEMBER)>
+
+    # Utilisateur cadet
+    test_user_cadet:
+        email: "cadet@test.local"
+        password: '$2y$10$rXysKOG/6HEW9acoV3gISuaxQ6yX5K6aN/.ogx3lQtdsD8R6.E3Ry'
+        roles: [ROLE_CADET]
+        nickname: 'test_cadet'
+        createdAt: "<(new DateTime())>"
+        updatedAt: "<(new DateTime())>"
+        simBms: false
+        simDcs: true
+        status: <(App\Entity\User::STATUS_CADET)>
+
+    # Utilisateur inconnu (pas encore postulé)
+    test_user_unknown:
+        email: "unknown@test.local"
+        password: '$2y$10$rXysKOG/6HEW9acoV3gISuaxQ6yX5K6aN/.ogx3lQtdsD8R6.E3Ry'
+        roles: [ROLE_USER]
+        nickname: 'test_unknown'
+        createdAt: "<(new DateTime())>"
+        updatedAt: "<(new DateTime())>"
+        simBms: false
+        simDcs: true
+        status: <(App\Entity\User::STATUS_UNKNOWN)>
+
+    # Utilisateur invité
+    test_user_guest:
+        email: "guest@test.local"
+        password: '$2y$10$rXysKOG/6HEW9acoV3gISuaxQ6yX5K6aN/.ogx3lQtdsD8R6.E3Ry'
+        roles: [ROLE_USER]
+        nickname: 'test_guest'
+        createdAt: "<(new DateTime())>"
+        updatedAt: "<(new DateTime())>"
+        simBms: false
+        simDcs: true
+        status: <(App\Entity\User::STATUS_GUEST)>

@@ -1,0 +1,13 @@
+# Configuration Doctrine pour les tests
+# Utilise SQLite en mémoire pour l'isolation et la rapidité
+
+doctrine:
+    dbal:
+        # Forcer SQLite en mémoire (override de DATABASE_URL)
+        driver: pdo_sqlite
+        url: '%env(resolve:DATABASE_URL)%'
+        # Pas besoin de mapping_types pour SQLite
+
+    orm:
+        auto_generate_proxy_classes: true
+        # Le schéma sera créé dynamiquement dans AbstractIntegrationTestCase

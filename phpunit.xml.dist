@@ -6,6 +6,8 @@
          backupGlobals="false"
          colors="true"
          bootstrap="tests/bootstrap.php"
+         failOnRisky="true"
+         failOnWarning="true"
 >
     <php>
         <ini name="error_reporting" value="-1" />
@@ -13,17 +15,28 @@
         <server name="SHELL_VERBOSITY" value="-1" />
         <server name="SYMFONY_PHPUNIT_REMOVE" value="" />
         <server name="SYMFONY_PHPUNIT_VERSION" value="8.5" />
+
+        <!-- SQLite en mémoire pour l'isolation des tests -->
+        <server name="DATABASE_URL" value="sqlite:///:memory:" force="true" />
+        <server name="DATABASE_PERUN_URL" value="sqlite:///:memory:" force="true" />
     </php>
 
     <testsuites>
-        <testsuite name="Project Test Suite">
-            <directory>tests</directory>
+        <testsuite name="Unit">
+            <directory>tests/Unit</directory>
+        </testsuite>
+        <testsuite name="Integration">
+            <directory>tests/Integration</directory>
         </testsuite>
     </testsuites>
 
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">src</directory>
+            <exclude>
+                <directory>src/Migrations</directory>
+                <directory>src/DataFixtures</directory>
+            </exclude>
         </whitelist>
     </filter>
 
