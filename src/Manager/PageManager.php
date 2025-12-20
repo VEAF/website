@@ -44,7 +44,7 @@ class PageManager
     public function getOrderedBlocks(Page $page)
     {
         // order collection items by position property
-        $orderBy = (Criteria::create())->orderBy([
+        $orderBy = Criteria::create()->orderBy([
             'number' => Criteria::ASC,
         ]);
 

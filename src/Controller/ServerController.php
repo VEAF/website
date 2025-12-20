@@ -18,7 +18,9 @@ class ServerController extends AbstractController
 {
     /**
      * @Route("/{server}/control", name="server_control")
+     *
      * @Security("is_granted('EDIT_CONTROL', server)")
+     *
      * @ParamConverter("server", options={"mapping": {"server": "code"}})
      */
     public function _control(Request $request, Server $server): Response

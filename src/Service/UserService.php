@@ -64,7 +64,7 @@ class UserService
         return $this->cacheNotifications[$user->getId()];
     }
 
-    public function countProfileNotifications(User $user, int $type = null): int
+    public function countProfileNotifications(User $user, ?int $type = null): int
     {
         $count = 0;
 

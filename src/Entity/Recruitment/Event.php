@@ -8,17 +8,18 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=EventRepository::class)
+ *
  * @ORM\Table(name="recruitment_event")
  */
 class Event
 {
-    const TYPE_TO_APPLY = 1;
-    const TYPE_PRESENTATION = 2;
-    const TYPE_PROMOTE = 3;
-    const TYPE_ACTIVITY = 4;
-    const TYPE_GUEST = 5;
+    public const TYPE_TO_APPLY = 1;
+    public const TYPE_PRESENTATION = 2;
+    public const TYPE_PROMOTE = 3;
+    public const TYPE_ACTIVITY = 4;
+    public const TYPE_GUEST = 5;
 
-    const TYPES = [
+    public const TYPES = [
         self::TYPE_TO_APPLY => 'candidature',
         self::TYPE_PRESENTATION => 'presentation',
         self::TYPE_PROMOTE => 'promotion',
@@ -28,7 +29,9 @@ class Event
 
     /**
      * @ORM\Id
+     *
      * @ORM\GeneratedValue
+     *
      * @ORM\Column(type="integer")
      */
     private ?int $id = null;
@@ -55,6 +58,7 @@ class Event
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="recruitmentEvents")
+     *
      * @ORM\JoinColumn(nullable=false)
      */
     private ?User $user;

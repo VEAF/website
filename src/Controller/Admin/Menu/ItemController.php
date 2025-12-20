@@ -50,7 +50,7 @@ class ItemController extends AbstractController
         $table
             ->addColumn(
                 (new Column())->setLabel('Menu')
-                    //->setSort(['m.position' => 'asc', 'i.position' => 'asc'])
+                    // ->setSort(['m.position' => 'asc', 'i.position' => 'asc'])
                     ->setSort(['m.label' => 'asc', 'i.label' => 'asc'])
                     ->setFilter((new Filter())
                         ->setField('m.label')
@@ -149,7 +149,7 @@ class ItemController extends AbstractController
      * @Route("/add", name="admin_menu_item_add")
      * @Route("/{item}/edit", name="admin_menu_item_edit")
      */
-    public function edit(ItemManager $itemManager, Request $request, Item $item = null): Response
+    public function edit(ItemManager $itemManager, Request $request, ?Item $item = null): Response
     {
         if (null === $item) {
             $item = new Item();

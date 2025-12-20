@@ -12,19 +12,23 @@ class WeaponStat
 {
     /**
      * @ORM\Id
+     *
      * @ORM\GeneratedValue
+     *
      * @ORM\Column(type="integer")
      */
     private ?int $id = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=Weapon::class)
+     *
      * @ORM\JoinColumn(nullable=false)
      */
     private ?Weapon $weapon = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=VariantStat::class, inversedBy="weapons")
+     *
      * @ORM\JoinColumn(nullable=false)
      */
     private ?VariantStat $variantStat = null;

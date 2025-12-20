@@ -32,7 +32,7 @@ class RegistrationController extends AbstractController
         TokenStorageInterface $tokenStorage,
         EntityManagerInterface $entityManager,
         RequestStack $requestStack,
-        UserManager $userManager
+        UserManager $userManager,
     ) {
         $user = new User();
         $form = $this->createForm(RegistrationType::class, $user);

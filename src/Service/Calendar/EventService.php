@@ -13,7 +13,7 @@ use Symfony\Component\Routing\RouterInterface;
 
 class EventService
 {
-    const AUTO_CREATE_EVENT_DAYS = 32; // days between actual date and next repeatable event to be automatically created
+    public const AUTO_CREATE_EVENT_DAYS = 32; // days between actual date and next repeatable event to be automatically created
     private EntityManagerInterface $entityManager;
     private RouterInterface $router;
 

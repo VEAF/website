@@ -143,7 +143,7 @@ class ModuleController extends AbstractController
      * @Route("/add", name="admin_module_add")
      * @Route("/{module}/edit", name="admin_module_edit")
      */
-    public function edit(FileUploaderService $uploaderService, ModuleManager $moduleManager, Request $request, Module $module = null): Response
+    public function edit(FileUploaderService $uploaderService, ModuleManager $moduleManager, Request $request, ?Module $module = null): Response
     {
         if (null === $module) {
             $module = new Module();

@@ -4,9 +4,9 @@ namespace App\Perun\DTO;
 
 class Coalition
 {
-    const COALITION_RED = 'red';
-    const COALITION_BLUE = 'blue';
-    const COALITION_NEUTRAL = 'neutrals';
+    public const COALITION_RED = 'red';
+    public const COALITION_BLUE = 'blue';
+    public const COALITION_NEUTRAL = 'neutrals';
 
     private string $name;
     private Position $bullseye;

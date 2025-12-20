@@ -38,7 +38,7 @@ class ResetPasswordController extends AbstractController
         Request $request,
         EntityManagerInterface $entityManager,
         MailerInterface $mailer,
-        UserManager $userManager
+        UserManager $userManager,
     ) {
         $form = $this->createForm(PasswordRequestType::class);
         $form->handleRequest($request);
@@ -87,7 +87,7 @@ class ResetPasswordController extends AbstractController
         UserPasswordHasherInterface $hasher,
         TokenStorageInterface $tokenStorage,
         RequestStack $requestStack,
-        UserManager $userManager
+        UserManager $userManager,
     ) {
         $now = new \DateTime('now');
         $user = $entityManager->getRepository(User::class)->findOneBy(['passwordRequestToken' => $token]);

@@ -13,7 +13,9 @@ class Server
 {
     /**
      * @ORM\Id
+     *
      * @ORM\GeneratedValue
+     *
      * @ORM\Column(type="integer")
      */
     private ?int $id = null;
@@ -30,6 +32,7 @@ class Server
 
     /**
      * @ORM\OneToOne(targetEntity=Instance::class, cascade={"persist", "remove"}, inversedBy="server")
+     *
      * @ORM\JoinColumn(nullable=true, referencedColumnName="pe_OnlineStatus_instance")
      */
     private ?Instance $perunInstance;

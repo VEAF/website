@@ -9,34 +9,42 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @deprecated https://github.com/VEAF/website/issues/365
+ *
  * @ORM\Table(uniqueConstraints={
+ *
  *     @ORM\UniqueConstraint(name="variant_idx", columns={"server_id", "variant_id", "player_id"}),
  * })
+ *
  * @ORM\Entity(repositoryClass=VariantStatRepository::class)
  */
 class VariantStat
 {
     /**
      * @ORM\Id
+     *
      * @ORM\GeneratedValue
+     *
      * @ORM\Column(type="integer")
      */
     private ?int $id = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=Server::class)
+     *
      * @ORM\JoinColumn(nullable=false)
      */
     private ?Server $server;
 
     /**
      * @ORM\ManyToOne(targetEntity=Variant::class, inversedBy="stats")
+     *
      * @ORM\JoinColumn(nullable=false)
      */
     private ?Variant $variant;
 
     /**
      * @ORM\ManyToOne(targetEntity=Player::class)
+     *
      * @ORM\JoinColumn(nullable=false)
      */
     private ?Player $player;

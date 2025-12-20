@@ -7,13 +7,16 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Table(name="pe_DataMissionHashes")
+ *
  * @ORM\Entity(repositoryClass=DataMissionHashRepository::class)
  */
 class DataMissionHash
 {
     /**
      * @ORM\Id
+     *
      * @ORM\GeneratedValue
+     *
      * @ORM\Column(type="bigint", name="pe_DataMissionHashes_id")
      */
     private ?int $id;
@@ -25,6 +28,7 @@ class DataMissionHash
 
     /**
      * @ORM\ManyToOne(targetEntity=Instance::class)
+     *
      * @ORM\JoinColumn(nullable=false, name="pe_DataMissionHashes_instance", referencedColumnName="pe_OnlineStatus_instance")
      */
     private ?Instance $instance;

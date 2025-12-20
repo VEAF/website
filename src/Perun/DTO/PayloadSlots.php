@@ -4,7 +4,7 @@ namespace App\Perun\DTO;
 
 class PayloadSlots
 {
-    const COALITIONS_ID_MAPPING = [
+    public const COALITIONS_ID_MAPPING = [
         1 => 'red',
         2 => 'blue',
     ];

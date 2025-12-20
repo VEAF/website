@@ -7,31 +7,37 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Table(name="pe_LogStats")
+ *
  * @ORM\Entity(repositoryClass=LogStatRepository::class)
  */
 class LogStat
 {
     /**
      * @ORM\Id
+     *
      * @ORM\GeneratedValue
+     *
      * @ORM\Column(type="bigint", name="pe_LogStats_id")
      */
     private ?int $id = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=DataMissionHash::class)
+     *
      * @ORM\JoinColumn(nullable=false, name="pe_LogStats_missionhash_id", referencedColumnName="pe_DataMissionHashes_id", nullable=true)
      */
     private ?DataMissionHash $mission;
 
     /**
      * @ORM\ManyToOne(targetEntity=Player::class)
+     *
      * @ORM\JoinColumn(nullable=false, name="pe_LogStats_playerid", referencedColumnName="pe_DataPlayers_id", nullable=true)
      */
     private ?Player $player;
 
     /**
      * @ORM\ManyToOne(targetEntity=DataType::class)
+     *
      * @ORM\JoinColumn(nullable=false, name="pe_LogStats_typeid", referencedColumnName="pe_DataTypes_id", nullable=true)
      */
     private ?DataType $type;

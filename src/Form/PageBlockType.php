@@ -15,7 +15,7 @@ class PageBlockType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            //->add('type')
+            // ->add('type')
             ->add('content',
                 TextareaType::class,
                 [

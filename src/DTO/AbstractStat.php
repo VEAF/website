@@ -29,7 +29,7 @@ abstract class AbstractStat
         int $takeoffTotal = 0,
         int $lossesPilotDeath = 0,
         int $lossesCrash = 0,
-        int $lossesEject = 0
+        int $lossesEject = 0,
     ) {
         $this->totalHours = $totalHours;
         $this->inAirHours = $inAirHours;
@@ -192,19 +192,19 @@ abstract class AbstractStat
     public function setFromRow(array $row): self
     {
         foreach ([
-                     'totalHours',
-                     'inAirHours',
-                     'killsGroundUnitsTotal',
-                     'killsBuildingsTotal',
-                     'killsPlanesTotal',
-                     'killsHelicoptersTotal',
-                     'killsShipsTotal',
-                     'landingTotal',
-                     'takeoffTotal',
-                     'lossesPilotDeath',
-                     'lossesEject',
-                     'lossesCrash',
-                 ] as $field) {
+            'totalHours',
+            'inAirHours',
+            'killsGroundUnitsTotal',
+            'killsBuildingsTotal',
+            'killsPlanesTotal',
+            'killsHelicoptersTotal',
+            'killsShipsTotal',
+            'landingTotal',
+            'takeoffTotal',
+            'lossesPilotDeath',
+            'lossesEject',
+            'lossesCrash',
+        ] as $field) {
             if (isset($row[$field])) {
                 $this->$field = $row[$field];
             }

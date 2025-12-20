@@ -10,15 +10,18 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Table(name="pe_OnlineStatus")
+ *
  * @ORM\Entity(repositoryClass=InstanceRepository::class)
  */
 class Instance
 {
-    const ALIVE_TIMEOUT = 180;
+    public const ALIVE_TIMEOUT = 180;
 
     /**
      * @ORM\Id
+     *
      * @ORM\GeneratedValue(strategy="NONE")
+     *
      * @ORM\Column(type="integer", name="pe_OnlineStatus_instance")
      */
     private ?int $id;
@@ -35,6 +38,7 @@ class Instance
 
     /**
      * @var OnlinePlayer[]|ArrayCollection
+     *
      * @ORM\OneToMany(targetEntity=OnlinePlayer::class, mappedBy="instance")
      */
     private $perunOnlinePlayers;

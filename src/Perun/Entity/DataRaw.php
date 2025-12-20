@@ -7,19 +7,22 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Table(name="pe_DataRaw")
+ *
  * @ORM\Entity(repositoryClass=DataRawRepository::class)
  */
 class DataRaw
 {
-    const TYPE_VERSIONS = 1;
-    const TYPE_SLOTS = 2;
-    const TYPE_MISSION = 3;
-    const TYPE_CLIENTS = 100;
-    const TYPE_UNDEFINED_101 = 101;
+    public const TYPE_VERSIONS = 1;
+    public const TYPE_SLOTS = 2;
+    public const TYPE_MISSION = 3;
+    public const TYPE_CLIENTS = 100;
+    public const TYPE_UNDEFINED_101 = 101;
 
     /**
      * @ORM\Id
+     *
      * @ORM\GeneratedValue()
+     *
      * @ORM\Column(type="integer")
      */
     private ?int $id;
@@ -31,6 +34,7 @@ class DataRaw
 
     /**
      * @ORM\ManyToOne(targetEntity=Instance::class)
+     *
      * @ORM\JoinColumn(nullable=false, name="pe_dataraw_instance", referencedColumnName="pe_OnlineStatus_instance")
      */
     private ?Instance $instance;

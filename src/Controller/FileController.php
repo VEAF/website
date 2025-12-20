@@ -21,9 +21,10 @@ class FileController extends AbstractController
 {
     /**
      * @Route("/thumb/{file}/{width}/{height}", name="file_thumb", methods={"GET"})
+     *
      * @ParamConverter("file", options={"mapping": {"file": "uuid"}})
      */
-    public function thumb(File $file, int $width = null, int $height = null, FileService $fileService, ImageHandling $imageHandling): Response
+    public function thumb(File $file, ?int $width = null, ?int $height = null, FileService $fileService, ImageHandling $imageHandling): Response
     {
         $filePath = $fileService->getFilePath($file);
         $image = $imageHandling->open($filePath);
@@ -38,9 +39,10 @@ class FileController extends AbstractController
     /**
      * @Route("/upload", name="file_upload", methods={"POST"})
      * @Route("/upload/{objectName}/{objectId}", name="file_upload_object", methods={"POST"})
+     *
      * @IsGranted("ROLE_USER")
      */
-    public function upload(Request $request, string $objectName = null, string $objectId = null, FileUploaderService $uploaderService): Response
+    public function upload(Request $request, ?string $objectName = null, ?string $objectId = null, FileUploaderService $uploaderService): Response
     {
         if ($request->files->get('image')) {
             /** @var UploadedFile $uploadedImage */

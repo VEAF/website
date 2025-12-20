@@ -39,7 +39,7 @@ class ProfileExtension extends AbstractExtension
         return $this->userService->getProfileNotifications($user);
     }
 
-    public function countProfileNotifications(?User $user, int $type = null): int
+    public function countProfileNotifications(?User $user, ?int $type = null): int
     {
         if (null === $user) {
             return 0;

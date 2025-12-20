@@ -10,22 +10,22 @@ use Symfony\Component\Cache\Adapter\AdapterInterface;
 class TeamSpeak3ClientCache
 {
     private ?TeamSpeak3Client $ts3Client = null;
-    private $cacheAdapter = null;
+    private $cacheAdapter;
     /** @var LoggerInterface */
-    private $logger = null;
+    private $logger;
 
     /**
      * @var TeamSpeakClient[]
      */
-    private $clients = null;
+    private $clients;
 
     /**
      * @var TeamSpeakChannel[]
      */
-    private $channels = null;
+    private $channels;
 
-    const CACHE_PREFIX = 'teamspeak3';
-    const CACHE_EXPIRES = 120; // in seconds
+    public const CACHE_PREFIX = 'teamspeak3';
+    public const CACHE_EXPIRES = 120; // in seconds
 
     public function __construct(TeamSpeak3Client $ts3Client, AdapterInterface $cacheAdapter, LoggerInterface $logger)
     {

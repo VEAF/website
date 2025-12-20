@@ -9,8 +9,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class RecruitmentVoter extends Voter
 {
-    const PRESENTATION = 'PRESENTATION';
-    const ADD_ACTIVITY = 'ADD_ACTIVITY';
+    public const PRESENTATION = 'PRESENTATION';
+    public const ADD_ACTIVITY = 'ADD_ACTIVITY';
 
     protected function supports($attribute, $subject)
     {

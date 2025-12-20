@@ -41,7 +41,7 @@ class OnlinePlayerRepository extends ServiceEntityRepository
      *
      * @return OnlinePlayer[]
      */
-    public function countRealPlayersByInstance(Instance $instance = null)
+    public function countRealPlayersByInstance(?Instance $instance = null)
     {
         $query = $this->createQueryBuilder('p')
             ->select('count(p) AS nb');

@@ -4,9 +4,9 @@ namespace App\Perun\DTO;
 
 class Wind
 {
-    const SPEED_UNIT_KNOTS = 'kts';
-    const SPEED_UNIT_MS = 'ms';
-    const SPEED_UNIT_KPH = 'kph';
+    public const SPEED_UNIT_KNOTS = 'kts';
+    public const SPEED_UNIT_MS = 'ms';
+    public const SPEED_UNIT_KPH = 'kph';
 
     private float $speed;
     private float $direction;

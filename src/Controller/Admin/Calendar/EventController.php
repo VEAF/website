@@ -204,7 +204,7 @@ class EventController extends AbstractController
      * @Route("/add", name="admin_calendar_event_add")
      * @Route("/{event}/edit", name="admin_calendar_event_edit")
      */
-    public function edit(EventManager $eventManager, FileUploaderService $uploaderService, Request $request, Event $event = null): Response
+    public function edit(EventManager $eventManager, FileUploaderService $uploaderService, Request $request, ?Event $event = null): Response
     {
         if (null === $event) {
             $event = new Event();

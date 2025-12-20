@@ -6,12 +6,12 @@ use App\Entity\User;
 
 class Restriction
 {
-    const LEVEL_ALL = 0;
-    const LEVEL_GUEST = 1;
-    const LEVEL_CADET = 2;
-    const LEVEL_MEMBER = 3;
+    public const LEVEL_ALL = 0;
+    public const LEVEL_GUEST = 1;
+    public const LEVEL_CADET = 2;
+    public const LEVEL_MEMBER = 3;
 
-    const LEVELS = [
+    public const LEVELS = [
         self::LEVEL_ALL => 'tout le monde',
         self::LEVEL_GUEST => 'au moins invité',
         self::LEVEL_CADET => 'au moins cadet',

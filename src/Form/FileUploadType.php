@@ -17,17 +17,17 @@ class FileUploadType extends AbstractType
                 'label' => 'Fichier',
                 'mapped' => false,
                 'required' => true,
-//                'constraints' => [
-//                    new File([
-//                        'maxSize' => '20M',
-//                        'mimeTypes' => [
-//                            'application/png',
-//                            'application/jpg',
-//                            'application/jpeg',
-//                        ],
-//                        'mimeTypesMessage' => "Merci d'envoyer un format de fichier autorisé",
-//                    ])
-//                ],
+                //                'constraints' => [
+                //                    new File([
+                //                        'maxSize' => '20M',
+                //                        'mimeTypes' => [
+                //                            'application/png',
+                //                            'application/jpg',
+                //                            'application/jpeg',
+                //                        ],
+                //                        'mimeTypesMessage' => "Merci d'envoyer un format de fichier autorisé",
+                //                    ])
+                //                ],
             ])
         ;
     }

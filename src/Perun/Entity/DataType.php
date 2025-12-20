@@ -7,11 +7,12 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Table(name="pe_DataTypes")
+ *
  * @ORM\Entity(repositoryClass=DataTypeRepository::class)
  */
 class DataType
 {
-    const AIRCRAFT_TYPES = [
+    public const AIRCRAFT_TYPES = [
         'A-10C_2',
         'AV8BNA',
         'FA-18C_hornet',
@@ -77,7 +78,7 @@ class DataType
         'F-15ESE_2',
     ];
 
-    const HELICOPTERS_TYPES = [
+    public const HELICOPTERS_TYPES = [
         'Ka-50',
         'Mi-8MT',
         'SA342M',
@@ -99,7 +100,9 @@ class DataType
 
     /**
      * @ORM\Id
+     *
      * @ORM\GeneratedValue
+     *
      * @ORM\Column(type="integer", name="pe_DataTypes_id")
      */
     private ?int $id = null;
