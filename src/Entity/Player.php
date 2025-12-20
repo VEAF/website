@@ -8,16 +8,21 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Table(uniqueConstraints={
+ *
  *     @ORM\UniqueConstraint(name="ucid_idx", columns={"ucid"}),
  * })
+ *
  * @ORM\Entity(repositoryClass=PlayerRepository::class)
+ *
  * @UniqueEntity("ucid")
  */
 class Player
 {
     /**
      * @ORM\Id
+     *
      * @ORM\GeneratedValue
+     *
      * @ORM\Column(type="integer")
      */
     private ?int $id = null;

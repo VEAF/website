@@ -9,18 +9,19 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Table(name="event_choice")
+ *
  * @ORM\Entity(repositoryClass=ChoiceRepository::class)
  */
 class Choice
 {
-    const TASK_UNDEFINED = 0;
-    const TASK_CAP = 1;
-    const TASK_CAS = 2;
-    const TASK_SEAD = 3;
-    const TASK_ESCORT = 4;
-    const TASK_TRANSPORT = 5;
+    public const TASK_UNDEFINED = 0;
+    public const TASK_CAP = 1;
+    public const TASK_CAS = 2;
+    public const TASK_SEAD = 3;
+    public const TASK_ESCORT = 4;
+    public const TASK_TRANSPORT = 5;
 
-    const TASKS = [
+    public const TASKS = [
         self::TASK_UNDEFINED => 'non définie',
         self::TASK_CAP => 'CAP',
         self::TASK_CAS => 'CAS / Strike',
@@ -31,25 +32,30 @@ class Choice
 
     /**
      * @ORM\Id
+     *
      * @ORM\GeneratedValue
+     *
      * @ORM\Column(type="integer")
      */
     private ?int $id = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=Event::class, inversedBy="choices")
+     *
      * @ORM\JoinColumn(nullable=false)
      */
     private ?Event $event = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class)
+     *
      * @ORM\JoinColumn(nullable=false)
      */
     private ?User $user = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=Module::class)
+     *
      * @ORM\JoinColumn(nullable=false)
      */
     private ?Module $module = null;

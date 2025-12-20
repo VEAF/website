@@ -1,1 +1,0 @@
-- UPDATED Replaced deprecated `docker-compose` command with `docker compose` in Makefile and upgrade script

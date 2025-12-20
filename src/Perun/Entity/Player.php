@@ -8,13 +8,16 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Table(name="pe_DataPlayers")
+ *
  * @ORM\Entity(repositoryClass=PlayerRepository::class)
  */
 class Player
 {
     /**
      * @ORM\Id
+     *
      * @ORM\GeneratedValue
+     *
      * @ORM\Column(type="bigint", name="pe_DataPlayers_id")
      */
     private ?int $id;

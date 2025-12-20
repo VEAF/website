@@ -23,7 +23,7 @@ sed -i "/  app_version:/c\  app_version: ${VERSION}" config/packages/release.yam
 ./scripts/dev/changelog.sh ${VERSION}
 
 # fix coding standard
-make fix
+./scripts/fix.sh
 
 # fix some remaining things
 

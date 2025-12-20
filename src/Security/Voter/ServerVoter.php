@@ -10,7 +10,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class ServerVoter extends Voter
 {
-    const EDIT_CONTROL = 'EDIT_CONTROL';
+    public const EDIT_CONTROL = 'EDIT_CONTROL';
 
     protected function supports($attribute, $subject)
     {

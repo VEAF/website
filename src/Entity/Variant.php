@@ -9,6 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=VariantRepository::class)
+ *
  * @UniqueEntity("code")
  * @UniqueEntity("name")
  */
@@ -16,7 +17,9 @@ class Variant
 {
     /**
      * @ORM\Id
+     *
      * @ORM\GeneratedValue
+     *
      * @ORM\Column(type="integer")
      */
     private ?int $id = null;
@@ -30,12 +33,14 @@ class Variant
 
     /**
      * @ORM\Column(type="string", length=64, nullable=true, unique=true)
+     *
      * @Assert\NotBlank
      */
     private ?string $name;
 
     /**
      * @ORM\ManyToOne(targetEntity=Module::class, inversedBy="variants")
+     *
      * @ORM\JoinColumn(nullable=true)
      */
     private ?Module $module = null;

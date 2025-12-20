@@ -1,3 +1,11 @@
+### 1.15.0
+* ADD some tests (dev)
+* UPD upgraded from php 7.4 to php 8.4
+* UPD upgraded from symfony 4.4 to symfony 5.4
+* UPD Replaced Falcon BMS EC05 link with BMS image on homepage
+* FIX stats time selection
+* REM Makefile removed in favor of individual shell scripts
+
 ### 1.14.0
 * ADD calendrier - onglet briefing
 * ADD calendrier - événements périodiques

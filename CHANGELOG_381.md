@@ -1,4 +1,0 @@
-- ADDED shell scripts to replace Makefile commands: up.sh, stop.sh, down.sh, restart.sh, ps.sh, logs.sh, php.sh, nginx.sh, cc.sh, fix.sh, pull.sh
-- ADDED --help option to all scripts for usage documentation
-- UPDATED existing scripts (upgrade.sh, check.sh, fixtures.sh) to use common include pattern
-- REMOVED Makefile in favor of individual shell scripts

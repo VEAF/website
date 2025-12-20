@@ -9,7 +9,7 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class MenuItemVoter extends Voter
 {
-    const VIEW = 'VIEW';
+    public const VIEW = 'VIEW';
     private Restriction $restriction;
 
     public function __construct(Restriction $restriction)

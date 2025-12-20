@@ -19,6 +19,7 @@ use Symfony\Component\Serializer\SerializerInterface;
  * Protected with security firewall.
  *
  * @Route("/profile")
+ *
  * @Security("is_granted('ROLE_USER')")
  */
 class ProfileController extends AbstractController

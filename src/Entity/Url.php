@@ -9,25 +9,30 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UrlRepository::class)
+ *
  * @UniqueEntity("slug")
  */
 class Url
 {
     /**
      * @ORM\Id
+     *
      * @ORM\GeneratedValue
+     *
      * @ORM\Column(type="integer")
      */
     private ?int $id = null;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
      * @Assert\Length(min=2, max=64)
      */
     private ?string $slug;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
      * @Assert\Length(min=10, max=255)
      */
     private ?string $target;

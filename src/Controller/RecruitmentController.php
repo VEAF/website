@@ -19,6 +19,7 @@ use Symfony\Component\Workflow\WorkflowInterface;
 
 /**
  * @Route("/recruitment")
+ *
  * @Security("is_granted('ROLE_USER')")
  */
 class RecruitmentController extends AbstractController
@@ -87,6 +88,7 @@ class RecruitmentController extends AbstractController
 
     /**
      * @Route("/{user}/_mark-presentation", name="recruitment_mark_presentation")
+     *
      * @Security("is_granted('PRESENTATION', user)")
      */
     public function markPresentation(Request $request, User $user, UserService $userService): Response
@@ -115,6 +117,7 @@ class RecruitmentController extends AbstractController
 
     /**
      * @Route("/{user}/add-activity", name="recruitment_add_activity")
+     *
      * @Security("is_granted('ADD_ACTIVITY', user)")
      */
     public function addActivity(Request $request, User $user, EventManager $eventManager): Response
@@ -146,6 +149,7 @@ class RecruitmentController extends AbstractController
 
     /**
      * @Route("/{user}/activities", name="recruitment_activities")
+     *
      * @Security("is_granted('ADD_ACTIVITY', user)")
      */
     public function _activities(User $user): Response

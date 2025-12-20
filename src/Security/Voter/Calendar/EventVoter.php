@@ -10,10 +10,10 @@ use Symfony\Component\Security\Core\Security;
 
 class EventVoter extends Voter
 {
-    const ADD = 'EVENT_ADD';
-    const EDIT = 'EDIT';
-    const VOTE = 'VOTE';
-    const CHOICE = 'CHOICE';
+    public const ADD = 'EVENT_ADD';
+    public const EDIT = 'EDIT';
+    public const VOTE = 'VOTE';
+    public const CHOICE = 'CHOICE';
 
     private Security $security;
 
@@ -24,8 +24,8 @@ class EventVoter extends Voter
 
     protected function supports($attribute, $subject)
     {
-        return in_array($attribute, [self::ADD]) ||
-            in_array($attribute, [self::EDIT, self::VOTE, self::CHOICE]) && $subject instanceof Event;
+        return in_array($attribute, [self::ADD])
+            || in_array($attribute, [self::EDIT, self::VOTE, self::CHOICE]) && $subject instanceof Event;
     }
 
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
@@ -59,6 +59,7 @@ class EventVoter extends Voter
                 if ($this->security->isGranted('ROLE_ADMIN')) {
                     return true;
                 }
+
                 // else, edit is not granted
                 return false;
             case self::VOTE:
@@ -73,15 +74,15 @@ class EventVoter extends Voter
                 }
                 // restrictions on this event ?
                 if (count($event->getRestrictions()) > 0) {
-                    if (!($event->hasRestriction(Event::RESTRICTION_MEMBER) && $user->isMember() ||
-                        $event->hasRestriction(Event::RESTRICTION_CADET) && $user->isCadet())) {
+                    if (!($event->hasRestriction(Event::RESTRICTION_MEMBER) && $user->isMember()
+                        || $event->hasRestriction(Event::RESTRICTION_CADET) && $user->isCadet())) {
                         return false;
                     }
                 }
                 // specific simulator on this event ?
                 if ($event->getSimDcs() || $event->getSimBms()) {
-                    if (!($event->getSimDcs() && $user->getSimDcs() ||
-                        $event->getSimBms() && $user->getSimBms())) {
+                    if (!($event->getSimDcs() && $user->getSimDcs()
+                        || $event->getSimBms() && $user->getSimBms())) {
                         return false;
                     }
                 }

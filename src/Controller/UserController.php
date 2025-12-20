@@ -23,6 +23,7 @@ class UserController extends AbstractController
 {
     /**
      * @Route("/{user}", name="user_view")
+     *
      * @ParamConverter("user", options={"mapping": {"user": "nickname"}})
      */
     public function view(ModuleRepository $moduleRepository, VariantStatRepository $variantStatRepository, LogStatRepository $logStatRepository, DataTypeRepository $dataTypeRepository, User $user): Response
@@ -50,6 +51,7 @@ class UserController extends AbstractController
      * @Route("/{user}/stats", name="user_stats")
      * @Route("/{user}/stats/period/{periodName}", name="user_stats_period")
      * @Route("/{user}/stats/period/{start}/{end}", name="user_stats_period_custom")
+     *
      * @ParamConverter("user", options={"mapping": {"user": "nickname"}})
      */
     public function stats(Request $request, ?string $periodName, ModuleRepository $moduleRepository, VariantStatRepository $variantStatRepository, LogStatRepository $logStatRepository, DataTypeRepository $dataTypeRepository, User $user, ?\DateTime $start, ?\DateTime $end): Response

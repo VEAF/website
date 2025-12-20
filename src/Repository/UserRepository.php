@@ -17,7 +17,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
-    const ZOMBIE_DAYS = 31;
+    public const ZOMBIE_DAYS = 31;
 
     public function __construct(ManagerRegistry $registry)
     {

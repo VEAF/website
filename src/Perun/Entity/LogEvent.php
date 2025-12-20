@@ -7,16 +7,20 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Table(name="pe_LogEvent",
  *     indexes={
+ *
  *        @ORM\Index(name="pe_LogEvent_datetime", columns={"pe_LogEvent_datetime"}),
  *        @ORM\Index(name="pe_LogEvent_type_2", columns={"pe_LogEvent_type"})
  *     })
+ *
  * @ORM\Entity(repositoryClass=LogEventRepository::class)
  */
 class LogEvent
 {
     /**
      * @ORM\Id
+     *
      * @ORM\GeneratedValue
+     *
      * @ORM\Column(type="bigint", name="pe_LogEvent_id")
      */
     private ?int $id;
@@ -28,6 +32,7 @@ class LogEvent
 
     /**
      * @ORM\ManyToOne(targetEntity=DataMissionHash::class)
+     *
      * @ORM\JoinColumn(nullable=false, name="pe_LogEvent_missionhash_id", referencedColumnName="pe_DataMissionHashes_id", nullable=true)
      */
     private ?DataMissionHash $mission;

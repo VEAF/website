@@ -17,33 +17,33 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Event
 {
-    const EVENT_TYPE_TRAINING = 1;
-    const EVENT_TYPE_MISSION = 2;
-    const EVENT_TYPE_OPEX = 3;
-    const EVENT_TYPE_MEETING = 4;
-    const EVENT_TYPE_MAINTENANCE = 5;
-    const EVENT_TYPE_ATC = 6;
+    public const EVENT_TYPE_TRAINING = 1;
+    public const EVENT_TYPE_MISSION = 2;
+    public const EVENT_TYPE_OPEX = 3;
+    public const EVENT_TYPE_MEETING = 4;
+    public const EVENT_TYPE_MAINTENANCE = 5;
+    public const EVENT_TYPE_ATC = 6;
 
-    const REPEAT_NONE = 0; // ex: no repeat
-    const REPEAT_DAY_OF_WEEK = 1; // ex: every mondays
-    const REPEAT_DAY_OF_MONTH = 2; // ex: every 10th day of month
-    const REPEAT_NTH_WEEK_DAY_OF_MONTH = 3; // ex: 3rd sunday of month
+    public const REPEAT_NONE = 0; // ex: no repeat
+    public const REPEAT_DAY_OF_WEEK = 1; // ex: every mondays
+    public const REPEAT_DAY_OF_MONTH = 2; // ex: every 10th day of month
+    public const REPEAT_NTH_WEEK_DAY_OF_MONTH = 3; // ex: 3rd sunday of month
 
-    const REPEATS = [
+    public const REPEATS = [
         self::REPEAT_NONE => 'Pas de répétition',
         self::REPEAT_DAY_OF_WEEK => '1x par semaine, le même jour (ex: le lundi)',
         self::REPEAT_DAY_OF_MONTH => '1x par mois, le même jour (ex: le 15 du mois)',
         self::REPEAT_NTH_WEEK_DAY_OF_MONTH => '1x par mois, même jour de la semaine (ex: deuxième dimanche du mois)',
     ];
 
-    const REPEATS_CODES = [
+    public const REPEATS_CODES = [
         self::REPEAT_NONE => 'none',
         self::REPEAT_DAY_OF_WEEK => 'day_of_week',
         self::REPEAT_DAY_OF_MONTH => 'day_of_month',
         self::REPEAT_NTH_WEEK_DAY_OF_MONTH => 'nth_day_of_month',
     ];
 
-    const EVENTS = [
+    public const EVENTS = [
         self::EVENT_TYPE_TRAINING => 'Training',
         self::EVENT_TYPE_MISSION => 'Mission',
         self::EVENT_TYPE_OPEX => 'OPEX',
@@ -52,7 +52,7 @@ class Event
         self::EVENT_TYPE_ATC => 'ATC / GCI',
     ];
 
-    const EVENTS_COLORS = [
+    public const EVENTS_COLORS = [
         self::EVENT_TYPE_TRAINING => '#27AE60',
         self::EVENT_TYPE_MISSION => '#F1C40F',
         self::EVENT_TYPE_OPEX => '#7D3C98',
@@ -61,17 +61,19 @@ class Event
         self::EVENT_TYPE_ATC => '#EA9417',
     ];
 
-    const RESTRICTION_CADET = 1;
-    const RESTRICTION_MEMBER = 2;
+    public const RESTRICTION_CADET = 1;
+    public const RESTRICTION_MEMBER = 2;
 
-    const RESTRICTIONS = [
+    public const RESTRICTIONS = [
         self::RESTRICTION_CADET => 'Cadets',
         self::RESTRICTION_MEMBER => 'Membres',
     ];
 
     /**
      * @ORM\Id
+     *
      * @ORM\GeneratedValue
+     *
      * @ORM\Column(type="integer")
      */
     private ?int $id = null;
@@ -92,6 +94,7 @@ class Event
 
     /**
      * @ORM\Column(type="datetime")
+     *
      * @Assert\Expression(
      *     "this.getEndDate() > this.getStartDate()",
      *     message="La date de fin doit être supérieure à la date de début"
@@ -143,12 +146,14 @@ class Event
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class)
+     *
      * @ORM\JoinColumn(nullable=false)
      */
     private User $owner;
 
     /**
      * @var ArrayCollection|Module[]
+     *
      * @ORM\ManyToMany(targetEntity=Module::class)
      */
     private $modules;
@@ -165,6 +170,7 @@ class Event
 
     /**
      * @var ArrayCollection|Vote[]
+     *
      * @ORM\OneToMany (targetEntity=Vote::class, mappedBy="event")
      */
     private $votes;
@@ -196,6 +202,7 @@ class Event
 
     /**
      * @ORM\OneToMany(targetEntity=Flight::class, mappedBy="event", orphanRemoval=true, cascade={"persist", "remove"})
+     *
      * @ORM\OrderBy({"name" = "ASC"})
      *
      * @var Flight[]

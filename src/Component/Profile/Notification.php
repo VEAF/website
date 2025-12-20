@@ -4,10 +4,10 @@ namespace App\Component\Profile;
 
 class Notification
 {
-    const TYPE_NO_SIM = 1;
-    const TYPE_NO_CHOICE = 2;
+    public const TYPE_NO_SIM = 1;
+    public const TYPE_NO_CHOICE = 2;
 
-    const TYPES = [
+    public const TYPES = [
         self::TYPE_NO_SIM,
         self::TYPE_NO_CHOICE,
     ];
@@ -21,12 +21,12 @@ class Notification
         $this->message = $message;
     }
 
-    public static function noSim(string $message = null): self
+    public static function noSim(?string $message = null): self
     {
         return new static(self::TYPE_NO_SIM, $message);
     }
 
-    public static function noEvents(string $message = null): self
+    public static function noEvents(?string $message = null): self
     {
         return new static(self::TYPE_NO_CHOICE, $message);
     }

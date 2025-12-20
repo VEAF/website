@@ -13,7 +13,9 @@ class Notification
 {
     /**
      * @ORM\Id
+     *
      * @ORM\GeneratedValue
+     *
      * @ORM\Column(type="integer")
      */
     private ?int $id;
@@ -25,12 +27,14 @@ class Notification
 
     /**
      * @ORM\ManyToOne(targetEntity=Event::class, inversedBy="notifications")
+     *
      * @ORM\JoinColumn(nullable=false)
      */
     private ?Event $event;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class)
+     *
      * @ORM\JoinColumn(nullable=false)
      */
     private ?User $user;

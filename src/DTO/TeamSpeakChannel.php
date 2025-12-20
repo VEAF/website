@@ -19,7 +19,7 @@ class TeamSpeakChannel
         $channel->setCid($nodeChannel['cid']);
         $channel->setPid($nodeChannel['pid']);
         // need some perimissions !
-        //$channel->setOrder($nodeChannel['order']);
+        // $channel->setOrder($nodeChannel['order']);
         $channel->setName($nodeChannel['channel_name']);
         $channel->setTopic($nodeChannel['channel_topic']);
 

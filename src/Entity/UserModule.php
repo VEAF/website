@@ -9,26 +9,29 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Table(uniqueConstraints={
+ *
  *     @ORM\UniqueConstraint(name="usermodule_idx", columns={"user_id","module_id"})
  * })
+ *
  * @ORM\Entity(repositoryClass=UserModuleRepository::class)
+ *
  * @UniqueEntity(fields = {"user", "module"})
  */
 class UserModule
 {
-    const LEVEL_UNKNOWN = 0;
-    const LEVEL_ROOKIE = 1;
-    const LEVEL_MISSION = 2;
-    const LEVEL_INSTRUCTOR = 3;
+    public const LEVEL_UNKNOWN = 0;
+    public const LEVEL_ROOKIE = 1;
+    public const LEVEL_MISSION = 2;
+    public const LEVEL_INSTRUCTOR = 3;
 
-    const LEVELS = [
+    public const LEVELS = [
         self::LEVEL_UNKNOWN => 'inconnu',
         self::LEVEL_ROOKIE => 'débutant',
         self::LEVEL_MISSION => 'mission',
         self::LEVEL_INSTRUCTOR => 'instructeur',
     ];
 
-    const LEVEL_KEYS = [
+    public const LEVEL_KEYS = [
         self::LEVEL_UNKNOWN,
         self::LEVEL_ROOKIE,
         self::LEVEL_MISSION,
@@ -37,33 +40,41 @@ class UserModule
 
     /**
      * @ORM\Id
+     *
      * @ORM\GeneratedValue
+     *
      * @ORM\Column(type="integer")
+     *
      * @Groups({"user_module"})
      */
     private ?int $id;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="modules", cascade={"persist"})
+     *
      * @ORM\JoinColumn(nullable=false)
      */
     private ?User $user;
 
     /**
      * @ORM\ManyToOne(targetEntity=Module::class, inversedBy="users", cascade={"persist"})
+     *
      * @ORM\JoinColumn(nullable=false)
+     *
      * @Groups({"user_module", "module", "id"})
      */
     private ?Module $module;
 
     /**
      * @ORM\Column(type="boolean")
+     *
      * @Groups({"user_module"})
      */
     private bool $active = false;
 
     /**
      * @ORM\Column(type="integer")
+     *
      * @Groups({"user_module"})
      */
     private int $level;

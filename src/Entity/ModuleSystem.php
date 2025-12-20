@@ -11,13 +11,16 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @UniqueEntity("code")
  * @UniqueEntity("name")
+ *
  * @ORM\Entity(repositoryClass=ModuleSystemRepository::class)
  */
 class ModuleSystem
 {
     /**
      * @ORM\Id
+     *
      * @ORM\GeneratedValue
+     *
      * @ORM\Column(type="integer")
      */
     private ?int $id = null;

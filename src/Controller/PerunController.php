@@ -38,9 +38,10 @@ class PerunController extends AbstractController
     /**
      * @Route("/attendance", name="perun_attendance")
      * @Route("/{server}/attendance", name="perun_instance_attendance", options={})
+     *
      * @ParamConverter("server", options={"mapping": {"server": "code"}})
      */
-    public function attendance(Request $request, Server $server = null, LogStatService $logStatService): Response
+    public function attendance(Request $request, ?Server $server = null, LogStatService $logStatService): Response
     {
         // end of period
         try {
@@ -80,6 +81,7 @@ class PerunController extends AbstractController
 
     /**
      * @Route("/{server}", name="perun_instance")
+     *
      * @ParamConverter("server", options={"mapping": {"server": "code"}})
      */
     public function instance(Server $server, LogStatService $logStatService, InstanceService $instanceService): Response

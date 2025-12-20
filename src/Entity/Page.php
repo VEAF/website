@@ -12,10 +12,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(uniqueConstraints={
+ *
  *     @ORM\UniqueConstraint(name="route_idx", columns={"route"}),
  *     @ORM\UniqueConstraint(name="path_idx", columns={"path"})
  * })
+ *
  * @ORM\Entity(repositoryClass=PageRepository::class)
+ *
  * @UniqueEntity("route")
  * @UniqueEntity("path")
  */
@@ -23,7 +26,9 @@ class Page
 {
     /**
      * @ORM\Id
+     *
      * @ORM\GeneratedValue
+     *
      * @ORM\Column(type="integer")
      */
     private ?int $id = null;
@@ -55,12 +60,14 @@ class Page
 
     /**
      * @var PageBlock[]|ArrayCollection|array
+     *
      * @ORM\OneToMany(targetEntity=PageBlock::class, mappedBy="page", orphanRemoval=true, cascade={"persist"})
      */
     private $blocks;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
      * @Assert\Regex(pattern     = "/^([^\/])+.*$/i")
      */
     private ?string $path = null;
