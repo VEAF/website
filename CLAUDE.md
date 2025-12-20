@@ -65,6 +65,111 @@ Set via `WEBSITE` environment variable.
 - **Servers**: DCS server instances with stats integration
 - **Perun**: External DCS stats tracking system with its own entity model
 
+## Tests
+
+### Running Tests
+
+```bash
+./scripts/dev/test.sh                    # Run all tests
+./scripts/dev/test.sh tests/Unit         # Run only unit tests
+./scripts/dev/test.sh tests/Integration  # Run only integration tests
+./scripts/dev/test.sh tests/Functional   # Run only functional tests
+./scripts/dev/test.sh --filter=MethodName  # Run specific test method
+```
+
+### Test Structure (`tests/`)
+
+The project uses PHPUnit with three test suites organized by scope:
+
+```
+tests/
+├── Unit/                    # Tests unitaires (pas de dépendances externes)
+│   └── Service/             # Miroir de src/Service/
+├── Integration/             # Tests avec base de données
+│   ├── AbstractIntegrationTestCase.php  # Classe de base
+│   └── Service/
+└── Functional/              # Tests HTTP/contrôleurs
+    └── Controller/
+```
+
+### Test Types and Conventions
+
+**Unit Tests** (`tests/Unit/`)
+- Héritent de `PHPUnit\Framework\TestCase`
+- Pas de dépendances externes (DB, services Symfony)
+- Utilisent des mocks pour les dépendances
+- Rapides à exécuter
+
+**Integration Tests** (`tests/Integration/`)
+- Héritent de `AbstractIntegrationTestCase`
+- Accès à la base de données (schéma créé automatiquement)
+- Isolation via transactions avec rollback automatique
+- Helpers disponibles: `getService()`, `persistAndFlush()`, `clearEntityManager()`
+
+**Functional Tests** (`tests/Functional/`)
+- Héritent de `KernelTestCase` ou `WebTestCase`
+- Testent les routes, contrôleurs, réponses HTTP
+
+### Naming Conventions
+
+- Fichiers: `{ClassToTest}Test.php` (ex: `ProjectionServiceTest.php`)
+- Namespace: Miroir de `src/` avec préfixe `App\Tests\` (ex: `App\Tests\Unit\Service\`)
+- Méthodes: `test{WhatIsTested}{ExpectedBehavior}()` en camelCase
+  - Ex: `testGetNextEventDateTimeReturnsNullForNoRepeat()`
+  - Ex: `testUnsupportedTheatreThrowsException()`
+
+### Writing Tests
+
+```php
+// Unit test example
+class MyServiceTest extends TestCase
+{
+    private MyService $service;
+
+    protected function setUp(): void
+    {
+        $dependency = $this->createMock(DependencyInterface::class);
+        $this->service = new MyService($dependency);
+    }
+
+    public function testMethodReturnsExpectedValue(): void
+    {
+        $result = $this->service->doSomething();
+        $this->assertEquals('expected', $result);
+    }
+
+    /**
+     * @dataProvider dataProviderName
+     */
+    public function testWithDataProvider(string $input, string $expected): void
+    {
+        $this->assertEquals($expected, $this->service->process($input));
+    }
+
+    public function dataProviderName(): array
+    {
+        return [
+            'case name' => ['input', 'expected'],
+        ];
+    }
+}
+
+// Integration test example
+class MyRepositoryTest extends AbstractIntegrationTestCase
+{
+    public function testFindByStatus(): void
+    {
+        $entity = new Entity();
+        $this->persistAndFlush($entity);
+
+        $repository = $this->getService(EntityRepository::class);
+        $result = $repository->findByStatus('active');
+
+        $this->assertCount(1, $result);
+    }
+}
+```
+
 ## Git Flow
 
 The project uses git-flow with `develop` as the integration branch and `master` for releases. See `doc/release.md` for release process.

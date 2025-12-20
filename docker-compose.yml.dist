@@ -52,6 +52,7 @@ services:
     environment:
       VIRTUAL_HOST: pma.${VHOST:-project.localhost}
       PMA_HOST: mysql
+      UPLOAD_LIMIT: 102400K
     depends_on:
       - mysql
 
