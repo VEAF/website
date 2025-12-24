@@ -13,32 +13,32 @@
 
     <div class="container container-main pt-3 pb-3 mb-3">
         <div class="row mb-3 ml-1 mr-1">
-            <h1>Liste des serveurs</h1>
+            <h1><i class="fas fa-server mr-2"></i>Liste des serveurs</h1>
             <div class="table-responsive">
                 <table class="table table-striped table-bordered table-hover">
                     <thead>
                     <tr>
-                        <th>Serveur</th>
-                        <th>Status</th>
-                        <th>Theatre</th>
-                        <th>Mission</th>
-                        <th>Joueurs</th>
-                        <th>Uptime</th>
+                        <th><i class="fas fa-hdd mr-1"></i> Serveur</th>
+                        <th><i class="fas fa-power-off mr-1"></i> Status</th>
+                        <th><i class="fas fa-globe mr-1"></i> Theatre</th>
+                        <th><i class="fas fa-fighter-jet mr-1"></i> Mission</th>
+                        <th><i class="fas fa-users mr-1"></i> Joueurs</th>
+                        <th><i class="fas fa-clock mr-1"></i> Uptime</th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for server in servers %}
                         <tr>
-                            <td>{{ server.name }}</td>
+                            <td><a href="{{ path('dcsbot_server', {serverName: server.name}) }}">{{ server.name }}</a></td>
                             <td>
-                                {% if server.status == 'running' %}
-                                    <span class="badge badge-success">{{ server.status }}</span>
+                                {% if server.status == 'Running' %}
+                                    <span class="badge badge-success"><i class="fas fa-play mr-1"></i>{{ server.status }}</span>
                                 {% elseif server.status == 'Paused' %}
-                                    <span class="badge badge-warning">{{ server.status }}</span>
+                                    <span class="badge badge-warning"><i class="fas fa-pause mr-1"></i>{{ server.status }}</span>
                                 {% elseif server.status == 'Shutdown' %}
-                                    <span class="badge badge-secondary">{{ server.status }}</span>
+                                    <span class="badge badge-secondary"><i class="fas fa-stop mr-1"></i>{{ server.status }}</span>
                                 {% else %}
-                                    <span class="badge badge-info">{{ server.status }}</span>
+                                    <span class="badge badge-info"><i class="fas fa-question mr-1"></i>{{ server.status }}</span>
                                 {% endif %}
                             </td>
                             <td>{{ server.mission ? server.mission.theatre : '-' }}</td>
@@ -74,13 +74,13 @@
     {% if serverStats %}
     <div class="container container-main pt-3 pb-3 mb-3">
         <div class="row mb-3 ml-1 mr-1">
-            <h2>Statistiques globales</h2>
+            <h2><i class="fas fa-chart-bar mr-2"></i>Statistiques globales</h2>
         </div>
         <div class="row">
             <div class="col-md-3">
                 <div class="card text-white bg-primary mb-3">
                     <div class="card-body text-center">
-                        <h5 class="card-title">Joueurs total</h5>
+                        <h5 class="card-title"><i class="fas fa-users mr-1"></i> Joueurs total</h5>
                         <p class="card-text display-4">{{ serverStats.totalPlayers }}</p>
                     </div>
                 </div>
@@ -88,7 +88,7 @@
             <div class="col-md-3">
                 <div class="card text-white bg-success mb-3">
                     <div class="card-body text-center">
-                        <h5 class="card-title">Joueurs actifs</h5>
+                        <h5 class="card-title"><i class="fas fa-user-check mr-1"></i> Joueurs actifs</h5>
                         <p class="card-text display-4">{{ serverStats.activePlayers }}</p>
                     </div>
                 </div>
@@ -96,7 +96,7 @@
             <div class="col-md-3">
                 <div class="card text-white bg-info mb-3">
                     <div class="card-body text-center">
-                        <h5 class="card-title">Sorties</h5>
+                        <h5 class="card-title"><i class="fas fa-plane-departure mr-1"></i> Sorties</h5>
                         <p class="card-text display-4">{{ serverStats.totalSorties }}</p>
                     </div>
                 </div>
@@ -104,7 +104,7 @@
             <div class="col-md-3">
                 <div class="card text-white bg-secondary mb-3">
                     <div class="card-body text-center">
-                        <h5 class="card-title">Temps moyen</h5>
+                        <h5 class="card-title"><i class="fas fa-hourglass-half mr-1"></i> Temps moyen</h5>
                         <p class="card-text display-4">{{ (serverStats.avgPlaytime / 3600)|round }}h</p>
                     </div>
                 </div>
@@ -114,7 +114,7 @@
             <div class="col-md-3">
                 <div class="card bg-light mb-3">
                     <div class="card-body text-center">
-                        <h5 class="card-title">Kills</h5>
+                        <h5 class="card-title"><i class="fas fa-crosshairs mr-1"></i> Kills</h5>
                         <p class="card-text h4">{{ serverStats.totalKills }}</p>
                     </div>
                 </div>
@@ -122,7 +122,7 @@
             <div class="col-md-3">
                 <div class="card bg-light mb-3">
                     <div class="card-body text-center">
-                        <h5 class="card-title">Deaths</h5>
+                        <h5 class="card-title"><i class="fas fa-skull mr-1"></i> Deaths</h5>
                         <p class="card-text h4">{{ serverStats.totalDeaths }}</p>
                     </div>
                 </div>
@@ -130,7 +130,7 @@
             <div class="col-md-3">
                 <div class="card bg-light mb-3">
                     <div class="card-body text-center">
-                        <h5 class="card-title">PvP Kills</h5>
+                        <h5 class="card-title"><i class="fas fa-crosshairs mr-1"></i> PvP Kills</h5>
                         <p class="card-text h4">{{ serverStats.totalPvPKills }}</p>
                     </div>
                 </div>
@@ -138,7 +138,7 @@
             <div class="col-md-3">
                 <div class="card bg-light mb-3">
                     <div class="card-body text-center">
-                        <h5 class="card-title">PvP Deaths</h5>
+                        <h5 class="card-title"><i class="fas fa-skull-crossbones mr-1"></i> PvP Deaths</h5>
                         <p class="card-text h4">{{ serverStats.totalPvPDeaths }}</p>
                     </div>
                 </div>
