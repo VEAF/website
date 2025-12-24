@@ -1,0 +1,2821 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "DCSServerBot REST API",
+    "description": "REST functions to be used for DCSServerBot.",
+    "version": "3.0.4.18"
+  },
+  "paths": {
+    "/serverapi/serverstats": {
+      "get": {
+        "tags": [
+          "Info"
+        ],
+        "summary": "Server Statistics",
+        "description": "List the statistics of a whole group",
+        "operationId": "serverstats_serverapi_serverstats_get",
+        "parameters": [
+          {
+            "name": "server_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Server Name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerStats"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/serverapi/servers": {
+      "get": {
+        "tags": [
+          "Info"
+        ],
+        "summary": "Server list",
+        "description": "List all servers, the active mission (if any) and the active extensions",
+        "operationId": "servers_serverapi_servers_get",
+        "parameters": [
+          {
+            "name": "server_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Server Name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ServerInfo"
+                  },
+                  "title": "Response Servers Serverapi Servers Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/serverapi/squadrons": {
+      "get": {
+        "tags": [
+          "Info"
+        ],
+        "summary": "Squadron list",
+        "description": "List all squadrons and their roles",
+        "operationId": "squadrons_serverapi_squadrons_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0,
+              "title": "Offset"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SquadronInfo"
+                  },
+                  "title": "Response Squadrons Serverapi Squadrons Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/serverapi/squadron_members": {
+      "post": {
+        "tags": [
+          "Info"
+        ],
+        "summary": "Squadron Members",
+        "description": "List squadron members",
+        "operationId": "squadron_members_serverapi_squadron_members_post",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_squadron_members_serverapi_squadron_members_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/UserEntry"
+                  },
+                  "type": "array",
+                  "title": "Response Squadron Members Serverapi Squadron Members Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/serverapi/getuser": {
+      "post": {
+        "tags": [
+          "Info"
+        ],
+        "summary": "User list",
+        "description": "Get users by name",
+        "operationId": "getuser_serverapi_getuser_post",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_getuser_serverapi_getuser_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/UserEntry"
+                  },
+                  "type": "array",
+                  "title": "Response Getuser Serverapi Getuser Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/serverapi/linkme": {
+      "post": {
+        "tags": [
+          "Info"
+        ],
+        "summary": "Link Discord to DCS",
+        "description": "Link your Discord account to your DCS account",
+        "operationId": "linkme_serverapi_linkme_post",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_linkme_serverapi_linkme_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LinkMeResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/serverapi/leaderboard": {
+      "get": {
+        "tags": [
+          "Statistics"
+        ],
+        "summary": "Leaderboard",
+        "description": "Get leaderbord information",
+        "operationId": "leaderboard_serverapi_leaderboard_get",
+        "parameters": [
+          {
+            "name": "what",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "What"
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "type": "string",
+              "default": "desc",
+              "title": "Order"
+            }
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Query"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": 10,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": 0,
+              "title": "Offset"
+            }
+          },
+          {
+            "name": "server_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Server Name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LeaderBoard"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/serverapi/topkills": {
+      "get": {
+        "tags": [
+          "Statistics"
+        ],
+        "summary": "Top Kills",
+        "description": "Get top kills statistics for players",
+        "operationId": "topkills_serverapi_topkills_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 10,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0,
+              "title": "Offset"
+            }
+          },
+          {
+            "name": "server_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Server Name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TopKill"
+                  },
+                  "title": "Response Topkills Serverapi Topkills Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/serverapi/topkdr": {
+      "get": {
+        "tags": [
+          "Statistics"
+        ],
+        "summary": "Top KDR",
+        "description": "Get top KDR statistics for players",
+        "operationId": "topkdr_serverapi_topkdr_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 10,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0,
+              "title": "Offset"
+            }
+          },
+          {
+            "name": "server_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Server Name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TopKill"
+                  },
+                  "title": "Response Topkdr Serverapi Topkdr Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/serverapi/trueskill": {
+      "get": {
+        "tags": [
+          "Statistics"
+        ],
+        "summary": "TrueSkill:tm:",
+        "description": "Get TrueSkill:tm: statistics for players",
+        "operationId": "trueskill_serverapi_trueskill_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 10,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0,
+              "title": "Offset"
+            }
+          },
+          {
+            "name": "server_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Server Name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Trueskill"
+                  },
+                  "title": "Response Trueskill Serverapi Trueskill Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/serverapi/weaponpk": {
+      "post": {
+        "tags": [
+          "Statistics"
+        ],
+        "summary": "Weapon PK",
+        "description": "Get PK statistics for all weapons of a specific players",
+        "operationId": "weaponpk_serverapi_weaponpk_post",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_weaponpk_serverapi_weaponpk_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/WeaponPK"
+                  },
+                  "type": "array",
+                  "title": "Response Weaponpk Serverapi Weaponpk Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/serverapi/stats": {
+      "post": {
+        "tags": [
+          "Statistics"
+        ],
+        "summary": "Player Statistics",
+        "description": "Get player statistics",
+        "operationId": "stats_serverapi_stats_post",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_stats_serverapi_stats_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlayerStats"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/serverapi/modulestats": {
+      "post": {
+        "tags": [
+          "Statistics"
+        ],
+        "summary": "Module Statistics",
+        "description": "Get module statistics",
+        "operationId": "stats_serverapi_modulestats_post",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_stats_serverapi_modulestats_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ModuleStats"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/serverapi/current_server": {
+      "get": {
+        "tags": [
+          "Info"
+        ],
+        "summary": "Current Server",
+        "description": "Server name a player is flying on",
+        "operationId": "current_server_serverapi_current_server_get",
+        "parameters": [
+          {
+            "name": "nick",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Nick"
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "title": "Response Current Server Serverapi Current Server Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/serverapi/player_info": {
+      "post": {
+        "tags": [
+          "Statistics"
+        ],
+        "summary": "Player Information",
+        "description": "Get player information",
+        "operationId": "player_info_serverapi_player_info_post",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_player_info_serverapi_player_info_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlayerInfo"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/serverapi/highscore": {
+      "get": {
+        "tags": [
+          "Statistics"
+        ],
+        "summary": "Highscore",
+        "description": "Get highscore statistics for players",
+        "operationId": "highscore_serverapi_highscore_get",
+        "parameters": [
+          {
+            "name": "server_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Server Name"
+            }
+          },
+          {
+            "name": "period",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "all",
+              "title": "Period"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 10,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Highscore"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/serverapi/traps": {
+      "post": {
+        "tags": [
+          "Statistics"
+        ],
+        "summary": "Carrier Traps",
+        "description": "Get traps for players",
+        "operationId": "traps_serverapi_traps_post",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_traps_serverapi_traps_post"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/TrapEntry"
+                  },
+                  "type": "array",
+                  "title": "Response Traps Serverapi Traps Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/serverapi/credits": {
+      "post": {
+        "tags": [
+          "Credits"
+        ],
+        "summary": "Campaign Credits",
+        "description": "Get campaign credits for players",
+        "operationId": "credits_serverapi_credits_post",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_credits_serverapi_credits_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CampaignCredits"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/serverapi/squadron_credits": {
+      "post": {
+        "tags": [
+          "Credits"
+        ],
+        "summary": "Squadron Credits",
+        "description": "Squadron campaign credits",
+        "operationId": "squadron_credits_serverapi_squadron_credits_post",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_squadron_credits_serverapi_squadron_credits_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SquadronCampaignCredit"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/serverapi/player_squadrons": {
+      "post": {
+        "tags": [
+          "Info"
+        ],
+        "summary": "Player Squadrons",
+        "description": "List of player squadrons",
+        "operationId": "player_squadrons_serverapi_player_squadrons_post",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_player_squadrons_serverapi_player_squadrons_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/PlayerSquadron"
+                  },
+                  "type": "array",
+                  "title": "Response Player Squadrons Serverapi Player Squadrons Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Body_credits_serverapi_credits_post": {
+        "properties": {
+          "nick": {
+            "type": "string",
+            "title": "Nick"
+          },
+          "date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Date"
+          },
+          "campaign": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Campaign"
+          }
+        },
+        "type": "object",
+        "required": [
+          "nick"
+        ],
+        "title": "Body_credits_serverapi_credits_post"
+      },
+      "Body_getuser_serverapi_getuser_post": {
+        "properties": {
+          "nick": {
+            "type": "string",
+            "title": "Nick"
+          }
+        },
+        "type": "object",
+        "required": [
+          "nick"
+        ],
+        "title": "Body_getuser_serverapi_getuser_post"
+      },
+      "Body_linkme_serverapi_linkme_post": {
+        "properties": {
+          "discord_id": {
+            "type": "string",
+            "title": "Discord Id",
+            "description": "Discord user ID (snowflake)"
+          },
+          "force": {
+            "type": "boolean",
+            "title": "Force",
+            "description": "Force the operation",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "discord_id"
+        ],
+        "title": "Body_linkme_serverapi_linkme_post"
+      },
+      "Body_player_info_serverapi_player_info_post": {
+        "properties": {
+          "nick": {
+            "type": "string",
+            "title": "Nick"
+          },
+          "date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Date"
+          },
+          "server_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Server Name"
+          }
+        },
+        "type": "object",
+        "required": [
+          "nick"
+        ],
+        "title": "Body_player_info_serverapi_player_info_post"
+      },
+      "Body_player_squadrons_serverapi_player_squadrons_post": {
+        "properties": {
+          "nick": {
+            "type": "string",
+            "title": "Nick"
+          },
+          "date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Date"
+          }
+        },
+        "type": "object",
+        "required": [
+          "nick"
+        ],
+        "title": "Body_player_squadrons_serverapi_player_squadrons_post"
+      },
+      "Body_squadron_credits_serverapi_squadron_credits_post": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "campaign": {
+            "type": "string",
+            "title": "Campaign"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "title": "Body_squadron_credits_serverapi_squadron_credits_post"
+      },
+      "Body_squadron_members_serverapi_squadron_members_post": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "title": "Body_squadron_members_serverapi_squadron_members_post"
+      },
+      "Body_stats_serverapi_modulestats_post": {
+        "properties": {
+          "nick": {
+            "type": "string",
+            "title": "Nick"
+          },
+          "date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Date"
+          },
+          "server_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Server Name"
+          },
+          "last_session": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Session",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "nick"
+        ],
+        "title": "Body_stats_serverapi_modulestats_post"
+      },
+      "Body_stats_serverapi_stats_post": {
+        "properties": {
+          "nick": {
+            "type": "string",
+            "title": "Nick"
+          },
+          "date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Date"
+          },
+          "server_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Server Name"
+          },
+          "last_session": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Session",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "nick"
+        ],
+        "title": "Body_stats_serverapi_stats_post"
+      },
+      "Body_traps_serverapi_traps_post": {
+        "properties": {
+          "nick": {
+            "type": "string",
+            "title": "Nick"
+          },
+          "date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Date"
+          },
+          "limit": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Limit",
+            "default": 10
+          },
+          "offset": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Offset",
+            "default": 0
+          },
+          "server_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Server Name"
+          }
+        },
+        "type": "object",
+        "title": "Body_traps_serverapi_traps_post"
+      },
+      "Body_weaponpk_serverapi_weaponpk_post": {
+        "properties": {
+          "nick": {
+            "type": "string",
+            "title": "Nick"
+          },
+          "date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Date"
+          },
+          "server_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Server Name"
+          }
+        },
+        "type": "object",
+        "required": [
+          "nick"
+        ],
+        "title": "Body_weaponpk_serverapi_weaponpk_post"
+      },
+      "CampaignCredits": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id",
+            "description": "Campaign ID"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "Campaign name"
+          },
+          "credits": {
+            "type": "number",
+            "title": "Credits",
+            "description": "Player's credits in this campaign"
+          },
+          "rank": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rank",
+            "description": "Player's rank"
+          },
+          "badge": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Badge",
+            "description": "Player's badge"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "credits",
+          "rank",
+          "badge"
+        ],
+        "title": "CampaignCredits",
+        "example": {
+          "badge": "https://example.com/rookie_badge.png",
+          "credits": 1500.0,
+          "id": 1,
+          "name": "Summer Campaign 2025",
+          "rank": "Rookie"
+        }
+      },
+      "DailyPlayers": {
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Date"
+          },
+          "player_count": {
+            "type": "integer",
+            "title": "Player Count"
+          }
+        },
+        "type": "object",
+        "required": [
+          "date",
+          "player_count"
+        ],
+        "title": "DailyPlayers",
+        "example": {
+          "date": "2025-08-07T12:00:00",
+          "player_count": 100
+        }
+      },
+      "ExtensionInfo": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Version"
+          },
+          "value": {
+            "type": "string",
+            "title": "Value"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "value"
+        ],
+        "title": "ExtensionInfo",
+        "example": {
+          "name": "SRS",
+          "value": "127.0.0.1:5002",
+          "version": "1.9.0.0"
+        }
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "Highscore": {
+        "properties": {
+          "playtime": {
+            "items": {
+              "$ref": "#/components/schemas/PlaytimeEntry"
+            },
+            "type": "array",
+            "title": "Playtime",
+            "description": "Playtime rankings"
+          },
+          "Air Targets": {
+            "items": {
+              "$ref": "#/components/schemas/HighscoreEntry"
+            },
+            "type": "array",
+            "title": "Air Targets",
+            "description": "Air kills rankings"
+          },
+          "Ships": {
+            "items": {
+              "$ref": "#/components/schemas/HighscoreEntry"
+            },
+            "type": "array",
+            "title": "Ships",
+            "description": "Ship kills rankings"
+          },
+          "Air Defence": {
+            "items": {
+              "$ref": "#/components/schemas/HighscoreEntry"
+            },
+            "type": "array",
+            "title": "Air Defence",
+            "description": "SAM kills rankings"
+          },
+          "Ground Targets": {
+            "items": {
+              "$ref": "#/components/schemas/HighscoreEntry"
+            },
+            "type": "array",
+            "title": "Ground Targets",
+            "description": "Ground kills rankings"
+          },
+          "KD-Ratio": {
+            "items": {
+              "$ref": "#/components/schemas/HighscoreEntry"
+            },
+            "type": "array",
+            "title": "Kd-Ratio",
+            "description": "Kill/Death ratio rankings"
+          },
+          "PvP-KD-Ratio": {
+            "items": {
+              "$ref": "#/components/schemas/HighscoreEntry"
+            },
+            "type": "array",
+            "title": "Pvp-Kd-Ratio",
+            "description": "PvP Kill/Death ratio rankings"
+          },
+          "Most Efficient Killers": {
+            "items": {
+              "$ref": "#/components/schemas/HighscoreEntry"
+            },
+            "type": "array",
+            "title": "Most Efficient Killers",
+            "description": "Kills per hour rankings"
+          },
+          "Most Wasteful Pilots": {
+            "items": {
+              "$ref": "#/components/schemas/HighscoreEntry"
+            },
+            "type": "array",
+            "title": "Most Wasteful Pilots",
+            "description": "Crashes per hour rankings"
+          }
+        },
+        "type": "object",
+        "title": "Highscore",
+        "example": {
+          "Air Targets": [
+            {
+              "date": "2025-08-07T12:00:00",
+              "nick": "Player1",
+              "value": 42
+            }
+          ],
+          "playtime": [
+            {
+              "date": "2025-08-07T12:00:00",
+              "nick": "Player1",
+              "playtime": 3600
+            }
+          ]
+        }
+      },
+      "HighscoreEntry": {
+        "properties": {
+          "nick": {
+            "type": "string",
+            "title": "Nick",
+            "description": "Player nickname"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Date",
+            "description": "Last seen timestamp"
+          },
+          "value": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Value",
+            "description": "Score value (varies by category)"
+          }
+        },
+        "type": "object",
+        "required": [
+          "nick",
+          "date",
+          "value"
+        ],
+        "title": "HighscoreEntry"
+      },
+      "LeaderBoard": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/TopKill"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "total_count": {
+            "type": "integer",
+            "title": "Total Count"
+          },
+          "offset": {
+            "type": "integer",
+            "title": "Offset"
+          }
+        },
+        "type": "object",
+        "required": [
+          "items",
+          "total_count",
+          "offset"
+        ],
+        "title": "LeaderBoard"
+      },
+      "LinkMeResponse": {
+        "properties": {
+          "token": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Token",
+            "description": "4-digit token for linking DCS and Discord accounts"
+          },
+          "timestamp": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Timestamp",
+            "description": "Expiry timestamp in ISO format"
+          },
+          "rc": {
+            "type": "integer",
+            "title": "Rc",
+            "description": "Return code bitmask (1=User linked, 2=Link in progress, 4=Force operation)"
+          }
+        },
+        "type": "object",
+        "required": [
+          "rc"
+        ],
+        "title": "LinkMeResponse",
+        "example": {
+          "rc": 2,
+          "timestamp": "2025-08-09T12:00:00+00:00",
+          "token": "1234"
+        }
+      },
+      "MissionInfo": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "uptime": {
+            "type": "integer",
+            "title": "Uptime"
+          },
+          "date_time": {
+            "type": "string",
+            "title": "Date Time"
+          },
+          "theatre": {
+            "type": "string",
+            "title": "Theatre"
+          },
+          "blue_slots": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Blue Slots"
+          },
+          "blue_slots_used": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Blue Slots Used"
+          },
+          "red_slots": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Red Slots"
+          },
+          "red_slots_used": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Red Slots Used"
+          },
+          "restart_time": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Restart Time"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "uptime",
+          "date_time",
+          "theatre"
+        ],
+        "title": "MissionInfo",
+        "example": {
+          "blue_slots": 20,
+          "blue_slots_used": 5,
+          "date_time": "2025-08-07 12:00:00",
+          "name": "Training Mission",
+          "red_slots": 20,
+          "theatre": "Caucasus",
+          "uptime": 3600
+        }
+      },
+      "ModuleStats": {
+        "properties": {
+          "module": {
+            "type": "string",
+            "title": "Module",
+            "description": "Aircraft/module name"
+          },
+          "kills": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Kills",
+            "description": "Number of kills with this module"
+          },
+          "deaths": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Deaths",
+            "description": "Number of deaths with this module"
+          },
+          "kdr": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Kdr",
+            "description": "Kill/Death ratio with this module"
+          }
+        },
+        "type": "object",
+        "required": [
+          "module"
+        ],
+        "title": "ModuleStats",
+        "example": {
+          "deaths": 10,
+          "kdr": 3.0,
+          "kills": 30,
+          "module": "F/A-18C"
+        }
+      },
+      "PlayerEntry": {
+        "properties": {
+          "nick": {
+            "type": "string",
+            "title": "Nick",
+            "description": "Player name"
+          },
+          "side": {
+            "type": "string",
+            "title": "Side",
+            "description": "Player side"
+          },
+          "unit_type": {
+            "type": "string",
+            "title": "Unit Type",
+            "description": "Type of aircraft"
+          },
+          "callsign": {
+            "type": "string",
+            "title": "Callsign",
+            "description": "Callsign of the aircraft"
+          },
+          "radios": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "title": "Radios",
+            "description": "List of radios"
+          }
+        },
+        "type": "object",
+        "required": [
+          "nick",
+          "side",
+          "unit_type",
+          "callsign",
+          "radios"
+        ],
+        "title": "PlayerEntry"
+      },
+      "PlayerInfo": {
+        "properties": {
+          "current_server": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Current Server",
+            "description": "Current server"
+          },
+          "overall": {
+            "$ref": "#/components/schemas/PlayerStats",
+            "description": "Overall statistics"
+          },
+          "last_session": {
+            "$ref": "#/components/schemas/PlayerStats",
+            "description": "Statistics of the last session"
+          },
+          "module_stats": {
+            "items": {
+              "$ref": "#/components/schemas/ModuleStats"
+            },
+            "type": "array",
+            "title": "Module Stats",
+            "description": "Statistics by module"
+          },
+          "credits": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CampaignCredits"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Campaign credits of this player"
+          },
+          "squadrons": {
+            "items": {
+              "$ref": "#/components/schemas/PlayerSquadron"
+            },
+            "type": "array",
+            "title": "Squadrons",
+            "description": "Squadrons the player is a member of"
+          }
+        },
+        "type": "object",
+        "required": [
+          "overall",
+          "last_session"
+        ],
+        "title": "PlayerInfo"
+      },
+      "PlayerSquadron": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "Squadron name"
+          },
+          "image_url": {
+            "type": "string",
+            "title": "Image Url",
+            "description": "URL of the squadron's image"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "image_url"
+        ],
+        "title": "PlayerSquadron",
+        "example": {
+          "image_url": "https://example.com/squadron-logo.png",
+          "name": "Red Devils"
+        }
+      },
+      "PlayerStats": {
+        "properties": {
+          "playtime": {
+            "type": "integer",
+            "title": "Playtime",
+            "description": "Total playtime in seconds"
+          },
+          "kills": {
+            "type": "integer",
+            "title": "Kills",
+            "description": "Total kills"
+          },
+          "deaths": {
+            "type": "integer",
+            "title": "Deaths",
+            "description": "Total deaths"
+          },
+          "kills_pvp": {
+            "type": "integer",
+            "title": "Kills Pvp",
+            "description": "Total PvP kills"
+          },
+          "deaths_pvp": {
+            "type": "integer",
+            "title": "Deaths Pvp",
+            "description": "Total PvP deaths"
+          },
+          "kills_planes": {
+            "type": "integer",
+            "title": "Kills Planes",
+            "description": "Total plane kills"
+          },
+          "kills_helicopters": {
+            "type": "integer",
+            "title": "Kills Helicopters",
+            "description": "Total helicopter kills"
+          },
+          "kills_ships": {
+            "type": "integer",
+            "title": "Kills Ships",
+            "description": "Total ship kills"
+          },
+          "kills_sams": {
+            "type": "integer",
+            "title": "Kills Sams",
+            "description": "Total SAM kills"
+          },
+          "kills_ground": {
+            "type": "integer",
+            "title": "Kills Ground",
+            "description": "Total ground kills"
+          },
+          "deaths_planes": {
+            "type": "integer",
+            "title": "Deaths Planes",
+            "description": "Total plane deaths"
+          },
+          "deaths_helicopters": {
+            "type": "integer",
+            "title": "Deaths Helicopters",
+            "description": "Total helicopter deaths"
+          },
+          "deaths_ships": {
+            "type": "integer",
+            "title": "Deaths Ships",
+            "description": "Total ship deaths"
+          },
+          "deaths_sams": {
+            "type": "integer",
+            "title": "Deaths Sams",
+            "description": "Total SAM deaths"
+          },
+          "deaths_ground": {
+            "type": "integer",
+            "title": "Deaths Ground",
+            "description": "Total ground deaths"
+          },
+          "takeoffs": {
+            "type": "integer",
+            "title": "Takeoffs",
+            "description": "Number of takeoffs"
+          },
+          "landings": {
+            "type": "integer",
+            "title": "Landings",
+            "description": "Number of landings"
+          },
+          "ejections": {
+            "type": "integer",
+            "title": "Ejections",
+            "description": "Number of ejections"
+          },
+          "crashes": {
+            "type": "integer",
+            "title": "Crashes",
+            "description": "Number of crashes"
+          },
+          "teamkills": {
+            "type": "integer",
+            "title": "Teamkills",
+            "description": "Number of team kills"
+          },
+          "kdr": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Kdr",
+            "description": "Kill/death ratio"
+          },
+          "kdr_pvp": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Kdr Pvp",
+            "description": "PvP Kill/death ratio"
+          },
+          "killsByModule": {
+            "items": {
+              "$ref": "#/components/schemas/ModuleStats"
+            },
+            "type": "array",
+            "title": "Killsbymodule",
+            "description": "PvP-Kills breakdown by module"
+          },
+          "kdrByModule": {
+            "items": {
+              "$ref": "#/components/schemas/ModuleStats"
+            },
+            "type": "array",
+            "title": "Kdrbymodule",
+            "description": "PvP-KDR breakdown by module"
+          }
+        },
+        "type": "object",
+        "required": [
+          "playtime",
+          "kills",
+          "deaths",
+          "kills_pvp",
+          "deaths_pvp",
+          "kills_planes",
+          "kills_helicopters",
+          "kills_ships",
+          "kills_sams",
+          "kills_ground",
+          "deaths_planes",
+          "deaths_helicopters",
+          "deaths_ships",
+          "deaths_sams",
+          "deaths_ground",
+          "takeoffs",
+          "landings",
+          "ejections",
+          "crashes",
+          "teamkills",
+          "kdr",
+          "kdr_pvp"
+        ],
+        "title": "PlayerStats",
+        "example": {
+          "crashes": 15,
+          "deaths": 20,
+          "deaths_pvp": 20,
+          "ejections": 5,
+          "kdr": 2.5,
+          "kdrByModule": [
+            {
+              "kdr": 2.5,
+              "module": "F/A-18C"
+            }
+          ],
+          "kdr_pvp": 2.5,
+          "kills": 100,
+          "killsByModule": [
+            {
+              "kills": 30,
+              "module": "F/A-18C"
+            }
+          ],
+          "kills_pvp": 50,
+          "landings": 180,
+          "lastSessionDeaths": 2,
+          "lastSessionKills": 10,
+          "playtime": 3600,
+          "takeoffs": 200,
+          "teamkills": 2
+        }
+      },
+      "PlaytimeEntry": {
+        "properties": {
+          "nick": {
+            "type": "string",
+            "title": "Nick",
+            "description": "Player nickname"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Date",
+            "description": "Last seen timestamp"
+          },
+          "playtime": {
+            "type": "integer",
+            "title": "Playtime",
+            "description": "Total playtime in seconds"
+          }
+        },
+        "type": "object",
+        "required": [
+          "nick",
+          "date",
+          "playtime"
+        ],
+        "title": "PlaytimeEntry"
+      },
+      "ServerInfo": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "Name of the server"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "description": "Server status"
+          },
+          "address": {
+            "type": "string",
+            "title": "Address",
+            "description": "IP address and port"
+          },
+          "password": {
+            "type": "string",
+            "title": "Password",
+            "description": "Server password"
+          },
+          "restart_time": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Restart Time",
+            "description": "Restart time"
+          },
+          "mission": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MissionInfo"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Mission info"
+          },
+          "extensions": {
+            "items": {
+              "$ref": "#/components/schemas/ExtensionInfo"
+            },
+            "type": "array",
+            "title": "Extensions"
+          },
+          "players": {
+            "items": {
+              "$ref": "#/components/schemas/PlayerEntry"
+            },
+            "type": "array",
+            "title": "Players"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "status",
+          "address",
+          "password"
+        ],
+        "title": "ServerInfo",
+        "example": {
+          "address": "127.0.0.1:10308",
+          "extensions": [
+            {
+              "name": "SRS",
+              "value": "127.0.0.1:5002",
+              "version": "1.9.0.0"
+            }
+          ],
+          "mission": {
+            "blue_slots": 20,
+            "blue_slots_used": 5,
+            "date_time": "2025-08-07 12:00:00",
+            "name": "Training Mission",
+            "red_slots": 20,
+            "red_slots_used": 3,
+            "restart_time": 1691424000,
+            "theatre": "Caucasus",
+            "uptime": 3600
+          },
+          "name": "DCS Server",
+          "password": "secret",
+          "restart_time": "2025-08-07 12:00:00",
+          "status": "running"
+        }
+      },
+      "ServerStats": {
+        "properties": {
+          "totalPlayers": {
+            "type": "integer",
+            "title": "Totalplayers"
+          },
+          "avgPlaytime": {
+            "type": "integer",
+            "title": "Avgplaytime"
+          },
+          "totalPlaytime": {
+            "type": "integer",
+            "title": "Totalplaytime"
+          },
+          "activePlayers": {
+            "type": "integer",
+            "title": "Activeplayers"
+          },
+          "totalSorties": {
+            "type": "integer",
+            "title": "Totalsorties"
+          },
+          "totalKills": {
+            "type": "integer",
+            "title": "Totalkills"
+          },
+          "totalDeaths": {
+            "type": "integer",
+            "title": "Totaldeaths"
+          },
+          "totalPvPKills": {
+            "type": "integer",
+            "title": "Totalpvpkills"
+          },
+          "totalPvPDeaths": {
+            "type": "integer",
+            "title": "Totalpvpdeaths"
+          },
+          "daily_players": {
+            "items": {
+              "$ref": "#/components/schemas/DailyPlayers"
+            },
+            "type": "array",
+            "title": "Daily Players"
+          }
+        },
+        "type": "object",
+        "required": [
+          "totalPlayers",
+          "avgPlaytime",
+          "totalPlaytime",
+          "activePlayers",
+          "totalSorties",
+          "totalKills",
+          "totalDeaths",
+          "totalPvPKills",
+          "totalPvPDeaths",
+          "daily_players"
+        ],
+        "title": "ServerStats",
+        "example": {
+          "activePlayers": 50,
+          "avgPlaytime": 120,
+          "totalDeaths": 50,
+          "totalKills": 100,
+          "totalPlayers": 100,
+          "totalPlaytime": 3600,
+          "totalSorties": 100
+        }
+      },
+      "SquadronCampaignCredit": {
+        "properties": {
+          "campaign": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Campaign",
+            "description": "Campaign name"
+          },
+          "credits": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Credits",
+            "description": "Squadron's credits in the campaign"
+          }
+        },
+        "type": "object",
+        "title": "SquadronCampaignCredit",
+        "example": {
+          "campaign": "Summer Campaign 2025",
+          "credits": 1500.0
+        }
+      },
+      "SquadronInfo": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "Name of the squadron"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description",
+            "description": "Description of the squadron"
+          },
+          "image_url": {
+            "type": "string",
+            "title": "Image Url",
+            "description": "URL to the squadron's image"
+          },
+          "locked": {
+            "type": "boolean",
+            "title": "Locked",
+            "description": "Whether the squadron is locked"
+          },
+          "role": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Role",
+            "description": "Discord role name associated with the squadron"
+          },
+          "members": {
+            "items": {
+              "$ref": "#/components/schemas/UserEntry"
+            },
+            "type": "array",
+            "title": "Members"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "description",
+          "image_url",
+          "locked"
+        ],
+        "title": "SquadronInfo",
+        "example": {
+          "description": "Elite Fighter Squadron",
+          "image_url": "https://example.com/squadron-logo.png",
+          "locked": true,
+          "name": "Red Devils",
+          "role": "Squadron Leader"
+        }
+      },
+      "TopKill": {
+        "properties": {
+          "row_num": {
+            "type": "integer",
+            "title": "Row Num",
+            "description": "Row number"
+          },
+          "nick": {
+            "type": "string",
+            "title": "Nick",
+            "description": "Player's nickname"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Date",
+            "description": "Last seen date of that player in ISO-format"
+          },
+          "kills": {
+            "type": "integer",
+            "title": "Kills",
+            "description": "Number of kills"
+          },
+          "deaths": {
+            "type": "integer",
+            "title": "Deaths",
+            "description": "Number of deaths"
+          },
+          "kdr": {
+            "type": "number",
+            "title": "Kdr",
+            "description": "Kill/Death ratio"
+          },
+          "kills_pvp": {
+            "type": "integer",
+            "title": "Kills Pvp",
+            "description": "Number of kills in PvP"
+          },
+          "deaths_pvp": {
+            "type": "integer",
+            "title": "Deaths Pvp",
+            "description": "Number of deaths in PvP"
+          },
+          "kdr_pvp": {
+            "type": "number",
+            "title": "Kdr Pvp",
+            "description": "Kill/Death ratio in PvP"
+          },
+          "playtime": {
+            "type": "integer",
+            "title": "Playtime",
+            "description": "Total playtime in seconds"
+          },
+          "credits": {
+            "type": "integer",
+            "title": "Credits",
+            "description": "Total credits earned"
+          }
+        },
+        "type": "object",
+        "required": [
+          "row_num",
+          "nick",
+          "date",
+          "kills",
+          "deaths",
+          "kdr",
+          "kills_pvp",
+          "deaths_pvp",
+          "kdr_pvp",
+          "playtime",
+          "credits"
+        ],
+        "title": "TopKill",
+        "example": {
+          "date": "2025-01-01T00:00:00",
+          "deaths": 2,
+          "deaths_pvp": 0,
+          "kdr": 5.0,
+          "kdr_pvp": 5.0,
+          "kills": 10,
+          "kills_pvp": 5,
+          "nick": "Special K"
+        }
+      },
+      "TrapEntry": {
+        "properties": {
+          "unit_type": {
+            "type": "string",
+            "title": "Unit Type",
+            "description": "Type of aircraft"
+          },
+          "grade": {
+            "type": "string",
+            "title": "Grade",
+            "description": "Landing grade"
+          },
+          "comment": {
+            "type": "string",
+            "title": "Comment",
+            "description": "Landing comment"
+          },
+          "place": {
+            "type": "string",
+            "title": "Place",
+            "description": "Landing location"
+          },
+          "trapcase": {
+            "type": "integer",
+            "title": "Trapcase",
+            "description": "Trap case number"
+          },
+          "wire": {
+            "type": "integer",
+            "title": "Wire",
+            "description": "Arresting wire number"
+          },
+          "night": {
+            "type": "boolean",
+            "title": "Night",
+            "description": "Whether landing was at night"
+          },
+          "points": {
+            "type": "integer",
+            "title": "Points",
+            "description": "Points awarded for the trap"
+          },
+          "time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Time",
+            "description": "Time of the trap"
+          }
+        },
+        "type": "object",
+        "required": [
+          "unit_type",
+          "grade",
+          "comment",
+          "place",
+          "trapcase",
+          "wire",
+          "night",
+          "points",
+          "time"
+        ],
+        "title": "TrapEntry",
+        "example": {
+          "comment": "Good pass",
+          "grade": "OK",
+          "night": false,
+          "place": "CVN-73",
+          "points": 100,
+          "time": "2025-08-07T12:00:00",
+          "trapcase": 3,
+          "unit_type": "F/A-18C",
+          "wire": 3
+        }
+      },
+      "Trueskill": {
+        "properties": {
+          "nick": {
+            "type": "string",
+            "title": "Nick",
+            "description": "Player's nickname"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Date",
+            "description": "Last seen date of that player in ISO-format"
+          },
+          "kills_pvp": {
+            "type": "integer",
+            "title": "Kills Pvp",
+            "description": "Number of PvP kills"
+          },
+          "deaths_pvp": {
+            "type": "integer",
+            "title": "Deaths Pvp",
+            "description": "Number of deaths by other players"
+          },
+          "TrueSkill": {
+            "type": "number",
+            "title": "Trueskill",
+            "description": "TrueSkill:tm: Rating of that player"
+          }
+        },
+        "type": "object",
+        "required": [
+          "nick",
+          "date",
+          "kills_pvp",
+          "deaths_pvp",
+          "TrueSkill"
+        ],
+        "title": "Trueskill",
+        "example": {
+          "TrueSkill": 18.6,
+          "date": "2025-01-01T00:00:00",
+          "deaths_pvp": 2,
+          "kills_pvp": 10,
+          "nick": "Special K"
+        }
+      },
+      "UserEntry": {
+        "properties": {
+          "nick": {
+            "type": "string",
+            "title": "Nick",
+            "description": "Player nickname"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Date",
+            "description": "Last seen timestamp"
+          },
+          "current_server": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Current Server",
+            "description": "Current server"
+          }
+        },
+        "type": "object",
+        "required": [
+          "nick",
+          "date"
+        ],
+        "title": "UserEntry",
+        "example": {
+          "current_server": "My Fancy Server",
+          "date": "2025-08-07T12:00:00",
+          "nick": "Player1"
+        }
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "WeaponPK": {
+        "properties": {
+          "weapon": {
+            "type": "string",
+            "title": "Weapon",
+            "description": "Weapon type"
+          },
+          "shots": {
+            "type": "integer",
+            "title": "Shots",
+            "description": "Number of shots fired"
+          },
+          "hits": {
+            "type": "integer",
+            "title": "Hits",
+            "description": "Number of hits"
+          },
+          "pk": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Pk",
+            "description": "Probability of killing"
+          }
+        },
+        "type": "object",
+        "required": [
+          "weapon",
+          "shots",
+          "hits",
+          "pk"
+        ],
+        "title": "WeaponPK",
+        "example": {
+          "hits": 10,
+          "pk": 0.5,
+          "shots": 20,
+          "weapon": "AIM-120C"
+        }
+      }
+    }
+  }
+}
