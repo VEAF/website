@@ -1,2 +1,0 @@
-- ADD DcsBot Api client package
-- UPD servers list and server view use now DcsBot API (instead of Perun Database information)

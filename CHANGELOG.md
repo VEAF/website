@@ -1,3 +1,9 @@
+### 1.16.0
+- ADD DCS Bot statistics import command (`app:dcsbot:import`) to synchronize data into Perun database
+- ADD DcsBot Api client package and service
+- UPD servers list and server view use now DcsBot API (instead of Perun Database information)
+- DEP old stats and statuses are available from /legacy-stats/dcs path (soon removed)
+
 ### 1.15.2
 - FIX teamspeak status scan command
 

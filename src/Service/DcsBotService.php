@@ -15,7 +15,7 @@ class DcsBotService
     public function __construct(
         private InfoApi $infoApi,
         private AdapterInterface $cacheAdapter,
-        private LoggerInterface $logger
+        private LoggerInterface $logger,
     ) {
     }
 
