@@ -33,9 +33,9 @@
                             <td>
                                 {% if server.status == 'running' %}
                                     <span class="badge badge-success">{{ server.status }}</span>
-                                {% elseif server.status == 'paused' %}
+                                {% elseif server.status == 'Paused' %}
                                     <span class="badge badge-warning">{{ server.status }}</span>
-                                {% elseif server.status == 'stopped' %}
+                                {% elseif server.status == 'Shutdown' %}
                                     <span class="badge badge-secondary">{{ server.status }}</span>
                                 {% else %}
                                     <span class="badge badge-info">{{ server.status }}</span>
