@@ -1,5 +1,5 @@
-- ADDED DCS Bot statistics import command (`app:dcsbot:import`) to synchronize data into Perun database
-- ADDED DcsBotImportService for fetching and transforming statistics from external DCS Bot database
-- ADDED DcsBotSyncState entity to track import progress per server
-- ADDED DcsBotStatistic DTO for mapping DCS Bot database records
-- ADDED Doctrine connection configuration for DCS Bot database
+- ADD DCS Bot statistics import command (`app:dcsbot:import`) to synchronize data into Perun database
+- ADD DcsBotImportService for fetching and transforming statistics from external DCS Bot database
+- ADD DcsBotSyncState entity to track import progress per server
+- ADD DcsBotStatistic DTO for mapping DCS Bot database records
+- ADD Doctrine connection configuration for DCS Bot database

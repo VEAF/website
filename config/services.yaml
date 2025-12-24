@@ -85,3 +85,7 @@ services:
     App\Perun\Service\DcsBotImportService:
         arguments:
             $dcsBotConnection: '@doctrine.dbal.dcsbot_connection'
+
+    App\Service\DcsBotService:
+        arguments:
+            $cacheAdapter: "@cache.dcsbot"

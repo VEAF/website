@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/stats/dcs")
+ * @Route("/legacy-stats/dcs")
  */
 class PerunController extends AbstractController
 {

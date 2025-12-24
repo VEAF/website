@@ -31,6 +31,22 @@ if (!file_exists($testSafetyFile)) {
 }
 
 // =============================================================================
+// FORCER LES VARIABLES DE BASE DE DONNÉES DE TEST
+// =============================================================================
+// Les variables d'environnement Docker (.php.env) écrasent .env.test
+// On force ici les bonnes valeurs pour garantir l'isolation
+
+$testDatabaseUrl = 'mysql://website:test@mysql:3306/website_test?serverVersion=5.7&charset=utf8mb4';
+
+putenv("DATABASE_URL=$testDatabaseUrl");
+putenv("DATABASE_PERUN_URL=$testDatabaseUrl");
+
+$_ENV['DATABASE_URL'] = $testDatabaseUrl;
+$_ENV['DATABASE_PERUN_URL'] = $testDatabaseUrl;
+$_SERVER['DATABASE_URL'] = $testDatabaseUrl;
+$_SERVER['DATABASE_PERUN_URL'] = $testDatabaseUrl;
+
+// =============================================================================
 // BOOTSTRAP SYMFONY
 // =============================================================================
 

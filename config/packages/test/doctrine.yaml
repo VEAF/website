@@ -3,10 +3,34 @@
 
 doctrine:
     dbal:
-        url: '%env(resolve:DATABASE_URL)%'
-        mapping_types:
-            enum: string
+        default_connection: default
+        connections:
+            default:
+                url: '%env(resolve:DATABASE_URL)%'
+                mapping_types:
+                    enum: string
+            perun:
+                url: '%env(resolve:DATABASE_PERUN_URL)%'
+                mapping_types:
+                    enum: string
+            # Note: dcsbot n'est pas configuré - les tests utilisant cette connexion échoueront
 
     orm:
         auto_generate_proxy_classes: true
-        # Le schéma sera créé dynamiquement dans AbstractIntegrationTestCase
+        default_entity_manager: default
+        entity_managers:
+            default:
+                connection: default
+                mappings:
+                    App:
+                        is_bundle: false
+                        type: annotation
+                        dir: '%kernel.project_dir%/src/Entity'
+                        prefix: 'App\Entity'
+                        alias: App
+                    Perun:
+                        is_bundle: false
+                        type: annotation
+                        dir: '%kernel.project_dir%/src/Perun/Entity'
+                        prefix: 'App\Perun\Entity'
+                        alias: Perun
