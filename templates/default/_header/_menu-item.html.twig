@@ -54,7 +54,7 @@
             {% endif %}
         </a>
     {% elseif menuItem.type == constant('App\\Entity\\Menu\\Item::TYPE_SERVERS') %}
-        <a href="{{ path("perun_index") }}" class="nav-link"
+        <a href="{{ path("dcsbot_stats") }}" class="nav-link"
            title="{{ connectedUsers }} joueur(s) connecté(s)">
             {% if menuItem.icon is not null %}
                 <span class="{{ menuItem.icon }}"></span>

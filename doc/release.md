@@ -33,7 +33,7 @@ git commit -m ${VERSION}
 git flow release publish
 git flow release finish
 
-git push origin ${VERSION}
+git push ${VERSION}
 git push origin develop
 git push origin master
 ```

@@ -1,0 +1,24 @@
+# DCSServerBot API client configuration
+services:
+    # DCSServerBot API Configuration
+    DcsServerBot\Configuration:
+        factory: ['DcsServerBot\Configuration', 'getDefaultConfiguration']
+        calls:
+            - setHost: ['%api_dcsserverbot_url%']
+
+    # API clients - injectable in services and controllers
+    # Uses Eight Points Guzzle client for WebProfiler integration
+    DcsServerBot\Api\InfoApi:
+        arguments:
+            - '@eight_points_guzzle.client.dcsserverbot'
+            - '@DcsServerBot\Configuration'
+
+    DcsServerBot\Api\StatisticsApi:
+        arguments:
+            - '@eight_points_guzzle.client.dcsserverbot'
+            - '@DcsServerBot\Configuration'
+
+    DcsServerBot\Api\CreditsApi:
+        arguments:
+            - '@eight_points_guzzle.client.dcsserverbot'
+            - '@DcsServerBot\Configuration'

@@ -178,6 +178,8 @@ class LogStat
     private int $otherTakeoffs = 0;
 
     /**
+     * Session duration in minutes.
+     *
      * @ORM\Column(type="integer", name="ps_time", options={"unsigned"=true, "default": 0})
      */
     private int $time = 0;
@@ -388,5 +390,201 @@ class LogStat
     public function getTotalLandings(): int
     {
         return $this->farpLandings + $this->shipLandings + $this->otherLandings + $this->airfieldLandings;
+    }
+
+    public function setType(?DataType $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function setMasterSlot(int $masterSlot): self
+    {
+        $this->masterSlot = $masterSlot;
+
+        return $this;
+    }
+
+    public function setSeat(int $seat): self
+    {
+        $this->seat = $seat;
+
+        return $this;
+    }
+
+    public function setKillsX(int $killsX): self
+    {
+        $this->killsX = $killsX;
+
+        return $this;
+    }
+
+    public function setPvp(int $pvp): self
+    {
+        $this->pvp = $pvp;
+
+        return $this;
+    }
+
+    public function setDeaths(int $deaths): self
+    {
+        $this->deaths = $deaths;
+
+        return $this;
+    }
+
+    public function setEjections(int $ejections): self
+    {
+        $this->ejections = $ejections;
+
+        return $this;
+    }
+
+    public function setCrashes(int $crashes): self
+    {
+        $this->crashes = $crashes;
+
+        return $this;
+    }
+
+    public function setTeamKills(int $teamKills): self
+    {
+        $this->teamKills = $teamKills;
+
+        return $this;
+    }
+
+    public function setKillsPlanes(int $killsPlanes): self
+    {
+        $this->killsPlanes = $killsPlanes;
+
+        return $this;
+    }
+
+    public function setKillsHelicopters(int $killsHelicopters): self
+    {
+        $this->killsHelicopters = $killsHelicopters;
+
+        return $this;
+    }
+
+    public function setKillsAirDefense(int $killsAirDefense): self
+    {
+        $this->killsAirDefense = $killsAirDefense;
+
+        return $this;
+    }
+
+    public function setKillsArmor(int $killsArmor): self
+    {
+        $this->killsArmor = $killsArmor;
+
+        return $this;
+    }
+
+    public function setKillsUnarmed(int $killsUnarmed): self
+    {
+        $this->killsUnarmed = $killsUnarmed;
+
+        return $this;
+    }
+
+    public function setKillsInfantry(int $killsInfantry): self
+    {
+        $this->killsInfantry = $killsInfantry;
+
+        return $this;
+    }
+
+    public function setKillsShips(int $killsShips): self
+    {
+        $this->killsShips = $killsShips;
+
+        return $this;
+    }
+
+    public function setKillsFortification(int $killsFortification): self
+    {
+        $this->killsFortification = $killsFortification;
+
+        return $this;
+    }
+
+    public function setKillsArtillery(int $killsArtillery): self
+    {
+        $this->killsArtillery = $killsArtillery;
+
+        return $this;
+    }
+
+    public function setKillsOther(int $killsOther): self
+    {
+        $this->killsOther = $killsOther;
+
+        return $this;
+    }
+
+    public function setAirfieldTakeoffs(int $airfieldTakeoffs): self
+    {
+        $this->airfieldTakeoffs = $airfieldTakeoffs;
+
+        return $this;
+    }
+
+    public function setAirfieldLandings(int $airfieldLandings): self
+    {
+        $this->airfieldLandings = $airfieldLandings;
+
+        return $this;
+    }
+
+    public function setShipTakeoffs(int $shipTakeoffs): self
+    {
+        $this->shipTakeoffs = $shipTakeoffs;
+
+        return $this;
+    }
+
+    public function setShipLandings(int $shipLandings): self
+    {
+        $this->shipLandings = $shipLandings;
+
+        return $this;
+    }
+
+    public function setFarpTakeoffs(int $farpTakeoffs): self
+    {
+        $this->farpTakeoffs = $farpTakeoffs;
+
+        return $this;
+    }
+
+    public function setFarpLandings(int $farpLandings): self
+    {
+        $this->farpLandings = $farpLandings;
+
+        return $this;
+    }
+
+    public function setOtherTakeoffs(int $otherTakeoffs): self
+    {
+        $this->otherTakeoffs = $otherTakeoffs;
+
+        return $this;
+    }
+
+    public function setOtherLandings(int $otherLandings): self
+    {
+        $this->otherLandings = $otherLandings;
+
+        return $this;
+    }
+
+    public function setStatus(?string $status): self
+    {
+        $this->status = $status;
+
+        return $this;
     }
 }
