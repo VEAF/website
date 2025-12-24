@@ -29,3 +29,8 @@ framework:
                 public: true
                 default_lifetime: 120
                 provider: snc_redis.default
+            cache.dcsbot:
+                adapter: cache.adapter.redis
+                public: true
+                default_lifetime: 120
+                provider: snc_redis.default

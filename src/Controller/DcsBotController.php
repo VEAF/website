@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\DcsBotService;
 use DcsServerBot\Api\InfoApi;
 use DcsServerBot\ApiException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,23 +17,11 @@ class DcsBotController extends AbstractController
     /**
      * @Route("", name="dcsbot_stats")
      */
-    public function stats(InfoApi $infoApi): Response
+    public function stats(DcsBotService $dcsBotService): Response
     {
-        $servers = [];
-        $serverStats = null;
-        $error = null;
-
-        try {
-            $servers = $infoApi->serversServerapiServersGet();
-            $serverStats = $infoApi->serverstatsServerapiServerstatsGet();
-        } catch (ApiException $e) {
-            $error = 'Impossible de contacter le service DCSServerBot: '.$e->getMessage();
-        }
-
         return $this->render('dcsbot/stats.html.twig', [
-            'servers' => $servers,
-            'serverStats' => $serverStats,
-            'error' => $error,
+            'servers' => $dcsBotService->getServers(true),
+            'serverStats' => $dcsBotService->getServerStats(true),
         ]);
     }
 

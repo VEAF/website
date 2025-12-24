@@ -25,7 +25,3 @@
 /.php_cs.cache
 /.php-cs-fixer.cache
 ###< friendsofphp/php-cs-fixer ###
-
-###> external API contracts ###
-/contracts/
-###< external API contracts ###
