@@ -1,15 +1,5 @@
 # DCSServerBot API client configuration
 services:
-    # Guzzle HTTP client for DCSServerBot API
-    dcsserverbot.http_client:
-        class: GuzzleHttp\Client
-        arguments:
-            - base_uri: '%api_dcsserverbot_url%'
-              timeout: 30
-              http_errors: true
-              headers:
-                  User-Agent: 'VEAF-Website/1.0'
-
     # DCSServerBot API Configuration
     DcsServerBot\Configuration:
         factory: ['DcsServerBot\Configuration', 'getDefaultConfiguration']
@@ -17,17 +7,18 @@ services:
             - setHost: ['%api_dcsserverbot_url%']
 
     # API clients - injectable in services and controllers
+    # Uses Eight Points Guzzle client for WebProfiler integration
     DcsServerBot\Api\InfoApi:
         arguments:
-            - '@dcsserverbot.http_client'
+            - '@eight_points_guzzle.client.dcsserverbot'
             - '@DcsServerBot\Configuration'
 
     DcsServerBot\Api\StatisticsApi:
         arguments:
-            - '@dcsserverbot.http_client'
+            - '@eight_points_guzzle.client.dcsserverbot'
             - '@DcsServerBot\Configuration'
 
     DcsServerBot\Api\CreditsApi:
         arguments:
-            - '@dcsserverbot.http_client'
+            - '@eight_points_guzzle.client.dcsserverbot'
             - '@DcsServerBot\Configuration'

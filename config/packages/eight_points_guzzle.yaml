@@ -23,3 +23,12 @@ eight_points_guzzle:
             # Find plugins here:
             # https://github.com/8p/EightPointsGuzzleBundle#known-and-supported-plugins
             plugin: null
+
+        dcsserverbot:
+            base_url: "%api_dcsserverbot_url%"
+            options:
+                timeout: 30
+                http_errors: true
+                headers:
+                    User-Agent: "VEAF-Website/1.0"
+            plugin: null
