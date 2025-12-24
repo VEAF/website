@@ -29,7 +29,7 @@
                     <tbody>
                     {% for server in servers %}
                         <tr>
-                            <td><a href="{{ path('dcsbot_server', {serverName: server.name}) }}">{{ server.name }}</a></td>
+                            <td><a href="{{ path('dcsbot_server', {serverName: server.name}) }}">{{ server.name|split('-', 2)|last }}</a></td>
                             <td>
                                 {% if server.status == 'Running' %}
                                     <span class="badge badge-success"><i class="fas fa-play mr-1"></i>{{ server.status }}</span>

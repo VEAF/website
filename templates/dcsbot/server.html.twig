@@ -13,33 +13,25 @@
 
     {% if server %}
     <div class="container container-main pt-3 pb-3 mb-3">
-        <div class="row mb-3 ml-1 mr-1">
-            <div class="col-12">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ path('dcsbot_stats') }}">Serveurs DCS</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">{{ server.name }}</li>
-                    </ol>
-                </nav>
-            </div>
-        </div>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path('dcsbot_stats') }}">Serveurs DCS</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ server.name }}</li>
+            </ol>
+        </nav>
 
-        <div class="row mb-3 ml-1 mr-1">
-            <div class="col-12">
-                <h1>
-                    {{ server.name }}
-                    {% if server.status == 'Running' %}
-                        <span class="badge badge-success">{{ server.status }}</span>
-                    {% elseif server.status == 'Paused' %}
-                        <span class="badge badge-warning">{{ server.status }}</span>
-                    {% elseif server.status == 'Shutdown' %}
-                        <span class="badge badge-secondary">{{ server.status }}</span>
-                    {% else %}
-                        <span class="badge badge-info">{{ server.status }}</span>
-                    {% endif %}
-                </h1>
-            </div>
-        </div>
+        <h1>
+            {{ server.name }}
+            {% if server.status == 'Running' %}
+                <span class="badge badge-success">{{ server.status }}</span>
+            {% elseif server.status == 'Paused' %}
+                <span class="badge badge-warning">{{ server.status }}</span>
+            {% elseif server.status == 'Shutdown' %}
+                <span class="badge badge-secondary">{{ server.status }}</span>
+            {% else %}
+                <span class="badge badge-info">{{ server.status }}</span>
+            {% endif %}
+        </h1>
 
         <div class="row mb-3">
             <div class="col-md-6">
@@ -125,9 +117,9 @@
                                 <td>{{ player.nick }}</td>
                                 <td>{{ player.callsign }}</td>
                                 <td>
-                                    {% if player.side == 'Blue' %}
+                                    {% if player.side|lower == 'blue' %}
                                         <span class="badge badge-primary">{{ player.side }}</span>
-                                    {% elseif player.side == 'Red' %}
+                                    {% elseif player.side|lower == 'red' %}
                                         <span class="badge badge-danger">{{ player.side }}</span>
                                     {% else %}
                                         <span class="badge badge-secondary">{{ player.side }}</span>
