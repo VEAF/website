@@ -1,0 +1,4 @@
+- UPDATED Weather display on server page: replaced inline alert bar with uniform card layout for clouds and visibility information.
+- ADDED Cloud base altitude conversion to feet (ft) alongside meters.
+- ADDED Visibility distance conversion to nautical miles (NM) alongside kilometers.
+- ADDED Cloud density display (always shown as X/8 scale).

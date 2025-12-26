@@ -170,36 +170,58 @@
             </div>
         </div>
         <div class="row mb-3">
-            <div class="col-12">
-                <div class="alert alert-secondary mb-0">
-                    {% set hasWeatherInfo = false %}
-                    {% if server.weather.visibility %}
-                        <span class="mr-3"><i class="fa fa-eye"></i> Visibilité: {{ (server.weather.visibility / 1000)|round(1) }} km</span>
-                        {% set hasWeatherInfo = true %}
-                    {% endif %}
-                    {% if server.weather.cloudsBase %}
-                        <span class="mr-3"><i class="fa fa-cloud"></i> Base nuages: {{ server.weather.cloudsBase }} m</span>
-                        {% set hasWeatherInfo = true %}
-                    {% endif %}
-                    {% if server.weather.cloudsDensity > 0 %}
-                        <span class="mr-3">Densité: {{ server.weather.cloudsDensity }}/8</span>
-                        {% set hasWeatherInfo = true %}
-                    {% endif %}
-                    {% if server.weather.precipitation > 0 %}
-                        <span class="mr-3"><i class="fa fa-cloud-rain"></i> Précipitations</span>
-                        {% set hasWeatherInfo = true %}
-                    {% endif %}
-                    {% if server.weather.fogEnabled %}
-                        <span class="mr-3"><i class="fa fa-smog"></i> Brouillard ({{ server.weather.fogVisibility }} m)</span>
-                        {% set hasWeatherInfo = true %}
-                    {% endif %}
-                    {% if server.weather.dustEnabled %}
-                        <span class="mr-3"><i class="fa fa-wind"></i> Poussière ({{ server.weather.dustVisibility }} m)</span>
-                        {% set hasWeatherInfo = true %}
-                    {% endif %}
-                    {% if not hasWeatherInfo %}
-                        <span>Conditions standard</span>
-                    {% endif %}
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0"><i class="fa fa-cloud"></i> Nuages</h5>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-sm mb-0">
+                            <tr>
+                                <th><i class="fa fa-arrows-alt-v"></i> Base</th>
+                                <td>{{ server.weather.cloudsBase ? server.weather.cloudsBase ~ ' m' : '-' }}</td>
+                                <td>{{ server.weather.cloudsBase ? ((server.weather.cloudsBase * 3.28084)|round(0) ~ ' ft') : '-' }}</td>
+                            </tr>
+                            <tr>
+                                <th><i class="fa fa-th"></i> Densité</th>
+                                <td colspan="2">{{ server.weather.cloudsDensity }}/8</td>
+                            </tr>
+                            {% if server.weather.precipitation > 0 %}
+                            <tr>
+                                <th><i class="fa fa-cloud-rain"></i> Précipitations</th>
+                                <td colspan="2">Oui</td>
+                            </tr>
+                            {% endif %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0"><i class="fa fa-eye"></i> Visibilité</h5>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-sm mb-0">
+                            <tr>
+                                <th><i class="fa fa-binoculars"></i> Distance</th>
+                                <td>{{ server.weather.visibility ? ((server.weather.visibility / 1000)|round(1) ~ ' km') : '-' }}</td>
+                                <td>{{ server.weather.visibility ? ((server.weather.visibility / 1852)|round(1) ~ ' NM') : '-' }}</td>
+                            </tr>
+                            {% if server.weather.fogEnabled %}
+                            <tr>
+                                <th><i class="fa fa-smog"></i> Brouillard</th>
+                                <td colspan="2">{{ server.weather.fogVisibility }} m</td>
+                            </tr>
+                            {% endif %}
+                            {% if server.weather.dustEnabled %}
+                            <tr>
+                                <th><i class="fa fa-wind"></i> Poussière</th>
+                                <td colspan="2">{{ server.weather.dustVisibility }} m</td>
+                            </tr>
+                            {% endif %}
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
