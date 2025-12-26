@@ -42,7 +42,7 @@
                                 {% endif %}
                             </td>
                             <td>{{ server.mission ? server.mission.theatre : '-' }}</td>
-                            <td>{{ server.mission ? server.mission.name : '-' }}</td>
+                            <td>{{ server.mission ? server.mission.name|replace({'_': ' '}) : '-' }}</td>
                             <td>
                                 {% if server.status == 'Running' %}
                                     {% if server.players %}
