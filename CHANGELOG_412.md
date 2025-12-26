@@ -1,3 +1,0 @@
-- ADDED Mission time display on server list and server detail view
-- ADDED Colored sun position icon (day/night/dawn/dusk) based on theatre and mission time
-- ADDED Full mission date in tooltip on time hover
