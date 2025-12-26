@@ -1,6 +1,6 @@
 <?php
 /**
- * ServerInfo
+ * TopModule
  *
  * PHP version 8.1
  *
@@ -32,7 +32,7 @@ use \ArrayAccess;
 use \DcsServerBot\ObjectSerializer;
 
 /**
- * ServerInfo Class Doc Comment
+ * TopModule Class Doc Comment
  *
  * @category Class
  * @package  DcsServerBot
@@ -40,7 +40,7 @@ use \DcsServerBot\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class ServerInfo implements ModelInterface, ArrayAccess, \JsonSerializable
+class TopModule implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -49,7 +49,7 @@ class ServerInfo implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'ServerInfo';
+    protected static $openAPIModelName = 'TopModule';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -57,15 +57,10 @@ class ServerInfo implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'name' => 'string',
-        'status' => 'string',
-        'address' => 'string',
-        'password' => 'string',
-        'restart_time' => '\DateTime',
-        'mission' => '\DcsServerBot\Model\MissionInfo',
-        'extensions' => '\DcsServerBot\Model\ExtensionInfo[]',
-        'players' => '\DcsServerBot\Model\PlayerEntry[]',
-        'weather' => '\DcsServerBot\Model\WeatherInfo'
+        'module' => 'string',
+        'playtime_hours' => 'int',
+        'unique_players' => 'int',
+        'total_uses' => 'int'
     ];
 
     /**
@@ -76,15 +71,10 @@ class ServerInfo implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'name' => null,
-        'status' => null,
-        'address' => null,
-        'password' => null,
-        'restart_time' => 'date-time',
-        'mission' => null,
-        'extensions' => null,
-        'players' => null,
-        'weather' => null
+        'module' => null,
+        'playtime_hours' => null,
+        'unique_players' => null,
+        'total_uses' => null
     ];
 
     /**
@@ -93,15 +83,10 @@ class ServerInfo implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'name' => false,
-        'status' => false,
-        'address' => false,
-        'password' => false,
-        'restart_time' => true,
-        'mission' => true,
-        'extensions' => false,
-        'players' => false,
-        'weather' => true
+        'module' => false,
+        'playtime_hours' => false,
+        'unique_players' => false,
+        'total_uses' => false
     ];
 
     /**
@@ -190,15 +175,10 @@ class ServerInfo implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'name' => 'name',
-        'status' => 'status',
-        'address' => 'address',
-        'password' => 'password',
-        'restart_time' => 'restart_time',
-        'mission' => 'mission',
-        'extensions' => 'extensions',
-        'players' => 'players',
-        'weather' => 'weather'
+        'module' => 'module',
+        'playtime_hours' => 'playtime_hours',
+        'unique_players' => 'unique_players',
+        'total_uses' => 'total_uses'
     ];
 
     /**
@@ -207,15 +187,10 @@ class ServerInfo implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'name' => 'setName',
-        'status' => 'setStatus',
-        'address' => 'setAddress',
-        'password' => 'setPassword',
-        'restart_time' => 'setRestartTime',
-        'mission' => 'setMission',
-        'extensions' => 'setExtensions',
-        'players' => 'setPlayers',
-        'weather' => 'setWeather'
+        'module' => 'setModule',
+        'playtime_hours' => 'setPlaytimeHours',
+        'unique_players' => 'setUniquePlayers',
+        'total_uses' => 'setTotalUses'
     ];
 
     /**
@@ -224,15 +199,10 @@ class ServerInfo implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'name' => 'getName',
-        'status' => 'getStatus',
-        'address' => 'getAddress',
-        'password' => 'getPassword',
-        'restart_time' => 'getRestartTime',
-        'mission' => 'getMission',
-        'extensions' => 'getExtensions',
-        'players' => 'getPlayers',
-        'weather' => 'getWeather'
+        'module' => 'getModule',
+        'playtime_hours' => 'getPlaytimeHours',
+        'unique_players' => 'getUniquePlayers',
+        'total_uses' => 'getTotalUses'
     ];
 
     /**
@@ -292,15 +262,10 @@ class ServerInfo implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('name', $data ?? [], null);
-        $this->setIfExists('status', $data ?? [], null);
-        $this->setIfExists('address', $data ?? [], null);
-        $this->setIfExists('password', $data ?? [], null);
-        $this->setIfExists('restart_time', $data ?? [], null);
-        $this->setIfExists('mission', $data ?? [], null);
-        $this->setIfExists('extensions', $data ?? [], null);
-        $this->setIfExists('players', $data ?? [], null);
-        $this->setIfExists('weather', $data ?? [], null);
+        $this->setIfExists('module', $data ?? [], null);
+        $this->setIfExists('playtime_hours', $data ?? [], null);
+        $this->setIfExists('unique_players', $data ?? [], null);
+        $this->setIfExists('total_uses', $data ?? [], null);
     }
 
     /**
@@ -330,17 +295,17 @@ class ServerInfo implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if ($this->container['name'] === null) {
-            $invalidProperties[] = "'name' can't be null";
+        if ($this->container['module'] === null) {
+            $invalidProperties[] = "'module' can't be null";
         }
-        if ($this->container['status'] === null) {
-            $invalidProperties[] = "'status' can't be null";
+        if ($this->container['playtime_hours'] === null) {
+            $invalidProperties[] = "'playtime_hours' can't be null";
         }
-        if ($this->container['address'] === null) {
-            $invalidProperties[] = "'address' can't be null";
+        if ($this->container['unique_players'] === null) {
+            $invalidProperties[] = "'unique_players' can't be null";
         }
-        if ($this->container['password'] === null) {
-            $invalidProperties[] = "'password' can't be null";
+        if ($this->container['total_uses'] === null) {
+            $invalidProperties[] = "'total_uses' can't be null";
         }
         return $invalidProperties;
     }
@@ -358,265 +323,109 @@ class ServerInfo implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets name
+     * Gets module
      *
      * @return string
      */
-    public function getName()
+    public function getModule()
     {
-        return $this->container['name'];
+        return $this->container['module'];
     }
 
     /**
-     * Sets name
+     * Sets module
      *
-     * @param string $name Name of the server
+     * @param string $module module
      *
      * @return self
      */
-    public function setName($name)
+    public function setModule($module)
     {
-        if (is_null($name)) {
-            throw new \InvalidArgumentException('non-nullable name cannot be null');
+        if (is_null($module)) {
+            throw new \InvalidArgumentException('non-nullable module cannot be null');
         }
-        $this->container['name'] = $name;
+        $this->container['module'] = $module;
 
         return $this;
     }
 
     /**
-     * Gets status
+     * Gets playtime_hours
      *
-     * @return string
+     * @return int
      */
-    public function getStatus()
+    public function getPlaytimeHours()
     {
-        return $this->container['status'];
+        return $this->container['playtime_hours'];
     }
 
     /**
-     * Sets status
+     * Sets playtime_hours
      *
-     * @param string $status Server status
+     * @param int $playtime_hours playtime_hours
      *
      * @return self
      */
-    public function setStatus($status)
+    public function setPlaytimeHours($playtime_hours)
     {
-        if (is_null($status)) {
-            throw new \InvalidArgumentException('non-nullable status cannot be null');
+        if (is_null($playtime_hours)) {
+            throw new \InvalidArgumentException('non-nullable playtime_hours cannot be null');
         }
-        $this->container['status'] = $status;
+        $this->container['playtime_hours'] = $playtime_hours;
 
         return $this;
     }
 
     /**
-     * Gets address
+     * Gets unique_players
      *
-     * @return string
+     * @return int
      */
-    public function getAddress()
+    public function getUniquePlayers()
     {
-        return $this->container['address'];
+        return $this->container['unique_players'];
     }
 
     /**
-     * Sets address
+     * Sets unique_players
      *
-     * @param string $address IP address and port
+     * @param int $unique_players unique_players
      *
      * @return self
      */
-    public function setAddress($address)
+    public function setUniquePlayers($unique_players)
     {
-        if (is_null($address)) {
-            throw new \InvalidArgumentException('non-nullable address cannot be null');
+        if (is_null($unique_players)) {
+            throw new \InvalidArgumentException('non-nullable unique_players cannot be null');
         }
-        $this->container['address'] = $address;
+        $this->container['unique_players'] = $unique_players;
 
         return $this;
     }
 
     /**
-     * Gets password
+     * Gets total_uses
      *
-     * @return string
+     * @return int
      */
-    public function getPassword()
+    public function getTotalUses()
     {
-        return $this->container['password'];
+        return $this->container['total_uses'];
     }
 
     /**
-     * Sets password
+     * Sets total_uses
      *
-     * @param string $password Server password
+     * @param int $total_uses total_uses
      *
      * @return self
      */
-    public function setPassword($password)
+    public function setTotalUses($total_uses)
     {
-        if (is_null($password)) {
-            throw new \InvalidArgumentException('non-nullable password cannot be null');
+        if (is_null($total_uses)) {
+            throw new \InvalidArgumentException('non-nullable total_uses cannot be null');
         }
-        $this->container['password'] = $password;
-
-        return $this;
-    }
-
-    /**
-     * Gets restart_time
-     *
-     * @return \DateTime|null
-     */
-    public function getRestartTime()
-    {
-        return $this->container['restart_time'];
-    }
-
-    /**
-     * Sets restart_time
-     *
-     * @param \DateTime|null $restart_time restart_time
-     *
-     * @return self
-     */
-    public function setRestartTime($restart_time)
-    {
-        if (is_null($restart_time)) {
-            array_push($this->openAPINullablesSetToNull, 'restart_time');
-        } else {
-            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
-            $index = array_search('restart_time', $nullablesSetToNull);
-            if ($index !== FALSE) {
-                unset($nullablesSetToNull[$index]);
-                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
-            }
-        }
-        $this->container['restart_time'] = $restart_time;
-
-        return $this;
-    }
-
-    /**
-     * Gets mission
-     *
-     * @return \DcsServerBot\Model\MissionInfo|null
-     */
-    public function getMission()
-    {
-        return $this->container['mission'];
-    }
-
-    /**
-     * Sets mission
-     *
-     * @param \DcsServerBot\Model\MissionInfo|null $mission mission
-     *
-     * @return self
-     */
-    public function setMission($mission)
-    {
-        if (is_null($mission)) {
-            array_push($this->openAPINullablesSetToNull, 'mission');
-        } else {
-            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
-            $index = array_search('mission', $nullablesSetToNull);
-            if ($index !== FALSE) {
-                unset($nullablesSetToNull[$index]);
-                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
-            }
-        }
-        $this->container['mission'] = $mission;
-
-        return $this;
-    }
-
-    /**
-     * Gets extensions
-     *
-     * @return \DcsServerBot\Model\ExtensionInfo[]|null
-     */
-    public function getExtensions()
-    {
-        return $this->container['extensions'];
-    }
-
-    /**
-     * Sets extensions
-     *
-     * @param \DcsServerBot\Model\ExtensionInfo[]|null $extensions extensions
-     *
-     * @return self
-     */
-    public function setExtensions($extensions)
-    {
-        if (is_null($extensions)) {
-            throw new \InvalidArgumentException('non-nullable extensions cannot be null');
-        }
-        $this->container['extensions'] = $extensions;
-
-        return $this;
-    }
-
-    /**
-     * Gets players
-     *
-     * @return \DcsServerBot\Model\PlayerEntry[]|null
-     */
-    public function getPlayers()
-    {
-        return $this->container['players'];
-    }
-
-    /**
-     * Sets players
-     *
-     * @param \DcsServerBot\Model\PlayerEntry[]|null $players players
-     *
-     * @return self
-     */
-    public function setPlayers($players)
-    {
-        if (is_null($players)) {
-            throw new \InvalidArgumentException('non-nullable players cannot be null');
-        }
-        $this->container['players'] = $players;
-
-        return $this;
-    }
-
-    /**
-     * Gets weather
-     *
-     * @return \DcsServerBot\Model\WeatherInfo|null
-     */
-    public function getWeather()
-    {
-        return $this->container['weather'];
-    }
-
-    /**
-     * Sets weather
-     *
-     * @param \DcsServerBot\Model\WeatherInfo|null $weather weather
-     *
-     * @return self
-     */
-    public function setWeather($weather)
-    {
-        if (is_null($weather)) {
-            array_push($this->openAPINullablesSetToNull, 'weather');
-        } else {
-            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
-            $index = array_search('weather', $nullablesSetToNull);
-            if ($index !== FALSE) {
-                unset($nullablesSetToNull[$index]);
-                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
-            }
-        }
-        $this->container['weather'] = $weather;
+        $this->container['total_uses'] = $total_uses;
 
         return $this;
     }
