@@ -47,7 +47,7 @@ class Vote
     private ?Event $event;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private ?bool $vote;
 
