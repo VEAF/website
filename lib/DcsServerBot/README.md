@@ -79,14 +79,15 @@ Class | Method | HTTP request | Description
 *InfoApi* | [**getuserServerapiGetuserPost**](docs/Api/InfoApi.md#getuserserverapigetuserpost) | **POST** /serverapi/getuser | User list
 *InfoApi* | [**linkmeServerapiLinkmePost**](docs/Api/InfoApi.md#linkmeserverapilinkmepost) | **POST** /serverapi/linkme | Link Discord to DCS
 *InfoApi* | [**playerSquadronsServerapiPlayerSquadronsPost**](docs/Api/InfoApi.md#playersquadronsserverapiplayersquadronspost) | **POST** /serverapi/player_squadrons | Player Squadrons
+*InfoApi* | [**serverAttendanceServerapiServerAttendanceGet**](docs/Api/InfoApi.md#serverattendanceserverapiserverattendanceget) | **GET** /serverapi/server_attendance | Server Attendance Statistics
 *InfoApi* | [**serversServerapiServersGet**](docs/Api/InfoApi.md#serversserverapiserversget) | **GET** /serverapi/servers | Server list
 *InfoApi* | [**serverstatsServerapiServerstatsGet**](docs/Api/InfoApi.md#serverstatsserverapiserverstatsget) | **GET** /serverapi/serverstats | Server Statistics
 *InfoApi* | [**squadronMembersServerapiSquadronMembersPost**](docs/Api/InfoApi.md#squadronmembersserverapisquadronmemberspost) | **POST** /serverapi/squadron_members | Squadron Members
 *InfoApi* | [**squadronsServerapiSquadronsGet**](docs/Api/InfoApi.md#squadronsserverapisquadronsget) | **GET** /serverapi/squadrons | Squadron list
 *StatisticsApi* | [**highscoreServerapiHighscoreGet**](docs/Api/StatisticsApi.md#highscoreserverapihighscoreget) | **GET** /serverapi/highscore | Highscore
 *StatisticsApi* | [**leaderboardServerapiLeaderboardGet**](docs/Api/StatisticsApi.md#leaderboardserverapileaderboardget) | **GET** /serverapi/leaderboard | Leaderboard
+*StatisticsApi* | [**modulestatsServerapiModulestatsPost**](docs/Api/StatisticsApi.md#modulestatsserverapimodulestatspost) | **POST** /serverapi/modulestats | Module Statistics
 *StatisticsApi* | [**playerInfoServerapiPlayerInfoPost**](docs/Api/StatisticsApi.md#playerinfoserverapiplayerinfopost) | **POST** /serverapi/player_info | Player Information
-*StatisticsApi* | [**statsServerapiModulestatsPost**](docs/Api/StatisticsApi.md#statsserverapimodulestatspost) | **POST** /serverapi/modulestats | Module Statistics
 *StatisticsApi* | [**statsServerapiStatsPost**](docs/Api/StatisticsApi.md#statsserverapistatspost) | **POST** /serverapi/stats | Player Statistics
 *StatisticsApi* | [**topkdrServerapiTopkdrGet**](docs/Api/StatisticsApi.md#topkdrserverapitopkdrget) | **GET** /serverapi/topkdr | Top KDR
 *StatisticsApi* | [**topkillsServerapiTopkillsGet**](docs/Api/StatisticsApi.md#topkillsserverapitopkillsget) | **GET** /serverapi/topkills | Top Kills
@@ -111,17 +112,22 @@ Class | Method | HTTP request | Description
 - [PlayerSquadron](docs/Model/PlayerSquadron.md)
 - [PlayerStats](docs/Model/PlayerStats.md)
 - [PlaytimeEntry](docs/Model/PlaytimeEntry.md)
+- [ServerAttendanceStats](docs/Model/ServerAttendanceStats.md)
 - [ServerInfo](docs/Model/ServerInfo.md)
 - [ServerStats](docs/Model/ServerStats.md)
 - [SquadronCampaignCredit](docs/Model/SquadronCampaignCredit.md)
 - [SquadronInfo](docs/Model/SquadronInfo.md)
 - [TopKill](docs/Model/TopKill.md)
+- [TopMission](docs/Model/TopMission.md)
+- [TopModule](docs/Model/TopModule.md)
+- [TopTheatre](docs/Model/TopTheatre.md)
 - [TrapEntry](docs/Model/TrapEntry.md)
 - [Trueskill](docs/Model/Trueskill.md)
 - [UserEntry](docs/Model/UserEntry.md)
 - [ValidationError](docs/Model/ValidationError.md)
 - [ValidationErrorLocInner](docs/Model/ValidationErrorLocInner.md)
 - [WeaponPK](docs/Model/WeaponPK.md)
+- [WeatherInfo](docs/Model/WeatherInfo.md)
 
 ## Authorization
 Endpoints do not require authorization.

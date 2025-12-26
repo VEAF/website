@@ -10,6 +10,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**getuserServerapiGetuserPost()**](InfoApi.md#getuserServerapiGetuserPost) | **POST** /serverapi/getuser | User list |
 | [**linkmeServerapiLinkmePost()**](InfoApi.md#linkmeServerapiLinkmePost) | **POST** /serverapi/linkme | Link Discord to DCS |
 | [**playerSquadronsServerapiPlayerSquadronsPost()**](InfoApi.md#playerSquadronsServerapiPlayerSquadronsPost) | **POST** /serverapi/player_squadrons | Player Squadrons |
+| [**serverAttendanceServerapiServerAttendanceGet()**](InfoApi.md#serverAttendanceServerapiServerAttendanceGet) | **GET** /serverapi/server_attendance | Server Attendance Statistics |
 | [**serversServerapiServersGet()**](InfoApi.md#serversServerapiServersGet) | **GET** /serverapi/servers | Server list |
 | [**serverstatsServerapiServerstatsGet()**](InfoApi.md#serverstatsServerapiServerstatsGet) | **GET** /serverapi/serverstats | Server Statistics |
 | [**squadronMembersServerapiSquadronMembersPost()**](InfoApi.md#squadronMembersServerapiSquadronMembersPost) | **POST** /serverapi/squadron_members | Squadron Members |
@@ -240,6 +241,62 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: `application/x-www-form-urlencoded`
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `serverAttendanceServerapiServerAttendanceGet()`
+
+```php
+serverAttendanceServerapiServerAttendanceGet($server_name): \DcsServerBot\Model\ServerAttendanceStats
+```
+
+Server Attendance Statistics
+
+Get detailed server attendance statistics
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new DcsServerBot\Api\InfoApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$server_name = 'server_name_example'; // string
+
+try {
+    $result = $apiInstance->serverAttendanceServerapiServerAttendanceGet($server_name);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling InfoApi->serverAttendanceServerapiServerAttendanceGet: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **server_name** | **string**|  | [optional] |
+
+### Return type
+
+[**\DcsServerBot\Model\ServerAttendanceStats**](../Model/ServerAttendanceStats.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: `application/json`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)

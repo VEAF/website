@@ -80,10 +80,10 @@ class StatisticsApi
         'leaderboardServerapiLeaderboardGet' => [
             'application/json',
         ],
-        'playerInfoServerapiPlayerInfoPost' => [
+        'modulestatsServerapiModulestatsPost' => [
             'application/x-www-form-urlencoded',
         ],
-        'statsServerapiModulestatsPost' => [
+        'playerInfoServerapiPlayerInfoPost' => [
             'application/x-www-form-urlencoded',
         ],
         'statsServerapiStatsPost' => [
@@ -818,6 +818,303 @@ class StatisticsApi
     }
 
     /**
+     * Operation modulestatsServerapiModulestatsPost
+     *
+     * Module Statistics
+     *
+     * @param  string $nick nick (required)
+     * @param  string|null $date date (optional)
+     * @param  string|null $server_name server_name (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['modulestatsServerapiModulestatsPost'] to see the possible values for this operation
+     *
+     * @throws \DcsServerBot\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \DcsServerBot\Model\ModuleStats[]|\DcsServerBot\Model\HTTPValidationError
+     */
+    public function modulestatsServerapiModulestatsPost($nick, $date = null, $server_name = null, string $contentType = self::contentTypes['modulestatsServerapiModulestatsPost'][0])
+    {
+        list($response) = $this->modulestatsServerapiModulestatsPostWithHttpInfo($nick, $date, $server_name, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation modulestatsServerapiModulestatsPostWithHttpInfo
+     *
+     * Module Statistics
+     *
+     * @param  string $nick (required)
+     * @param  string|null $date (optional)
+     * @param  string|null $server_name (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['modulestatsServerapiModulestatsPost'] to see the possible values for this operation
+     *
+     * @throws \DcsServerBot\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \DcsServerBot\Model\ModuleStats[]|\DcsServerBot\Model\HTTPValidationError, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function modulestatsServerapiModulestatsPostWithHttpInfo($nick, $date = null, $server_name = null, string $contentType = self::contentTypes['modulestatsServerapiModulestatsPost'][0])
+    {
+        $request = $this->modulestatsServerapiModulestatsPostRequest($nick, $date, $server_name, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\DcsServerBot\Model\ModuleStats[]',
+                        $request,
+                        $response,
+                    );
+                case 422:
+                    return $this->handleResponseWithDataType(
+                        '\DcsServerBot\Model\HTTPValidationError',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\DcsServerBot\Model\ModuleStats[]',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\DcsServerBot\Model\ModuleStats[]',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\DcsServerBot\Model\HTTPValidationError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation modulestatsServerapiModulestatsPostAsync
+     *
+     * Module Statistics
+     *
+     * @param  string $nick (required)
+     * @param  string|null $date (optional)
+     * @param  string|null $server_name (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['modulestatsServerapiModulestatsPost'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function modulestatsServerapiModulestatsPostAsync($nick, $date = null, $server_name = null, string $contentType = self::contentTypes['modulestatsServerapiModulestatsPost'][0])
+    {
+        return $this->modulestatsServerapiModulestatsPostAsyncWithHttpInfo($nick, $date, $server_name, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation modulestatsServerapiModulestatsPostAsyncWithHttpInfo
+     *
+     * Module Statistics
+     *
+     * @param  string $nick (required)
+     * @param  string|null $date (optional)
+     * @param  string|null $server_name (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['modulestatsServerapiModulestatsPost'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function modulestatsServerapiModulestatsPostAsyncWithHttpInfo($nick, $date = null, $server_name = null, string $contentType = self::contentTypes['modulestatsServerapiModulestatsPost'][0])
+    {
+        $returnType = '\DcsServerBot\Model\ModuleStats[]';
+        $request = $this->modulestatsServerapiModulestatsPostRequest($nick, $date, $server_name, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'modulestatsServerapiModulestatsPost'
+     *
+     * @param  string $nick (required)
+     * @param  string|null $date (optional)
+     * @param  string|null $server_name (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['modulestatsServerapiModulestatsPost'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function modulestatsServerapiModulestatsPostRequest($nick, $date = null, $server_name = null, string $contentType = self::contentTypes['modulestatsServerapiModulestatsPost'][0])
+    {
+
+        // verify the required parameter 'nick' is set
+        if ($nick === null || (is_array($nick) && count($nick) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $nick when calling modulestatsServerapiModulestatsPost'
+            );
+        }
+
+
+
+
+        $resourcePath = '/serverapi/modulestats';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+        // form params
+        $formDataProcessor = new FormDataProcessor();
+
+        $formData = $formDataProcessor->prepare([
+            'nick' => $nick,
+            'date' => $date,
+            'server_name' => $server_name,
+        ]);
+
+        $formParams = $formDataProcessor->flatten($formData);
+        $multipart = $formDataProcessor->has_file;
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation playerInfoServerapiPlayerInfoPost
      *
      * Player Information
@@ -1056,310 +1353,6 @@ class StatisticsApi
             'nick' => $nick,
             'date' => $date,
             'server_name' => $server_name,
-        ]);
-
-        $formParams = $formDataProcessor->flatten($formData);
-        $multipart = $formDataProcessor->has_file;
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'POST',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation statsServerapiModulestatsPost
-     *
-     * Module Statistics
-     *
-     * @param  string $nick nick (required)
-     * @param  string|null $date date (optional)
-     * @param  string|null $server_name server_name (optional)
-     * @param  bool|null $last_session last_session (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['statsServerapiModulestatsPost'] to see the possible values for this operation
-     *
-     * @throws \DcsServerBot\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return \DcsServerBot\Model\ModuleStats|\DcsServerBot\Model\HTTPValidationError
-     */
-    public function statsServerapiModulestatsPost($nick, $date = null, $server_name = null, $last_session = null, string $contentType = self::contentTypes['statsServerapiModulestatsPost'][0])
-    {
-        list($response) = $this->statsServerapiModulestatsPostWithHttpInfo($nick, $date, $server_name, $last_session, $contentType);
-        return $response;
-    }
-
-    /**
-     * Operation statsServerapiModulestatsPostWithHttpInfo
-     *
-     * Module Statistics
-     *
-     * @param  string $nick (required)
-     * @param  string|null $date (optional)
-     * @param  string|null $server_name (optional)
-     * @param  bool|null $last_session (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['statsServerapiModulestatsPost'] to see the possible values for this operation
-     *
-     * @throws \DcsServerBot\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of \DcsServerBot\Model\ModuleStats|\DcsServerBot\Model\HTTPValidationError, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function statsServerapiModulestatsPostWithHttpInfo($nick, $date = null, $server_name = null, $last_session = null, string $contentType = self::contentTypes['statsServerapiModulestatsPost'][0])
-    {
-        $request = $this->statsServerapiModulestatsPostRequest($nick, $date, $server_name, $last_session, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            switch($statusCode) {
-                case 200:
-                    return $this->handleResponseWithDataType(
-                        '\DcsServerBot\Model\ModuleStats',
-                        $request,
-                        $response,
-                    );
-                case 422:
-                    return $this->handleResponseWithDataType(
-                        '\DcsServerBot\Model\HTTPValidationError',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                '\DcsServerBot\Model\ModuleStats',
-                $request,
-                $response,
-            );
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\DcsServerBot\Model\ModuleStats',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-                case 422:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\DcsServerBot\Model\HTTPValidationError',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation statsServerapiModulestatsPostAsync
-     *
-     * Module Statistics
-     *
-     * @param  string $nick (required)
-     * @param  string|null $date (optional)
-     * @param  string|null $server_name (optional)
-     * @param  bool|null $last_session (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['statsServerapiModulestatsPost'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function statsServerapiModulestatsPostAsync($nick, $date = null, $server_name = null, $last_session = null, string $contentType = self::contentTypes['statsServerapiModulestatsPost'][0])
-    {
-        return $this->statsServerapiModulestatsPostAsyncWithHttpInfo($nick, $date, $server_name, $last_session, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation statsServerapiModulestatsPostAsyncWithHttpInfo
-     *
-     * Module Statistics
-     *
-     * @param  string $nick (required)
-     * @param  string|null $date (optional)
-     * @param  string|null $server_name (optional)
-     * @param  bool|null $last_session (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['statsServerapiModulestatsPost'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function statsServerapiModulestatsPostAsyncWithHttpInfo($nick, $date = null, $server_name = null, $last_session = null, string $contentType = self::contentTypes['statsServerapiModulestatsPost'][0])
-    {
-        $returnType = '\DcsServerBot\Model\ModuleStats';
-        $request = $this->statsServerapiModulestatsPostRequest($nick, $date, $server_name, $last_session, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'statsServerapiModulestatsPost'
-     *
-     * @param  string $nick (required)
-     * @param  string|null $date (optional)
-     * @param  string|null $server_name (optional)
-     * @param  bool|null $last_session (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['statsServerapiModulestatsPost'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function statsServerapiModulestatsPostRequest($nick, $date = null, $server_name = null, $last_session = null, string $contentType = self::contentTypes['statsServerapiModulestatsPost'][0])
-    {
-
-        // verify the required parameter 'nick' is set
-        if ($nick === null || (is_array($nick) && count($nick) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $nick when calling statsServerapiModulestatsPost'
-            );
-        }
-
-
-
-
-
-        $resourcePath = '/serverapi/modulestats';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-        // form params
-        $formDataProcessor = new FormDataProcessor();
-
-        $formData = $formDataProcessor->prepare([
-            'nick' => $nick,
-            'date' => $date,
-            'server_name' => $server_name,
-            'last_session' => $last_session,
         ]);
 
         $formParams = $formDataProcessor->flatten($formData);

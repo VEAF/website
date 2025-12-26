@@ -49,6 +49,49 @@
         }
       }
     },
+    "/serverapi/server_attendance": {
+      "get": {
+        "tags": [
+          "Info"
+        ],
+        "summary": "Server Attendance Statistics",
+        "description": "Get detailed server attendance statistics",
+        "operationId": "server_attendance_serverapi_server_attendance_get",
+        "parameters": [
+          {
+            "name": "server_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Server Name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerAttendanceStats"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/serverapi/servers": {
       "get": {
         "tags": [
@@ -713,12 +756,12 @@
         ],
         "summary": "Module Statistics",
         "description": "Get module statistics",
-        "operationId": "stats_serverapi_modulestats_post",
+        "operationId": "modulestats_serverapi_modulestats_post",
         "requestBody": {
           "content": {
             "application/x-www-form-urlencoded": {
               "schema": {
-                "$ref": "#/components/schemas/Body_stats_serverapi_modulestats_post"
+                "$ref": "#/components/schemas/Body_modulestats_serverapi_modulestats_post"
               }
             }
           },
@@ -730,7 +773,11 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ModuleStats"
+                  "items": {
+                    "$ref": "#/components/schemas/ModuleStats"
+                  },
+                  "type": "array",
+                  "title": "Response Modulestats Serverapi Modulestats Post"
                 }
               }
             }
@@ -1166,6 +1213,41 @@
         ],
         "title": "Body_linkme_serverapi_linkme_post"
       },
+      "Body_modulestats_serverapi_modulestats_post": {
+        "properties": {
+          "nick": {
+            "type": "string",
+            "title": "Nick"
+          },
+          "date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Date"
+          },
+          "server_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Server Name"
+          }
+        },
+        "type": "object",
+        "required": [
+          "nick"
+        ],
+        "title": "Body_modulestats_serverapi_modulestats_post"
+      },
       "Body_player_info_serverapi_player_info_post": {
         "properties": {
           "nick": {
@@ -1254,53 +1336,6 @@
           "name"
         ],
         "title": "Body_squadron_members_serverapi_squadron_members_post"
-      },
-      "Body_stats_serverapi_modulestats_post": {
-        "properties": {
-          "nick": {
-            "type": "string",
-            "title": "Nick"
-          },
-          "date": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Date"
-          },
-          "server_name": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Server Name"
-          },
-          "last_session": {
-            "anyOf": [
-              {
-                "type": "boolean"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Last Session",
-            "default": false
-          }
-        },
-        "type": "object",
-        "required": [
-          "nick"
-        ],
-        "title": "Body_stats_serverapi_modulestats_post"
       },
       "Body_stats_serverapi_stats_post": {
         "properties": {
@@ -2244,6 +2279,223 @@
         ],
         "title": "PlaytimeEntry"
       },
+      "ServerAttendanceStats": {
+        "properties": {
+          "current_players": {
+            "type": "integer",
+            "title": "Current Players",
+            "description": "Current number of active players"
+          },
+          "unique_players_24h": {
+            "type": "integer",
+            "title": "Unique Players 24H",
+            "description": "Unique players in last 24 hours"
+          },
+          "total_playtime_hours_24h": {
+            "type": "number",
+            "title": "Total Playtime Hours 24H",
+            "description": "Total playtime hours in last 24 hours"
+          },
+          "discord_members_24h": {
+            "type": "integer",
+            "title": "Discord Members 24H",
+            "description": "Discord members who played in last 24 hours"
+          },
+          "unique_players_7d": {
+            "type": "integer",
+            "title": "Unique Players 7D",
+            "description": "Unique players in last 7 days"
+          },
+          "total_playtime_hours_7d": {
+            "type": "number",
+            "title": "Total Playtime Hours 7D",
+            "description": "Total playtime hours in last 7 days"
+          },
+          "discord_members_7d": {
+            "type": "integer",
+            "title": "Discord Members 7D",
+            "description": "Discord members who played in last 7 days"
+          },
+          "unique_players_30d": {
+            "type": "integer",
+            "title": "Unique Players 30D",
+            "description": "Unique players in last 30 days"
+          },
+          "total_playtime_hours_30d": {
+            "type": "number",
+            "title": "Total Playtime Hours 30D",
+            "description": "Total playtime hours in last 30 days"
+          },
+          "discord_members_30d": {
+            "type": "integer",
+            "title": "Discord Members 30D",
+            "description": "Discord members who played in last 30 days"
+          },
+          "daily_trend": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Daily Trend",
+            "description": "Daily unique player counts for trend analysis"
+          },
+          "top_theatres": {
+            "items": {
+              "$ref": "#/components/schemas/TopTheatre"
+            },
+            "type": "array",
+            "title": "Top Theatres",
+            "description": "Top theatres by playtime"
+          },
+          "top_missions": {
+            "items": {
+              "$ref": "#/components/schemas/TopMission"
+            },
+            "type": "array",
+            "title": "Top Missions",
+            "description": "Top missions by playtime"
+          },
+          "top_modules": {
+            "items": {
+              "$ref": "#/components/schemas/TopModule"
+            },
+            "type": "array",
+            "title": "Top Modules",
+            "description": "Top modules by playtime and usage"
+          },
+          "total_sorties": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Total Sorties",
+            "description": "Total sorties flown"
+          },
+          "total_kills": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Total Kills",
+            "description": "Total kills"
+          },
+          "total_deaths": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Total Deaths",
+            "description": "Total deaths"
+          },
+          "total_pvp_kills": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Total Pvp Kills",
+            "description": "Total PvP kills"
+          },
+          "total_pvp_deaths": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Total Pvp Deaths",
+            "description": "Total PvP deaths"
+          }
+        },
+        "type": "object",
+        "required": [
+          "current_players",
+          "unique_players_24h",
+          "total_playtime_hours_24h",
+          "discord_members_24h",
+          "unique_players_7d",
+          "total_playtime_hours_7d",
+          "discord_members_7d",
+          "unique_players_30d",
+          "total_playtime_hours_30d",
+          "discord_members_30d"
+        ],
+        "title": "ServerAttendanceStats",
+        "description": "Server attendance statistics using monitoring plugin patterns",
+        "example": {
+          "current_players": 8,
+          "daily_trend": [
+            {
+              "date": "2025-12-24",
+              "unique_players": 15
+            },
+            {
+              "date": "2025-12-25",
+              "unique_players": 18
+            }
+          ],
+          "discord_members_24h": 12,
+          "discord_members_30d": 65,
+          "discord_members_7d": 28,
+          "top_missions": [
+            {
+              "mission_name": "Training Map",
+              "playtime_hours": 1200
+            },
+            {
+              "mission_name": "Combat Mission",
+              "playtime_hours": 800
+            }
+          ],
+          "top_modules": [
+            {
+              "module": "F/A-18C",
+              "playtime_hours": 800,
+              "total_uses": 127,
+              "unique_players": 45
+            }
+          ],
+          "top_theatres": [
+            {
+              "playtime_hours": 2500,
+              "theatre": "Caucasus"
+            },
+            {
+              "playtime_hours": 347,
+              "theatre": "Syria"
+            }
+          ],
+          "total_deaths": 567,
+          "total_kills": 892,
+          "total_playtime_hours_24h": 45.5,
+          "total_playtime_hours_30d": 720.8,
+          "total_playtime_hours_7d": 180.2,
+          "total_pvp_deaths": 189,
+          "total_pvp_kills": 234,
+          "total_sorties": 1245,
+          "unique_players_24h": 15,
+          "unique_players_30d": 85,
+          "unique_players_7d": 35
+        }
+      },
       "ServerInfo": {
         "properties": {
           "name": {
@@ -2303,6 +2555,17 @@
             },
             "type": "array",
             "title": "Players"
+          },
+          "weather": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/WeatherInfo"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Current weather information"
           }
         },
         "type": "object",
@@ -2336,7 +2599,19 @@
           "name": "DCS Server",
           "password": "secret",
           "restart_time": "2025-08-07 12:00:00",
-          "status": "running"
+          "status": "running",
+          "weather": {
+            "clouds_base": 8000,
+            "clouds_density": 4,
+            "dust_enabled": false,
+            "fog_enabled": false,
+            "precipitation": 0,
+            "pressure": 760.0,
+            "temperature": 15.5,
+            "visibility": 9999,
+            "wind_direction": 270,
+            "wind_speed": 5.2
+          }
         }
       },
       "ServerStats": {
@@ -2586,6 +2861,70 @@
           "nick": "Special K"
         }
       },
+      "TopMission": {
+        "properties": {
+          "mission_name": {
+            "type": "string",
+            "title": "Mission Name"
+          },
+          "playtime_hours": {
+            "type": "integer",
+            "title": "Playtime Hours"
+          }
+        },
+        "type": "object",
+        "required": [
+          "mission_name",
+          "playtime_hours"
+        ],
+        "title": "TopMission"
+      },
+      "TopModule": {
+        "properties": {
+          "module": {
+            "type": "string",
+            "title": "Module"
+          },
+          "playtime_hours": {
+            "type": "integer",
+            "title": "Playtime Hours"
+          },
+          "unique_players": {
+            "type": "integer",
+            "title": "Unique Players"
+          },
+          "total_uses": {
+            "type": "integer",
+            "title": "Total Uses"
+          }
+        },
+        "type": "object",
+        "required": [
+          "module",
+          "playtime_hours",
+          "unique_players",
+          "total_uses"
+        ],
+        "title": "TopModule"
+      },
+      "TopTheatre": {
+        "properties": {
+          "theatre": {
+            "type": "string",
+            "title": "Theatre"
+          },
+          "playtime_hours": {
+            "type": "integer",
+            "title": "Playtime Hours"
+          }
+        },
+        "type": "object",
+        "required": [
+          "theatre",
+          "playtime_hours"
+        ],
+        "title": "TopTheatre"
+      },
       "TrapEntry": {
         "properties": {
           "unit_type": {
@@ -2814,6 +3153,168 @@
           "pk": 0.5,
           "shots": 20,
           "weapon": "AIM-120C"
+        }
+      },
+      "WeatherInfo": {
+        "properties": {
+          "temperature": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Temperature",
+            "description": "Temperature in Celsius"
+          },
+          "wind_speed": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Wind Speed",
+            "description": "Wind speed in m/s"
+          },
+          "wind_direction": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Wind Direction",
+            "description": "Wind direction in degrees"
+          },
+          "pressure": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pressure",
+            "description": "Atmospheric pressure in mmHg"
+          },
+          "visibility": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Visibility",
+            "description": "Visibility in meters"
+          },
+          "clouds_base": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Clouds Base",
+            "description": "Cloud base altitude in feet"
+          },
+          "clouds_density": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Clouds Density",
+            "description": "Cloud density (0-10)"
+          },
+          "precipitation": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Precipitation",
+            "description": "Precipitation type (0=none, 1=rain, 2=thunderstorm, 3=snow)"
+          },
+          "fog_enabled": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fog Enabled",
+            "description": "Fog enabled"
+          },
+          "fog_visibility": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fog Visibility",
+            "description": "Fog visibility in meters"
+          },
+          "dust_enabled": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Dust Enabled",
+            "description": "Dust storm enabled"
+          },
+          "dust_visibility": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Dust Visibility",
+            "description": "Dust storm visibility in meters"
+          }
+        },
+        "type": "object",
+        "title": "WeatherInfo",
+        "example": {
+          "clouds_base": 8000,
+          "clouds_density": 4,
+          "dust_enabled": false,
+          "fog_enabled": false,
+          "precipitation": 0,
+          "pressure": 760.0,
+          "temperature": 15.5,
+          "visibility": 9999,
+          "wind_direction": 270,
+          "wind_speed": 5.2
         }
       }
     }
