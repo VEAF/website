@@ -1,0 +1,1 @@
+- FIXED Doctrine type mismatch in Vote entity by changing column type from integer to boolean
