@@ -32,20 +32,20 @@ class SunPositionExtension extends AbstractExtension
     }
 
     /**
-     * Formate la date/heure de mission en heure seule (ex: "14:30")
+     * Formate la date/heure de mission en heure seule (ex: "14:30").
      */
     public function formatMissionTime(?string $dateTime): string
     {
-        if ($dateTime === null || $dateTime === '') {
+        if (null === $dateTime || '' === $dateTime) {
             return '-';
         }
 
         $dt = \DateTime::createFromFormat('Y-m-d H:i:s', $dateTime);
-        if ($dt === false) {
+        if (false === $dt) {
             $dt = \DateTime::createFromFormat('Y-m-d H:i', $dateTime);
         }
 
-        if ($dt === false) {
+        if (false === $dt) {
             return '-';
         }
 
@@ -53,20 +53,20 @@ class SunPositionExtension extends AbstractExtension
     }
 
     /**
-     * Formate la date/heure de mission en date complète (ex: "7 août 2025")
+     * Formate la date/heure de mission en date complète (ex: "7 août 2025").
      */
     public function formatMissionDate(?string $dateTime): string
     {
-        if ($dateTime === null || $dateTime === '') {
+        if (null === $dateTime || '' === $dateTime) {
             return '-';
         }
 
         $dt = \DateTime::createFromFormat('Y-m-d H:i:s', $dateTime);
-        if ($dt === false) {
+        if (false === $dt) {
             $dt = \DateTime::createFromFormat('Y-m-d H:i', $dateTime);
         }
 
-        if ($dt === false) {
+        if (false === $dt) {
             return '-';
         }
 
@@ -93,13 +93,13 @@ class SunPositionExtension extends AbstractExtension
     }
 
     /**
-     * Retourne l'état du soleil pour une date/heure et un théâtre donnés
+     * Retourne l'état du soleil pour une date/heure et un théâtre donnés.
      *
      * @return array{state: string, icon: string, color: string, tooltip: string}
      */
     public function getSunState(?string $dateTime, ?string $theatre): array
     {
-        if ($dateTime === null || $dateTime === '' || $theatre === null || $theatre === '') {
+        if (null === $dateTime || '' === $dateTime || null === $theatre || '' === $theatre) {
             return [
                 'state' => 'day',
                 'icon' => 'fas fa-sun',

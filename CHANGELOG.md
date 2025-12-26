@@ -1,3 +1,10 @@
+### 1.17.0
+- ADD Weather information display on server page
+- ADD Mission date time and sun fuzzy position (day/night/dawn/dusk)
+- ADD Server attendance statistics based on DcsServerBot API
+- FIX Doctrine type mismatch in Vote entity by changing column type from integer to boolean
+- FIX Player count hidden when server is not running (Paused/Shutdown)
+
 ### 1.16.0
 - ADD DCS Bot statistics import command (`app:dcsbot:import`) to synchronize data into Perun database
 - ADD DcsBot Api client package and service

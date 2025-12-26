@@ -1,4 +1,0 @@
-- ADDED Weather information display on DcsBot server page
-- ADDED Server attendance statistics from DcsBot API
-- ADDED Combat statistics display (sorties, kills, deaths, PvP stats) when available
-- ADDED Top lists for theatres, missions and modules

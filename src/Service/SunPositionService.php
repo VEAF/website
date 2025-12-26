@@ -51,7 +51,7 @@ class SunPositionService
     public function getSunState(string $dateTime, string $theatre): array
     {
         $dt = $this->parseDateTime($dateTime);
-        if ($dt === null) {
+        if (null === $dt) {
             return $this->getDefaultState();
         }
 
@@ -125,13 +125,13 @@ class SunPositionService
     {
         // Format attendu: "YYYY-MM-DD HH:MM:SS"
         $dt = \DateTime::createFromFormat('Y-m-d H:i:s', $dateTime);
-        if ($dt !== false) {
+        if (false !== $dt) {
             return $dt;
         }
 
         // Essayer d'autres formats courants
         $dt = \DateTime::createFromFormat('Y-m-d H:i', $dateTime);
-        if ($dt !== false) {
+        if (false !== $dt) {
             return $dt;
         }
 
