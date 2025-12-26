@@ -32,6 +32,7 @@ class DcsBotController extends AbstractController
     {
         $server = null;
         $serverStats = null;
+        $attendance = null;
         $error = null;
 
         try {
@@ -41,6 +42,12 @@ class DcsBotController extends AbstractController
             }
             $server = $servers[0];
             $serverStats = $infoApi->serverstatsServerapiServerstatsGet($serverName);
+
+            try {
+                $attendance = $infoApi->serverAttendanceServerapiServerAttendanceGet($serverName);
+            } catch (ApiException $e) {
+                // don't raise errors when attendance is not available
+            }
         } catch (ApiException $e) {
             $error = 'Impossible de contacter le service DCSServerBot: '.$e->getMessage();
         }
@@ -48,6 +55,7 @@ class DcsBotController extends AbstractController
         return $this->render('dcsbot/server.html.twig', [
             'server' => $server,
             'serverStats' => $serverStats,
+            'attendance' => $attendance,
             'error' => $error,
         ]);
     }

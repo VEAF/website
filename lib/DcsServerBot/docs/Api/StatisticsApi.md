@@ -8,8 +8,8 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | ------------- | ------------- | ------------- |
 | [**highscoreServerapiHighscoreGet()**](StatisticsApi.md#highscoreServerapiHighscoreGet) | **GET** /serverapi/highscore | Highscore |
 | [**leaderboardServerapiLeaderboardGet()**](StatisticsApi.md#leaderboardServerapiLeaderboardGet) | **GET** /serverapi/leaderboard | Leaderboard |
+| [**modulestatsServerapiModulestatsPost()**](StatisticsApi.md#modulestatsServerapiModulestatsPost) | **POST** /serverapi/modulestats | Module Statistics |
 | [**playerInfoServerapiPlayerInfoPost()**](StatisticsApi.md#playerInfoServerapiPlayerInfoPost) | **POST** /serverapi/player_info | Player Information |
-| [**statsServerapiModulestatsPost()**](StatisticsApi.md#statsServerapiModulestatsPost) | **POST** /serverapi/modulestats | Module Statistics |
 | [**statsServerapiStatsPost()**](StatisticsApi.md#statsServerapiStatsPost) | **POST** /serverapi/stats | Player Statistics |
 | [**topkdrServerapiTopkdrGet()**](StatisticsApi.md#topkdrServerapiTopkdrGet) | **GET** /serverapi/topkdr | Top KDR |
 | [**topkillsServerapiTopkillsGet()**](StatisticsApi.md#topkillsServerapiTopkillsGet) | **GET** /serverapi/topkills | Top Kills |
@@ -144,6 +144,66 @@ No authorization required
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `modulestatsServerapiModulestatsPost()`
+
+```php
+modulestatsServerapiModulestatsPost($nick, $date, $server_name): \DcsServerBot\Model\ModuleStats[]
+```
+
+Module Statistics
+
+Get module statistics
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new DcsServerBot\Api\StatisticsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$nick = 'nick_example'; // string
+$date = 'date_example'; // string
+$server_name = 'server_name_example'; // string
+
+try {
+    $result = $apiInstance->modulestatsServerapiModulestatsPost($nick, $date, $server_name);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling StatisticsApi->modulestatsServerapiModulestatsPost: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **nick** | **string**|  | |
+| **date** | **string**|  | [optional] |
+| **server_name** | **string**|  | [optional] |
+
+### Return type
+
+[**\DcsServerBot\Model\ModuleStats[]**](../Model/ModuleStats.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: `application/x-www-form-urlencoded`
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `playerInfoServerapiPlayerInfoPost()`
 
 ```php
@@ -190,68 +250,6 @@ try {
 ### Return type
 
 [**\DcsServerBot\Model\PlayerInfo**](../Model/PlayerInfo.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: `application/x-www-form-urlencoded`
-- **Accept**: `application/json`
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
-## `statsServerapiModulestatsPost()`
-
-```php
-statsServerapiModulestatsPost($nick, $date, $server_name, $last_session): \DcsServerBot\Model\ModuleStats
-```
-
-Module Statistics
-
-Get module statistics
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-
-$apiInstance = new DcsServerBot\Api\StatisticsApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
-);
-$nick = 'nick_example'; // string
-$date = 'date_example'; // string
-$server_name = 'server_name_example'; // string
-$last_session = True; // bool
-
-try {
-    $result = $apiInstance->statsServerapiModulestatsPost($nick, $date, $server_name, $last_session);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling StatisticsApi->statsServerapiModulestatsPost: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **nick** | **string**|  | |
-| **date** | **string**|  | [optional] |
-| **server_name** | **string**|  | [optional] |
-| **last_session** | **bool**|  | [optional] |
-
-### Return type
-
-[**\DcsServerBot\Model\ModuleStats**](../Model/ModuleStats.md)
 
 ### Authorization
 
