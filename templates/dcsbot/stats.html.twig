@@ -22,6 +22,7 @@
                         <th><i class="fas fa-power-off mr-1"></i> Status</th>
                         <th><i class="fas fa-globe mr-1"></i> Theatre</th>
                         <th><i class="fas fa-fighter-jet mr-1"></i> Mission</th>
+                        <th><i class="fas fa-sun mr-1"></i> Heure</th>
                         <th><i class="fas fa-users mr-1"></i> Joueurs</th>
                         <th><i class="fas fa-clock mr-1"></i> Uptime</th>
                     </tr>
@@ -44,6 +45,17 @@
                             <td>{{ server.mission ? server.mission.theatre : '-' }}</td>
                             <td>{{ server.mission ? server.mission.name|replace({'_': ' '}) : '-' }}</td>
                             <td>
+                                {% if server.mission and server.mission.dateTime %}
+                                    {% set sun = sun_state(server.mission.dateTime, server.mission.theatre) %}
+                                    <i class="{{ sun.icon }}" style="color: {{ sun.color }}" title="{{ sun.tooltip }}"></i>
+                                    <span title="{{ server.mission.dateTime|mission_date }}">
+                                        {{ server.mission.dateTime|mission_time }}
+                                    </span>
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+                            <td>
                                 {{ server.status == 'Running' ? (server.players|default([])|length) : '-' }}
                             </td>
                             <td>
@@ -56,7 +68,7 @@
                         </tr>
                     {% else %}
                         <tr>
-                            <td colspan="6">
+                            <td colspan="7">
                                 <i>Pas de serveurs disponibles</i>
                             </td>
                         </tr>

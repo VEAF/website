@@ -92,6 +92,18 @@
                                 <th><i class="fa fa-map"></i> Théâtre</th>
                                 <td>{{ server.mission.theatre }}</td>
                             </tr>
+                            {% if server.mission.dateTime %}
+                            <tr>
+                                <th><i class="fa fa-sun"></i> Heure mission</th>
+                                <td>
+                                    {% set sun = sun_state(server.mission.dateTime, server.mission.theatre) %}
+                                    <span title="{{ server.mission.dateTime|mission_date }}">
+                                        {{ server.mission.dateTime|mission_time }}
+                                    </span>
+                                    <i class="{{ sun.icon }} ml-2" style="color: {{ sun.color }}" title="{{ sun.tooltip }}"></i>
+                                </td>
+                            </tr>
+                            {% endif %}
                             <tr>
                                 <th><i class="fa fa-clock"></i> Uptime</th>
                                 <td>{{ (server.mission.uptime / 60)|round }}min</td>
