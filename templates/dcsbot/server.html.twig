@@ -193,7 +193,7 @@
         </div>
         {% endif %}
 
-        {% if server.players and server.players|length > 0 %}
+        {% if server.status == 'Running' and server.players and server.players|length > 0 %}
         <div class="row mb-3 ml-1 mr-1">
             <div class="col-12">
                 <h2><i class="fa fa-users"></i> Joueurs en ligne ({{ server.players|length }})</h2>

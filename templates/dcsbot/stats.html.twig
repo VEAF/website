@@ -44,10 +44,14 @@
                             <td>{{ server.mission ? server.mission.theatre : '-' }}</td>
                             <td>{{ server.mission ? server.mission.name : '-' }}</td>
                             <td>
-                                {% if server.players %}
-                                    {{ server.players|length }}
+                                {% if server.status == 'Running' %}
+                                    {% if server.players %}
+                                        {{ server.players|length }}
+                                    {% else %}
+                                        0
+                                    {% endif %}
                                 {% else %}
-                                    0
+                                    -
                                 {% endif %}
                             </td>
                             <td>
