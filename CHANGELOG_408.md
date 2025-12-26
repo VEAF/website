@@ -1,0 +1,3 @@
+- UPDATED Hide player count on server list when server is not running (Paused/Shutdown)
+- UPDATED Hide players section on server detail page when server is not running
+- FIXED Replace underscores with spaces in mission and module names for better readability

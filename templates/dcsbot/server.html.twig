@@ -86,7 +86,7 @@
                         <table class="table table-sm mb-0">
                             <tr>
                                 <th><i class="fa fa-file-alt"></i> Nom</th>
-                                <td>{{ server.mission.name }}</td>
+                                <td>{{ server.mission.name|replace({'_': ' '}) }}</td>
                             </tr>
                             <tr>
                                 <th><i class="fa fa-map"></i> Théâtre</th>
@@ -193,7 +193,7 @@
         </div>
         {% endif %}
 
-        {% if server.players and server.players|length > 0 %}
+        {% if server.status == 'Running' and server.players|length > 0 %}
         <div class="row mb-3 ml-1 mr-1">
             <div class="col-12">
                 <h2><i class="fa fa-users"></i> Joueurs en ligne ({{ server.players|length }})</h2>
@@ -478,7 +478,7 @@
                             <tbody>
                             {% for mission in attendance.topMissions %}
                                 <tr>
-                                    <td>{{ mission.missionName }}</td>
+                                    <td>{{ mission.missionName|replace({'_': ' '}) }}</td>
                                     <td class="text-right">{{ mission.playtimeHours|round(1) }}h</td>
                                 </tr>
                             {% endfor %}
@@ -500,7 +500,7 @@
                             <tbody>
                             {% for module in attendance.topModules %}
                                 <tr>
-                                    <td>{{ module.module }}</td>
+                                    <td>{{ module.module|replace({'_': ' '}) }}</td>
                                     <td class="text-right">{{ module.playtimeHours|round(1) }}h</td>
                                 </tr>
                             {% endfor %}
