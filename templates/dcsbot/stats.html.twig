@@ -43,7 +43,7 @@
                                 {% endif %}
                             </td>
                             <td>{{ server.mission ? server.mission.theatre : '-' }}</td>
-                            <td>{{ server.mission ? server.mission.name|replace({'_': ' '}) : '-' }}</td>
+                            <td{% if server.mission %} title="{{ server.mission.name|replace({'_': ' '}) }}"{% endif %}>{{ server.mission ? server.mission.name|replace({'_': ' '})|strip_icao : '-' }}</td>
                             <td>
                                 {% if server.mission and server.mission.dateTime %}
                                     {% set sun = sun_state(server.mission.dateTime, server.mission.theatre) %}
