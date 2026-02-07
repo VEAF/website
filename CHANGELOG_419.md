@@ -1,0 +1,1 @@
+- FIX Cloud density now displayed as /10 (tenths) instead of /8 (octa) on server detail page
