@@ -1,3 +1,8 @@
+### 1.17.1
+- FIX display missions names without ICAO section
+- FIX Cloud density now displayed as /10 (tenths) instead of /8 (octa) on server detail page
+- FIX Header player count now only includes players from running servers (excludes paused and shutdown servers)
+
 ### 1.17.0
 - ADD Weather information display on server page
 - ADD Mission date time and sun fuzzy position (day/night/dawn/dusk)

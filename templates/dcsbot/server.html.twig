@@ -86,7 +86,7 @@
                         <table class="table table-sm mb-0">
                             <tr>
                                 <th><i class="fa fa-file-alt"></i> Nom</th>
-                                <td>{{ server.mission.name|replace({'_': ' '}) }}</td>
+                                <td title="{{ server.mission.name|replace({'_': ' '}) }}">{{ server.mission.name|replace({'_': ' '})|strip_icao }}</td>
                             </tr>
                             <tr>
                                 <th><i class="fa fa-map"></i> Théâtre</th>
@@ -184,7 +184,7 @@
                             </tr>
                             <tr>
                                 <th><i class="fa fa-th"></i> Densité</th>
-                                <td colspan="2">{{ server.weather.cloudsDensity }}/8</td>
+                                <td colspan="2">{{ server.weather.cloudsDensity }}/10</td>
                             </tr>
                             {% if server.weather.precipitation > 0 %}
                             <tr>

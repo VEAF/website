@@ -53,7 +53,20 @@ class DcsBotService
 
     public function getActivePlayers(bool $forceRefresh = false): ?int
     {
-        return $this->getServerStats($forceRefresh)?->getActivePlayers();
+        $servers = $this->getServers($forceRefresh);
+
+        if (null === $servers) {
+            return null;
+        }
+
+        $count = 0;
+        foreach ($servers as $server) {
+            if ('Running' === $server->getStatus()) {
+                $count += count($server->getPlayers() ?? []);
+            }
+        }
+
+        return $count;
     }
 
     /**
