@@ -1,1 +1,1 @@
-- FIXED display missions names without ICAO section
+- FIX display missions names without ICAO section
