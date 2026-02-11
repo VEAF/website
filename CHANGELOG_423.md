@@ -1,0 +1,1 @@
+- FIX Header player count now only includes players from running servers (excludes paused and shutdown servers)
