@@ -452,3 +452,139 @@ i.cadet {
 #footer{
     margin-bottom : 0;
 }
+
+/* ========== ATO EDITOR ========== */
+.ato-editor__toolbar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.ato-editor__flight {
+    border: 1px solid #dee2e6;
+    border-radius: .25rem;
+    margin-bottom: 1rem;
+    background: #fff;
+}
+
+.ato-editor__flight-header {
+    background: #f8f9fa;
+    padding: .75rem;
+    border-bottom: 1px solid #dee2e6;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .5rem;
+}
+
+.ato-editor__flight-header input,
+.ato-editor__flight-header select {
+    display: inline-block;
+    width: auto;
+}
+
+.ato-editor__flight-body {
+    padding: .75rem;
+    min-height: 60px;
+}
+
+.ato-editor__flight-bases {
+    font-size: .85rem;
+    color: #6c757d;
+    padding: 0 .75rem .5rem;
+}
+
+.ato-editor__slot {
+    display: inline-flex;
+    align-items: center;
+    padding: .25rem .5rem;
+    margin: .25rem;
+    background: #d4edda;
+    border-radius: .25rem;
+    cursor: grab;
+    user-select: none;
+    font-size: .9rem;
+}
+
+.ato-editor__slot:active {
+    cursor: grabbing;
+}
+
+.ato-editor__slot--maybe {
+    background: #ffeeba;
+}
+
+.ato-editor__slot--guest {
+    background: #d1ecf1;
+    font-style: italic;
+}
+
+.ato-editor__slot .fa-times {
+    margin-left: .5rem;
+    cursor: pointer;
+    opacity: .5;
+}
+
+.ato-editor__slot .fa-times:hover {
+    opacity: 1;
+    color: #dc3545;
+}
+
+.ato-editor__empty-slot {
+    border: 2px dashed #ced4da;
+    color: #adb5bd;
+    display: inline-flex;
+    align-items: center;
+    padding: .25rem .5rem;
+    margin: .25rem;
+    border-radius: .25rem;
+    font-size: .85rem;
+}
+
+.ato-editor__player-pool {
+    border: 2px dashed #dee2e6;
+    border-radius: .25rem;
+    padding: .75rem;
+    margin-top: 1rem;
+    min-height: 60px;
+}
+
+.ato-editor__player-pool-title {
+    font-weight: bold;
+    margin-bottom: .5rem;
+}
+
+.ato-editor__pool-items {
+    min-height: 40px;
+}
+
+/* ATO view badges */
+.ato-editor__mission-badge {
+    display: inline-block;
+    padding: .2rem .5rem;
+    border-radius: .25rem;
+    font-size: .8rem;
+    font-weight: 600;
+    color: #fff;
+    background: #6c757d;
+}
+
+.ato-editor__mission-badge--cap { background: #007bff; }
+.ato-editor__mission-badge--cas { background: #dc3545; }
+.ato-editor__mission-badge--sead { background: #ffc107; color: #212529; }
+.ato-editor__mission-badge--escort { background: #28a745; }
+.ato-editor__mission-badge--transport { background: #17a2b8; }
+.ato-editor__mission-badge--recon { background: #6f42c1; }
+.ato-editor__mission-badge--csar { background: #e83e8c; }
+.ato-editor__mission-badge--tanker { background: #fd7e14; }
+.ato-editor__mission-badge--awacs { background: #20c997; }
+.ato-editor__mission-badge--fac { background: #6610f2; }
+
+.sortable-ghost {
+    opacity: 0.4;
+    background: #c8ebfb !important;
+}
+
+.sortable-chosen {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}

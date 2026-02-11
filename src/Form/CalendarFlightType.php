@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -24,14 +25,25 @@ class CalendarFlightType extends AbstractType
                     'placeholder' => 'Nom de flight',
                 ],
             ])
-            ->add('mission', TextType::class, [
+            ->add('mission', ChoiceType::class, [
+                'choices' => array_flip(Flight::MISSIONS),
                 'required' => false,
-                'attr' => [
-                    'placeholder' => 'CAS, CAP, SEAD, ...',
-                ],
+                'placeholder' => '-- Mission --',
             ])
             ->add('nbSlots', IntegerType::class, [
                 'required' => false,
+            ])
+            ->add('departureBase', TextType::class, [
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Base de départ',
+                ],
+            ])
+            ->add('returnBase', TextType::class, [
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Base de retour',
+                ],
             ])
             // ->add('event')
             ->add('aircraft', EntityType::class,

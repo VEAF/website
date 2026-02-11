@@ -50,6 +50,11 @@
         <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css">
         <script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
         {% endif %}
+        {% if libSortable is defined and libSortable == true %}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"
+                crossorigin="anonymous"
+                referrerpolicy="no-referrer"></script>
+        {% endif %}
     {% endblock head %}
 </head>
 <body{% block bodyAttributes %}{% endblock bodyAttributes %}>

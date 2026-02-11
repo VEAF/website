@@ -1,87 +1,30 @@
 {% extends 'layout.html.twig' %}
-{% set libSelect2=true %}
-{% set libMarkdown=true %}
+{% set libSortable=true %}
 
-{% block title %}{{ parent() }}: Calendrier{% endblock %}
+{% block title %}{{ parent() }}: ATO - {{ event.title }}{% endblock %}
 
 {% block pageContent %}
     <div class="container container-main pt-3 pb-3 mb-3">
         <div class="bs-component">
             <div class="card mb-3">
                 <h3 class="card-header">
-                    Editer l'ATO
+                    <i class="fa fa-users"></i> Editer l'ATO - {{ event.title }}
+                    <a href="{{ path('calendar_view', {'event': event.id}) }}" class="btn btn-sm btn-secondary float-right">
+                        <i class="fa fa-arrow-circle-left"></i> Retour
+                    </a>
                 </h3>
                 <div class="card-body">
-                    {{ form_start(form) }}
-
-                    <table class="table">
-                        <tr>
-                            <th>
-                                Flight
-                            </th>
-                            <th>
-                                Appareil
-                            </th>
-                            <th>
-                                Mission
-                            </th>
-                            <th>
-                                Slots
-                            </th>
-                            <th colspan="2">
-                                Joueurs
-                            </th>
-                        </tr>
-                    {% for formFlight in form.flights %}
-                            <tr>
-                                <td>
-                                    {{ form_widget(formFlight.name) }}
-                                </td>
-                                <td>
-                                    {{ form_widget(formFlight.aircraft) }}
-                                </td>
-                                <td>
-                                    {{ form_widget(formFlight.mission) }}
-                                </td>
-                                <td>
-                                    {{ form_widget(formFlight.nbSlots) }}
-                                </td>
-                                <td>
-                                    <table class="table table-borderless">
-                                        {% for formSlot in formFlight.slots %}
-                                        <tr>
-                                            <td>
-                                                {{ form_widget(formSlot.user) }}
-                                            </td>
-                                            <td>
-                                                {{ form_widget(formSlot.username) }}
-                                            </td>
-                                        </tr>
-                                        {% endfor %}
-                                    </table>
-                                </td>
-                            </tr>
-                    {% endfor %}
-                    </table>
-
-                    {{ form_rest(form) }}
-                    {{ form_errors(form) }}
-
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <a href="{{ path('calendar_view', {'event': event.id}) }}"
-                               class="btn btn-lg btn-primary form-control">
-                                <i class="fa fa-arrow-circle-left"></i> Annuler
-                            </a>
-                        </div>
-                        <div class="col-sm-6">
-                            <button class="btn btn-lg btn-danger form-control " type="submit">
-                                <i class="fa fa-save"></i> Enregistrer
-                            </button>
+                    <div id="ato-editor"
+                         data-event-id="{{ event.id }}"
+                         data-load-url="{{ path('api_ato_data', {'event': event.id}) }}"
+                         data-save-url="{{ path('api_ato_save', {'event': event.id}) }}"
+                         data-csrf-token="{{ csrf_token('ato_save') }}"
+                         data-view-url="{{ path('calendar_view', {'event': event.id}) }}">
+                        <div class="text-center p-5">
+                            <i class="fa fa-spinner fa-spin fa-3x"></i>
+                            <p class="mt-3">Chargement de l'éditeur ATO...</p>
                         </div>
                     </div>
-
-                    {{ form_end(form) }}
                 </div>
             </div>
         </div>
@@ -90,6 +33,5 @@
 
 {% block javascript %}
 {{ parent() }}
-<script type="application/javascript">
-</script>
+<script src="/js/ato-editor.js?version={{ app_version }}{% if app.environment == "dev" %}&t={{ "now"|date("YmdHis") }}{% endif %}"></script>
 {% endblock %}

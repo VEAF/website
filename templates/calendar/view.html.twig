@@ -190,47 +190,65 @@
 
     {% if event.ato %}
         <div class="container container-main mb-3 pt-3 pb-3">
-            <h2>ATO</h2>
-            <table class="table">
-                <tr>
-                    <th>
-                        Flight
-                    </th>
-                    <th>
-                        Appareil
-                    </th>
-                    <th>
-                        Mission
-                    </th>
-                    <th>
-                        Joueurs
-                    </th>
-                </tr>
+            <h2>
+                ATO
+                {% if is_granted('EDIT', event) %}
+                    <a href="{{ path('calendar_edit_ato', {'event': event.id}) }}" class="btn btn-sm btn-outline-primary ml-2">
+                        <i class="fa fa-edit"></i> Editer
+                    </a>
+                {% endif %}
+            </h2>
+            <div class="row">
                 {% for flight in event.flights %}
-                    <tr>
-                        <td>
-                            {{ flight.name }}
-                        </td>
-                        <td>
-                            {% if flight.aircraft is not null %}
-                                {{ flight.aircraft.name }} x{{ flight.nbSlots }}
-                            {% endif %}
-                        </td>
-                        <td>
-                            {{ flight.mission }}
-                        </td>
-                        <td>
-                            {% for slot in flight.slots %}
-                                {% if slot.user is not null %}
-                                    <a href="{{ path('user_view', {'user': slot.user.nickname}) }}">{{ slot.user }}</a>
-                                {% else %}
-                                    {{ slot.username }}
+                    <div class="col-lg-6 col-xl-4 mb-3">
+                        <div class="card h-100">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <strong>{{ flight.name }}</strong>
+                                {% if flight.mission is not null and flight.mission > 0 %}
+                                    <span class="ato-editor__mission-badge ato-editor__mission-badge--{{ {1:'cap',2:'cas',3:'sead',4:'escort',5:'transport',6:'recon',7:'csar',8:'tanker',9:'awacs',10:'fac'}[flight.mission]|default('') }}">
+                                        {{ flight.missionAsString }}
+                                    </span>
                                 {% endif %}
-                            {% endfor %}
-                        </td>
-                    </tr>
+                            </div>
+                            <div class="card-body">
+                                {% if flight.aircraft is not null %}
+                                    <p class="mb-1">
+                                        <i class="fa fa-plane"></i> {{ flight.aircraft.name }}
+                                        <span class="badge badge-secondary">x{{ flight.nbSlots }}</span>
+                                    </p>
+                                {% endif %}
+                                {% if flight.departureBase or flight.returnBase %}
+                                    <p class="mb-1 text-muted small">
+                                        {% if flight.departureBase %}
+                                            <i class="fa fa-plane-departure"></i> {{ flight.departureBase }}
+                                        {% endif %}
+                                        {% if flight.departureBase and flight.returnBase %} &rarr; {% endif %}
+                                        {% if flight.returnBase %}
+                                            <i class="fa fa-plane-arrival"></i> {{ flight.returnBase }}
+                                        {% endif %}
+                                    </p>
+                                {% endif %}
+                                <hr class="my-2"/>
+                                {% for slot in flight.slots %}
+                                    {% if slot.user is not null %}
+                                        <span class="badge badge-success">
+                                            <a href="{{ path('user_view', {'user': slot.user.nickname}) }}" class="text-white">{{ slot.user }}</a>
+                                        </span>
+                                    {% else %}
+                                        <span class="badge badge-info">{{ slot.username }}</span>
+                                    {% endif %}
+                                {% endfor %}
+                                {% set emptySlots = flight.nbSlots - flight.slots|length %}
+                                {% if emptySlots > 0 %}
+                                    {% for i in 1..emptySlots %}
+                                        <span class="badge badge-light border">vide</span>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
                 {% endfor %}
-            </table>
+            </div>
         </div>
     {% endif %}
 
